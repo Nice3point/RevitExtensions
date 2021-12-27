@@ -90,7 +90,7 @@ public static class ImperialExtensions
     /// <param name="source">Imperial number</param>
     /// <param name="value">Inch value</param>
     /// <returns>True if conversion is successful</returns>
-    public static bool ToNumber(this string source, out double value)
+    public static bool FromFraction(this string source, out double value)
     {
         value = 0;
         if (source == null) return false;
@@ -99,13 +99,7 @@ public static class ImperialExtensions
         var match = Regex.Match(source);
         if (!match.Success) return false;
 
-        var sign = match.Groups["sign"].Success ? -1 : 1;
-        var feet = match.Groups["feet"].Success ? double.Parse(match.Groups["feet"].Value) : 0;
-        var inch = match.Groups["inch"].Success ? double.Parse(match.Groups["inch"].Value) : 0;
-        var numerator = match.Groups["numerator"].Success ? double.Parse(match.Groups["numerator"].Value) : 0;
-        var denominator = match.Groups["denominator"].Success ? double.Parse(match.Groups["denominator"].Value) : 1;
-
-        value = sign * (feet * 12 + inch + numerator / denominator);
+        value = ParseFraction(match);
         return true;
     }
 
@@ -115,9 +109,24 @@ public static class ImperialExtensions
     /// <param name="source">Imperial number</param>
     /// <returns>Inch value</returns>
     /// <exception cref="FormatException">Invalid number format</exception>
-    public static double ToNumber(this string source)
+    public static double FromFraction(this string source)
     {
-        if (source.ToNumber(out var value)) return value;
-        throw new FormatException("Can't cast value to double");
+        if (source.Trim() == string.Empty) return 0;
+        
+        var match = Regex.Match(source);
+        if (!match.Success) throw new FormatException("Invalid number format");
+
+        return ParseFraction(match);
+    }
+
+    private static double ParseFraction(Match match)
+    {
+        var sign = match.Groups["sign"].Success ? -1 : 1;
+        var feet = match.Groups["feet"].Success ? double.Parse(match.Groups["feet"].Value) : 0;
+        var inch = match.Groups["inch"].Success ? double.Parse(match.Groups["inch"].Value) : 0;
+        var numerator = match.Groups["numerator"].Success ? double.Parse(match.Groups["numerator"].Value) : 0;
+        var denominator = match.Groups["denominator"].Success ? double.Parse(match.Groups["denominator"].Value) : 1;
+
+        return sign * (feet * 12 + inch + numerator / denominator);
     }
 }

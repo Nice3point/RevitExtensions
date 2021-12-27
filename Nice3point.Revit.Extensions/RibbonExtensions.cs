@@ -69,6 +69,9 @@ public static class RibbonExtensions
     /// <summary>
     ///     Adds a 16x16px-96dpi image from the URI source
     /// </summary>
+    /// <param name="button">Button to which the icon will be added</param>
+    /// <param name="uri">Relative path to the icon</param>
+    /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
     public static void SetImage(this RibbonButton button, string uri)
     {
         button.Image = new BitmapImage(new Uri(uri, UriKind.Relative));
@@ -77,6 +80,9 @@ public static class RibbonExtensions
     /// <summary>
     ///     Adds a 32x32px-96dpi image from the URI source
     /// </summary>
+    /// <param name="button">Button to which the icon will be added</param>
+    /// <param name="uri">Relative path to the icon</param>
+    /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
     public static void SetLargeImage(this RibbonButton button, string uri)
     {
         button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));
