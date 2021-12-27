@@ -47,11 +47,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\Images\PackageIcon.png" Link="NuGet\PackageIcon.png" PackagePath="images\PackageIcon.png" Pack="true"/>
-        <None Include="..\License.md" Link="NuGet\License.md" PackagePath="" Pack="true"/>
+        <None Include="..\Images\PackageIcon.png" Link="NuGet\PackageIcon.png" PackagePath="images\PackageIcon.png" Pack="true" />
+        <None Include="..\License.md" Link="NuGet\License.md" PackagePath="" Pack="true" />
     </ItemGroup>
 </Project>

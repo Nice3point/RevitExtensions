@@ -25,7 +25,7 @@ public static class DoubleExtensions
     ///     Compares a decimal value within the minimum allowed by Revit
     /// </summary>
     /// <returns>True if equal</returns>
-    public static bool AreEqual(this double source, double value)
+    public static bool IsAlmostEqual(this double source, double value)
     {
         return Math.Abs(source - value) < 1e-9;
     }
@@ -34,7 +34,7 @@ public static class DoubleExtensions
     ///     Compares a decimal value within the minimum allowed by Revit
     /// </summary>
     /// <returns>True if not equal</returns>
-    public static bool AreNotEqual(this double source, double value)
+    public static bool IsAlmostNotEqual(this double source, double value)
     {
         return Math.Abs(source - value) >= 1e-9;
     }
