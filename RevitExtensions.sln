@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{CE054458-C119-4C03-BF1C-6D267460E960}") = "Build", "Build\Build.csproj", "{6A41E6AD-B176-4658-9474-C6D192CAE9AA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9C7A67AC-A5FD-4133-8007-320A840ADBAC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions", "Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj", "{C0F3E300-CBBB-4682-93AA-B13636690E20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release R19|Any CPU = Release R19|Any CPU
+		Release R20|Any CPU = Release R20|Any CPU
+		Release R21|Any CPU = Release R21|Any CPU
+		Release R22|Any CPU = Release R22|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R19|Any CPU.ActiveCfg = Release|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R20|Any CPU.ActiveCfg = Release|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R21|Any CPU.ActiveCfg = Release|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R22|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R19|Any CPU.ActiveCfg = Release R19|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R19|Any CPU.Build.0 = Release R19|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R20|Any CPU.ActiveCfg = Release R20|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R20|Any CPU.Build.0 = Release R20|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R21|Any CPU.ActiveCfg = Release R21|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R21|Any CPU.Build.0 = Release R21|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R22|Any CPU.ActiveCfg = Release R22|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R22|Any CPU.Build.0 = Release R22|Any CPU
+	EndGlobalSection
+EndGlobal
