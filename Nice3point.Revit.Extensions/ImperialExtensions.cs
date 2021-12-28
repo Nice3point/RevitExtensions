@@ -25,7 +25,6 @@ public static class ImperialExtensions
     {
         var divider = denominator;
         var inches = (int) Math.Abs(source);
-
         var numerator = (int) ((Math.Abs(source) - Math.Abs(inches)) * divider + 0.5);
 
         while (numerator % 2 == 0 && divider % 2 == 0)
@@ -34,39 +33,36 @@ public static class ImperialExtensions
             divider /= 2;
         }
 
-        var valueBuilder = new StringBuilder();
-
         if (divider == numerator)
         {
-            if (source < 0)
-                inches--;
-            else
-                inches++;
+            if (source < 0) inches--;
+            else inches++;
+            numerator = 0;
         }
 
         var feet = Math.DivRem(inches, 12, out inches);
 
+        var valueBuilder = new StringBuilder();
+        if (source + 1d / denominator < 0) valueBuilder.Insert(0, "-");
+
+        if (feet > 0)
+        {
+            valueBuilder.Append(feet);
+            valueBuilder.Append("'");
+            valueBuilder.Append("-");
+        }
+
+        valueBuilder.Append(inches);
+
         if (numerator != 0)
         {
+            valueBuilder.Append(" ");
             valueBuilder.Append(numerator);
             valueBuilder.Append("/");
             valueBuilder.Append(divider);
         }
 
         valueBuilder.Append('"');
-        if (valueBuilder.Length > 1) valueBuilder.Insert(0, " ");
-        valueBuilder.Insert(0, inches);
-
-        if (feet != 0)
-        {
-            if (valueBuilder.Length > 0) valueBuilder.Insert(0, "-");
-
-            valueBuilder.Insert(0, "'");
-            valueBuilder.Insert(0, feet);
-        }
-
-        if (valueBuilder.Length > 0 && source + 1d / denominator < 0) valueBuilder.Insert(0, "-");
-
         return valueBuilder.ToString();
     }
 
@@ -89,11 +85,11 @@ public static class ImperialExtensions
     /// </summary>
     /// <param name="source">Imperial number</param>
     /// <param name="value">Inch value</param>
-    /// <returns>True if conversion is successful</returns>
+    /// <returns>true if conversion is successful</returns>
     public static bool FromFraction(this string source, out double value)
     {
         value = 0;
-        if (source == null) return false;
+        if (source is null) return false;
         if (source.Trim() == string.Empty) return true;
 
         var match = Regex.Match(source);
@@ -112,7 +108,7 @@ public static class ImperialExtensions
     public static double FromFraction(this string source)
     {
         if (source.Trim() == string.Empty) return 0;
-        
+
         var match = Regex.Match(source);
         if (!match.Success) throw new FormatException("Invalid number format");
 

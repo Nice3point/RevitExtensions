@@ -1,4 +1,6 @@
-﻿namespace Nice3point.Revit.Extensions;
+﻿using Autodesk.Revit.DB;
+
+namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     System.Double Extensions
@@ -24,18 +26,19 @@ public static class DoubleExtensions
     /// <summary>
     ///     Compares a decimal value within the minimum allowed by Revit
     /// </summary>
-    /// <returns>True if equal</returns>
+    /// <returns>true if equal</returns>
     public static bool IsAlmostEqual(this double source, double value)
     {
         return Math.Abs(source - value) < 1e-9;
     }
-
+    
     /// <summary>
-    ///     Compares a decimal value within the minimum allowed by Revit
+    ///     Compares the decimal value to the specified tolerance
     /// </summary>
-    /// <returns>True if not equal</returns>
-    public static bool IsAlmostNotEqual(this double source, double value)
+    /// <returns>true if equal</returns>
+    /// <example>0.09999.IsAlmostEqual(0.1, 1e-3)</example>
+    public static bool IsAlmostEqual(this double source, double value, double tolerance)
     {
-        return Math.Abs(source - value) >= 1e-9;
+        return Math.Abs(source - value) < tolerance;
     }
 }

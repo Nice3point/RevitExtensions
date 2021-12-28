@@ -10,7 +10,7 @@ public static class StringExtensions
     /// <summary>
     ///     Indicates whether the specified string is null or an empty string ("")
     /// </summary>
-    /// <returns>True if the value parameter is null or an empty string (""); otherwise, false</returns>
+    /// <returns>true if the value parameter is null or an empty string (""); otherwise, false</returns>
     public static bool IsNullOrEmpty(this string source)
     {
         return string.IsNullOrEmpty(source);
@@ -19,7 +19,7 @@ public static class StringExtensions
     /// <summary>
     ///     Indicates whether a specified string is null, empty, or consists only of white-space characters
     /// </summary>
-    /// <returns>True if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
+    /// <returns>true if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
     public static bool IsNullOrWhiteSpace(this string source)
     {
         return string.IsNullOrWhiteSpace(source);
@@ -32,5 +32,17 @@ public static class StringExtensions
     public static string AppendPath(this string source, string path)
     {
         return Path.Combine(source, path);
+    }
+    
+    /// <summary>
+    ///     Returns a value indicating whether a specified substring occurs within this string.
+    /// </summary>
+    /// <param name="source">Source string</param>
+    /// <param name="value">The string to seek</param>
+    /// <param name="comparison">One of the enumeration values that specifies the rules for the search</param>
+    /// <returns>true if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false</returns>
+    public static bool Contains(this string source, string value, StringComparison comparison)
+    {
+        return source?.IndexOf(value, comparison) >= 0;
     }
 }

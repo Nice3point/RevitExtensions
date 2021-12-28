@@ -19,8 +19,17 @@ public static class ElementExtensions
     ///     Gets Element from ElementId and cast to type T
     /// </summary>
     /// <typeparam name="T">A type derived from Element</typeparam>
-    public static Element ToElement<T>(this ElementId id, Document document) where T : Element
+    public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {
         return (T) document.GetElement(id);
+    }
+    
+    /// <summary>
+    ///     
+    /// </summary>
+    /// <returns></returns>
+    public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
+    {
+        return elementId.IntegerValue == (int) category;
     }
 }
