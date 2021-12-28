@@ -1,6 +1,7 @@
 partial class Build
 {
     const string BuildConfiguration = "Release";
+    const string TestConfiguration = "UnitTests";
     const string ArtifactsFolder = "output";
 
     //Specify the path to the MSBuild.exe file here if you are not using VisualStudio

@@ -6,7 +6,7 @@
         <option name="EXE_PATH"
                 value="$USER_HOME$/.dotnet/tools/nuke.exe"/>
         <option name="PROGRAM_PARAMETERS"
-                value="--Cleaning --skip Compile"/>
+                value="--Cleaning --skip Test"/>
         <option name="WORKING_DIRECTORY"
                 value="$PROJECT_DIR$/"/>
         <option name="PASS_PARENT_ENVS"

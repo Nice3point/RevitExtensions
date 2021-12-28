@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.DB;
-
-namespace Nice3point.Revit.Extensions;
+﻿namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     System.Double Extensions
@@ -31,7 +29,7 @@ public static class DoubleExtensions
     {
         return Math.Abs(source - value) < 1e-9;
     }
-    
+
     /// <summary>
     ///     Compares the decimal value to the specified tolerance
     /// </summary>

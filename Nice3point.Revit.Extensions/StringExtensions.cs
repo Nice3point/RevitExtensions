@@ -24,7 +24,7 @@ public static class StringExtensions
     {
         return string.IsNullOrWhiteSpace(source);
     }
-    
+
     /// <summary>
     ///     Combines strings into a path
     /// </summary>
@@ -33,7 +33,7 @@ public static class StringExtensions
     {
         return Path.Combine(source, path);
     }
-    
+
     /// <summary>
     ///     Returns a value indicating whether a specified substring occurs within this string.
     /// </summary>

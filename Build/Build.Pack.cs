@@ -1,7 +1,6 @@
 ﻿using Nuke.Common;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Tools.VSWhere;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 partial class Build
@@ -15,27 +14,13 @@ partial class Build
     };
 
     Target Pack => _ => _
-        .TriggeredBy(Cleaning)
+        .TriggeredBy(Test)
         .Executes(() =>
         {
             var msBuildPath = GetMsBuildPath();
             var configurations = GetConfigurations(BuildConfiguration);
             foreach (var configuration in configurations) PackProject(configuration, msBuildPath);
         });
-
-    static string GetMsBuildPath()
-    {
-        if (IsServerBuild) return null;
-        var (_, output) = VSWhereTasks.VSWhere(settings => settings
-            .EnableLatest()
-            .AddRequires("Microsoft.Component.MSBuild")
-            .SetProperty("installationPath")
-        );
-
-        if (output.Count > 0) return null;
-        if (!File.Exists(CustomMsBuildPath)) throw new Exception($"Missing file: {CustomMsBuildPath}. Change the path to the build platform or install Visual Studio.");
-        return CustomMsBuildPath;
-    }
 
     string GetPackVersion(string configuration)
     {
