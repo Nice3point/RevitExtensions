@@ -6,7 +6,8 @@
         <ImplicitUsings>true</ImplicitUsings>
         <TargetFramework>net48</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <Configurations>Release R19;Release R20;Release R21;Release R22</Configurations>
+        <Configurations>Debug R19;Debug R20;Debug R21;Debug R22</Configurations>
+        <Configurations>$(Configurations);Release R19;Release R20;Release R21;Release R22</Configurations>
     </PropertyGroup>
     <PropertyGroup>
         <PackageType>Dependency</PackageType>
@@ -23,11 +24,12 @@
     <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('Release'))">
         <Optimize>true</Optimize>
         <DebugType>none</DebugType>
+        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <RevitVersion>2019</RevitVersion>
@@ -47,6 +49,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
         <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*" />
     </ItemGroup>
 

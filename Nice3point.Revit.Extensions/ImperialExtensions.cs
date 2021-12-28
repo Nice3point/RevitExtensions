@@ -14,18 +14,20 @@ public static class ImperialExtensions
     /// <summary>
     ///     Converts a number to text representation for the Imperial system with denominator 32
     /// </summary>
-    /// <param name="source">Inch value</param>
+    /// <param name="source">Feet value</param>
     /// <param name="denominator">Rounding</param>
     /// <example>
-    ///     1 will be converted to 1"<br />
-    ///     3.24997 will be converted to 3 1/4"<br />
-    ///     -25.231 will be converted to -2'-1 7/32"
+    ///     1 will be converted to 12"<br />
+    ///     0.0123 will be converted to 0 5/32"<br />
+    ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
     public static string ToFraction(this double source, int denominator)
     {
         var divider = denominator;
-        var inches = (int) Math.Abs(source);
-        var numerator = (int) ((Math.Abs(source) - Math.Abs(inches)) * divider + 0.5);
+        var feet = (int) Math.Abs(source);
+        var decimalInches = source * 12 % 12;
+        var inches = (int) Math.Abs(decimalInches);
+        var numerator = (int) ((Math.Abs(decimalInches) - Math.Abs(inches)) * divider + 0.5);
 
         while (numerator % 2 == 0 && divider % 2 == 0)
         {
@@ -39,8 +41,6 @@ public static class ImperialExtensions
             else inches++;
             numerator = 0;
         }
-
-        var feet = Math.DivRem(inches, 12, out inches);
 
         var valueBuilder = new StringBuilder();
         if (source + 1d / denominator < 0) valueBuilder.Insert(0, "-");
@@ -71,9 +71,9 @@ public static class ImperialExtensions
     /// </summary>
     /// <param name="source">Inch value</param>
     /// <example>
-    ///     1 will be converted to 1"<br />
-    ///     3.24997 will be converted to 3 1/4"<br />
-    ///     -25.231 will be converted to -2'-1 7/32"
+    ///     1 will be converted to 12"<br />
+    ///     0.0123 will be converted to 0 5/32"<br />
+    ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
     public static string ToFraction(this double source)
     {
@@ -123,6 +123,6 @@ public static class ImperialExtensions
         var numerator = match.Groups["numerator"].Success ? double.Parse(match.Groups["numerator"].Value) : 0;
         var denominator = match.Groups["denominator"].Success ? double.Parse(match.Groups["denominator"].Value) : 1;
 
-        return sign * (feet * 12 + inch + numerator / denominator);
+        return sign * (feet + (inch + numerator / denominator) / 12);
     }
 }

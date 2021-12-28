@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using JetBrains.Annotations;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -23,13 +24,42 @@ public static class ElementExtensions
     {
         return (T) document.GetElement(id);
     }
-    
+
     /// <summary>
-    ///     
     /// </summary>
     /// <returns></returns>
     public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
     {
         return elementId.IntegerValue == (int) category;
+    }
+
+    /// <summary>
+    ///     Returns the parameter found on an instance or type
+    /// </summary>
+    [CanBeNull]
+    public static Parameter GetParameter(this Element element, BuiltInParameter parameter)
+    {
+        var instanceParameter = element.get_Parameter(parameter);
+        if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
+        var elementTypeId = element.GetTypeId();
+        if (elementTypeId == ElementId.InvalidElementId) return null;
+        var elementType = element.Document.GetElement(elementTypeId);
+        var symbolParameter = elementType.get_Parameter(parameter);
+        return symbolParameter;
+    }
+
+    /// <summary>
+    ///     Returns the parameter found on an instance or type
+    /// </summary>
+    [CanBeNull]
+    public static Parameter GetParameter(this Element element, string parameter)
+    {
+        var instanceParameter = element.LookupParameter(parameter);
+        if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
+        var elementTypeId = element.GetTypeId();
+        if (elementTypeId == ElementId.InvalidElementId) return null;
+        var elementType = element.Document.GetElement(elementTypeId);
+        var symbolParameter = elementType.LookupParameter(parameter);
+        return symbolParameter;
     }
 }
