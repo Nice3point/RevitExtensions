@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using JetBrains.Annotations;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -11,6 +10,7 @@ public static class ElementExtensions
     /// <summary>
     ///     Gets Element from ElementId
     /// </summary>
+    [PublicAPI]
     public static Element ToElement(this ElementId id, Document document)
     {
         return document.GetElement(id);
@@ -20,14 +20,16 @@ public static class ElementExtensions
     ///     Gets Element from ElementId and cast to type T
     /// </summary>
     /// <typeparam name="T">A type derived from Element</typeparam>
+    [PublicAPI]
     public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {
         return (T) document.GetElement(id);
     }
 
     /// <summary>
+    ///     Checks if ElementID is a category identifier
     /// </summary>
-    /// <returns></returns>
+    [PublicAPI]
     public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
     {
         return elementId.IntegerValue == (int) category;
@@ -36,6 +38,7 @@ public static class ElementExtensions
     /// <summary>
     ///     Returns the parameter found on an instance or type
     /// </summary>
+    [PublicAPI]
     [CanBeNull]
     public static Parameter GetParameter(this Element element, BuiltInParameter parameter)
     {
@@ -51,6 +54,7 @@ public static class ElementExtensions
     /// <summary>
     ///     Returns the parameter found on an instance or type
     /// </summary>
+    [PublicAPI]
     [CanBeNull]
     public static Parameter GetParameter(this Element element, string parameter)
     {

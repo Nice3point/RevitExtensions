@@ -10,6 +10,7 @@ public static class UnitExtensions
     /// <summary>
     ///     Convert Millimeters to Feet
     /// </summary>
+    [PublicAPI]
     public static double FromMillimeters(this double millimeters)
     {
 #if R19 || R20
@@ -22,6 +23,7 @@ public static class UnitExtensions
     /// <summary>
     ///     Convert Feet to Millimeters
     /// </summary>
+    [PublicAPI]
     public static double ToMillimeters(this double feet)
     {
 #if R19 || R20
@@ -34,6 +36,7 @@ public static class UnitExtensions
     /// <summary>
     ///     Convert Inches to Feet
     /// </summary>
+    [PublicAPI]
     public static double FromInches(this double inches)
     {
 #if R19 || R20
@@ -47,6 +50,7 @@ public static class UnitExtensions
     ///     Convert Feet to Inches
     /// </summary>
     /// <returns>Value in feet</returns>
+    [PublicAPI]
     public static double ToInches(this double feet)
     {
 #if R19 || R20

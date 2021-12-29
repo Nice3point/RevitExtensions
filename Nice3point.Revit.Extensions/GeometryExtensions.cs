@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using JetBrains.Annotations;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -12,15 +11,16 @@ public static class GeometryExtensions
     ///     Returns the distance between Lines. The Lines are considered to be endless
     /// </summary>
     /// <returns>Distance between lines. Returns 0 if the lines intersect</returns>
+    [PublicAPI]
     public static double Distance(this Line line1, Line line2)
     {
         double distance;
-        
+
         var v1 = line1.Direction;
         var p1 = line1.GetEndPoint(0);
         var v2 = line2.Direction;
         var p2 = line2.GetEndPoint(0);
-        
+
         var a = p1.X - p2.X;
         var b = p1.Y - p2.Y;
         var c = p1.Z - p2.Z;
