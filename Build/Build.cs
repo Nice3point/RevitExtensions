@@ -1,4 +1,5 @@
 using Nuke.Common;
+using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.VSWhere;
@@ -7,6 +8,7 @@ partial class Build : NukeBuild
 {
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / ArtifactsFolder;
     [Solution] readonly Solution Solution;
+    [GitRepository] readonly GitRepository GitRepository;
 
     public static int Main() => Execute<Build>(x => x.Cleaning);
 
