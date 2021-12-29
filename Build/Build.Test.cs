@@ -6,7 +6,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 partial class Build
 {
     Target Test => _ => _
-        .TriggeredBy(Cleaning)
+        .TriggeredBy(Compile, Cleaning)
         .Executes(() =>
         {
             var msBuildPath = GetMsBuildPath();

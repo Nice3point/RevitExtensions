@@ -8,7 +8,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 partial class Build
 {
     Target Compile => _ => _
-        .TriggeredBy(Test)
+        .TriggeredBy(Cleaning)
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(() =>
         {
