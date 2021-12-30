@@ -7,10 +7,10 @@ partial class Build
 {
     readonly Dictionary<string, string> VersionMap = new()
     {
-        {"Release R19", "2019.0.0"},
-        {"Release R20", "2020.0.0"},
-        {"Release R21", "2021.0.0"},
-        {"Release R22", "2022.0.0"}
+        {"Release R19", "2019.0.1"},
+        {"Release R20", "2020.0.1"},
+        {"Release R21", "2021.0.1"},
+        {"Release R22", "2022.0.1"}
     };
 
     Target Pack => _ => _

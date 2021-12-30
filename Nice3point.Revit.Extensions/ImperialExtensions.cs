@@ -22,7 +22,6 @@ public static class ImperialExtensions
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
-    [PublicAPI]
     public static string ToFraction(this double source, int denominator)
     {
         var divider = denominator;
@@ -77,7 +76,6 @@ public static class ImperialExtensions
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
-    [PublicAPI]
     public static string ToFraction(this double source)
     {
         return ToFraction(source, 32);
@@ -89,7 +87,6 @@ public static class ImperialExtensions
     /// <param name="source">Imperial number</param>
     /// <param name="value">Inch value</param>
     /// <returns>true if conversion is successful</returns>
-    [PublicAPI]
     public static bool FromFraction(this string source, out double value)
     {
         value = 0;
@@ -109,7 +106,6 @@ public static class ImperialExtensions
     /// <param name="source">Imperial number</param>
     /// <returns>Inch value</returns>
     /// <exception cref="FormatException">Invalid number format</exception>
-    [PublicAPI]
     public static double FromFraction(this string source)
     {
         if (source.Trim() == string.Empty) return 0;

@@ -16,7 +16,6 @@ public static class RibbonExtensions
     ///     Creates a panel in the "Add-ins" tab
     /// </summary>
     /// <returns>New or existing Ribbon panel</returns>
-    [PublicAPI]
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
         var ribbonPanels = application.GetRibbonPanels(Tab.AddIns);
@@ -27,7 +26,6 @@ public static class RibbonExtensions
     ///     Creates a panel in the specified tab
     /// </summary>
     /// <returns>New or existing Ribbon panel</returns>
-    [PublicAPI]
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
         var ribbonTab = ComponentManager.Ribbon.Tabs.FirstOrDefault(tab => tab.Id.Equals(tabName));
@@ -44,7 +42,6 @@ public static class RibbonExtensions
     /// <summary>
     ///     Adds a PushButton to the Ribbon
     /// </summary>
-    [PublicAPI]
     public static PushButton AddPushButton(this RibbonPanel panel, Type command, string buttonText)
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
@@ -54,7 +51,6 @@ public static class RibbonExtensions
     /// <summary>
     ///     Adds a PullDownButton to the Ribbon
     /// </summary>
-    [PublicAPI]
     public static PulldownButton AddPullDownButton(this RibbonPanel panel, string name, string buttonText)
     {
         var pushButtonData = new PulldownButtonData(name, buttonText);
@@ -64,7 +60,6 @@ public static class RibbonExtensions
     /// <summary>
     ///     Adds a PushButton to the PullDownButton
     /// </summary>
-    [PublicAPI]
     public static PushButton AddPushButton(this PulldownButton pullDownButton, Type command, string buttonText)
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
@@ -77,7 +72,6 @@ public static class RibbonExtensions
     /// <param name="button">Button to which the icon will be added</param>
     /// <param name="uri">Relative path to the icon</param>
     /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
-    [PublicAPI]
     public static void SetImage(this RibbonButton button, string uri)
     {
         button.Image = new BitmapImage(new Uri(uri, UriKind.Relative));
@@ -89,7 +83,6 @@ public static class RibbonExtensions
     /// <param name="button">Button to which the icon will be added</param>
     /// <param name="uri">Relative path to the icon</param>
     /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
-    [PublicAPI]
     public static void SetLargeImage(this RibbonButton button, string uri)
     {
         button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));

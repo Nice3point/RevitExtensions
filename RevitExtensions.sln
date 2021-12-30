@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Readme.md = Readme.md
+		Changelog.md = Changelog.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions", "Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj", "{C0F3E300-CBBB-4682-93AA-B13636690E20}"

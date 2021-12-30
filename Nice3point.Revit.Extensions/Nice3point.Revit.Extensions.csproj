@@ -13,11 +13,12 @@
         <PackageId>Nice3point.Revit.Extensions</PackageId>
         <Authors>Nice3point</Authors>
         <Description>Extensions for Revit plugin development</Description>
-        <PackageLicenseFile>License.md</PackageLicenseFile>
+        <PackageTags>revit;extensions</PackageTags>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Nice3point/RevitExtensions</RepositoryUrl>
-        <PackageTags>revit;extensions</PackageTags>
         <PackageIcon>images\PackageIcon.png</PackageIcon>
+        <PackageLicenseFile>License.md</PackageLicenseFile>
+        <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(SolutionDir)\Changelog.md"))</PackageReleaseNotes>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
@@ -31,7 +32,7 @@
         <DebugType>none</DebugType>
         <IsPackable>true</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+        <DefineConstants>$(DefineConstants);RELEASE;JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <RevitVersion>2019</RevitVersion>
@@ -52,7 +53,9 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2021.*"/>
-        <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
