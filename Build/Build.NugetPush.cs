@@ -8,9 +8,11 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 partial class Build
 {
     const string NugetApiUrl = "https://api.nuget.org/v3/index.json";
+    [Secret] [Parameter] string NugetApiKey;
 
     Target NuGetPush => _ => _
         .OnlyWhenStatic(() => IsLocalBuild)
+        .Requires(() => NugetApiKey)
         .Executes(() =>
         {
             ArtifactsDirectory.GlobFiles("*.nupkg")
