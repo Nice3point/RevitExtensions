@@ -12,6 +12,7 @@ public static class ElementExtensions
     ///     Returns the parameter found on an instance or type
     /// </summary>
     [CanBeNull]
+    [Pure]
     public static Parameter GetParameter(this Element element, BuiltInParameter parameter)
     {
         var instanceParameter = element.get_Parameter(parameter);
@@ -27,6 +28,7 @@ public static class ElementExtensions
     ///     Returns the parameter found on an instance or type
     /// </summary>
     [CanBeNull]
+    [Pure]
     public static Parameter GetParameter(this Element element, string parameter)
     {
         var instanceParameter = element.LookupParameter(parameter);

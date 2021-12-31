@@ -8,6 +8,7 @@ public static class DoubleExtensions
     /// <summary>
     ///     Rounds a value within the minimum allowed by Revit
     /// </summary>
+    [Pure]
     public static double Round(this double source)
     {
         return Math.Round(source, 9);
@@ -16,6 +17,7 @@ public static class DoubleExtensions
     /// <summary>
     ///     Rounds a value to the specified decimal place
     /// </summary>
+    [Pure]
     public static double Round(this double source, int digits)
     {
         return Math.Round(source, digits);
@@ -24,7 +26,9 @@ public static class DoubleExtensions
     /// <summary>
     ///     Compares a decimal value within the minimum allowed by Revit
     /// </summary>
-    /// <returns>true if equal</returns>
+    /// <returns>True if equal</returns>
+    /// <example>1e-15.IsAlmostEqual(0)</example>
+    [Pure]
     public static bool IsAlmostEqual(this double source, double value)
     {
         return Math.Abs(source - value) < 1e-9;
@@ -33,8 +37,9 @@ public static class DoubleExtensions
     /// <summary>
     ///     Compares the decimal value to the specified tolerance
     /// </summary>
-    /// <returns>true if equal</returns>
+    /// <returns>True if equal</returns>
     /// <example>0.09999.IsAlmostEqual(0.1, 1e-3)</example>
+    [Pure]
     public static bool IsAlmostEqual(this double source, double value, double tolerance)
     {
         return Math.Abs(source - value) < tolerance;

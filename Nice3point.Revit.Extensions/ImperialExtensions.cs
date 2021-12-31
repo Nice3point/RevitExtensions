@@ -18,10 +18,11 @@ public static class ImperialExtensions
     /// <param name="source">Feet value</param>
     /// <param name="denominator">Rounding</param>
     /// <example>
-    ///     1 will be converted to 12"<br />
+    ///     1 will be converted to 1'<br />
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
+    [Pure]
     public static string ToFraction(this double source, int denominator)
     {
         var divider = denominator;
@@ -70,12 +71,13 @@ public static class ImperialExtensions
     /// <summary>
     ///     Converts a number to text representation for the Imperial system
     /// </summary>
-    /// <param name="source">Inch value</param>
+    /// <param name="source">Feet value</param>
     /// <example>
-    ///     1 will be converted to 12"<br />
+    ///     1 will be converted to 1'<br />
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
+    [Pure]
     public static string ToFraction(this double source)
     {
         return ToFraction(source, 32);
@@ -85,8 +87,15 @@ public static class ImperialExtensions
     ///     Converts the textual representation of the Imperial system number to double
     /// </summary>
     /// <param name="source">Imperial number</param>
-    /// <param name="value">Inch value</param>
-    /// <returns>true if conversion is successful</returns>
+    /// <param name="value">Feet value</param>
+    /// <returns>True if conversion is successful</returns>
+    /// <example>
+    ///     1' will be converted to 1<br />
+    ///     1/8" will be converted to 0.010<br />
+    ///     1'-3/32" will be converted to 1.007<br />
+    ///     1'1.75" will be converted to 1.145
+    /// </example>
+    [Pure]
     public static bool FromFraction(this string source, out double value)
     {
         value = 0;
@@ -104,10 +113,19 @@ public static class ImperialExtensions
     ///     Converts the textual representation of the Imperial system number to double
     /// </summary>
     /// <param name="source">Imperial number</param>
-    /// <returns>Inch value</returns>
+    /// <returns>Feet value</returns>
     /// <exception cref="FormatException">Invalid number format</exception>
+    /// <exception cref="System.ArgumentNullException">Argument is null</exception>
+    /// <example>
+    ///     1' will be converted to 1<br />
+    ///     1/8" will be converted to 0.010<br />
+    ///     1'-3/32" will be converted to 1.007<br />
+    ///     1'1.75" will be converted to 1.145
+    /// </example>
+    [Pure]
     public static double FromFraction(this string source)
     {
+        if (source is null) throw new ArgumentNullException(nameof(source));
         if (source.Trim() == string.Empty) return 0;
 
         var match = Regex.Match(source);

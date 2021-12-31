@@ -11,6 +11,7 @@ public static class GeometryExtensions
     ///     Returns the distance between Lines. The Lines are considered to be endless
     /// </summary>
     /// <returns>Distance between lines. Returns 0 if the lines intersect</returns>
+    [Pure]
     public static double Distance(this Line line1, Line line2)
     {
         double distance;

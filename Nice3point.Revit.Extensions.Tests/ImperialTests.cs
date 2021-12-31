@@ -42,6 +42,7 @@ public class ImperialTests
         Assert.AreEqual(0.270, "3 1/4\"".FromFraction(), 1e-3);
         Assert.AreEqual(0.416, "5\"".FromFraction(), 1e-3);
         Assert.AreEqual(1.000, "1'".FromFraction(), 1e-3);
+        Assert.AreEqual(1.000, "12".FromFraction(), 1e-3);
         Assert.AreEqual(1.007, "1'-3/32\"".FromFraction(), 1e-3);
         Assert.AreEqual(1.145, "1'1.75".FromFraction(), 1e-3);
         Assert.AreEqual(2.102, "2'-1 15/64\"".FromFraction(), 1e-3);
@@ -51,6 +52,14 @@ public class ImperialTests
         Assert.AreEqual(0d, "".FromFraction(), 1e-3);
         Assert.AreEqual(0d, "-".FromFraction(), 1e-3);
         Assert.Throws<FormatException>(() => "qwerty".FromFraction());
-        Assert.Throws<FormatException>(() => ".".FromFraction());
+        Assert.Throws<FormatException>(() => ".".FromFraction());   
+        Assert.Throws<ArgumentNullException>(() => ((string)null!).FromFraction());
+        Assert.AreEqual(true, "-2'-1 15/64\"".FromFraction(out _));
+        Assert.AreEqual(true, "-69'-69".FromFraction(out _));
+        Assert.AreEqual(true, "".FromFraction(out _));
+        Assert.AreEqual(true, "-".FromFraction(out _));
+        Assert.AreEqual(false, "qwerty".FromFraction(out _));
+        Assert.AreEqual(false, ".".FromFraction(out _));
+        Assert.AreEqual(false, ((string)null!).FromFraction(out _));
     }
 }
