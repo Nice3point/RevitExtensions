@@ -3,6 +3,7 @@ using Nuke.Common.Git;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.VSWhere;
+using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 partial class Build
@@ -12,14 +13,13 @@ partial class Build
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(() =>
         {
-            var msBuildPath = GetMsBuildPath();
             var configurations = GetConfigurations(BuildConfiguration);
-            foreach (var configuration in configurations) CompileProject(configuration, msBuildPath);
+            configurations.ForEach(configuration =>
+            {
+                DotNetBuild(settings => settings
+                    .SetProcessToolPath(MsBuildPath.Value)
+                    .SetConfiguration(configuration)
+                    .SetVerbosity(DotNetVerbosity.Minimal));
+            });
         });
-
-    void CompileProject(string configuration, string toolPath) =>
-        DotNetBuild(settings => settings
-            .SetProcessToolPath(toolPath)
-            .SetConfiguration(configuration)
-            .SetVerbosity(DotNetVerbosity.Minimal));
 }

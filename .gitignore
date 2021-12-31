@@ -16,6 +16,7 @@
 
 #Project-specific files
 */build.schema.json
+*Secret*
 
 #User-specific files
 *.user

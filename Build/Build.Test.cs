@@ -9,13 +9,9 @@ partial class Build
         .TriggeredBy(Compile, Cleaning)
         .Executes(() =>
         {
-            var msBuildPath = GetMsBuildPath();
-            TestProject(msBuildPath);
+            DotNetTest(settings => settings
+                .SetProcessToolPath(MsBuildPath.Value)
+                .SetConfiguration(TestConfiguration)
+                .SetVerbosity(DotNetVerbosity.Minimal));
         });
-
-    void TestProject(string toolPath) =>
-        DotNetTest(settings => settings
-            .SetProcessToolPath(toolPath)
-            .SetConfiguration(TestConfiguration)
-            .SetVerbosity(DotNetVerbosity.Minimal));
 }
