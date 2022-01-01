@@ -51,8 +51,8 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
 
 ```c#
-element.GetParameter(BuiltInParameter.ALL_MODEL_URL)
-element.GetParameter("URL")
+element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
+element.GetParameter("URL");
 ```
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
@@ -60,15 +60,15 @@ element.GetParameter("URL")
 The **ToElement()** method allow you to get an element from the Id for a specified document and convert to a type if necessary.
 
 ```c#
-Element element = elementId.ToElement(document)
-Wall wall = elementId.ToElement<Wall>(document)
+Element element = elementId.ToElement(document);
+Wall wall = elementId.ToElement<Wall>(document);
 ```
 
 The **AreEquals()** method allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
 
 ```c#
-categoryId.AreEquals(BuiltInCategory.OST_Walls)
-parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED)
+categoryId.AreEquals(BuiltInCategory.OST_Walls);
+parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 ```
 
 ### <a id="GeometryExtensions">Geometry Extensions</a>
@@ -76,9 +76,9 @@ parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED)
 The **Distance()** method allows you to get the distance between two lines. The lines are considered endless.
 
 ```c#
-var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1))
-var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2))
-var distance = line1.Distance(line2)
+var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
+var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
+var distance = line1.Distance(line2);
 ```
 
 ### <a id="RibbonExtensions">Ribbon Extensions</a>
@@ -93,52 +93,52 @@ application.CreatePanel("Panel name", "Tab name");
 The **AddPushButton()** method adds a PushButton to the ribbon. The code is significantly simplified compared to the original method.
 
 ```c#
-panel.AddPushButton(typeof(Command), "Button text")
+panel.AddPushButton(typeof(Command), "Button text");
 ```
 
 The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
 
 ```c#
-panel.AddPullDownButton("Button name", "Button text")
+panel.AddPullDownButton("Button name", "Button text");
 
 panel.AddPullDownButton("Button name", "Button text")
-    .AddPushButton(typeof(Command), "Button text")
+    .AddPushButton(typeof(Command), "Button text");
 ```
 
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
 
 ```c#
-panel.AddSplitButton("Button name", "Button text")
+panel.AddSplitButton("Button name", "Button text");
 ```
 
 The **AddRadioButtonGroup()** method adds a RadioButtonGroup to the ribbon.
 
 ```c#
-panel.AddRadioButtonGroup("Button name")
+panel.AddRadioButtonGroup("Button name");
 ```
 
 The **AddComboBox()** method adds a ComboBox to the ribbon.
 
 ```c#
-panel.AddComboBox("Button name")
+panel.AddComboBox("Button name");
 ```
 
 The **AddTextBox()** method adds a TextBox to the ribbon.
 
 ```c#
-panel.AddTextBox("Button name")
+panel.AddTextBox("Button name");
 ```
 
 The **SetImage()** method adds an image to the RibbonButton.
 
 ```c#
-button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
 ```c#
-button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")
+button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
