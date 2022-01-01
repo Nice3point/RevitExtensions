@@ -10,15 +10,16 @@
 
 Extensions minimize the writing of repetitive code, add new methods not included in RevitApi, and also allow you to write chained methods without worrying about API versioning:
 
-<pre><code class='language-cs'>new ElementId(123469)
+```c#
+new ElementId(123469)
 .ToElement(document)
 .GetParameter(BuiltInParameter.ALL_MODEL_URL)
 .AsDouble()
 .Round()
 .ToMeters()
-</code></pre>
+```
 
-Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
+Methods include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
 
 ## Installation
 
@@ -49,7 +50,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 The **GetParameter()** methods allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
 
-```code
+```c#
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```
@@ -58,14 +59,14 @@ element.GetParameter("URL");
 
 The **ToElement()** methods allow you to get an element from the Id for a specified document and convert to a type if necessary.
 
-```cs
+```c#
 Element element = elementId.ToElement(document);
 Material material = elementId.ToElement<Material>(document);
 ```
 
 The **AreEquals()** methods allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
 
-```cs
+```c#
 categoryId.AreEquals(BuiltInCategory.OST_Walls);
 parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 ```
@@ -74,7 +75,7 @@ parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 
 The **Distance()** method allows you to get the distance between two lines. The lines are considered endless. The method is not included in RevitApi.
 
-```cs
+```c#
 var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
 var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
 var distance = line1.Distance(line2);
@@ -84,13 +85,13 @@ var distance = line1.Distance(line2);
 
 The **AddPushButton()** method adds a PushButton to the ribbon. The code is significantly simplified compared to the original method.
 
-```cs
+```c#
 panel.AddPushButton(typeof(Command), "Button text");
 ```
 
 The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
 
-```cs
+```c#
 panel.AddPullDownButton("Button name", "Button text");
 
 panel.AddPullDownButton("Button name", "Button text")
@@ -99,37 +100,37 @@ panel.AddPullDownButton("Button name", "Button text")
 
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
 
-```cs
+```c#
 panel.AddSplitButton("Button name", "Button text");
 ```
 
 The **AddRadioButtonGroup()** method adds a RadioButtonGroup to the ribbon.
 
-```cs
+```c#
 panel.AddRadioButtonGroup("Button name");
 ```
 
 The **AddComboBox()** method adds a ComboBox to the ribbon.
 
-```cs
+```c#
 panel.AddComboBox("Button name");
 ```
 
 The **AddTextBox()** method adds a TextBox to the ribbon.
 
-```cs
+```c#
 panel.AddTextBox("Button name");
 ```
 
 The **SetImage()** method adds an image to the RibbonButton.
 
-```cs
+```c#
 button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
-```cs
+```c#
 button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 ```
 
@@ -137,48 +138,49 @@ button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 
 The **FromMillimeters()** method converts millimeters to internal Revit number format (feet).
 
-```cs
+```
 69.FromMillimeters() => 0.226
 ```
 
 The **ToMillimeters()** method converts a Revit internal format value (feet) to millimeters.
 
-<pre><code class='language-cs'>69.ToMillimeters() => 21031
-</code></pre>
+```
+69.ToMillimeters() => 21031
+```
 
 The **FromMeters()** method converts meters to internal Revit number format (feet).
 
-```cs
+```
 69.FromMeters() => 226.377
 ```
 
 The **ToMeters()** method converts a Revit internal format value (feet) to meters.
 
-```cs
+```
 69.ToMeters() => 21.031
 ```
 
 The **FromInches()** method converts inches to internal Revit number format (feet).
 
-```cs
+```
 69.FromInches() => 5.750
 ```
 
 The **ToInches()** method converts a Revit internal format value (feet) to inches.
 
-```cs
+```
 69.ToInches() => 827.999
 ```
 
 The **FromDegrees()** method converts degrees to internal Revit number format (radians).
 
-```cs
+```
 69.FromDegrees() => 1.204
 ```
 
 The **ToDegrees()** method converts a Revit internal format value (radians) to degrees.
 
-```cs
+```
 69.ToDegrees() => 3953
 ```
 
@@ -186,7 +188,7 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 
 The **ToFraction()** method converts a number to Imperial fractional format
 
-```cs
+```
 1.ToFraction() => 1'-0"
 0.0123.ToFraction() => 0 5/32"
 15.125.ToFraction() => 15'-1 1/2"
@@ -196,25 +198,25 @@ The **ToFraction()** method converts a number to Imperial fractional format
 
 The **FromFraction()** method converts the textual representation of the Imperial system number to number
 
-```cs
+```
 "".FromFraction() => 0
-"1 17/64\"".FromFraction() => 0.105
-"1'1.75".FromFraction() => 1.145
-"-69'-69".FromFraction() => -74.75
+1 17/64".FromFraction() => 0.105
+1'1.75.FromFraction() => 1.145
+-69'-69".FromFraction() => -74.75
 ```
 
 ### <a id="DoubleExtensions">Double Extensions</a>
 
 The **Round()** method rounds the value to the specified precision or 1e-9 precision specified in Revit Api
 
-```cs
+```
 6.56170000000000000000000001.Round() => 6.5617
 6.56170000000000000000000001.Round(0) => 7
 ```
 
 The **IsAlmostEqual()** method compares two numbers within specified precision or 1e-9 precision specified in Revit Api
 
-```cs
+```
 6.56170000000000000000000001.IsAlmostEqual(6.5617) => true
 6.56170000000000000000000001.IsAlmostEqual(6.6, 1e-1) => true
 ```
@@ -223,27 +225,27 @@ The **IsAlmostEqual()** method compares two numbers within specified precision o
 
 The **IsNullOrEmpty()** method same as string.IsNullOrEmpty().
 
-```cs
+```c#
 "".IsNullOrEmpty() => true
 null.IsNullOrEmpty() => true
 ```
 
 The **IsNullOrWhiteSpace()** method same as string.IsNullOrWhiteSpace().
 
-```cs
+```c#
 " ".IsNullOrEmpty() => true
 null.IsNullOrEmpty() => true
 ```
 
 The **AppendPath()** method combines 2 paths.
 
-```cs
+```c#
 "C:\Folder".AppendPath("AddIn").AppendPath("file.txt")) => "C:\Folder\AddIn\file.txt"
 ```
 
 The **Contains()** indicating whether a specified substring occurs within this string with StringComparison support.
 
-```cs
+```c#
 "some Test string".Contains("test", StringComparison.OrdinalIgnoreCase)) => true
 "some test string".Contains("test", StringComparison.OrdinalIgnoreCase)) => true
 "some TEST string".Contains("TeSt", StringComparison.OrdinalIgnoreCase)) => true
