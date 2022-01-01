@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -35,12 +34,12 @@ public static class StringExtensions
     /// </summary>
     /// <returns>The combined paths</returns>
     /// <exception cref="System.ArgumentException">
-    ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars"/>
+    ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
     /// </exception>
     /// <exception cref="System.ArgumentNullException">source or path is null</exception>
     [NotNull]
     [Pure]
-    public static string AppendPath([NotNull, LocalizationRequired(false)] this string source, [NotNull, LocalizationRequired(false)] string path)
+    public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] string path)
     {
         return Path.Combine(source, path);
     }

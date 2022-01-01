@@ -64,7 +64,7 @@ public static class UnitExtensions
     }
 
     /// <summary>
-    ///      Converts inches to internal Revit format
+    ///     Converts inches to internal Revit format
     /// </summary>
     /// <returns>Value in feet</returns>
     [Pure]
@@ -92,7 +92,7 @@ public static class UnitExtensions
     }
 
     /// <summary>
-    ///      Converts degrees to internal Revit format
+    ///     Converts degrees to internal Revit format
     /// </summary>
     /// <returns>Value in radians</returns>
     [Pure]
