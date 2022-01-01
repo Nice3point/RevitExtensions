@@ -28,6 +28,7 @@ You can install Extensions as a [nuget package](https://www.nuget.org/packages/N
 Packages are compiled for a specific version of Revit, to support different versions of libraries in one project, use a floating version.
 
 ```msbuild
+
 <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
 ```
 
@@ -48,7 +49,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
-The **GetParameter()** methods allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
+The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
 
 ```c#
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL)
@@ -57,14 +58,14 @@ element.GetParameter("URL")
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
 
-The **ToElement()** methods allow you to get an element from the Id for a specified document and convert to a type if necessary.
+The **ToElement()** method allow you to get an element from the Id for a specified document and convert to a type if necessary.
 
 ```c#
 Element element = elementId.ToElement(document)
 Wall material = elementId.ToElement<Wall>(document)
 ```
 
-The **AreEquals()** methods allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
+The **AreEquals()** method allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
 
 ```c#
 categoryId.AreEquals(BuiltInCategory.OST_Walls)
@@ -73,7 +74,7 @@ parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED)
 
 ### <a id="GeometryExtensions">Geometry Extensions</a>
 
-The **Distance()** method allows you to get the distance between two lines. The lines are considered endless. The method is not included in RevitApi.
+The **Distance()** method allows you to get the distance between two lines. The lines are considered endless.
 
 ```c#
 var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1))
@@ -82,6 +83,13 @@ var distance = line1.Distance(line2)
 ```
 
 ### <a id="RibbonExtensions">Ribbon Extensions</a>
+
+The **CreatePanel()** method allow you to create a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
+
+```c#
+application.CreatePanel("Panel name");
+application.CreatePanel("Panel name", "Tab name");
+```
 
 The **AddPushButton()** method adds a PushButton to the ribbon. The code is significantly simplified compared to the original method.
 
@@ -251,3 +259,8 @@ The **Contains()** indicating whether a specified substring occurs within this s
 "Revit extensions".Contains("ReViT", StringComparison.OrdinalIgnoreCase)) => true
 "Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase)) => false
 ```
+
+## Technology Sponsors
+
+Thanks to [JetBrains](https://jetbrains.com) for providing licenses for [Rider](https://jetbrains.com/rider) and [dotUltimate](https://www.jetbrains.com/dotnet/) tools, which both
+make open-source development a real pleasure!
