@@ -16,10 +16,11 @@ partial class Build
         .Executes(() =>
         {
             ArtifactsDirectory.GlobFiles("*.nupkg")
-                .ForEach(x =>
+                .ForEach(package =>
                 {
                     DotNetNuGetPush(settings => settings
                         .SetProcessToolPath(MsBuildPath.Value)
+                        .SetTargetPath(package)
                         .SetSource(NugetApiUrl)
                         .SetApiKey(NugetApiKey));
                 });

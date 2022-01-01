@@ -18,6 +18,6 @@ public class StringTests
     [TestCase]
     public void AppendPathTest()
     {
-        Assert.AreEqual(@"C:\\Folder\file.txt", @"C:\\Folder".AppendPath("file.txt"));
+        Assert.AreEqual(@"C:\Folder\AddIn\file.txt", @"C:\Folder".AppendPath("AddIn").AppendPath("file.txt"));
     }
 }
