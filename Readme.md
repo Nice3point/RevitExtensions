@@ -10,14 +10,13 @@
 
 Extensions minimize the writing of repetitive code, add new methods not included in RevitApi, and also allow you to write chained methods without worrying about API versioning:
 
-```cs
-new ElementId(123469)
+<pre><code class='language-cs'>new ElementId(123469)
 .ToElement(document)
 .GetParameter(BuiltInParameter.ALL_MODEL_URL)
 .AsDouble()
 .Round()
 .ToMeters()
-```
+</code></pre>
 
 Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
 
@@ -144,9 +143,8 @@ The **FromMillimeters()** method converts millimeters to internal Revit number f
 
 The **ToMillimeters()** method converts a Revit internal format value (feet) to millimeters.
 
-```cs
-69.ToMillimeters() => 21031
-```
+<pre><code class='language-cs'>69.ToMillimeters() => 21031
+</code></pre>
 
 The **FromMeters()** method converts meters to internal Revit number format (feet).
 
