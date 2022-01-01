@@ -138,87 +138,87 @@ button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 
 The **FromMillimeters()** method converts millimeters to internal Revit number format (feet).
 
-```
-69.FromMillimeters() => 0.226
+```c#
+double(69).FromMillimeters() => 0.226
 ```
 
 The **ToMillimeters()** method converts a Revit internal format value (feet) to millimeters.
 
-```
-69.ToMillimeters() => 21031
+```c#
+double(69).ToMillimeters() => 21031
 ```
 
 The **FromMeters()** method converts meters to internal Revit number format (feet).
 
-```
-69.FromMeters() => 226.377
+```c#
+double(69).FromMeters() => 226.377
 ```
 
 The **ToMeters()** method converts a Revit internal format value (feet) to meters.
 
-```
-69.ToMeters() => 21.031
+```c#
+double(69).ToMeters() => 21.031
 ```
 
 The **FromInches()** method converts inches to internal Revit number format (feet).
 
-```
-69.FromInches() => 5.750
+```c#
+double(69).FromInches() => 5.750
 ```
 
 The **ToInches()** method converts a Revit internal format value (feet) to inches.
 
-```
-69.ToInches() => 827.999
+```c#
+double(69).ToInches() => 827.999
 ```
 
 The **FromDegrees()** method converts degrees to internal Revit number format (radians).
 
-```
-69.FromDegrees() => 1.204
+```c#
+double(69).FromDegrees() => 1.204
 ```
 
 The **ToDegrees()** method converts a Revit internal format value (radians) to degrees.
 
-```
-69.ToDegrees() => 3953
+```c#
+double(69).ToDegrees() => 3953
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
 
 The **ToFraction()** method converts a number to Imperial fractional format
 
-```
-1.ToFraction() => 1'-0"
-0.0123.ToFraction() => 0 5/32"
-15.125.ToFraction() => 15'-1 1/2"
--25.222.ToFraction() => 25'-2 21/32"
--25.222.ToFraction(4) => 25'-2 3/4"
+```c#
+int(1).ToFraction() => 1’-0〞
+double(0.0123).ToFraction() => 0 5/32〞
+double(15.125).ToFraction() => 15’-1 1/2〞
+double(-25.222).ToFraction() => 25’-2 21/32〞
+double(-25.222).ToFraction(4) => 25’-2 3/4〞
 ```
 
 The **FromFraction()** method converts the textual representation of the Imperial system number to number
 
-```
-"".FromFraction() => 0
-1 17/64".FromFraction() => 0.105
-1'1.75.FromFraction() => 1.145
--69'-69".FromFraction() => -74.75
+```c#
+string("").FromFraction() => double(0)
+string(1 17/64〞).FromFraction() => double(0.105)
+string(1’1.75).FromFraction() => double(1.145)
+string(-69’-69〞).FromFraction() => double(-74.75)
 ```
 
 ### <a id="DoubleExtensions">Double Extensions</a>
 
 The **Round()** method rounds the value to the specified precision or 1e-9 precision specified in Revit Api
 
-```
-6.56170000000000000000000001.Round() => 6.5617
-6.56170000000000000000000001.Round(0) => 7
+```c#
+double(6.56170000000000000000000001).Round() => 6.5617
+double(6.56170000000000000000000001).Round(0) => 7
 ```
 
 The **IsAlmostEqual()** method compares two numbers within specified precision or 1e-9 precision specified in Revit Api
 
-```
-6.56170000000000000000000001.IsAlmostEqual(6.5617) => true
-6.56170000000000000000000001.IsAlmostEqual(6.6, 1e-1) => true
+```c#
+double(6.56170000000000000000000001).IsAlmostEqual(6.5617) => true
+double(6.56170000000000000000000001).IsAlmostEqual(6.6, 1e-1) => true
 ```
 
 ### <a id="StringExtensions">String Extensions</a>
@@ -246,8 +246,8 @@ The **AppendPath()** method combines 2 paths.
 The **Contains()** indicating whether a specified substring occurs within this string with StringComparison support.
 
 ```c#
-"some Test string".Contains("test", StringComparison.OrdinalIgnoreCase)) => true
-"some test string".Contains("test", StringComparison.OrdinalIgnoreCase)) => true
-"some TEST string".Contains("TeSt", StringComparison.OrdinalIgnoreCase)) => true
-"some TEST string".Contains("invalid", StringComparison.OrdinalIgnoreCase)) => false
+"Revit extensions".Contains("Revit", StringComparison.OrdinalIgnoreCase)) => true
+"Revit extensions".Contains("revit", StringComparison.OrdinalIgnoreCase)) => true
+"Revit extensions".Contains("ReViT", StringComparison.OrdinalIgnoreCase)) => true
+"Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase)) => false
 ```
