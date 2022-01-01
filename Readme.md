@@ -19,7 +19,7 @@ new ElementId(123469)
 .ToMillimeters()
 ```
 
-Methods include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
+Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
 
 ## Installation
 
@@ -61,7 +61,7 @@ The **ToElement()** method allow you to get an element from the Id for a specifi
 
 ```c#
 Element element = elementId.ToElement(document)
-Wall material = elementId.ToElement<Wall>(document)
+Wall wall = elementId.ToElement<Wall>(document)
 ```
 
 The **AreEquals()** method allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
