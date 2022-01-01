@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -21,7 +20,7 @@ public static class ElementExtensions
         if (elementTypeId == ElementId.InvalidElementId) return null;
         var elementType = element.Document.GetElement(elementTypeId);
         var symbolParameter = elementType.get_Parameter(parameter);
-        return symbolParameter;
+        return symbolParameter ?? instanceParameter;
     }
 
     /// <summary>
@@ -37,6 +36,6 @@ public static class ElementExtensions
         if (elementTypeId == ElementId.InvalidElementId) return null;
         var elementType = element.Document.GetElement(elementTypeId);
         var symbolParameter = elementType.LookupParameter(parameter);
-        return symbolParameter;
+        return symbolParameter ?? instanceParameter;
     }
 }

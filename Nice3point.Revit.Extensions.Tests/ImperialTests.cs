@@ -22,12 +22,15 @@ public class ImperialTests
         Assert.AreEqual("-1'-3 5/32\"", (-1.26378).ToFraction());
         Assert.AreEqual("12'-1 3/16\"", 12.1d.ToFraction());
         Assert.AreEqual("15'-1 1/2\"", 15.125d.ToFraction());
-        Assert.AreEqual("25'-2 25/32\"", 25.231d.ToFraction());
+        Assert.AreEqual("25'-2 21/32\"", 25.222d.ToFraction());
         Assert.AreEqual("25'-2 11/16\"", 25.222d.ToFraction(16));
         Assert.AreEqual("25'-2 5/8\"", 25.222d.ToFraction(8));
         Assert.AreEqual("25'-2 3/4\"", 25.222d.ToFraction(4));
         Assert.AreEqual("25'-3\"", 25.222d.ToFraction(1));
         Assert.AreEqual("-25'-1\"", (-25.222d).ToFraction(1));
+        Assert.AreEqual("0\"", 0.ToFraction());
+        Assert.AreEqual("1'-0\"", 1.ToFraction());
+        Assert.AreEqual("2'-0\"", 2.ToFraction());
     }
 
     [TestCase]

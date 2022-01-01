@@ -54,4 +54,13 @@ public static class ElementIdExtensions
     {
         return elementId.IntegerValue == (int) category;
     }
+    
+    /// <summary>
+    ///     Checks if ElementID is a parameter identifier
+    /// </summary>
+    [Pure]
+    public static bool AreEquals(this ElementId elementId, BuiltInParameter parameter)
+    {
+        return elementId.IntegerValue == (int) parameter;
+    }
 }

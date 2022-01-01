@@ -29,7 +29,7 @@ public static class GeometryExtensions
         var rp = v1.Z * v2.X - v2.Z * v1.X;
         var dev = Math.Sqrt(Math.Pow(qr, 2) + Math.Pow(rp, 2) + Math.Pow(pq, 2));
 
-        if (dev < 1e-4)
+        if (dev < 1e-9)
         {
             var bp = b * v1.X;
             var br = b * v1.Z;

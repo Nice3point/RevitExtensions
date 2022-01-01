@@ -18,7 +18,7 @@ public static class ImperialExtensions
     /// <param name="source">Feet value</param>
     /// <param name="denominator">Rounding</param>
     /// <example>
-    ///     1 will be converted to 1'<br />
+    ///     1 will be converted to 1'-0"<br />
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
@@ -69,11 +69,26 @@ public static class ImperialExtensions
     }
 
     /// <summary>
+    ///     Converts a number to text representation for the Imperial system with denominator 32
+    /// </summary>
+    /// <param name="source">Feet value</param>
+    /// <param name="denominator">Rounding</param>
+    /// <example>
+    ///     0 will be converted to 0"<br />
+    ///     1 will be converted to 1'-0"<br />
+    /// </example>
+    [Pure]
+    public static string ToFraction(this int source, int denominator)
+    {
+        return ToFraction((double) source, denominator);
+    }
+
+    /// <summary>
     ///     Converts a number to text representation for the Imperial system
     /// </summary>
     /// <param name="source">Feet value</param>
     /// <example>
-    ///     1 will be converted to 1'<br />
+    ///     1 will be converted to 1'-0"<br />
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
@@ -81,6 +96,20 @@ public static class ImperialExtensions
     public static string ToFraction(this double source)
     {
         return ToFraction(source, 32);
+    }
+
+    /// <summary>
+    ///     Converts a number to text representation for the Imperial system
+    /// </summary>
+    /// <param name="source">Feet value</param>
+    /// <example>
+    ///     0 will be converted to 0"<br />
+    ///     1 will be converted to 1'-0"<br />
+    /// </example>
+    [Pure]
+    public static string ToFraction(this int source)
+    {
+        return ToFraction((double) source, 32);
     }
 
     /// <summary>
