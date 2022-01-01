@@ -27,8 +27,7 @@ You can install Extensions as a [nuget package](https://www.nuget.org/packages/N
 
 Packages are compiled for a specific version of Revit, to support different versions of libraries in one project, use a floating version.
 
-```msbuild
-
+```text
 <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
 ```
 
