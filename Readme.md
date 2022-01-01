@@ -51,8 +51,8 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 The **GetParameter()** methods allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
 
 ```c#
-element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
-element.GetParameter("URL");
+element.GetParameter(BuiltInParameter.ALL_MODEL_URL)
+element.GetParameter("URL")
 ```
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
@@ -60,15 +60,15 @@ element.GetParameter("URL");
 The **ToElement()** methods allow you to get an element from the Id for a specified document and convert to a type if necessary.
 
 ```c#
-Element element = elementId.ToElement(document);
-Material material = elementId.ToElement<Material>(document);
+Element element = elementId.ToElement(document)
+Wall material = elementId.ToElement<Wall>(document)
 ```
 
 The **AreEquals()** methods allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
 
 ```c#
-categoryId.AreEquals(BuiltInCategory.OST_Walls);
-parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
+categoryId.AreEquals(BuiltInCategory.OST_Walls)
+parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED)
 ```
 
 ### <a id="GeometryExtensions">Geometry Extensions</a>
@@ -76,9 +76,9 @@ parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 The **Distance()** method allows you to get the distance between two lines. The lines are considered endless. The method is not included in RevitApi.
 
 ```c#
-var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
-var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
-var distance = line1.Distance(line2);
+var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1))
+var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2))
+var distance = line1.Distance(line2)
 ```
 
 ### <a id="RibbonExtensions">Ribbon Extensions</a>
@@ -86,13 +86,13 @@ var distance = line1.Distance(line2);
 The **AddPushButton()** method adds a PushButton to the ribbon. The code is significantly simplified compared to the original method.
 
 ```c#
-panel.AddPushButton(typeof(Command), "Button text");
+panel.AddPushButton(typeof(Command), "Button text")
 ```
 
 The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
 
 ```c#
-panel.AddPullDownButton("Button name", "Button text");
+panel.AddPullDownButton("Button name", "Button text")
 
 panel.AddPullDownButton("Button name", "Button text")
     .AddPushButton(typeof(Command), "Button text")
@@ -101,37 +101,37 @@ panel.AddPullDownButton("Button name", "Button text")
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
 
 ```c#
-panel.AddSplitButton("Button name", "Button text");
+panel.AddSplitButton("Button name", "Button text")
 ```
 
 The **AddRadioButtonGroup()** method adds a RadioButtonGroup to the ribbon.
 
 ```c#
-panel.AddRadioButtonGroup("Button name");
+panel.AddRadioButtonGroup("Button name")
 ```
 
 The **AddComboBox()** method adds a ComboBox to the ribbon.
 
 ```c#
-panel.AddComboBox("Button name");
+panel.AddComboBox("Button name")
 ```
 
 The **AddTextBox()** method adds a TextBox to the ribbon.
 
 ```c#
-panel.AddTextBox("Button name");
+panel.AddTextBox("Button name")
 ```
 
 The **SetImage()** method adds an image to the RibbonButton.
 
 ```c#
-button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
 ```c#
-button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
+button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
@@ -186,7 +186,7 @@ double(69).ToDegrees() => 3953
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
 
-The **ToFraction()** method converts a number to Imperial fractional format
+The **ToFraction()** method converts a number to Imperial fractional format.
 
 ```c#
 int(1).ToFraction() => 1’-0〞
@@ -196,7 +196,7 @@ double(-25.222).ToFraction() => 25’-2 21/32〞
 double(-25.222).ToFraction(4) => 25’-2 3/4〞
 ```
 
-The **FromFraction()** method converts the textual representation of the Imperial system number to number
+The **FromFraction()** method converts the textual representation of the Imperial system number to number.
 
 ```c#
 string("").FromFraction() => double(0)
@@ -207,14 +207,14 @@ string(-69’-69〞).FromFraction() => double(-74.75)
 
 ### <a id="DoubleExtensions">Double Extensions</a>
 
-The **Round()** method rounds the value to the specified precision or 1e-9 precision specified in Revit Api
+The **Round()** method rounds the value to the specified precision or 1e-9 precision specified in Revit Api.
 
 ```c#
 double(6.56170000000000000000000001).Round() => 6.5617
 double(6.56170000000000000000000001).Round(0) => 7
 ```
 
-The **IsAlmostEqual()** method compares two numbers within specified precision or 1e-9 precision specified in Revit Api
+The **IsAlmostEqual()** method compares two numbers within specified precision or 1e-9 precision specified in Revit Api.
 
 ```c#
 double(6.56170000000000000000000001).IsAlmostEqual(6.5617) => true
@@ -226,15 +226,15 @@ double(6.56170000000000000000000001).IsAlmostEqual(6.6, 1e-1) => true
 The **IsNullOrEmpty()** method same as string.IsNullOrEmpty().
 
 ```c#
-"".IsNullOrEmpty() => true
-null.IsNullOrEmpty() => true
+string("").IsNullOrEmpty() => true
+string(null).IsNullOrEmpty() => true
 ```
 
 The **IsNullOrWhiteSpace()** method same as string.IsNullOrWhiteSpace().
 
 ```c#
-" ".IsNullOrEmpty() => true
-null.IsNullOrEmpty() => true
+string(" ").IsNullOrEmpty() => true
+string(null).IsNullOrEmpty() => true
 ```
 
 The **AppendPath()** method combines 2 paths.
