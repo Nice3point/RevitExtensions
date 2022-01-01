@@ -210,6 +210,11 @@ string("").FromFraction() => double(0)
 string(1 17/64〞).FromFraction() => double(0.105)
 string(1’1.75).FromFraction() => double(1.145)
 string(-69’-69〞).FromFraction() => double(-74.75)
+string(-2’-1 15/64〞).FromFraction(out var value) => true
+string("-").FromFraction(out var value) => true
+string("value").FromFraction(out var value) => false
+string(".").FromFraction(out var value) => false
+string(null).FromFraction(out var value) => false
 ```
 
 ### <a id="DoubleExtensions">Double Extensions</a>
