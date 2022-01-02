@@ -21,8 +21,8 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
-        var ribbonPanels = application.GetRibbonPanels(Tab.AddIns);
-        return CreateRibbonPanel(application, panelName, ribbonPanels);
+        var ribbonPanel = application.GetRibbonPanels(Tab.AddIns).FirstOrDefault(panel => panel.Name.Equals(panelName));
+        return ribbonPanel ?? application.CreateRibbonPanel(panelName);
     }
 
     /// <summary>
@@ -41,8 +41,8 @@ public static class RibbonExtensions
             return application.CreateRibbonPanel(tabName, panelName);
         }
 
-        var ribbonPanels = application.GetRibbonPanels(tabName);
-        return CreateRibbonPanel(application, tabName, panelName, ribbonPanels);
+        var ribbonPanel = application.GetRibbonPanels(tabName).FirstOrDefault(panel => panel.Name.Equals(panelName));
+        return ribbonPanel ?? application.CreateRibbonPanel(tabName, panelName);
     }
 
     /// <summary>
@@ -142,17 +142,5 @@ public static class RibbonExtensions
     public static void SetLargeImage(this RibbonButton button, string uri)
     {
         button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));
-    }
-
-    private static RibbonPanel CreateRibbonPanel(UIControlledApplication application, string panelName, List<RibbonPanel> ribbonPanels)
-    {
-        var ribbonPanel = ribbonPanels.FirstOrDefault(panel => panel.Name.Equals(panelName));
-        return ribbonPanel ?? application.CreateRibbonPanel(panelName);
-    }
-
-    private static RibbonPanel CreateRibbonPanel(UIControlledApplication application, string tabName, string panelName, List<RibbonPanel> ribbonPanels)
-    {
-        var ribbonPanel = ribbonPanels.FirstOrDefault(panel => panel.Name.Equals(panelName));
-        return ribbonPanel ?? application.CreateRibbonPanel(tabName, panelName);
     }
 }

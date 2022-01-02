@@ -7,6 +7,30 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ElementExtensions
 {
+#if R22_OR_GREATER
+    /// <summary>
+    ///     Returns the parameter found on an instance or type
+    /// </summary>
+    /// <param name="element">The element in which the parameter will be searched</param>
+    /// <param name="parameter">Identifier of the built-in parameter.</param>
+    /// <param name="includeType">True if you want to search the ElementType parameter</param>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
+    /// </exception>
+    [CanBeNull]
+    [Pure]
+    public static Parameter GetParameter(this Element element, ForgeTypeId parameter, bool includeType)
+    {
+        var instanceParameter = element.GetParameter(parameter);
+        if (instanceParameter is not null && instanceParameter.HasValue || includeType == false) return instanceParameter;
+        var elementTypeId = element.GetTypeId();
+        if (elementTypeId == ElementId.InvalidElementId) return null;
+        var elementType = element.Document.GetElement(elementTypeId);
+        var symbolParameter = elementType.GetParameter(parameter);
+        return symbolParameter ?? instanceParameter;
+    }
+    
+#endif
     /// <summary>
     ///     Returns the parameter found on an instance or type
     /// </summary>
