@@ -25,7 +25,7 @@ Extensions include annotations to help ReShaper parse your code and signal when 
 
 You can install Extensions as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Extensions).
 
-Packages are compiled for a specific version of Revit, to support different versions of libraries in one project, use a floating version.
+Packages are compiled for a specific version of Revit, to support different versions of libraries in one project, use RevitVersion property.
 
 ```text
 <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
@@ -49,7 +49,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
-The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is an instance or a type.
+The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is in an instance or a type.
 
 ```c#
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
