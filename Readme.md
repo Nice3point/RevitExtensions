@@ -15,8 +15,8 @@ new ElementId(123469)
 .ToElement(document)
 .GetParameter(BuiltInParameter.DOOR_HEIGHT)
 .AsDouble()
-.Round()
 .ToMillimeters()
+.Round()
 ```
 
 Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
@@ -210,10 +210,11 @@ string("").FromFraction() => double(0)
 string(1 17/64〞).FromFraction() => double(0.105)
 string(1’1.75).FromFraction() => double(1.145)
 string(-69’-69〞).FromFraction() => double(-74.75)
+
 string(-2’-1 15/64〞).FromFraction(out var value) => true
 string("-").FromFraction(out var value) => true
-string("value").FromFraction(out var value) => false
 string(".").FromFraction(out var value) => false
+string("value").FromFraction(out var value) => false
 string(null).FromFraction(out var value) => false
 ```
 
@@ -252,16 +253,16 @@ string(null).IsNullOrEmpty() => true
 The **AppendPath()** method combines 2 paths.
 
 ```c#
-"C:\Folder".AppendPath("AddIn").AppendPath("file.txt")) => "C:\Folder\AddIn\file.txt"
+"C:\Folder".AppendPath("AddIn").AppendPath("file.txt") => "C:\Folder\AddIn\file.txt"
 ```
 
 The **Contains()** indicating whether a specified substring occurs within this string with StringComparison support.
 
 ```c#
-"Revit extensions".Contains("Revit", StringComparison.OrdinalIgnoreCase)) => true
-"Revit extensions".Contains("revit", StringComparison.OrdinalIgnoreCase)) => true
-"Revit extensions".Contains("ReViT", StringComparison.OrdinalIgnoreCase)) => true
-"Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase)) => false
+"Revit extensions".Contains("Revit", StringComparison.OrdinalIgnoreCase) => true
+"Revit extensions".Contains("revit", StringComparison.OrdinalIgnoreCase) => true
+"Revit extensions".Contains("REVIT", StringComparison.OrdinalIgnoreCase) => true
+"Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase) => false
 ```
 
 ## Technology Sponsors
