@@ -115,10 +115,10 @@ public static class LabelExtensions
     /// </summary>
     /// <param name="source">Identifier of the discipline</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Discipline must have a definition
+    ///     Discipline must have a definition
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///    A non-optional argument was null
+    ///     A non-optional argument was null
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
@@ -149,7 +149,7 @@ public static class LabelExtensions
     /// </summary>
     /// <param name="source">Identifier of the spec to get the user-visible name</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    The given identifier is neither a spec nor a category
+    ///     The given identifier is neither a spec nor a category
     /// </exception>
     /// <remarks>
     ///     The name is obtained in the current Revit language.
@@ -168,10 +168,10 @@ public static class LabelExtensions
     /// </summary>
     /// <param name="source">Identifier of the symbol to get the user-visible name</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Symbol must have a definition
+    ///     Symbol must have a definition
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///    A non-optional argument was null
+    ///     A non-optional argument was null
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
@@ -187,10 +187,10 @@ public static class LabelExtensions
     /// </summary>
     /// <param name="source">Identifier of the unit to get the user-visible name</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Cannot find DisplayUnitTypeInfo for the given unit identifier
+    ///     Cannot find DisplayUnitTypeInfo for the given unit identifier
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///    A non-optional argument was null
+    ///     A non-optional argument was null
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
