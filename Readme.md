@@ -42,6 +42,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Geometry Extensions](#GeometryExtensions)
 - [Ribbon Extensions](#RibbonExtensions)
 - [Unit Extensions](#UnitExtensions)
+- [Label Extensions](#LabelExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
@@ -53,6 +54,38 @@ The **GetParameter()** method allow you to get a parameter from an element, rega
 ```c#
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
+```
+
+The **Copy()** method allow you copy an element to a new location.
+
+```c#
+element.Copy(1, 1, 0);
+element.Copy(new XYZ(1, 1, 0));
+```
+
+The **Mirror()** method allow you mirror an element.
+
+```c#
+element.Mirror(plane);
+```
+
+The **Move()** method allow you move an element to a new location.
+
+```c#
+element.Move(1, 1, 0);
+element.Move(new XYZ(1, 1, 0));
+```
+
+The **Rotate()** method allow you to rotate an element.
+
+```c#
+element.Rotate(axis, angle);
+```
+
+The **CanBeMirrored()** method determines whether element can be mirrored.
+
+```c#
+element.CanBeMirrored();
 ```
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
@@ -189,6 +222,55 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 
 ```c#
 double(69).ToDegrees() => 3953
+```
+
+### <a id="LabelExtensions">Label Extensions</a>
+
+The **ToLabel()** method convert Enum to user-visible name.
+
+```c#
+BuiltInCategory.OST_Walls.ToLabel() => "Walls"
+BuiltInParameter.WALL_TOP_OFFSET.ToLabel() => "Top Offset"
+BuiltInParameter.WALL_TOP_OFFSET.ToLabel(LanguageType.Russian) => "Смещение сверху"
+BuiltInParameterGroup.PG_LENGTH.ToLabel() => "Length"
+DisplayUnitType.DUT_KILOWATTS.ToLabel() => "Kilowatts"
+ParameterType.Length.ToLabel() => "Length"
+```
+
+The **ToDisciplineLabel()** method convert ForgeTypeId to user-visible name a discipline.
+
+```c#
+DisciplineTypeId.Hvac.ToDisciplineLabel() => "HVAC"
+```
+
+The **ToGroupLabel()** method convert ForgeTypeId to user-visible name for a built-in parameter group.
+
+```c#
+GroupTypeId.Geometry.ToGroupLabel() => "Dimensions"
+```
+
+The **ToParameterLabel()** method convert ForgeTypeId to user-visible name for a built-in parameter.
+
+```c#
+ParameterTypeId.DoorCost.ToParameterLabel() => "Cost"
+```
+
+The **ToSpecLabel()** method convert ForgeTypeId to user-visible name for a spec.
+
+```c#
+SpecTypeId.SheetLength.ToSpecLabel() => "Sheet Length"
+```
+
+The **ToSymbolLabel()** method convert ForgeTypeId to user-visible name for a symbol.
+
+```c#
+SymbolTypeId.Hour.ToSymbolLabel() => "h"
+```
+
+The **ToUnitLabel()** method convert ForgeTypeId to user-visible name for a unit.
+
+```c#
+UnitTypeId.Hertz.ToUnitLabel() => "Hertz"
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>

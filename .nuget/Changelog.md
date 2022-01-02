@@ -1,17 +1,20 @@
-Ribbon extensions
+Element extensions
 
-- New AddSplitButton extension
-- New AddRadioButtonGroup extension
-- New AddComboBox extension
-- New AddTextBox extension
+- New Copy extension
+- New Mirror extension
+- New Move extension
+- New Rotate extension
+- New CanBeMirrored extension
 
-Unit extensions
+Label Extensions
 
-- New FromMeters extension
-- New ToMeters extension
-- New FromDegrees extension
-- New ToDegrees extension
-
-ElementId extensions
-
-- New AreEquals(BuiltInParameter) extension
+- New ToLabel(BuiltInParameter) extension
+- New ToLabel(BuiltInParameterGroup) extension
+- New ToLabel(BuiltInCategory) extension
+- New ToLabel(DisplayUnitType) extension
+- New ToLabel(ParameterType) extension
+- New ToDisciplineLabel(ForgeTypeId) extension
+- New ToGroupLabel(ForgeTypeId) extension
+- New ToSpecLabel(ForgeTypeId) extension
+- New ToSymbolLabel(ForgeTypeId) extension
+- New ToUnitLabel(ForgeTypeId) extension

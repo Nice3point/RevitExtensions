@@ -37,18 +37,22 @@
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <RevitVersion>2019</RevitVersion>
         <DefineConstants>$(DefineConstants);R19</DefineConstants>
+        <DefineConstants>$(DefineConstants);R19_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
         <RevitVersion>2020</RevitVersion>
         <DefineConstants>$(DefineConstants);R20</DefineConstants>
+        <DefineConstants>$(DefineConstants);R19_OR_GREATER;R20_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R21'))">
         <RevitVersion>2021</RevitVersion>
         <DefineConstants>$(DefineConstants);R21</DefineConstants>
+        <DefineConstants>$(DefineConstants);R19_OR_GREATER;R20_OR_GREATER;R21_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R22'))">
         <RevitVersion>2022</RevitVersion>
         <DefineConstants>$(DefineConstants);R22</DefineConstants>
+        <DefineConstants>$(DefineConstants);R19_OR_GREATER;R20_OR_GREATER;R21_OR_GREATER;R22_OR_GREATER</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>

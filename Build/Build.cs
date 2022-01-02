@@ -3,13 +3,14 @@ using Nuke.Common.Git;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.VSWhere;
+using Serilog;
 
 partial class Build : NukeBuild
 {
     readonly AbsolutePath ArtifactsDirectory = RootDirectory / ArtifactsFolder;
     [Solution] readonly Solution Solution;
 
-    static Lazy<string> MsBuildPath => new(() =>
+    static readonly Lazy<string> MsBuildPath = new(() =>
     {
         if (IsServerBuild) return null;
         var (_, output) = VSWhereTasks.VSWhere(settings => settings
