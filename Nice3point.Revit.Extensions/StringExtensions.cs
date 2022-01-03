@@ -51,10 +51,12 @@ public static class StringExtensions
     /// <param name="value">The string to seek</param>
     /// <param name="comparison">One of the enumeration values that specifies the rules for the search</param>
     /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false</returns>
-    /// <exception cref="System.ArgumentNullException">value is null</exception>
+    [ContractAnnotation("source:null => false; value:null => false")]
     [Pure]
-    public static bool Contains(this string source, [NotNull] string value, StringComparison comparison)
+    public static bool Contains(this string source, string value, StringComparison comparison)
     {
-        return source?.IndexOf(value, comparison) >= 0;
+        if (source is null) return false;
+        if (value is null) return false;
+        return source.IndexOf(value, comparison) >= 0;
     }
 }

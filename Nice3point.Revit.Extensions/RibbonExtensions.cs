@@ -19,6 +19,7 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">panelName is <see langword="null" /></exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
+    [NotNull]
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
         var ribbonPanel = application.GetRibbonPanels(Tab.AddIns).FirstOrDefault(panel => panel.Name.Equals(panelName));
@@ -32,6 +33,7 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">panelName is <see langword="null" /></exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
+    [NotNull]
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
         var ribbonTab = ComponentManager.Ribbon.Tabs.FirstOrDefault(tab => tab.Id.Equals(tabName));
@@ -50,6 +52,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added PushButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the panel</exception>
+    [NotNull]
     public static PushButton AddPushButton(this RibbonPanel panel, Type command, string buttonText)
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
@@ -61,6 +64,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added PullDownButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PullDownButton already exists in the panel</exception>
+    [NotNull]
     public static PulldownButton AddPullDownButton(this RibbonPanel panel, string name, string buttonText)
     {
         var pushButtonData = new PulldownButtonData(name, buttonText);
@@ -72,6 +76,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added SplitButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a SplitButton already exists in the panel</exception>
+    [NotNull]
     public static SplitButton AddSplitButton(this RibbonPanel panel, string name, string buttonText)
     {
         var pushButtonData = new SplitButtonData(name, buttonText);
@@ -83,6 +88,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added RadioButtonGroup</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a RadioButtonGroup already exists in the panel</exception>
+    [NotNull]
     public static RadioButtonGroup AddRadioButtonGroup(this RibbonPanel panel, string name)
     {
         var pushButtonData = new RadioButtonGroupData(name);
@@ -94,6 +100,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added ComboBox</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a ComboBox already exists in the panel</exception>
+    [NotNull]
     public static ComboBox AddComboBox(this RibbonPanel panel, string name)
     {
         var pushButtonData = new ComboBoxData(name);
@@ -105,6 +112,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added TextBox</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a TextBox already exists in the panel</exception>
+    [NotNull]
     public static TextBox AddTextBox(this RibbonPanel panel, string name)
     {
         var pushButtonData = new TextBoxData(name);
@@ -116,6 +124,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The newly added PushButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the PushButton</exception>
+    [NotNull]
     public static PushButton AddPushButton(this PulldownButton pullDownButton, Type command, string buttonText)
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);

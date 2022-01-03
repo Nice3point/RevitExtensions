@@ -52,6 +52,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is in an instance or a type.
 
 ```c#
+element.GetParameter(ParameterTypeId.AllModelUrl, includeType);
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```

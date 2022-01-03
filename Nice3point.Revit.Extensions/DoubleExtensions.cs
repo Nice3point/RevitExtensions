@@ -15,8 +15,9 @@ public static class DoubleExtensions
     }
 
     /// <summary>
-    ///     Rounds a value to the specified decimal place
+    ///     Rounds a decimal value to a specified number of fractional digits, and rounds midpoint values to the nearest even number
     /// </summary>
+    /// <exception cref="System.ArgumentOutOfRangeException">digits is less than 0 or greater than 15</exception>
     [Pure]
     public static double Round(this double source, int digits)
     {
