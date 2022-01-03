@@ -1,9 +1,5 @@
-using Nuke.Common;
-using Nuke.Common.Git;
-using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tools.VSWhere;
-using Serilog;
 
 partial class Build : NukeBuild
 {

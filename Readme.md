@@ -52,7 +52,6 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is in an instance or a type.
 
 ```c#
-element.GetParameter(ParameterTypeId.DoorCost, true);
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```
@@ -124,7 +123,7 @@ application.CreatePanel("Panel name");
 application.CreatePanel("Panel name", "Tab name");
 ```
 
-The **AddPushButton()** method adds a PushButton to the ribbon. The code is significantly simplified compared to the original method.
+The **AddPushButton()** method adds a PushButton to the ribbon.
 
 ```c#
 panel.AddPushButton(typeof(Command), "Button text");

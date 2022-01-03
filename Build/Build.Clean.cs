@@ -1,5 +1,4 @@
-﻿using Nuke.Common;
-using static Nuke.Common.IO.FileSystemTasks;
+﻿using static Nuke.Common.IO.FileSystemTasks;
 
 partial class Build
 {
