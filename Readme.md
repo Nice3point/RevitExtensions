@@ -266,12 +266,12 @@ BuiltInParameterGroup.PG_LENGTH.ToLabel() => "Length"
 DisplayUnitType.DUT_KILOWATTS.ToLabel() => "Kilowatts"
 ParameterType.Length.ToLabel() => "Length"
 
-DisciplineTypeId.Hvac.ToDisciplineLabel() => "HVAC"
-GroupTypeId.Geometry.ToGroupLabel() => "Dimensions"
-ParameterTypeId.DoorCost.ToParameterLabel() => "Cost"
-SpecTypeId.SheetLength.ToSpecLabel() => "Sheet Length"
-SymbolTypeId.Hour.ToSymbolLabel() => "h"
-UnitTypeId.Hertz.ToUnitLabel() => "Hertz"
+DisciplineTypeId.Hvac.ToLabel() => "HVAC"
+GroupTypeId.Geometry.ToLabel() => "Dimensions"
+ParameterTypeId.DoorCost.ToLabel() => "Cost"
+SpecTypeId.SheetLength.ToLabel() => "Sheet Length"
+SymbolTypeId.Hour.ToLabel() => "h"
+UnitTypeId.Hertz.ToLabel() => "Hertz"
 ```
 
 The **ToDisciplineLabel()** method convert ForgeTypeId to user-visible name a discipline.
