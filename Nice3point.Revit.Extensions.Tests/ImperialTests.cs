@@ -55,8 +55,8 @@ public class ImperialTests
         Assert.AreEqual(0d, "".FromFraction(), 1e-3);
         Assert.AreEqual(0d, "-".FromFraction(), 1e-3);
         Assert.Throws<FormatException>(() => "qwerty".FromFraction());
-        Assert.Throws<FormatException>(() => ".".FromFraction());   
-        Assert.Throws<ArgumentNullException>(() => ((string)null!).FromFraction());
+        Assert.Throws<FormatException>(() => ".".FromFraction());
+        Assert.Throws<NullReferenceException>(() => ((string)null!).FromFraction());
         Assert.AreEqual(true, "-2'-1 15/64\"".FromFraction(out _));
         Assert.AreEqual(true, "-69'-69".FromFraction(out _));
         Assert.AreEqual(true, "".FromFraction(out _));
