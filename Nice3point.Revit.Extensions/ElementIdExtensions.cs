@@ -15,15 +15,12 @@ public static class ElementIdExtensions
     ///     The ElementId, whose referenced Element will be retrieved from the model.
     /// </param>
     /// <returns>The element referenced by the input argument.</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null
-    /// </exception>
     /// <remarks>
     ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
     [CanBeNull]
     [Pure]
-    public static Element ToElement(this ElementId id, Document document)
+    public static Element ToElement([NotNull] this ElementId id, Document document)
     {
         return document.GetElement(id);
     }
@@ -40,8 +37,9 @@ public static class ElementIdExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
     ///     The input ElementId doesn't reference to a valid Element
     /// </exception>
+    /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
     [Pure]
-    public static T ToElement<T>(this ElementId id, Document document) where T : Element
+    public static T ToElement<T>([NotNull] this ElementId id, Document document) where T : Element
     {
         return (T) document.GetElement(id);
     }
@@ -50,7 +48,7 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a category identifier
     /// </summary>
     [Pure]
-    public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
+    public static bool AreEquals([NotNull] this ElementId elementId, BuiltInCategory category)
     {
         return elementId.IntegerValue == (int) category;
     }
@@ -59,7 +57,7 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a parameter identifier
     /// </summary>
     [Pure]
-    public static bool AreEquals(this ElementId elementId, BuiltInParameter parameter)
+    public static bool AreEquals([NotNull] this ElementId elementId, BuiltInParameter parameter)
     {
         return elementId.IntegerValue == (int) parameter;
     }

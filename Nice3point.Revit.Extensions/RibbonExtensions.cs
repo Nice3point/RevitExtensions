@@ -16,7 +16,6 @@ public static class RibbonExtensions
     ///     Creates a panel in the "Add-ins" tab
     /// </summary>
     /// <returns>New or existing Ribbon panel</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">panelName is <see langword="null" /></exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     [NotNull]
@@ -30,7 +29,6 @@ public static class RibbonExtensions
     ///     Creates a panel in the specified tab
     /// </summary>
     /// <returns>New or existing Ribbon panel</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">panelName is <see langword="null" /></exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     [NotNull]

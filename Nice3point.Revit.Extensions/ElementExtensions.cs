@@ -63,7 +63,7 @@ public static class ElementExtensions
     /// </summary>
     [CanBeNull]
     [Pure]
-    public static Parameter GetParameter([NotNull] this Element element, string parameter)
+    public static Parameter GetParameter([NotNull] this Element element, [NotNull] string parameter)
     {
         var instanceParameter = element.LookupParameter(parameter);
         if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
@@ -111,7 +111,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Element cannot be mirrored or element does not exist in the document
     /// </exception>
-    public static void Mirror([NotNull] this Element element, Plane plane)
+    public static void Mirror([NotNull] this Element element, [NotNull] Plane plane)
     {
         ElementTransformUtils.MirrorElement(element.Document, element.Id, plane);
     }
@@ -148,7 +148,7 @@ public static class ElementExtensions
     /// <param name="element">The element to rotate</param>
     /// <param name="axis">The axis of rotation</param>
     /// <param name="angle">The angle of rotation in radians</param>
-    public static void Rotate([NotNull] this Element element, Line axis, double angle)
+    public static void Rotate([NotNull] this Element element, [NotNull] Line axis, double angle)
     {
         ElementTransformUtils.RotateElement(element.Document, element.Id, axis, angle);
     }

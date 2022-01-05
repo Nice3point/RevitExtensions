@@ -149,7 +149,6 @@ public static class ImperialExtensions
     /// <param name="source">Imperial number</param>
     /// <returns>Feet value</returns>
     /// <exception cref="FormatException">Invalid number format</exception>
-    /// <exception cref="System.ArgumentNullException">Argument is null</exception>
     /// <example>
     ///     1' will be converted to 1<br />
     ///     1/8" will be converted to 0.010<br />
@@ -159,11 +158,10 @@ public static class ImperialExtensions
     [Pure]
     public static double FromFraction([NotNull] this string source)
     {
-        if (source is null) throw new ArgumentNullException(nameof(source));
         if (source.Trim() == string.Empty) return 0;
 
         var match = Regex.Match(source);
-        if (!match.Success) throw new FormatException("Invalid number format");
+        if (!match.Success) throw new FormatException($"Invalid number format: {source}");
 
         return ParseFraction(match);
     }

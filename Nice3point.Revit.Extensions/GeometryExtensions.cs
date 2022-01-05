@@ -12,7 +12,7 @@ public static class GeometryExtensions
     /// </summary>
     /// <returns>Distance between lines. Returns 0 if the lines intersect</returns>
     [Pure]
-    public static double Distance(this Line line1, Line line2)
+    public static double Distance([NotNull] this Line line1, [NotNull] Line line2)
     {
         double distance;
 
