@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://www.nuget.org/packages/Nice3point.Revit.Extensions"><img src="https://img.shields.io/nuget/v/Nice3point.Revit.Extensions?style=for-the-badge"></a>
   <a href="https://www.nuget.org/packages/Nice3point.Revit.Extensions"><img src="https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge"></a>
-  <a href="https://github.com/Nice3point/RevitExtensions/commits/main"><img src="https://img.shields.io/github/last-commit/Nice3point/RevitExtensions?style=for-the-badge"></a>
+  <a href="https://github.com/Nice3point/RevitExtensions/commits/develop"><img src="https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge"></a>
 </p>
 
 Extensions minimize the writing of repetitive code, add new methods not included in RevitApi, and also allow you to write chained methods without worrying about API versioning:
