@@ -22,6 +22,7 @@ public static class ImperialExtensions
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
+    [NotNull]
     [Pure]
     public static string ToFraction(this double source, int denominator)
     {
@@ -77,6 +78,7 @@ public static class ImperialExtensions
     ///     0 will be converted to 0"<br />
     ///     1 will be converted to 1'-0"<br />
     /// </example>
+    [NotNull]
     [Pure]
     public static string ToFraction(this int source, int denominator)
     {
@@ -92,6 +94,7 @@ public static class ImperialExtensions
     ///     0.0123 will be converted to 0 5/32"<br />
     ///     25.231 will be converted to 25'-2 25/32"
     /// </example>
+    [NotNull]
     [Pure]
     public static string ToFraction(this double source)
     {
@@ -106,6 +109,7 @@ public static class ImperialExtensions
     ///     0 will be converted to 0"<br />
     ///     1 will be converted to 1'-0"<br />
     /// </example>
+    [NotNull]
     [Pure]
     public static string ToFraction(this int source)
     {
@@ -124,6 +128,7 @@ public static class ImperialExtensions
     ///     1'-3/32" will be converted to 1.007<br />
     ///     1'1.75" will be converted to 1.145
     /// </example>
+    [ContractAnnotation("source:null => false")]
     [Pure]
     public static bool FromFraction(this string source, out double value)
     {
@@ -152,7 +157,7 @@ public static class ImperialExtensions
     ///     1'1.75" will be converted to 1.145
     /// </example>
     [Pure]
-    public static double FromFraction(this string source)
+    public static double FromFraction([NotNull] this string source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (source.Trim() == string.Empty) return 0;

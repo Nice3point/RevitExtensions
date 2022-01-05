@@ -7,6 +7,17 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ElementExtensions
 {
+    /// <summary>
+    ///     Cast the element to the specified type
+    /// </summary>
+    /// <typeparam name="T">A type derived from Element</typeparam>
+    /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
+    [Pure]
+    public static T Cast<T>([NotNull] this Element element) where T : Element
+    {
+        return (T) element;
+    }
+
 #if R22_OR_GREATER
     /// <summary>
     ///     Returns the parameter found on an instance or type
@@ -15,11 +26,11 @@ public static class ElementExtensions
     /// <param name="parameter">Identifier of the built-in parameter.</param>
     /// <param name="includeType">True if you want to search the ElementType parameter</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
+    ///     ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
     /// </exception>
     [CanBeNull]
     [Pure]
-    public static Parameter GetParameter(this Element element, ForgeTypeId parameter, bool includeType)
+    public static Parameter GetParameter([NotNull] this Element element, ForgeTypeId parameter, bool includeType)
     {
         var instanceParameter = element.GetParameter(parameter);
         if (instanceParameter is not null && instanceParameter.HasValue || includeType == false) return instanceParameter;
@@ -29,14 +40,14 @@ public static class ElementExtensions
         var symbolParameter = elementType.GetParameter(parameter);
         return symbolParameter ?? instanceParameter;
     }
-    
+
 #endif
     /// <summary>
     ///     Returns the parameter found on an instance or type
     /// </summary>
     [CanBeNull]
     [Pure]
-    public static Parameter GetParameter(this Element element, BuiltInParameter parameter)
+    public static Parameter GetParameter([NotNull] this Element element, BuiltInParameter parameter)
     {
         var instanceParameter = element.get_Parameter(parameter);
         if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
@@ -52,7 +63,7 @@ public static class ElementExtensions
     /// </summary>
     [CanBeNull]
     [Pure]
-    public static Parameter GetParameter(this Element element, string parameter)
+    public static Parameter GetParameter([NotNull] this Element element, string parameter)
     {
         var instanceParameter = element.LookupParameter(parameter);
         if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
@@ -74,7 +85,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    public static ICollection<ElementId> Copy(this Element element, double deltaX, double deltaY, double deltaZ)
+    public static ICollection<ElementId> Copy([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
     }
@@ -88,7 +99,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    public static ICollection<ElementId> Copy(this Element element, XYZ vector)
+    public static ICollection<ElementId> Copy([NotNull] this Element element, XYZ vector)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, vector);
     }
@@ -100,7 +111,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Element cannot be mirrored or element does not exist in the document
     /// </exception>
-    public static void Mirror(this Element element, Plane plane)
+    public static void Mirror([NotNull] this Element element, Plane plane)
     {
         ElementTransformUtils.MirrorElement(element.Document, element.Id, plane);
     }
@@ -115,7 +126,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    public static void Move(this Element element, double deltaX, double deltaY, double deltaZ)
+    public static void Move([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
     }
@@ -128,7 +139,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    public static void Move(this Element element, XYZ vector)
+    public static void Move([NotNull] this Element element, XYZ vector)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, vector);
     }
@@ -137,14 +148,14 @@ public static class ElementExtensions
     /// <param name="element">The element to rotate</param>
     /// <param name="axis">The axis of rotation</param>
     /// <param name="angle">The angle of rotation in radians</param>
-    public static void Rotate(this Element element, Line axis, double angle)
+    public static void Rotate([NotNull] this Element element, Line axis, double angle)
     {
         ElementTransformUtils.RotateElement(element.Document, element.Id, axis, angle);
     }
 
     /// <summary>Determines whether element can be mirrored</summary>
     /// <returns>True if the element can be mirrored</returns>
-    public static bool CanBeMirrored(this Element element)
+    public static bool CanBeMirrored([NotNull] this Element element)
     {
         return ElementTransformUtils.CanMirrorElement(element.Document, element.Id);
     }

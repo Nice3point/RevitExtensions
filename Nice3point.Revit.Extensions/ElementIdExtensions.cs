@@ -7,7 +7,9 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ElementIdExtensions
 {
-    /// <summary>Gets the Element referenced by the input ElementId</summary>
+    /// <summary>
+    ///     Gets the Element referenced by the input ElementId
+    /// </summary>
     /// <param name="document">Document associated with Element</param>
     /// <param name="id">
     ///     The ElementId, whose referenced Element will be retrieved from the model.
@@ -26,7 +28,9 @@ public static class ElementIdExtensions
         return document.GetElement(id);
     }
 
-    /// <summary>Gets the Element referenced by the input ElementId and cast to type T</summary>
+    /// <summary>
+    ///     Gets the Element referenced by the input ElementId and cast to type T
+    /// </summary>
     /// <param name="document">Document associated with Element</param>
     /// <param name="id">
     ///     The ElementId, whose referenced Element will be retrieved from the model
@@ -34,12 +38,8 @@ public static class ElementIdExtensions
     /// <typeparam name="T">A type derived from Element</typeparam>
     /// <returns>The element referenced by the input argument, casted to type T</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null
+    ///     The input ElementId doesn't reference to a valid Element
     /// </exception>
-    /// <remarks>
-    ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
-    /// </remarks>
-    [CanBeNull]
     [Pure]
     public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {

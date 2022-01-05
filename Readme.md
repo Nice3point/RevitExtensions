@@ -42,12 +42,21 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Geometry Extensions](#GeometryExtensions)
 - [Ribbon Extensions](#RibbonExtensions)
 - [Unit Extensions](#UnitExtensions)
+- [Host Extensions](#HostExtensions)
 - [Label Extensions](#LabelExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
 
 ### <a id="ElementExtensions">Element Extensions</a>
+
+The **Cast<T>()** method Cast the element to the specified type.
+
+```c#
+Wall wall = element.Cast<Wall>();
+Floor floor = element.Cast<Floor>();
+HostObject hostObject = element.Cast<HostObject>();
+```
 
 The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is in an instance or a type.
 
@@ -225,6 +234,26 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 double(69).ToDegrees() => 3953
 ```
 
+### <a id="LabelExtensions">Host Extensions</a>
+
+The **GetBottomFaces()** method returns the bottom faces for the host object.
+
+```c#
+floor.Cast<HostObject>().GetBottomFaces();
+```
+
+The **GetTopFaces()** method returns the top faces for the host object.
+
+```c#
+floor.Cast<HostObject>().GetTopFaces();
+```
+
+The **GetSideFaces()** method returns the major side faces for the host object.
+
+```c#
+wall.Cast<HostObject>().GetSideFaces(ShellLayerType.Interior);
+```
+
 ### <a id="LabelExtensions">Label Extensions</a>
 
 The **ToLabel()** method convert Enum to user-visible name.
@@ -236,6 +265,13 @@ BuiltInParameter.WALL_TOP_OFFSET.ToLabel(LanguageType.Russian) => "Смещен�
 BuiltInParameterGroup.PG_LENGTH.ToLabel() => "Length"
 DisplayUnitType.DUT_KILOWATTS.ToLabel() => "Kilowatts"
 ParameterType.Length.ToLabel() => "Length"
+
+DisciplineTypeId.Hvac.ToDisciplineLabel() => "HVAC"
+GroupTypeId.Geometry.ToGroupLabel() => "Dimensions"
+ParameterTypeId.DoorCost.ToParameterLabel() => "Cost"
+SpecTypeId.SheetLength.ToSpecLabel() => "Sheet Length"
+SymbolTypeId.Hour.ToSymbolLabel() => "h"
+UnitTypeId.Hertz.ToUnitLabel() => "Hertz"
 ```
 
 The **ToDisciplineLabel()** method convert ForgeTypeId to user-visible name a discipline.

@@ -111,6 +111,27 @@ public static class LabelExtensions
 #if R22_OR_GREATER
 
     /// <summary>
+    ///     Gets the user-visible name for a ForgeTypeId
+    /// </summary>
+    /// <param name="source">The ForgeTypeId to get the user-visible name</param>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///     The ForgeTypeId is not valid in the context of the current API version
+    /// </exception>
+    /// <remarks>The name is obtained in the current Revit language</remarks>
+    [Pure]
+    public static string ToLabel(this ForgeTypeId source)
+    {
+        if (ParameterUtils.IsBuiltInParameter(source)) return LabelUtils.GetLabelForBuiltInParameter(source);
+        if (ParameterUtils.IsBuiltInGroup(source)) return LabelUtils.GetLabelForGroup(source);
+        if (UnitUtils.IsUnit(source)) return LabelUtils.GetLabelForUnit(source);
+        if (UnitUtils.IsSymbol(source)) return LabelUtils.GetLabelForSymbol(source);
+        if (SpecUtils.IsSpec(source)) return LabelUtils.GetLabelForSpec(source);
+        return LabelUtils.GetLabelForDiscipline(source);
+    }
+#endif
+#if R22_OR_GREATER
+
+    /// <summary>
     ///     Gets the user-visible name for a discipline
     /// </summary>
     /// <param name="source">Identifier of the discipline</param>
