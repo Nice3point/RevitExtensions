@@ -8,6 +8,7 @@ public static class DoubleExtensions
     /// <summary>
     ///     Rounds a value within the minimum allowed by Revit
     /// </summary>
+    /// <param name="source">A double-precision floating-point number to be rounded</param>
     [Pure]
     public static double Round(this double source)
     {
@@ -17,7 +18,9 @@ public static class DoubleExtensions
     /// <summary>
     ///     Rounds a decimal value to a specified number of fractional digits, and rounds midpoint values to the nearest even number
     /// </summary>
-    /// <exception cref="System.ArgumentOutOfRangeException">digits is less than 0 or greater than 15</exception>
+    /// <param name="source">A double-precision floating-point number to be rounded</param>
+    /// <param name="digits">The number of fractional digits in the return value</param>
+    /// <exception cref="System.ArgumentOutOfRangeException">Digits is less than 0 or greater than 15</exception>
     [Pure]
     public static double Round(this double source, int digits)
     {

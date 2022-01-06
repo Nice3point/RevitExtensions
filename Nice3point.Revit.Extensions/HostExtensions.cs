@@ -13,10 +13,10 @@ public static class HostExtensions
     /// </remarks>
     /// <param name="host">The host object</param>
     /// <returns>
-    ///     An array of references to the faces which are at the bottom of this element.
+    ///     An array of references to the faces which are at the bottom of this element
     /// </returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     This host object does not support access to top or bottom faces.
+    ///     This host object does not support access to top or bottom faces
     /// </exception>
     [Pure]
     public static IList<Reference> GetBottomFaces([NotNull] this HostObject host)
@@ -29,7 +29,7 @@ public static class HostExtensions
     /// </summary>
     /// <remarks>
     ///     This utility supports host objects whose CompoundStructure is nominally oriented vertically.
-    ///     It outputs faces which are at the boundary of the CompoundStructure (such as Walls and FaceWalls).
+    ///     It outputs faces which are at the boundary of the CompoundStructure (such as Walls and FaceWalls)
     /// </remarks>
     /// <param name="host">The host object</param>
     /// <param name="side">The side of the host object</param>

@@ -14,9 +14,9 @@ public static class ElementIdExtensions
     /// <param name="id">
     ///     The ElementId, whose referenced Element will be retrieved from the model.
     /// </param>
-    /// <returns>The element referenced by the input argument.</returns>
+    /// <returns>The element referenced by the input argument</returns>
     /// <remarks>
-    ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
+    ///     <see langword="null" />Will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
     [CanBeNull]
     [Pure]

@@ -20,10 +20,10 @@ public static class ElementExtensions
 
 #if R22_OR_GREATER
     /// <summary>
-    ///     Returns the parameter found on an instance or type
+    ///     Retrieves a parameter from an element or elementType with a given identifier
     /// </summary>
     /// <param name="element">The element in which the parameter will be searched</param>
-    /// <param name="parameter">Identifier of the built-in parameter.</param>
+    /// <param name="parameter">Identifier of the built-in parameter</param>
     /// <param name="includeType">True if you want to search the ElementType parameter</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
@@ -43,8 +43,10 @@ public static class ElementExtensions
 
 #endif
     /// <summary>
-    ///     Returns the parameter found on an instance or type
+    ///     Retrieves a parameter from an element or elementType with a given identifier
     /// </summary>
+    /// <param name="element">The element in which the parameter will be searched</param>
+    /// <param name="parameter">Identifier of the built-in parameter</param>
     [CanBeNull]
     [Pure]
     public static Parameter GetParameter([NotNull] this Element element, BuiltInParameter parameter)
@@ -59,8 +61,10 @@ public static class ElementExtensions
     }
 
     /// <summary>
-    ///     Returns the parameter found on an instance or type
+    ///     Retrieves a parameter from an element or elementType with a given identifier
     /// </summary>
+    /// <param name="element">The element in which the parameter will be searched</param>
+    /// <param name="parameter">String identifier of the built-in parameter</param>
     [CanBeNull]
     [Pure]
     public static Parameter GetParameter([NotNull] this Element element, [NotNull] string parameter)
