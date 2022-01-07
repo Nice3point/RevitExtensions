@@ -234,7 +234,7 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 double(69).ToDegrees() => 3953
 ```
 
-### <a id="LabelExtensions">Host Extensions</a>
+### <a id="HostExtensions">Host Extensions</a>
 
 The **GetBottomFaces()** method returns the bottom faces for the host object.
 

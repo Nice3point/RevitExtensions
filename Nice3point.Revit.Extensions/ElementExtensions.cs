@@ -108,7 +108,6 @@ public static class ElementExtensions
         return ElementTransformUtils.CopyElement(element.Document, element.Id, vector);
     }
 
-
     /// <summary>Creates a mirrored copy of an element about a given plane</summary>
     /// <param name="element">The element to mirror</param>
     /// <param name="plane">The mirror plane</param>
