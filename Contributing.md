@@ -9,7 +9,7 @@
 ## Rules
 
 - Follow the pattern of what you already see in the code.
-- When adding new classes/methods/changing existing code: check the functionality of the templates by creating a new project based on them.
+- When adding new classes/methods/changing existing code: check the functionality of new extensions on all versions of Revit if the API has changed.
 
 ## Naming of features and functionality
 
