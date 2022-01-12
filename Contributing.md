@@ -19,3 +19,15 @@ The naming should be descriptive and direct, giving a clear idea of the function
 
 1. DotNet 6 SDK or newer
 2. Visual Studio 2022 / JetBrains Rider 2021.3 or newer
+
+## Life cycle
+
+Revit version support - 5 years.
+
+Package version format:
+
+RevitVersion.MajorVersion.BuildNumber
+
+- The first field is the Revit version the library was compiled for.
+- The second field is promoted after a new version of Revit is released.
+- The third field is promoted when new extensions are released before publishing to NuGet.
