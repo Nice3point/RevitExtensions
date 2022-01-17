@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Drawing;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
@@ -130,24 +133,71 @@ public static class RibbonExtensions
     }
 
     /// <summary>
-    ///     Adds a 16x16px-96dpi image from the URI source
+    ///     Set image from the Resource.resx
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
-    /// <param name="uri">Relative path to the icon</param>
-    /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
-    public static void SetImage(this RibbonButton button, string uri)
+    /// <para name="bitmap">Image from resources</para>
+    /// <example>button.SetImage("Resources.RibbonIcon.png")</example>
+    public static void SetImage(this RibbonButton button, Bitmap bitmap)
     {
-        button.Image = new BitmapImage(new Uri(uri, UriKind.Relative));
+        button.Image = ConvertFromImage(bitmap).Resize(16);
     }
 
     /// <summary>
-    ///     Adds a 32x32px-96dpi image from the URI source
+    ///     Set large image from the Resource.resx
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
-    /// <param name="uri">Relative path to the icon</param>
-    /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
-    public static void SetLargeImage(this RibbonButton button, string uri)
+    /// <param name="bitmap">Image from resources</param>
+    /// <example>button.SetLargeImage("Resources.RibbonIcon.png")</example>
+    public static void SetLargeImage(this RibbonButton button, Bitmap bitmap)
     {
-        button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));
+        button.LargeImage = ConvertFromImage(bitmap).Resize(32);
+    }
+    private static BitmapSource ConvertFromImage(Bitmap image)
+    {
+        IntPtr hBitmap = image.GetHbitmap();
+
+        try
+        {
+            var bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                hBitmap,
+                IntPtr.Zero,
+                System.Windows.Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return bs;
+
+        }
+        finally
+        {
+            DeleteObject(hBitmap);
+        }
+
+    }
+    [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+    private static extern bool DeleteObject(IntPtr hObject);
+    /// <summary>
+    /// Resize ImageResource
+    /// </summary>
+    /// <param name="imageSource"></param>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    private static ImageSource Resize(this ImageSource imageSource, int size)
+    {
+        return Thumbnail(imageSource, size);
+    }
+
+    private static ImageSource Thumbnail(ImageSource source, int size)
+    {
+        Rect rect = new Rect(0, 0, size, size);
+        DrawingVisual drawingVisual = new DrawingVisual();
+        using (DrawingContext drawingContext = drawingVisual.RenderOpen())
+        {
+            drawingContext.DrawImage(source, rect);
+        }
+        RenderTargetBitmap resizedImage = new RenderTargetBitmap((int)rect.Width, (int)rect.Height, 96, 96, PixelFormats.Default);
+        resizedImage.Render(drawingVisual);
+
+        return resizedImage;
     }
 }
