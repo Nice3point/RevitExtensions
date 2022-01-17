@@ -173,11 +173,20 @@ panel.AddTextBox("Button name");
 ```
 
 The **SetImage()** method adds an image to the RibbonButton.
+
+```c#
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
+```
+
 ```c#
 button.SetImage("Resources.RibbonIcon");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
+
+```c#
+button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
+```
 
 ```c#
 button.SetLargeImage("Resources.RibbonIcon");

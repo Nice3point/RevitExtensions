@@ -57,7 +57,7 @@ public static class RibbonExtensions
     public static PushButton AddPushButton(this RibbonPanel panel, Type command, string buttonText)
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
-        return (PushButton) panel.AddItem(pushButtonData);
+        return (PushButton)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public static class RibbonExtensions
     public static PulldownButton AddPullDownButton(this RibbonPanel panel, string name, string buttonText)
     {
         var pushButtonData = new PulldownButtonData(name, buttonText);
-        return (PulldownButton) panel.AddItem(pushButtonData);
+        return (PulldownButton)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public static class RibbonExtensions
     public static SplitButton AddSplitButton(this RibbonPanel panel, string name, string buttonText)
     {
         var pushButtonData = new SplitButtonData(name, buttonText);
-        return (SplitButton) panel.AddItem(pushButtonData);
+        return (SplitButton)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public static class RibbonExtensions
     public static RadioButtonGroup AddRadioButtonGroup(this RibbonPanel panel, string name)
     {
         var pushButtonData = new RadioButtonGroupData(name);
-        return (RadioButtonGroup) panel.AddItem(pushButtonData);
+        return (RadioButtonGroup)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public static class RibbonExtensions
     public static ComboBox AddComboBox(this RibbonPanel panel, string name)
     {
         var pushButtonData = new ComboBoxData(name);
-        return (ComboBox) panel.AddItem(pushButtonData);
+        return (ComboBox)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ public static class RibbonExtensions
     public static TextBox AddTextBox(this RibbonPanel panel, string name)
     {
         var pushButtonData = new TextBoxData(name);
-        return (TextBox) panel.AddItem(pushButtonData);
+        return (TextBox)panel.AddItem(pushButtonData);
     }
 
     /// <summary>
@@ -130,6 +130,28 @@ public static class RibbonExtensions
     {
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
         return pullDownButton.AddPushButton(pushButtonData);
+    }
+
+    /// <summary>
+    ///     Adds a 16x16px-96dpi image from the URI source
+    /// </summary>
+    /// <param name="button">Button to which the icon will be added</param>
+    /// <param name="uri">Relative path to the icon</param>
+    /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
+    public static void SetImage(this RibbonButton button, string uri)
+    {
+        button.Image = new BitmapImage(new Uri(uri, UriKind.Relative));
+    }
+
+    /// <summary>
+    ///     Adds a 32x32px-96dpi image from the URI source
+    /// </summary>
+    /// <param name="button">Button to which the icon will be added</param>
+    /// <param name="uri">Relative path to the icon</param>
+    /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
+    public static void SetLargeImage(this RibbonButton button, string uri)
+    {
+        button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));
     }
 
     /// <summary>
