@@ -31,7 +31,7 @@ public static class RibbonExtensions
     /// <returns>New or existing Ribbon panel</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName or tabName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">Too many custom tabs have been created in this session. (Maximum is 20).</exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">Too many custom tabs have been created in this session. (Maximum is 20)</exception>
     [NotNull]
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
