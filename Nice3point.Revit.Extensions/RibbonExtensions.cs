@@ -137,7 +137,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
     /// <para name="bitmap">Image from resources</para>
-    /// <example>button.SetImage("Resources.RibbonIcon.png")</example>
+    /// <example>button.SetImage("Resources.RibbonIcon")</example>
     public static void SetImage(this RibbonButton button, Bitmap bitmap)
     {
         button.Image = ConvertFromImage(bitmap).Resize(16);
@@ -148,7 +148,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
     /// <param name="bitmap">Image from resources</param>
-    /// <example>button.SetLargeImage("Resources.RibbonIcon.png")</example>
+    /// <example>button.SetLargeImage("Resources.RibbonIcon")</example>
     public static void SetLargeImage(this RibbonButton button, Bitmap bitmap)
     {
         button.LargeImage = ConvertFromImage(bitmap).Resize(32);

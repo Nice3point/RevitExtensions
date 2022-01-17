@@ -174,13 +174,13 @@ panel.AddTextBox("Button name");
 
 The **SetImage()** method adds an image to the RibbonButton.
 ```c#
-button.SetImage("Resources.RibbonIcon16.png");
+button.SetImage("Resources.RibbonIcon");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
 ```c#
-button.SetLargeImage("Resources.RibbonIcon32.png");
+button.SetLargeImage("Resources.RibbonIcon");
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
