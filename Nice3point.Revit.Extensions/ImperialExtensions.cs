@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ImperialExtensions
 {
-    private const string Expr = "^\\s*(?<sign>-)?\\s*(((?<feet>[\\d.]+)')?[\\s-]*((?<inch>(\\d+)?(\\.)?\\d+)?[\\s-]*((?<numerator>\\d+)/(?<denominator>\\d+))?\"?)?)\\s*$";
+    private const string Expr = @"^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?""?)?)\s*$";
 
     private static readonly Regex Regex = new(Expr, RegexOptions.Compiled);
 
