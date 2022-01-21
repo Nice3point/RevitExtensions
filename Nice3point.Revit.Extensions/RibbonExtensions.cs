@@ -59,6 +59,19 @@ public static class RibbonExtensions
     }
 
     /// <summary>
+    ///     Adds a PushButton to the Ribbon
+    /// </summary>
+    /// <returns>The added PushButton</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the panel</exception>
+    [NotNull]
+    public static PushButton AddPushButton<TCommand>(this RibbonPanel panel, string buttonText) where TCommand : IExternalCommand
+    {
+        var command = typeof(TCommand);
+        var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
+        return (PushButton) panel.AddItem(pushButtonData);
+    }
+
+    /// <summary>
     ///     Adds a PullDownButton to the Ribbon
     /// </summary>
     /// <returns>The added PullDownButton</returns>
@@ -131,24 +144,37 @@ public static class RibbonExtensions
     }
 
     /// <summary>
+    ///     Adds a PushButton to the PullDownButton
+    /// </summary>
+    /// <returns>The newly added PushButton</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the PushButton</exception>
+    [NotNull]
+    public static PushButton AddPushButton<TCommand>(this PulldownButton pullDownButton, string buttonText) where TCommand : IExternalCommand
+    {
+        var command = typeof(TCommand);
+        var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
+        return pullDownButton.AddPushButton(pushButtonData);
+    }
+
+    /// <summary>
     ///     Adds a 16x16px-96dpi image from the URI source
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
-    /// <param name="uri">Relative path to the icon</param>
+    /// <param name="uri">Relative or Absolute path to the icon</param>
     /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
     public static void SetImage(this RibbonButton button, string uri)
     {
-        button.Image = new BitmapImage(new Uri(uri, UriKind.Relative));
+        button.Image = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
     }
 
     /// <summary>
     ///     Adds a 32x32px-96dpi image from the URI source
     /// </summary>
     /// <param name="button">Button to which the icon will be added</param>
-    /// <param name="uri">Relative path to the icon</param>
+    /// <param name="uri">Relative or Absolute path to the icon</param>
     /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
     public static void SetLargeImage(this RibbonButton button, string uri)
     {
-        button.LargeImage = new BitmapImage(new Uri(uri, UriKind.Relative));
+        button.LargeImage = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
     }
 }

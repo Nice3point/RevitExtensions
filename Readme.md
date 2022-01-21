@@ -137,6 +137,7 @@ The **AddPushButton()** method adds a PushButton to the ribbon.
 
 ```c#
 panel.AddPushButton(typeof(Command), "Button text");
+panel.AddPushButton<Command>("Button text");
 ```
 
 The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
@@ -146,6 +147,9 @@ panel.AddPullDownButton("Button name", "Button text");
 
 panel.AddPullDownButton("Button name", "Button text")
     .AddPushButton(typeof(Command), "Button text");
+
+panel.AddPullDownButton("Button name", "Button text")
+    .AddPushButton<Command>("Button text");
 ```
 
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
@@ -176,12 +180,16 @@ The **SetImage()** method adds an image to the RibbonButton.
 
 ```c#
 button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
+button.SetImage("http://example.com/RibbonIcon16.png");
+button.SetImage("C:\Pictures\RibbonIcon16.png");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
 ```c#
 button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
+button.SetLargeImage("http://example.com/RibbonIcon32.png");
+button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
