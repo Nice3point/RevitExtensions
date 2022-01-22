@@ -242,6 +242,13 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 double(69).ToDegrees() => 3953
 ```
 
+The **FormatUnit()** method formats a number with units into a string.
+
+```c#
+document.FormatUnit(SpecTypeId.Length, 69, false) => 21031
+document.FormatUnit(SpecTypeId.Length, 69, false, new FormatValueOptions {AppendUnitSymbol = true}) => 21031 mm
+```
+
 ### <a id="HostExtensions">Host Extensions</a>
 
 The **GetBottomFaces()** method returns the bottom faces for the host object.
