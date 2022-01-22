@@ -380,8 +380,8 @@ string(null).IsNullOrEmpty() => true
 The **IsNullOrWhiteSpace()** method same as string.IsNullOrWhiteSpace().
 
 ```c#
-string(" ").IsNullOrEmpty() => true
-string(null).IsNullOrEmpty() => true
+string(" ").IsNullOrWhiteSpace() => true
+string(null).IsNullOrWhiteSpace() => true
 ```
 
 The **AppendPath()** method combines 2 paths.
