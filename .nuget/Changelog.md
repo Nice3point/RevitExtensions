@@ -10,3 +10,8 @@ Solid Extensions
 - New IsValidForTessellation extension
 - New TessellateSolidOrShell extension
 - New FindAllEdgeEndPointsAtVertex extension
+
+Ribbon Extensions
+
+- New AddPushButton<TCommand> extensions
+- Uri changed to UriKind.RelativeOrAbsolute
