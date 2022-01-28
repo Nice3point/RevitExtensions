@@ -44,6 +44,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Unit Extensions](#UnitExtensions)
 - [Host Extensions](#HostExtensions)
 - [Label Extensions](#LabelExtensions)
+- [Solid Extensions](#SolidExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
@@ -137,6 +138,7 @@ The **AddPushButton()** method adds a PushButton to the ribbon.
 
 ```c#
 panel.AddPushButton(typeof(Command), "Button text");
+panel.AddPushButton<Command>("Button text");
 ```
 
 The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
@@ -146,6 +148,9 @@ panel.AddPullDownButton("Button name", "Button text");
 
 panel.AddPullDownButton("Button name", "Button text")
     .AddPushButton(typeof(Command), "Button text");
+
+panel.AddPullDownButton("Button name", "Button text")
+    .AddPushButton<Command>("Button text");
 ```
 
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
@@ -176,12 +181,16 @@ The **SetImage()** method adds an image to the RibbonButton.
 
 ```c#
 button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
+button.SetImage("http://example.com/RibbonIcon16.png");
+button.SetImage("C:\Pictures\RibbonIcon16.png");
 ```
 
 The **SetLargeImage()** method adds a large image to the RibbonButton.
 
 ```c#
 button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
+button.SetLargeImage("http://example.com/RibbonIcon32.png");
+button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
@@ -232,6 +241,13 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 
 ```c#
 double(69).ToDegrees() => 3953
+```
+
+The **FormatUnit()** method formats a number with units into a string.
+
+```c#
+document.FormatUnit(SpecTypeId.Length, 69, false) => 21031
+document.FormatUnit(SpecTypeId.Length, 69, false, new FormatValueOptions {AppendUnitSymbol = true}) => 21031 mm
 ```
 
 ### <a id="HostExtensions">Host Extensions</a>
@@ -310,6 +326,45 @@ The **ToUnitLabel()** method convert ForgeTypeId to user-visible name for a unit
 UnitTypeId.Hertz.ToUnitLabel() => "Hertz"
 ```
 
+### <a id="SolidExtensions">Solid Extensions</a>
+
+The **Clone()** method creates a new Solid which is a copy of the input Solid.
+
+```c#
+solid.Clone();
+```
+
+The **CreateTransformed()** method creates a new Solid which is the transformation of the input Solid.
+
+```c#
+solid.CreateTransformed(Transform.CreateRotationAtPoint());
+solid.CreateTransformed(Transform.CreateReflection());
+```
+
+The **SplitVolumes()** method splits a solid geometry into several solids.
+
+```c#
+solid.SplitVolumes();
+```
+
+The **IsValidForTessellation()** method tests if the input solid or shell is valid for tessellation.
+
+```c#
+solid.IsValidForTessellation();
+```
+
+The **TessellateSolidOrShell()** method facets (i.e., triangulates) a solid or an open shell.
+
+```c#
+solid.TessellateSolidOrShell();
+```
+
+The **FindAllEdgeEndPointsAtVertex()** method find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint.
+
+```c#
+edgeEndPoint.FindAllEdgeEndPointsAtVertex();
+```
+
 ### <a id="ImperialExtensions">Imperial Extensions</a>
 
 The **ToFraction()** method converts a number to Imperial fractional format.
@@ -365,8 +420,8 @@ string(null).IsNullOrEmpty() => true
 The **IsNullOrWhiteSpace()** method same as string.IsNullOrWhiteSpace().
 
 ```c#
-string(" ").IsNullOrEmpty() => true
-string(null).IsNullOrEmpty() => true
+string(" ").IsNullOrWhiteSpace() => true
+string(null).IsNullOrWhiteSpace() => true
 ```
 
 The **AppendPath()** method combines 2 paths.

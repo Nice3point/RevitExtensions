@@ -1,11 +1,17 @@
-Element extensions
+Unit extensions
 
-- New GetParameter(ForgeTypeId) extension
-- New Cast<T>() extension
-- Removed CanBeNull attribute for ToElement<T> extension
+- New FormatUnit extensions
 
-Host Extensions
+Solid Extensions
 
-- New GetBottomFaces() extension
-- New GetTopFaces() extension
-- New GetSideFaces() extension
+- New Clone extension
+- New CreateTransformed extension
+- New SplitVolumes extension
+- New IsValidForTessellation extension
+- New TessellateSolidOrShell extension
+- New FindAllEdgeEndPointsAtVertex extension
+
+Ribbon Extensions
+
+- New AddPushButton<TCommand> extensions
+- Uri changed to UriKind.RelativeOrAbsolute

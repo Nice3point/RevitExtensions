@@ -1,4 +1,24 @@
-# Release *.0.4
+# Release 2022.0.5
+
+Unit extensions
+
+- New FormatUnit extensions
+
+Solid Extensions
+
+- New Clone extension
+- New CreateTransformed extension
+- New SplitVolumes extension
+- New IsValidForTessellation extension
+- New TessellateSolidOrShell extension
+- New FindAllEdgeEndPointsAtVertex extension
+
+Ribbon Extensions
+
+- New AddPushButton<TCommand> extensions
+- Uri changed to UriKind.RelativeOrAbsolute
+
+# Release 2022.0.4
 
 Element extensions
 
@@ -12,7 +32,7 @@ Host Extensions
 - New GetTopFaces() extension
 - New GetSideFaces() extension
 
-# Release *.0.3
+# Release 2022.0.3
 
 Element extensions
 
@@ -35,7 +55,7 @@ Label Extensions
 - New ToSymbolLabel(ForgeTypeId) extension
 - New ToUnitLabel(ForgeTypeId) extension
 
-# Release *.0.2
+# Release 2022.0.2
 
 Ribbon extensions
 
@@ -55,10 +75,10 @@ ElementId extensions
 
 - New AreEquals(BuiltInParameter) extension
 
-# Release *.0.1
+# Release 2022.0.1
 
 - Connected JetBrains annotations
 
-# Release *.0.0
+# Release 2022.0.0
 
 - Initial release

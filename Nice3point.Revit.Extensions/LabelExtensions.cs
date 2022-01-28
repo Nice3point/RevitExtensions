@@ -174,7 +174,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>
     ///     The name is obtained in the current Revit language.
-    ///     If the given identifier is a category, this method returns the name of the Family Type spec with that category, e.g. "Family Type: Walls".
+    ///     If the given identifier is a category, this method returns the name of the Family Type spec with that category, e.g. "Family Type: Walls"
     /// </remarks>
     [Pure]
     public static string ToSpecLabel(this ForgeTypeId source)

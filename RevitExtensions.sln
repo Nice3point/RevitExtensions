@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Readme.md = Readme.md
+		Changelog.md = Changelog.md
 		Build\Build.Properties.cs = Build\Build.Properties.cs
 	EndProjectSection
 EndProject
@@ -50,12 +51,12 @@ Global
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R19|Any CPU.Build.0 = Debug R19|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.ActiveCfg = Debug R20|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.Build.0 = Debug R20|Any CPU
-		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.ActiveCfg = Debug R20|Any CPU
-		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.Build.0 = Debug R20|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.ActiveCfg = Debug R22|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.Build.0 = Debug R22|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.UnitTests|Any CPU.ActiveCfg = Debug R22|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.UnitTests|Any CPU.Build.0 = Debug R22|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.ActiveCfg = Debug R21|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.Build.0 = Debug R21|Any CPU
 		{06AB7844-AC7E-4E05-878A-A0493D6E85D1}.UnitTests|Any CPU.ActiveCfg = Debug|Any CPU
 		{06AB7844-AC7E-4E05-878A-A0493D6E85D1}.UnitTests|Any CPU.Build.0 = Debug|Any CPU
 		{06AB7844-AC7E-4E05-878A-A0493D6E85D1}.Debug R19|Any CPU.ActiveCfg = Debug|Any CPU
