@@ -56,19 +56,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2021.*"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2021.*" />
         <PackageReference Include="Revit_API_x64" Version="$(RevitVersion).*">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <Using Include="JetBrains.Annotations"/>
+        <Using Include="JetBrains.Annotations" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\.nuget\PackageIcon.png" Link="NuGet\PackageIcon.png" PackagePath="images\" Pack="true"/>
-        <None Include="..\.nuget\Changelog.md" Link="NuGet\Changelog.md" PackagePath="\" Pack="false"/>
-        <None Include="..\License.md" Link="NuGet\License.md" PackagePath="" Pack="true"/>
+        <None Include="..\.nuget\PackageIcon.png" Link="NuGet\PackageIcon.png" PackagePath="images\" Pack="true" />
+        <None Include="..\.nuget\Changelog.md" Link="NuGet\Changelog.md" PackagePath="\" Pack="false" />
+        <None Include="..\License.md" Link="NuGet\License.md" PackagePath="" Pack="true" />
     </ItemGroup>
 </Project>

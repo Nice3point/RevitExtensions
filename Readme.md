@@ -44,6 +44,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Unit Extensions](#UnitExtensions)
 - [Host Extensions](#HostExtensions)
 - [Label Extensions](#LabelExtensions)
+- [Solid Extensions](#SolidExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
@@ -323,6 +324,45 @@ The **ToUnitLabel()** method convert ForgeTypeId to user-visible name for a unit
 
 ```c#
 UnitTypeId.Hertz.ToUnitLabel() => "Hertz"
+```
+
+### <a id="SolidExtensions">Solid Extensions</a>
+
+The **Clone()** method creates a new Solid which is a copy of the input Solid.
+
+```c#
+solid.Clone();
+```
+
+The **CreateTransformed()** method creates a new Solid which is the transformation of the input Solid.
+
+```c#
+solid.CreateTransformed(Transform.CreateRotationAtPoint());
+solid.CreateTransformed(Transform.CreateReflection());
+```
+
+The **SplitVolumes()** method splits a solid geometry into several solids.
+
+```c#
+solid.SplitVolumes();
+```
+
+The **IsValidForTessellation()** method tests if the input solid or shell is valid for tessellation.
+
+```c#
+solid.IsValidForTessellation();
+```
+
+The **TessellateSolidOrShell()** method facets (i.e., triangulates) a solid or an open shell.
+
+```c#
+solid.TessellateSolidOrShell();
+```
+
+The **FindAllEdgeEndPointsAtVertex()** method find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint.
+
+```c#
+edgeEndPoint.FindAllEdgeEndPointsAtVertex();
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
