@@ -17,6 +17,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageDownload Include="GitVersion.Tool" Version="[5.8.1]"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <Using Include="Nuke.Common" />
         <Using Include="Nuke.Common.IO" />
     </ItemGroup>
