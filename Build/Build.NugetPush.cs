@@ -10,9 +10,9 @@ partial class Build
     [Secret] [Parameter] string NugetApiKey;
 
     Target NuGetPush => _ => _
-        .OnlyWhenStatic(() => IsLocalBuild)
         .Requires(() => NugetApiKey)
         .OnlyWhenStatic(() => GitRepository.IsOnMainOrMasterBranch())
+        .OnlyWhenStatic(() => IsLocalBuild)
         .Executes(() =>
         {
             ArtifactsDirectory.GlobFiles("*.nupkg")
