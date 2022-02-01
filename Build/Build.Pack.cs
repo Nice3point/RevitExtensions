@@ -1,4 +1,5 @@
-﻿using Nuke.Common.Tooling;
+﻿using Nuke.Common.Git;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
