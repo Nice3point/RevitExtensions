@@ -51,7 +51,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
-The **Cast<T>()** method Cast the element to the specified type.
+The **Cast<T>()** method cast the element to the specified type.
 
 ```c#
 Wall wall = element.Cast<Wall>();
@@ -59,7 +59,7 @@ Floor floor = element.Cast<Floor>();
 HostObject hostObject = element.Cast<HostObject>();
 ```
 
-The **GetParameter()** method allow you to get a parameter from an element, regardless of whether the parameter is in an instance or a type.
+The **GetParameter()** method retrieves a parameter from an element, regardless of whether the parameter is in an instance or a type.
 
 ```c#
 element.GetParameter(ParameterTypeId.AllModelUrl, includeType);
@@ -67,27 +67,27 @@ element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```
 
-The **Copy()** method allow you copy an element to a new location.
+The **Copy()** method copies an element and places the copy at a location indicated by a given transformation.
 
 ```c#
 element.Copy(1, 1, 0);
 element.Copy(new XYZ(1, 1, 0));
 ```
 
-The **Mirror()** method allow you mirror an element.
+The **Mirror()** method creates a mirrored copy of an element about a given plane.
 
 ```c#
 element.Mirror(plane);
 ```
 
-The **Move()** method allow you move an element to a new location.
+The **Move()** method moves the element by the specified vector.
 
 ```c#
 element.Move(1, 1, 0);
 element.Move(new XYZ(1, 1, 0));
 ```
 
-The **Rotate()** method allow you to rotate an element.
+The **Rotate()** method rotates an element about the given axis and angle.
 
 ```c#
 element.Rotate(axis, angle);
@@ -101,14 +101,14 @@ element.CanBeMirrored();
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
 
-The **ToElement()** method allow you to get an element from the Id for a specified document and convert to a type if necessary.
+The **ToElement()** method returns the element from the Id for a specified document and convert to a type if necessary.
 
 ```c#
 Element element = elementId.ToElement(document);
 Wall wall = elementId.ToElement<Wall>(document);
 ```
 
-The **AreEquals()** method allow you to check if an ID matches BuiltInСategory or BuiltInParameter.
+The **AreEquals()** method checks if an ID matches BuiltInСategory or BuiltInParameter.
 
 ```c#
 categoryId.AreEquals(BuiltInCategory.OST_Walls);
@@ -117,7 +117,7 @@ parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 
 ### <a id="GeometryExtensions">Geometry Extensions</a>
 
-The **Distance()** method allows you to get the distance between two lines. The lines are considered endless.
+The **Distance()** method returns distance between two lines. The lines are considered endless.
 
 ```c#
 var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
@@ -127,7 +127,7 @@ var distance = line1.Distance(line2);
 
 ### <a id="RibbonExtensions">Ribbon Extensions</a>
 
-The **CreatePanel()** method allow you to create a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
+The **CreatePanel()** method create a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
 
 ```c#
 application.CreatePanel("Panel name");
@@ -139,18 +139,14 @@ The **AddPushButton()** method adds a PushButton to the ribbon.
 ```c#
 panel.AddPushButton(typeof(Command), "Button text");
 panel.AddPushButton<Command>("Button text");
+pullDownButton.AddPushButton(typeof(Command), "Button text");
+pullDownButton.AddPushButton<Command>("Button text");
 ```
 
-The **AddPullDownButton()** method adds a PullDownButton to the ribbon. Also added a method for adding a PushButton to this button.
+The **AddPullDownButton()** method adds a PullDownButton to the ribbon.
 
 ```c#
 panel.AddPullDownButton("Button name", "Button text");
-
-panel.AddPullDownButton("Button name", "Button text")
-    .AddPushButton(typeof(Command), "Button text");
-
-panel.AddPullDownButton("Button name", "Button text")
-    .AddPushButton<Command>("Button text");
 ```
 
 The **AddSplitButton()** method adds a SplitButton to the ribbon.
