@@ -61,6 +61,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2021.*"/>
         <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
