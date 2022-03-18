@@ -1,5 +1,4 @@
 ﻿using Nuke.Common.Git;
-using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -19,7 +18,6 @@ partial class Build
                 .ForEach(package =>
                 {
                     DotNetNuGetPush(settings => settings
-                        .SetProcessToolPath(MsBuildPath.Value)
                         .SetTargetPath(package)
                         .SetSource(NugetApiUrl)
                         .SetApiKey(NugetApiKey));

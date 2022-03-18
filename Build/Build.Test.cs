@@ -1,5 +1,4 @@
-﻿using Nuke.Common.Tooling;
-using Nuke.Common.Tools.DotNet;
+﻿using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 partial class Build
@@ -9,7 +8,6 @@ partial class Build
         .Executes(() =>
         {
             DotNetTest(settings => settings
-                .SetProcessToolPath(MsBuildPath.Value)
                 .SetConfiguration(TestConfiguration)
                 .SetVerbosity(DotNetVerbosity.Minimal));
         });

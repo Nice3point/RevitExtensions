@@ -1,6 +1,5 @@
 using System.Text;
 using System.Text.RegularExpressions;
-using Nuke.Common;
 using Nuke.Common.Git;
 using Nuke.Common.Tools.GitHub;
 using Nuke.Common.Tools.GitVersion;
