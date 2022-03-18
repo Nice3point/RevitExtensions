@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Nice3point.Revit.Extensions;
@@ -169,10 +170,10 @@ public static class ImperialExtensions
     private static double ParseFraction(Match match)
     {
         var sign = match.Groups["sign"].Success ? -1 : 1;
-        var feet = match.Groups["feet"].Success ? double.Parse(match.Groups["feet"].Value) : 0;
-        var inch = match.Groups["inch"].Success ? double.Parse(match.Groups["inch"].Value) : 0;
-        var numerator = match.Groups["numerator"].Success ? double.Parse(match.Groups["numerator"].Value) : 0;
-        var denominator = match.Groups["denominator"].Success ? double.Parse(match.Groups["denominator"].Value) : 1;
+        var feet = match.Groups["feet"].Success ? double.Parse(match.Groups["feet"].Value, CultureInfo.InvariantCulture) : 0;
+        var inch = match.Groups["inch"].Success ? double.Parse(match.Groups["inch"].Value, CultureInfo.InvariantCulture) : 0;
+        var numerator = match.Groups["numerator"].Success ? double.Parse(match.Groups["numerator"].Value, CultureInfo.InvariantCulture) : 0;
+        var denominator = match.Groups["denominator"].Success ? double.Parse(match.Groups["denominator"].Value, CultureInfo.InvariantCulture) : 1;
 
         return sign * (feet + (inch + numerator / denominator) / 12);
     }
