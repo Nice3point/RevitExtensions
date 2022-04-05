@@ -1,3 +1,8 @@
+# Release 2023.1.0
+
+- Revit 2023 support
+- Update attributes
+
 # Release 2022.0.5
 
 Unit extensions

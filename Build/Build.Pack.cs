@@ -1,5 +1,4 @@
-﻿using Nuke.Common.Tooling;
-using Nuke.Common.Tools.DotNet;
+﻿using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 partial class Build
@@ -13,7 +12,6 @@ partial class Build
             configurations.ForEach(configuration =>
             {
                 DotNetPack(settings => settings
-                    .SetProcessToolPath(MsBuildPath.Value)
                     .SetConfiguration(configuration)
                     .SetVersion(GetPackVersion(configuration))
                     .SetOutputDirectory(ArtifactsDirectory)

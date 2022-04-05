@@ -1,5 +1,4 @@
 ﻿using Nuke.Common.Git;
-using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
@@ -10,16 +9,15 @@ partial class Build
     [Secret] [Parameter] string NugetApiKey;
 
     Target NuGetPush => _ => _
-        .OnlyWhenStatic(() => IsLocalBuild)
         .Requires(() => NugetApiKey)
         .OnlyWhenStatic(() => GitRepository.IsOnMainOrMasterBranch())
+        .OnlyWhenStatic(() => IsLocalBuild)
         .Executes(() =>
         {
             ArtifactsDirectory.GlobFiles("*.nupkg")
                 .ForEach(package =>
                 {
                     DotNetNuGetPush(settings => settings
-                        .SetProcessToolPath(MsBuildPath.Value)
                         .SetTargetPath(package)
                         .SetSource(NugetApiUrl)
                         .SetApiKey(NugetApiKey));
