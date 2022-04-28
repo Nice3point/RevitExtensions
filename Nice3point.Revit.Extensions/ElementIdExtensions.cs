@@ -16,7 +16,7 @@ public static class ElementIdExtensions
     /// </param>
     /// <returns>The element referenced by the input argument</returns>
     /// <remarks>
-    ///     <see langword="null" />Will be returned if the input ElementId doesn't reference to a valid Element.
+    ///     <see langword="null" /> Will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
     [CanBeNull]
     [Pure]
@@ -34,10 +34,10 @@ public static class ElementIdExtensions
     /// </param>
     /// <typeparam name="T">A type derived from Element</typeparam>
     /// <returns>The element referenced by the input argument, casted to type T</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     The input ElementId doesn't reference to a valid Element
-    /// </exception>
-    /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
+    /// <remarks>
+    ///     <see langword="null" /> Will be returned if the input ElementId doesn't reference to a valid Element.
+    /// </remarks>
+    [CanBeNull]
     [Pure]
     public static T ToElement<T>([NotNull] this ElementId id, Document document) where T : Element
     {
