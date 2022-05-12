@@ -1,5 +1,3 @@
-New JoinGeometryUtils extensions
-
 Geometry extensions
 
 - New line.SetCoordinateX extension

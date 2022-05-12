@@ -1,6 +1,4 @@
-# Release 2023.1.1
-
-New JoinGeometryUtils extensions
+# Release 2023.1.2
 
 Geometry extensions
 
@@ -10,6 +8,10 @@ Geometry extensions
 - New arc.SetCoordinateX extension
 - New arc.SetCoordinateY extension
 - New arc.SetCoordinateZ extension
+
+# Release 2023.1.1
+
+New JoinGeometryUtils extensions
 
 # Release 2023.1.0
 
