@@ -71,7 +71,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void JoinGeometry(this Element firstElement, Element secondElement, Document document)
+    public static void JoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
     {
         JoinGeometryUtils.JoinGeometry(document, firstElement, secondElement);
     }
@@ -95,7 +95,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void UnjoinGeometry(this Element firstElement, Element secondElement, Document document)
+    public static void UnjoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
     {
         JoinGeometryUtils.UnjoinGeometry(document, firstElement, secondElement);
     }
@@ -115,7 +115,7 @@ public static class GeometryExtensions
     /// </exception>
     [Pure]
     [return: MarshalAs(UnmanagedType.U1)]
-    public static bool AreElementsJoined(this Element firstElement, Element secondElement, Document document)
+    public static bool AreElementsJoined([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
     {
         return JoinGeometryUtils.AreElementsJoined(document, firstElement, secondElement);
     }
@@ -132,7 +132,7 @@ public static class GeometryExtensions
     ///    The element element was not found in the given document
     /// </exception>
     [Pure]
-    public static ICollection<ElementId> GetJoinedElements(this Element element, Document document)
+    public static ICollection<ElementId> GetJoinedElements([NotNull] this Element element, Document document)
     {
         return JoinGeometryUtils.GetJoinedElements(document, element);
     }
@@ -159,7 +159,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Unable to switch the join order of these elements
     /// </exception>
-    public static void SwitchJoinOrder(this Element firstElement, Element secondElement, Document document)
+    public static void SwitchJoinOrder([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
     {
         JoinGeometryUtils.SwitchJoinOrder(document, firstElement, secondElement);
     }
@@ -182,7 +182,7 @@ public static class GeometryExtensions
     /// </exception>
     [Pure]
     [return: MarshalAs(UnmanagedType.U1)]
-    public static bool IsCuttingElementInJoin(this Element firstElement, Element secondElement, Document document)
+    public static bool IsCuttingElementInJoin([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
     {
         return JoinGeometryUtils.IsCuttingElementInJoin(document, firstElement, secondElement);
     }
@@ -196,7 +196,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Line SetCoordinateX(this Line line, double x)
+    [Pure]
+    private static Line SetCoordinateX([NotNull] this Line line, double x)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -212,7 +213,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Line SetCoordinateY(this Line line, double y)
+    [Pure]
+    private static Line SetCoordinateY([NotNull] this Line line, double y)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -228,7 +230,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Line SetCoordinateZ(this Line line, double z)
+    [Pure]
+    private static Line SetCoordinateZ([NotNull] this Line line, double z)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -244,7 +247,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Arc SetCoordinateX(this Arc arc, double x)
+    [Pure]
+    private static Arc SetCoordinateX([NotNull] this Arc arc, double x)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
@@ -261,7 +265,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Arc SetCoordinateY(this Arc arc, double y)
+    [Pure]
+    private static Arc SetCoordinateY([NotNull] this Arc arc, double y)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
@@ -278,7 +283,8 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
-    private static Arc SetCoordinateZ(this Arc arc, double z)
+    [Pure]
+    private static Arc SetCoordinateZ([NotNull] this Arc arc, double z)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);

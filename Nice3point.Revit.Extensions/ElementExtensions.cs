@@ -13,7 +13,7 @@ public static class ElementExtensions
     /// <typeparam name="T">A type derived from Element</typeparam>
     /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
     [Pure]
-    public static T Cast<T>([NotNull] this Element element) where T : Element
+    public static T Cast<T>(this Element element) where T : Element
     {
         return (T) element;
     }

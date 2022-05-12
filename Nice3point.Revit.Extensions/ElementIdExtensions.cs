@@ -20,7 +20,7 @@ public static class ElementIdExtensions
     /// </remarks>
     [CanBeNull]
     [Pure]
-    public static Element ToElement([NotNull] this ElementId id, Document document)
+    public static Element ToElement(this ElementId id, Document document)
     {
         return document.GetElement(id);
     }
@@ -39,7 +39,7 @@ public static class ElementIdExtensions
     /// </remarks>
     [CanBeNull]
     [Pure]
-    public static T ToElement<T>([NotNull] this ElementId id, Document document) where T : Element
+    public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {
         return (T) document.GetElement(id);
     }
@@ -48,7 +48,7 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a category identifier
     /// </summary>
     [Pure]
-    public static bool AreEquals([NotNull] this ElementId elementId, BuiltInCategory category)
+    public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
     {
         return elementId.IntegerValue == (int) category;
     }
@@ -57,7 +57,7 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a parameter identifier
     /// </summary>
     [Pure]
-    public static bool AreEquals([NotNull] this ElementId elementId, BuiltInParameter parameter)
+    public static bool AreEquals(this ElementId elementId, BuiltInParameter parameter)
     {
         return elementId.IntegerValue == (int) parameter;
     }
