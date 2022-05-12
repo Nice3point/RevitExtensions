@@ -5,7 +5,6 @@ partial class Build
 {
     Target Pack => _ => _
         .TriggeredBy(Test)
-        .OnlyWhenStatic(() => IsLocalBuild)
         .Executes(() =>
         {
             var configurations = GetConfigurations(BuildConfiguration);
