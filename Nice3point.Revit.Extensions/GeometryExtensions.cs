@@ -177,7 +177,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Line SetCoordinateX([NotNull] this Line line, double x)
+    public static Line SetCoordinateX([NotNull] this Line line, double x)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -194,7 +194,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Line SetCoordinateY([NotNull] this Line line, double y)
+    public static Line SetCoordinateY([NotNull] this Line line, double y)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -211,7 +211,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Line SetCoordinateZ([NotNull] this Line line, double z)
+    public static Line SetCoordinateZ([NotNull] this Line line, double z)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -228,7 +228,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Arc SetCoordinateX([NotNull] this Arc arc, double x)
+    public static Arc SetCoordinateX([NotNull] this Arc arc, double x)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
@@ -246,7 +246,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Arc SetCoordinateY([NotNull] this Arc arc, double y)
+    public static Arc SetCoordinateY([NotNull] this Arc arc, double y)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
@@ -264,7 +264,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    private static Arc SetCoordinateZ([NotNull] this Arc arc, double z)
+    public static Arc SetCoordinateZ([NotNull] this Arc arc, double z)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
