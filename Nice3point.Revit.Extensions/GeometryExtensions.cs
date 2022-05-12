@@ -186,4 +186,103 @@ public static class GeometryExtensions
     {
         return JoinGeometryUtils.IsCuttingElementInJoin(document, firstElement, secondElement);
     }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="line">Initial curve</param>
+    /// <param name="x">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Line SetCoordinateX(this Line line, double x)
+    {
+        var endPoint0 = line.GetEndPoint(0);
+        var endPoint1 = line.GetEndPoint(1);
+        return Line.CreateBound(new XYZ(x, endPoint0.Y, endPoint0.Z), new XYZ(x, endPoint1.Y, endPoint1.Z));
+    }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="line">Initial curve</param>
+    /// <param name="y">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Line SetCoordinateY(this Line line, double y)
+    {
+        var endPoint0 = line.GetEndPoint(0);
+        var endPoint1 = line.GetEndPoint(1);
+        return Line.CreateBound(new XYZ(endPoint0.X, y, endPoint0.Z), new XYZ(endPoint1.X, y, endPoint1.Z));
+    }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="line">Initial curve</param>
+    /// <param name="z">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Line SetCoordinateZ(this Line line, double z)
+    {
+        var endPoint0 = line.GetEndPoint(0);
+        var endPoint1 = line.GetEndPoint(1);
+        return Line.CreateBound(new XYZ(endPoint0.X, endPoint0.Y, z), new XYZ(endPoint1.X, endPoint1.Y, z));
+    }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="arc">Initial curve</param>
+    /// <param name="x">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Arc SetCoordinateX(this Arc arc, double x)
+    {
+        var endPoint0 = arc.GetEndPoint(0);
+        var endPoint1 = arc.GetEndPoint(1);
+        var centerPoint = arc.Evaluate(0.5, true);
+        return Arc.Create(new XYZ(x, endPoint0.Y, endPoint0.Z), new XYZ(x, endPoint1.Y, endPoint1.Z), new XYZ(x, centerPoint.Y, centerPoint.Z));
+    }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="arc">Initial curve</param>
+    /// <param name="y">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Arc SetCoordinateY(this Arc arc, double y)
+    {
+        var endPoint0 = arc.GetEndPoint(0);
+        var endPoint1 = arc.GetEndPoint(1);
+        var centerPoint = arc.Evaluate(0.5, true);
+        return Arc.Create(new XYZ(endPoint0.X, y, endPoint0.Z), new XYZ(endPoint1.X, y, endPoint1.Z), new XYZ(centerPoint.X, y, centerPoint.Z));
+    }
+
+    /// <summary>
+    ///     Creates an instance of a curve with a new coordinate
+    /// </summary>
+    /// <param name="arc">Initial curve</param>
+    /// <param name="z">New coordinate</param>
+    /// <returns>The new bound line</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
+    ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+    /// </exception>
+    private static Arc SetCoordinateZ(this Arc arc, double z)
+    {
+        var endPoint0 = arc.GetEndPoint(0);
+        var endPoint1 = arc.GetEndPoint(1);
+        var centerPoint = arc.Evaluate(0.5, true);
+        return Arc.Create(new XYZ(endPoint0.X, endPoint0.Y, z), new XYZ(endPoint1.X, endPoint1.Y, z), new XYZ(centerPoint.X, centerPoint.Y, z));
+    }
 }
