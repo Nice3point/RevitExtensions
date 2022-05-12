@@ -56,85 +56,71 @@ public static class GeometryExtensions
     ///    The visible edge between joined elements is removed. The joined elements then share the same line weight and fill pattern.
     ///    This functionality is not available for family documents.
     /// </remarks>
-    /// <param name="document">The document containing the two elements</param>
     /// <param name="firstElement">The first element to be joined</param>
     /// <param name="secondElement">
     ///    The second element to be joined. This element must not be joined to the first element
     /// </param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element firstElement was not found in the given document<br />
-    ///    The element secondElement was not found in the given document<br />
+    ///    The element secondElement was not found in the firstElement document<br />
     ///    The elements are already joined<br />
     ///    The elements cannot be joined<br />
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void JoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
+    public static void JoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
-        JoinGeometryUtils.JoinGeometry(document, firstElement, secondElement);
+        JoinGeometryUtils.JoinGeometry(firstElement.Document, firstElement, secondElement);
     }
 
     /// <summary>
     ///     Removes a join between two elements
     /// </summary>
     /// <remarks>This functionality is not available for family documents</remarks>
-    /// <param name="document">The document containing the two elements</param>
     /// <param name="firstElement">The first element to be unjoined</param>
     /// <param name="secondElement">
     ///    The second element to be unjoined. This element must be joined to the fist element
     /// </param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element firstElement was not found in the given document<br />
-    ///    The element secondElement was not found in the given document<br />
+    ///    The element secondElement was not found in the firstElement document<br />
     ///    The elements are not joined<br />
     ///    The elements cannot be unjoined
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void UnjoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
+    public static void UnjoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
-        JoinGeometryUtils.UnjoinGeometry(document, firstElement, secondElement);
+        JoinGeometryUtils.UnjoinGeometry(firstElement.Document, firstElement, secondElement);
     }
 
     /// <summary>
     ///     Determines whether two elements are joined
     /// </summary>
     /// <remarks>This functionality is not available for family documents</remarks>
-    /// <param name="document">The document containing the two elements</param>
     /// <param name="firstElement">The first element</param>
     /// <param name="secondElement">The second element</param>
     /// <returns>True if the two elements are joined</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element firstElement was not found in the given document<br />
-    ///    The element secondElement was not found in the given document
+    ///    The element secondElement was not found in the firstElement document
     /// </exception>
     [Pure]
     [return: MarshalAs(UnmanagedType.U1)]
-    public static bool AreElementsJoined([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
+    public static bool AreElementsJoined([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
-        return JoinGeometryUtils.AreElementsJoined(document, firstElement, secondElement);
+        return JoinGeometryUtils.AreElementsJoined(firstElement.Document, firstElement, secondElement);
     }
 
     /// <summary>
     ///     Returns all elements joined to given element
     /// </summary>
     /// <remarks>This functionality is not available for family documents</remarks>
-    /// <param name="document">The document containing the element</param>
     /// <param name="element">The element</param>
     /// <returns>The set of elements that are joined to the given element</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element element was not found in the given document
-    /// </exception>
     [Pure]
-    public static ICollection<ElementId> GetJoinedElements([NotNull] this Element element, Document document)
+    public static ICollection<ElementId> GetJoinedElements([NotNull] this Element element)
     {
-        return JoinGeometryUtils.GetJoinedElements(document, element);
+        return JoinGeometryUtils.GetJoinedElements(element.Document, element);
     }
 
     /// <summary>
@@ -144,47 +130,41 @@ public static class GeometryExtensions
     ///    The cutting element becomes the cut element and vice versa after the join order is switched
     ///    This functionality is not available for family documents
     /// </remarks>
-    /// <param name="document">The document containing the two elements</param>
     /// <param name="firstElement">The first element</param>
     /// <param name="secondElement">
     ///    The second element. This element must be joined to the first element
     /// </param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element firstElement was not found in the given document<br />
-    ///    The element secondElement was not found in the given document<br />
+    ///    The element secondElement was not found in the firstElement document<br />
     ///    The elements are not joined<br />
     ///    The elements cannot be joined
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Unable to switch the join order of these elements
     /// </exception>
-    public static void SwitchJoinOrder([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
+    public static void SwitchJoinOrder([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
-        JoinGeometryUtils.SwitchJoinOrder(document, firstElement, secondElement);
+        JoinGeometryUtils.SwitchJoinOrder(firstElement.Document, firstElement, secondElement);
     }
 
     /// <summary>
     ///    Determines whether the first of two joined elements is cutting the second element
     /// </summary>
     /// <remarks>This functionality is not available for family documents</remarks>
-    /// <param name="document">The document containing the two elements</param>
     /// <param name="firstElement">The first element</param>
     /// <param name="secondElement">The second element</param>
     /// <returns>
     ///    True if the secondElement is cut by the firstElement, false if the secondElement is cut by the firstElement
     /// </returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Document is not a project document<br />
-    ///    The element firstElement was not found in the given document<br />
-    ///    The element secondElement was not found in the given document<br />
+    ///    The element secondElement was not found in the firstElement document<br />
     ///    The elements are not joined
     /// </exception>
     [Pure]
     [return: MarshalAs(UnmanagedType.U1)]
-    public static bool IsCuttingElementInJoin([NotNull] this Element firstElement, [NotNull] Element secondElement, Document document)
+    public static bool IsCuttingElementInJoin([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
-        return JoinGeometryUtils.IsCuttingElementInJoin(document, firstElement, secondElement);
+        return JoinGeometryUtils.IsCuttingElementInJoin(firstElement.Document, firstElement, secondElement);
     }
 
     /// <summary>

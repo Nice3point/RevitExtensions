@@ -125,6 +125,53 @@ var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
 var distance = line1.Distance(line2);
 ```
 
+The **JoinGeometry()** method creates clean joins between two elements that share a common face.
+
+```c#
+element1.JoinGeometry(element2);
+```
+
+The **UnjoinGeometry()** method removes a join between two elements.
+
+```c#
+element1.UnjoinGeometry(element2);
+```
+
+The **AreElementsJoined()** method determines whether two elements are joined.
+
+```c#
+var isJoined = element1.AreElementsJoined(element2);
+```
+
+The **GetJoinedElements()** method returns all elements joined to given element.
+
+```c#
+var elements = element1.GetJoinedElements();
+```
+
+The **SwitchJoinOrder()** method reverses the order in which two elements are joined.
+
+```c#
+element1.SwitchJoinOrder();
+```
+
+The **IsCuttingElementInJoin()** method determines whether the first of two joined elements is cutting the second element.
+
+```c#
+var isCutting = element1.IsCuttingElementInJoin(element2);
+```
+
+The **SetCoordinateX(), SetCoordinateY(), SetCoordinateZ()** methods creates an instance of a curve with a new coordinate.
+
+```c#
+var newLine = line.SetCoordinateX(1);
+var newLine = line.SetCoordinateY(1);
+var newLine = line.SetCoordinateZ(1);
+var newArc = arc.SetCoordinateX(1);
+var newArc = arc.SetCoordinateY(1);
+var newArc = arc.SetCoordinateZ(1);
+```
+
 ### <a id="RibbonExtensions">Ribbon Extensions</a>
 
 The **CreatePanel()** method create a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
