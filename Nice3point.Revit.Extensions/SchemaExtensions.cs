@@ -33,6 +33,7 @@ public static class SchemaExtensions
     /// <typeparam name="T">The type of data to be stored in the schema. The type must match the type of data specified in the SchemaBuilder</typeparam>
     /// <returns>Data stored in the element. null will be returned if the field does not exist or the data has not been saved before</returns>
     /// <example>document.ProjectInformation.LoadEntity&lt;string&lt;(schema, "schemaField")</example>
+    [Pure]
     [CanBeNull]
     public static T LoadEntity<T>(this Element element, Schema schema, string fieldName)
     {

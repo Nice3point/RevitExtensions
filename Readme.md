@@ -45,6 +45,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Host Extensions](#HostExtensions)
 - [Label Extensions](#LabelExtensions)
 - [Solid Extensions](#SolidExtensions)
+- [Schema Extensions](#SchemaExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
@@ -406,6 +407,24 @@ The **FindAllEdgeEndPointsAtVertex()** method find all EdgeEndPoints at a vertex
 
 ```c#
 edgeEndPoint.FindAllEdgeEndPointsAtVertex();
+```
+
+### <a id="SchemaExtensions">Schema Extensions</a>
+
+The **SaveEntity()** method stores data in the element. Existing data is overwritten
+
+```c#
+var schema = Schema.Lookup(guid);
+document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
+door.SaveEntity(schema, "white", "doorColorField")
+```
+
+The **LoadEntity()** method retrieves the value stored in the schema from the element.
+
+```c#
+var schema = Schema.Lookup(guid);
+var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField")
+var color = door.LoadEntity<string>(schema, "doorColorField")
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
