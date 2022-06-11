@@ -415,16 +415,16 @@ The **SaveEntity()** method stores data in the element. Existing data is overwri
 
 ```c#
 var schema = Schema.Lookup(guid);
-document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
-door.SaveEntity(schema, "white", "doorColorField")
+document.ProjectInformation.SaveEntity(schema, "data", "schemaField");
+door.SaveEntity(schema, "white", "doorColorField");
 ```
 
 The **LoadEntity()** method retrieves the value stored in the schema from the element.
 
 ```c#
 var schema = Schema.Lookup(guid);
-var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField")
-var color = door.LoadEntity<string>(schema, "doorColorField")
+var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField");
+var color = door.LoadEntity<string>(schema, "doorColorField");
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
