@@ -1,3 +1,7 @@
+# Release 2023.1.3
+
+New Schema extensions
+
 # Release 2023.1.2
 
 Geometry extensions
