@@ -11,6 +11,7 @@ public static class SolidExtensions
     /// <param name="solid">The input solid to be copied</param>
     /// <returns>The newly created Solid</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Solid Clone([NotNull] this Solid solid)
     {
         return SolidUtils.Clone(solid);
@@ -25,6 +26,7 @@ public static class SolidExtensions
     ///    Or transform has a scale that is negative or zero
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Solid CreateTransformed([NotNull] this Solid solid, Transform transform)
     {
         return SolidUtils.CreateTransformed(solid, transform);
@@ -40,6 +42,7 @@ public static class SolidExtensions
     ///    Failed to split the solid geometry
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<Solid> SplitVolumes([NotNull] this Solid solid)
     {
         return SolidUtils.SplitVolumes(solid);
@@ -49,6 +52,7 @@ public static class SolidExtensions
     /// <param name="solid">The solid or shell</param>
     /// <returns>True if the solid or shell is valid for tessellation, false otherwise</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsValidForTessellation([NotNull] this Solid solid)
     {
         return SolidUtils.IsValidForTessellation(solid);
@@ -79,6 +83,7 @@ public static class SolidExtensions
     ///    Unable to triangulate the solid or shell
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static TriangulatedSolidOrShell TessellateSolidOrShell([NotNull] this Solid solid, SolidOrShellTessellationControls tessellationControls)
     {
         return SolidUtils.TessellateSolidOrShell(solid, tessellationControls);
@@ -92,6 +97,7 @@ public static class SolidExtensions
     ///    Failed to find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<EdgeEndPoint> FindAllEdgeEndPointsAtVertex([NotNull] this EdgeEndPoint edgeEndPoint)
     {
         return SolidUtils.FindAllEdgeEndPointsAtVertex(edgeEndPoint);

@@ -11,8 +11,9 @@ public static class StringExtensions
     ///     Indicates whether the specified string is null or an empty string ("")
     /// </summary>
     /// <returns>True if the value parameter is null or an empty string (""); otherwise, false</returns>
-    [ContractAnnotation("null=>true", true)]
     [Pure]
+    [ContractAnnotation("null=>true", true)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsNullOrEmpty(this string source)
     {
         return string.IsNullOrEmpty(source);
@@ -22,8 +23,9 @@ public static class StringExtensions
     ///     Indicates whether a specified string is null, empty, or consists only of white-space characters
     /// </summary>
     /// <returns>True if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
-    [ContractAnnotation("null=>true", true)]
     [Pure]
+    [ContractAnnotation("null=>true", true)]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsNullOrWhiteSpace(this string source)
     {
         return string.IsNullOrWhiteSpace(source);
@@ -37,8 +39,9 @@ public static class StringExtensions
     ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
     /// </exception>
     /// <exception cref="System.ArgumentNullException">source or path is null</exception>
-    [NotNull]
     [Pure]
+    [NotNull]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] string path)
     {
         return Path.Combine(source, path);
@@ -51,8 +54,8 @@ public static class StringExtensions
     /// <param name="value">The string to seek</param>
     /// <param name="comparison">One of the enumeration values that specifies the rules for the search</param>
     /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false</returns>
-    [ContractAnnotation("source:null => false; value:null => false")]
     [Pure]
+    [ContractAnnotation("source:null => false; value:null => false")]
     public static bool Contains(this string source, string value, StringComparison comparison)
     {
         if (source is null) return false;

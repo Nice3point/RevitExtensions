@@ -151,6 +151,7 @@ public static class RibbonExtensions
     /// <param name="button">Button to which the icon will be added</param>
     /// <param name="uri">Relative or Absolute path to the icon</param>
     /// <example>button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png")</example>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void SetImage(this RibbonButton button, string uri)
     {
         button.Image = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
@@ -162,6 +163,7 @@ public static class RibbonExtensions
     /// <param name="button">Button to which the icon will be added</param>
     /// <param name="uri">Relative or Absolute path to the icon</param>
     /// <example>button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png")</example>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void SetLargeImage(this RibbonButton button, string uri)
     {
         button.LargeImage = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));

@@ -12,6 +12,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in feet</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double FromMillimeters(this double millimeters)
     {
 #if R19 || R20
@@ -26,6 +27,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in millimeters</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double ToMillimeters(this double feet)
     {
 #if R19 || R20
@@ -40,6 +42,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in feet</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double FromMeters(this double meters)
     {
 #if R19 || R20
@@ -54,6 +57,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in meters</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double ToMeters(this double feet)
     {
 #if R19 || R20
@@ -68,6 +72,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in feet</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double FromInches(this double inches)
     {
 #if R19 || R20
@@ -82,6 +87,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in inches</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double ToInches(this double feet)
     {
 #if R19 || R20
@@ -96,6 +102,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in radians</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double FromDegrees(this double degrees)
     {
 #if R19 || R20
@@ -110,6 +117,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>Value in radians</returns>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double ToDegrees(this double radians)
     {
 #if R19 || R20
@@ -144,6 +152,7 @@ public static class UnitExtensions
 #if R21
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string FormatUnit(this Document document, UnitType unitType, double value, bool maxAccuracy, bool forEditing)
     {
         return UnitFormatUtils.Format(document.GetUnits(), unitType, value, maxAccuracy, forEditing);
@@ -176,6 +185,7 @@ public static class UnitExtensions
 #if R21
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string FormatUnit(this Document document, UnitType unitType, double value, bool maxAccuracy, bool forEditing, FormatValueOptions options)
     {
         return UnitFormatUtils.Format(document.GetUnits(), unitType, value, maxAccuracy, forEditing, options);
@@ -197,6 +207,7 @@ public static class UnitExtensions
     ///     Or the given value for value is not finite
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string FormatUnit(this Document document, ForgeTypeId specTypeId, double value, bool forEditing)
     {
         return UnitFormatUtils.Format(document.GetUnits(), specTypeId, value, forEditing);
@@ -219,6 +230,7 @@ public static class UnitExtensions
     ///     See UnitUtils.IsValidUnit(ForgeTypeId, ForgeTypeId) and UnitUtils.GetValidUnits(ForgeTypeId)
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string FormatUnit(this Document document, ForgeTypeId specTypeId, double value, bool forEditing, FormatValueOptions options)
     {
         return UnitFormatUtils.Format(document.GetUnits(), specTypeId, value, forEditing, options);

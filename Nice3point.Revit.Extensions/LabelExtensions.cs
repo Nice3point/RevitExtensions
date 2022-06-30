@@ -17,6 +17,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this BuiltInParameter source)
     {
         return LabelUtils.GetLabelFor(source);
@@ -36,6 +37,7 @@ public static class LabelExtensions
     ///     Thrown when the desired LanguageType cannot be found for the BuiltInParameter name
     /// </exception>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this BuiltInParameter source, LanguageType language)
     {
         return LabelUtils.GetLabelFor(source, language);
@@ -48,6 +50,7 @@ public static class LabelExtensions
     /// <param name="source">The BuiltInParameterGroup to get the user-visible name</param>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this BuiltInParameterGroup source)
     {
         return LabelUtils.GetLabelFor(source);
@@ -63,6 +66,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this BuiltInCategory source)
     {
         return LabelUtils.GetLabelFor(source);
@@ -84,6 +88,7 @@ public static class LabelExtensions
 #if R21
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this DisplayUnitType source)
     {
         return LabelUtils.GetLabelFor(source);
@@ -103,6 +108,7 @@ public static class LabelExtensions
 #if R22
     [Obsolete("This method is deprecated in Revit 2022")]
 #endif
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToLabel(this ParameterType source)
     {
         return LabelUtils.GetLabelFor(source);
@@ -143,6 +149,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToDisciplineLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForDiscipline(source);
@@ -158,6 +165,7 @@ public static class LabelExtensions
     ///     The name is obtained in the current Revit language
     /// </remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToGroupLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForGroup(source);
@@ -177,6 +185,7 @@ public static class LabelExtensions
     ///     If the given identifier is a category, this method returns the name of the Family Type spec with that category, e.g. "Family Type: Walls"
     /// </remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToSpecLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForSpec(source);
@@ -196,6 +205,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToSymbolLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForSymbol(source);
@@ -215,6 +225,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToUnitLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForUnit(source);
@@ -231,6 +242,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string ToParameterLabel(this ForgeTypeId source)
     {
         return LabelUtils.GetLabelForBuiltInParameter(source);

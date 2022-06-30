@@ -72,6 +72,7 @@
 
     <ItemGroup>
         <Using Include="JetBrains.Annotations"/>
+        <Using Include="System.Runtime.CompilerServices"/>
         <Using Remove="System.Net.Http"/>
     </ItemGroup>
 
