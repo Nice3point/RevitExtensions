@@ -9,7 +9,7 @@ namespace Nice3point.Revit.Extensions;
 public static class WpfExtensions
 {
     /// <summary>
-    ///     Opens a window and returns without waiting for the newly opened window to close. 
+    ///     Opens a window and returns without waiting for the newly opened window to close. Sets the owner of a child window
     /// </summary>
     /// <exception cref="T:System.InvalidOperationException">
     /// <see cref="M:System.Windows.Window.Show" /> is called on a window that is closing (<see cref="E:System.Windows.Window.Closing" />) or has been closed (<see cref="E:System.Windows.Window.Closed" />)</exception>
