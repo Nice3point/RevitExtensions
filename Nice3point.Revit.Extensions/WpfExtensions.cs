@@ -12,10 +12,16 @@ public static class WpfExtensions
     ///     Opens a window and returns without waiting for the newly opened window to close. Sets the owner of a child window
     /// </summary>
     /// <exception cref="T:System.InvalidOperationException">
-    /// <see cref="M:System.Windows.Window.Show" /> is called on a window that is closing (<see cref="E:System.Windows.Window.Closing" />) or has been closed (<see cref="E:System.Windows.Window.Closed" />)</exception>
+    ///     <see cref="M:System.Windows.Window.Show" /> is called on a window that is closing (<see cref="E:System.Windows.Window.Closing" />) or has been closed (
+    ///     <see cref="E:System.Windows.Window.Closed" />)
+    /// </exception>
     /// <param name="window">Child window</param>
     /// <param name="handle">Owner window handle</param>
-    /// <example>_view.Show(uiApplication.MainWindowHandle)</example>
+    /// <example>
+    ///     <code>
+    ///         _view.Show(uiApplication.MainWindowHandle)
+    ///     </code>
+    /// </example>
     public static void Show(this Window window, IntPtr handle)
     {
         var _ = new WindowInteropHelper(window)
