@@ -6,7 +6,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Extensions to simplify the interaction of custom windows with Revit
 /// </summary>
-public static class WpfExtensions
+public static class ApplicationExtensions
 {
     /// <summary>
     ///     Opens a window and returns without waiting for the newly opened window to close. Sets the owner of a child window
