@@ -13,7 +13,11 @@ public static class SchemaExtensions
     /// <param name="data">Type of data</param>
     /// <param name="fieldName">The Field name</param>
     /// <typeparam name="T">The type of data to be stored in the schema. The type must match the type of data specified in the SchemaBuilder</typeparam>
-    /// <example>document.ProjectInformation.SaveEntity(schema, "data", "schemaField")</example>
+    /// <example>
+    ///     <code>
+    ///         document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
+    ///     </code>
+    /// </example>
     public static void SaveEntity<T>([NotNull] this Element element, Schema schema, T data, string fieldName)
     {
         var field = schema.GetField(fieldName);
@@ -32,7 +36,11 @@ public static class SchemaExtensions
     /// <param name="fieldName">The Field name</param>
     /// <typeparam name="T">The type of data to be stored in the schema. The type must match the type of data specified in the SchemaBuilder</typeparam>
     /// <returns>Data stored in the element. null will be returned if the field does not exist or the data has not been saved before</returns>
-    /// <example>document.ProjectInformation.LoadEntity&lt;string&lt;(schema, "schemaField")</example>
+    /// <example>
+    ///     <code>
+    ///         document.ProjectInformation.LoadEntity&lt;string&lt;(schema, "schemaField")
+    ///     </code>
+    /// </example>
     [Pure]
     [CanBeNull]
     public static T LoadEntity<T>([NotNull] this Element element, Schema schema, string fieldName)

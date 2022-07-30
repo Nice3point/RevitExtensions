@@ -24,11 +24,8 @@ public static class ApplicationExtensions
     /// </example>
     public static void Show(this Window window, IntPtr handle)
     {
-        var _ = new WindowInteropHelper(window)
-        {
-            Owner = handle
-        };
-
+        // ReSharper disable once ObjectCreationAsStatement
+        new WindowInteropHelper(window) {Owner = handle};
         window.Show();
     }
 }
