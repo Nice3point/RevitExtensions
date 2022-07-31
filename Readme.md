@@ -46,6 +46,8 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Label Extensions](#LabelExtensions)
 - [Solid Extensions](#SolidExtensions)
 - [Schema Extensions](#SchemaExtensions)
+- [Application Extensions](#ApplicationExtensions)
+- [Collector Extensions](#CollectorExtensions)
 - [Imperial Extensions](#ImperialExtensions)
 - [Double Extensions](#DoubleExtensions)
 - [String Extensions](#StringExtensions)
@@ -411,7 +413,7 @@ edgeEndPoint.FindAllEdgeEndPointsAtVertex();
 
 ### <a id="SchemaExtensions">Schema Extensions</a>
 
-The **SaveEntity()** method stores data in the element. Existing data is overwritten
+The **SaveEntity()** method stores data in the element. Existing data is overwritten.
 
 ```c#
 var schema = Schema.Lookup(guid);
@@ -425,6 +427,125 @@ The **LoadEntity()** method retrieves the value stored in the schema from the el
 var schema = Schema.Lookup(guid);
 var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField");
 var color = door.LoadEntity<string>(schema, "doorColorField");
+```
+
+### <a id="ApplicationExtensions">Application Extensions</a>
+
+The **Show()** method Opens a window and returns without waiting for the newly opened window to close.
+Sets the owner of a child window. Applicable for modeless windows to be attached to Revit.
+
+```c#
+new RevitAddinView.Show(uiApplication.MainWindowHandle)
+```
+
+### <a id="CollectorExtensions">Collector Extensions</a>
+
+This set of extensions encapsulates all the work of searching for elements in the Revit database.
+
+The **GetElements()** a generic method which constructs a new FilteredElementCollector that will search and filter the set of elements in a document.
+Filter criteria are not applied to the method.
+
+```c#
+document.GetElements().WhereElementIsViewIndependent().ToElements();
+```
+
+The remaining methods contain a ready implementation of the collector, with filters applied:
+
+```c#
+document.GetInstances();
+document.GetInstances(new ElementLevelFilter(levelId));
+document.GetInstances(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.GetInstances(BuiltInCategory.OST_Walls);
+document.GetInstances(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.GetInstances(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+
+document.EnumerateInstances();
+document.EnumerateInstances(new ElementLevelFilter(levelId));
+document.EnumerateInstances(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateInstances(BuiltInCategory.OST_Walls);
+document.EnumerateInstances(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateInstances(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.EnumerateInstances<Wall>();
+document.EnumerateInstances<Wall>(new ElementLevelFilter(levelId));
+document.EnumerateInstances<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls);
+document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.GetInstanceIds();
+document.GetInstanceIds(new ElementLevelFilter(levelId));
+document.GetInstanceIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.GetInstanceIds(BuiltInCategory.OST_Walls);
+document.GetInstanceIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.GetInstanceIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+
+document.EnumerateInstanceIds();
+document.EnumerateInstanceIds(new ElementLevelFilter(levelId));
+document.EnumerateInstanceIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateInstanceIds(BuiltInCategory.OST_Walls);
+document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.EnumerateInstanceIds<Wall>();
+document.EnumerateInstanceIds<Wall>(new ElementLevelFilter(levelId));
+document.EnumerateInstanceIds<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls);
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});        
+document.GetTypes();
+document.GetTypes(new ElementLevelFilter(levelId));
+document.GetTypes(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.GetTypes(BuiltInCategory.OST_Walls);
+document.GetTypes(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.GetTypes(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+
+document.EnumerateTypes();
+document.EnumerateTypes(new ElementLevelFilter(levelId));
+document.EnumerateTypes(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateTypes(BuiltInCategory.OST_Walls);
+document.EnumerateTypes(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateTypes(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.EnumerateTypes<Wall>();
+document.EnumerateTypes<Wall>(new ElementLevelFilter(levelId));
+document.EnumerateTypes<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls);
+document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.GetTypeIds();
+document.GetTypeIds(new ElementLevelFilter(levelId));
+document.GetTypeIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.GetTypeIds(BuiltInCategory.OST_Walls);
+document.GetTypeIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.GetTypeIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+
+document.EnumerateTypeIds();
+document.EnumerateTypeIds(new ElementLevelFilter(levelId));
+document.EnumerateTypeIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateTypeIds(BuiltInCategory.OST_Walls);
+document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+
+document.EnumerateTypeIds<Wall>();
+document.EnumerateTypeIds<Wall>(new ElementLevelFilter(levelId));
+document.EnumerateTypeIds<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+
+document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls);
+document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
+document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});
 ```
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
