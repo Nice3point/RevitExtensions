@@ -8,6 +8,42 @@ public static class CollectorExtensions
     ///     Searches for elements in a document
     /// </summary>
     /// <param name="document">The document</param>
+    /// <returns>A new FilteredElementCollector that will search and filter the set of elements in a document</returns>
+    /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///     The collector does not have a filter applied. Extraction or iteration of elements is not permitted without a filter
+    /// </exception>
+    /// <remarks>
+    ///      <p>Developers can assign a variety of conditions to filter the elements that are returned.
+    /// This class requires that at least one condition be set before making the attempt to access the elements.</p>
+    ///      <p>Revit will attempt to organize the filters in order to minimize expansion of elements regardless of
+    /// the order in which conditions and filters are applied.</p>
+    ///      <p>There are three groups of methods that you can use on a given collector once you have applied filter(s)
+    /// to it.  One group provides collections of all passing elements, a second finds the first match of the given
+    /// filter(s), and a third provides an iterator that is evaluated lazily (each element is tested by the filter
+    /// only when the iterator reaches it). You should only use
+    /// one of the methods from these group at a time; the collector will reset if you call another method to
+    /// extract elements.  Thus, if you have previously obtained an iterator, it will be stopped and traverse no more
+    /// elements if you call another method to extract elements.</p>
+    ///      <p>In .NET, this class supports the IEnumerable interface for Elements.  You can use this class with
+    /// LINQ queries and operations to process lists of elements.  Note that because the ElementFilters
+    /// and the shortcut methods offered by this class process elements in native code before their
+    /// managed wrappers are generated, better performance will be obtained by using as many native filters
+    /// as possible on the collector before attempting to process the results using LINQ queries.</p>
+    ///      <p>One special consideration when using this class in .NET: the debugger will attempt
+    /// to traverse the members of the collector because of its implementation of IEnumerable.  You may see strange
+    /// results if you also attempt to extract the first element or all elements from the collector while the debugger
+    /// is also looking at the contents of the collector.</p>
+    /// </remarks>
+    [Pure]
+    public static FilteredElementCollector GetElements(this Document document)
+    {
+        return new FilteredElementCollector(document);
+    }
+    
+    /// <summary>
+    ///     Searches for elements in a document
+    /// </summary>
+    /// <param name="document">The document</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of elements</returns>
     [Pure]
@@ -1022,20 +1058,6 @@ public static class CollectorExtensions
             var type = (T) element;
             yield return type.Id;
         }
-    }
-
-    /// <summary>
-    ///     Retrieves a category object corresponding to the BuiltInCategory
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The BuiltInCategory</param>
-    [Pure]
-    [NotNull]
-    public static Category GetCategory(this Document document, BuiltInCategory category)
-    {
-        return CollectTypes(document, category)
-            .FirstElement()
-            .Category;
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
