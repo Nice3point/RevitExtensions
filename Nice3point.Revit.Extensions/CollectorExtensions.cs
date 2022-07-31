@@ -42,7 +42,7 @@ public static class CollectorExtensions
     {
         return new FilteredElementCollector(document);
     }
-    
+
     /// <summary>
     ///     Searches for elements in a document
     /// </summary>

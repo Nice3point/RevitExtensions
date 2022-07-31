@@ -498,7 +498,8 @@ document.EnumerateInstanceIds<Wall>(new []{elementParameterFilter, logicalFilter
 
 document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls);
 document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});        
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});  
+      
 document.GetTypes();
 document.GetTypes(new ElementParameterFilter());
 document.GetTypes(new []{elementParameterFilter, logicalFilter});
