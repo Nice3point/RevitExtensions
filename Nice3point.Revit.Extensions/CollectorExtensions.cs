@@ -2,6 +2,9 @@
 
 namespace Nice3point.Revit.Extensions;
 
+/// <summary>
+///     Revit FilteredElementCollector extensions
+/// </summary>
 public static class CollectorExtensions
 {
     /// <summary>

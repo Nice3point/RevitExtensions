@@ -453,100 +453,104 @@ The remaining methods contain a ready implementation of the collector, with filt
 
 ```c#
 document.GetInstances();
-document.GetInstances(new ElementLevelFilter(levelId));
-document.GetInstances(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.GetInstances(new ElementParameterFilter());
+document.GetInstances(new []{elementParameterFilter, logicalFilter});
 
 document.GetInstances(BuiltInCategory.OST_Walls);
-document.GetInstances(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.GetInstances(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+document.GetInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.GetInstances(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
 
 document.EnumerateInstances();
-document.EnumerateInstances(new ElementLevelFilter(levelId));
-document.EnumerateInstances(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateInstances(new ElementParameterFilter());
+document.EnumerateInstances(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateInstances(BuiltInCategory.OST_Walls);
-document.EnumerateInstances(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateInstances(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateInstances(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
 document.EnumerateInstances<Wall>();
-document.EnumerateInstances<Wall>(new ElementLevelFilter(levelId));
-document.EnumerateInstances<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateInstances<Wall>(new ElementParameterFilter());
+document.EnumerateInstances<Wall>(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls);
-document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
 document.GetInstanceIds();
-document.GetInstanceIds(new ElementLevelFilter(levelId));
-document.GetInstanceIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.GetInstanceIds(new ElementParameterFilter());
+document.GetInstanceIds(new []{elementParameterFilter, logicalFilter});
 
 document.GetInstanceIds(BuiltInCategory.OST_Walls);
-document.GetInstanceIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.GetInstanceIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+document.GetInstanceIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.GetInstanceIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
 
 document.EnumerateInstanceIds();
-document.EnumerateInstanceIds(new ElementLevelFilter(levelId));
-document.EnumerateInstanceIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateInstanceIds(new ElementParameterFilter());
+document.EnumerateInstanceIds(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateInstanceIds(BuiltInCategory.OST_Walls);
-document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
 document.EnumerateInstanceIds<Wall>();
-document.EnumerateInstanceIds<Wall>(new ElementLevelFilter(levelId));
-document.EnumerateInstanceIds<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateInstanceIds<Wall>(new ElementParameterFilter());
+document.EnumerateInstanceIds<Wall>(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls);
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});        
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});        
 document.GetTypes();
-document.GetTypes(new ElementLevelFilter(levelId));
-document.GetTypes(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.GetTypes(new ElementParameterFilter());
+document.GetTypes(new []{elementParameterFilter, logicalFilter});
 
 document.GetTypes(BuiltInCategory.OST_Walls);
-document.GetTypes(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.GetTypes(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+document.GetTypes(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.GetTypes(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
 
 document.EnumerateTypes();
-document.EnumerateTypes(new ElementLevelFilter(levelId));
-document.EnumerateTypes(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateTypes(new ElementParameterFilter());
+document.EnumerateTypes(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateTypes(BuiltInCategory.OST_Walls);
-document.EnumerateTypes(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateTypes(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateTypes(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateTypes(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
-document.EnumerateTypes<Wall>();
-document.EnumerateTypes<Wall>(new ElementLevelFilter(levelId));
-document.EnumerateTypes<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateTypes<WallType>();
+document.EnumerateTypes<WallType>(new ElementParameterFilter());
+document.EnumerateTypes<WallType>(new []{elementParameterFilter, logicalFilter});
 
-document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls);
-document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateTypes<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls);
+document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
 document.GetTypeIds();
-document.GetTypeIds(new ElementLevelFilter(levelId));
-document.GetTypeIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.GetTypeIds(new ElementParameterFilter());
+document.GetTypeIds(new []{elementParameterFilter, logicalFilter});
 
 document.GetTypeIds(BuiltInCategory.OST_Walls);
-document.GetTypeIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.GetTypeIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});    
+document.GetTypeIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.GetTypeIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
 
 document.EnumerateTypeIds();
-document.EnumerateTypeIds(new ElementLevelFilter(levelId));
-document.EnumerateTypeIds(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateTypeIds(new ElementParameterFilter());
+document.EnumerateTypeIds(new []{elementParameterFilter, logicalFilter});
 
 document.EnumerateTypeIds(BuiltInCategory.OST_Walls);
-document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});   
+document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
 
-document.EnumerateTypeIds<Wall>();
-document.EnumerateTypeIds<Wall>(new ElementLevelFilter(levelId));
-document.EnumerateTypeIds<Wall>(new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateTypeIds<WallType>();
+document.EnumerateTypeIds<WallType>(new ElementParameterFilter());
+document.EnumerateTypeIds<WallType>(new []{elementParameterFilter, logicalFilter});
 
-document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls);
-document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls, new ElementLevelFilter(levelId));
-document.EnumerateTypeIds<Wall>(BuiltInCategory.OST_Walls, new []{elementLevelFilter, boundingBoxIntersectsFilter});
+document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls);
+document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});
 ```
+
+**Remarks**: Get methods are faster than Enumerate due to RevitApi internal optimizations. 
+However, enumeration allows for more flexibility in finding elements.
+Don't try to call ```GetInstances().Select().Tolist()``` instead of ```EnumerateInstances().Select().Tolist()```, you will degrade performance.
 
 ### <a id="ImperialExtensions">Imperial Extensions</a>
 

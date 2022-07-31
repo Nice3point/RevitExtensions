@@ -3,6 +3,9 @@ using Autodesk.Revit.DB.ExtensibleStorage;
 
 namespace Nice3point.Revit.Extensions;
 
+/// <summary>
+///     Revit schema extensions
+/// </summary>
 public static class SchemaExtensions
 {
     /// <summary>
