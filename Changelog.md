@@ -1,3 +1,10 @@
+# Release 2023.1.4
+
+New Application extensions
+New Collector extensions
+
+Updated TargetFramework. It now matches the framework that Revit is running on
+
 # Release 2023.1.3
 
 New Schema extensions
