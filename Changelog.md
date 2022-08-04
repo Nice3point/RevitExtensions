@@ -1,3 +1,9 @@
+# Release 2023.1.5
+
+New Parameter extensions
+
+Fixed GetParameter extensions for cases where the parameter value was not initialized
+
 # Release 2023.1.4
 
 New Application extensions

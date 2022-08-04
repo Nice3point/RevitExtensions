@@ -46,6 +46,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Label Extensions](#LabelExtensions)
 - [Solid Extensions](#SolidExtensions)
 - [Schema Extensions](#SchemaExtensions)
+- [Parameter Extensions](#ParameterExtensions)
 - [Application Extensions](#ApplicationExtensions)
 - [Collector Extensions](#CollectorExtensions)
 - [Imperial Extensions](#ImperialExtensions)
@@ -62,10 +63,10 @@ Floor floor = element.Cast<Floor>();
 HostObject hostObject = element.Cast<HostObject>();
 ```
 
-The **GetParameter()** method retrieves a parameter from an element, regardless of whether the parameter is in an instance or a type.
+The **GetParameter()** method retrieves a parameter from an element. For instances that do not have such a parameter, the method will retrieve that parameter from the element type
 
 ```c#
-element.GetParameter(ParameterTypeId.AllModelUrl, includeType);
+element.GetParameter(ParameterTypeId.AllModelUrl, snoopType = true);
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```
@@ -429,9 +430,30 @@ var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField")
 var color = door.LoadEntity<string>(schema, "doorColorField");
 ```
 
+### <a id="ParameterExtensions">Parameter Extensions</a>
+
+The **AsBool()** method provides access to the boolean value within the parameter
+
+```c#
+bool value = element.GetParameter("IsClosed").AsBool();
+```
+
+The **AsColor()** method provides access to the Color within the parameter
+
+```c#
+Color value = element.GetParameter("Door color").AsColor();
+```
+
+The **AsElement()** method provides access to the Element within the parameter
+
+```c#
+Element value = element.GetParameter("Door material").AsElement();
+Material value = element.GetParameter("Door material").AsElement<Material>();
+```
+
 ### <a id="ApplicationExtensions">Application Extensions</a>
 
-The **Show()** method Opens a window and returns without waiting for the newly opened window to close.
+The **Show()** method opens a window and returns without waiting for the newly opened window to close.
 Sets the owner of a child window. Applicable for modeless windows to be attached to Revit.
 
 ```c#
