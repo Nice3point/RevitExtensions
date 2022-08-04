@@ -50,8 +50,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [Application Extensions](#ApplicationExtensions)
 - [Collector Extensions](#CollectorExtensions)
 - [Imperial Extensions](#ImperialExtensions)
-- [Double Extensions](#DoubleExtensions)
-- [String Extensions](#StringExtensions)
+- [System Extensions](#SystemExtensions)
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
@@ -602,7 +601,7 @@ string("value").FromFraction(out var value) => false
 string(null).FromFraction(out var value) => false
 ```
 
-### <a id="DoubleExtensions">Double Extensions</a>
+### <a id="SystemExtensions">System Extensions</a>
 
 The **Round()** method rounds the value to the specified precision or 1e-9 precision specified in Revit Api.
 
@@ -617,8 +616,6 @@ The **IsAlmostEqual()** method compares two numbers within specified precision o
 double(6.56170000000000000000000001).IsAlmostEqual(6.5617) => true
 double(6.56170000000000000000000001).IsAlmostEqual(6.6, 1e-1) => true
 ```
-
-### <a id="StringExtensions">String Extensions</a>
 
 The **IsNullOrEmpty()** method same as string.IsNullOrEmpty().
 
