@@ -62,10 +62,10 @@ Floor floor = element.Cast<Floor>();
 HostObject hostObject = element.Cast<HostObject>();
 ```
 
-The **GetParameter()** method retrieves a parameter from an element, regardless of whether the parameter is in an instance or a type.
+The **GetParameter()** method retrieves a parameter from an element. For instances that do not have such a parameter, the method will retrieve that parameter from the element type
 
 ```c#
-element.GetParameter(ParameterTypeId.AllModelUrl, includeType);
+element.GetParameter(ParameterTypeId.AllModelUrl, snoopType = true);
 element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
 element.GetParameter("URL");
 ```

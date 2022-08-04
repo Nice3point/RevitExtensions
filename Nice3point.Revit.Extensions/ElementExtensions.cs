@@ -21,22 +21,22 @@ public static class ElementExtensions
 
 #if R22_OR_GREATER
     /// <summary>
-    ///     Retrieves a parameter from an element or elementType with a given identifier
+    ///     Retrieves a parameter from the instance or symbol given identifier
     /// </summary>
-    /// <param name="element">The element in which the parameter will be searched</param>
+    /// <param name="element">The element</param>
     /// <param name="parameter">Identifier of the built-in parameter</param>
-    /// <param name="includeType">True if you want to search the ElementType parameter</param>
+    /// <param name="snoopType">True if you want to snoop the symbol parameter</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
     /// </exception>
-    [CanBeNull]
     [Pure]
-    public static Parameter GetParameter([NotNull] this Element element, ForgeTypeId parameter, bool includeType)
+    [CanBeNull]
+    public static Parameter GetParameter([NotNull] this Element element, ForgeTypeId parameter, bool snoopType)
     {
         var instanceParameter = element.GetParameter(parameter);
-        if (instanceParameter is not null && instanceParameter.HasValue || includeType == false) return instanceParameter;
+        if (instanceParameter is {HasValue: true} || snoopType == false) return instanceParameter;
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return null;
+        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
         var elementType = element.Document.GetElement(elementTypeId);
         var symbolParameter = elementType.GetParameter(parameter);
         return symbolParameter ?? instanceParameter;
@@ -44,36 +44,36 @@ public static class ElementExtensions
 
 #endif
     /// <summary>
-    ///     Retrieves a parameter from an element or elementType with a given identifier
+    ///     Retrieves a parameter from the instance or symbol given identifier
     /// </summary>
-    /// <param name="element">The element in which the parameter will be searched</param>
-    /// <param name="parameter">Identifier of the built-in parameter</param>
-    [CanBeNull]
+    /// <param name="element">The element</param>
+    /// <param name="parameter">The built-in parameter ID</param>
     [Pure]
+    [CanBeNull]
     public static Parameter GetParameter([NotNull] this Element element, BuiltInParameter parameter)
     {
         var instanceParameter = element.get_Parameter(parameter);
-        if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
+        if (instanceParameter is {HasValue: true}) return instanceParameter;
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return null;
+        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
         var elementType = element.Document.GetElement(elementTypeId);
         var symbolParameter = elementType.get_Parameter(parameter);
         return symbolParameter ?? instanceParameter;
     }
 
     /// <summary>
-    ///     Retrieves a parameter from an element or elementType with a given identifier
+    ///     Retrieves a parameter from the instance or symbol given identifier
     /// </summary>
-    /// <param name="element">The element in which the parameter will be searched</param>
-    /// <param name="parameter">String identifier of the built-in parameter</param>
-    [CanBeNull]
+    /// <param name="element">The element</param>
+    /// <param name="parameter">The name of the parameter to be retrieved</param>
     [Pure]
+    [CanBeNull]
     public static Parameter GetParameter([NotNull] this Element element, [NotNull] string parameter)
     {
         var instanceParameter = element.LookupParameter(parameter);
-        if (instanceParameter is not null && instanceParameter.HasValue) return instanceParameter;
+        if (instanceParameter is {HasValue: true}) return instanceParameter;
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return null;
+        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
         var elementType = element.Document.GetElement(elementTypeId);
         var symbolParameter = elementType.LookupParameter(parameter);
         return symbolParameter ?? instanceParameter;
