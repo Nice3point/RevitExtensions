@@ -20,7 +20,6 @@ public static class ElementIdExtensions
     /// </remarks>
     [CanBeNull]
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Element ToElement(this ElementId id, Document document)
     {
         return document.GetElement(id);
@@ -40,7 +39,6 @@ public static class ElementIdExtensions
     /// </remarks>
     [CanBeNull]
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {
         return (T) document.GetElement(id);
@@ -50,7 +48,6 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a category identifier
     /// </summary>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
     {
         return elementId.IntegerValue == (int) category;
@@ -60,7 +57,6 @@ public static class ElementIdExtensions
     ///     Checks if ElementID is a parameter identifier
     /// </summary>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool AreEquals(this ElementId elementId, BuiltInParameter parameter)
     {
         return elementId.IntegerValue == (int) parameter;

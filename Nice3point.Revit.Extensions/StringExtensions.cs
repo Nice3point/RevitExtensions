@@ -13,7 +13,6 @@ public static class StringExtensions
     /// <returns>True if the value parameter is null or an empty string (""); otherwise, false</returns>
     [Pure]
     [ContractAnnotation("null=>true", true)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsNullOrEmpty(this string source)
     {
         return string.IsNullOrEmpty(source);
@@ -25,7 +24,6 @@ public static class StringExtensions
     /// <returns>True if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
     [Pure]
     [ContractAnnotation("null=>true", true)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsNullOrWhiteSpace(this string source)
     {
         return string.IsNullOrWhiteSpace(source);
@@ -41,7 +39,6 @@ public static class StringExtensions
     /// <exception cref="System.ArgumentNullException">source or path is null</exception>
     [Pure]
     [NotNull]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] string path)
     {
         return Path.Combine(source, path);

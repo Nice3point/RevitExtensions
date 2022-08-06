@@ -13,7 +13,6 @@ public static class ElementExtensions
     /// <typeparam name="T">A type derived from Element</typeparam>
     /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Cast<T>(this Element element) where T : Element
     {
         return (T) element;
@@ -90,7 +89,6 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ICollection<ElementId> Copy([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
@@ -105,7 +103,6 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ICollection<ElementId> Copy([NotNull] this Element element, XYZ vector)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, vector);
@@ -117,7 +114,6 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Element cannot be mirrored or element does not exist in the document
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Mirror([NotNull] this Element element, [NotNull] Plane plane)
     {
         ElementTransformUtils.MirrorElement(element.Document, element.Id, plane);
@@ -133,7 +129,6 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Move([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
@@ -147,7 +142,6 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Move([NotNull] this Element element, XYZ vector)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, vector);
@@ -157,7 +151,6 @@ public static class ElementExtensions
     /// <param name="element">The element to rotate</param>
     /// <param name="axis">The axis of rotation</param>
     /// <param name="angle">The angle of rotation in radians</param>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Rotate([NotNull] this Element element, [NotNull] Line axis, double angle)
     {
         ElementTransformUtils.RotateElement(element.Document, element.Id, axis, angle);
@@ -165,7 +158,6 @@ public static class ElementExtensions
 
     /// <summary>Determines whether element can be mirrored</summary>
     /// <returns>True if the element can be mirrored</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool CanBeMirrored([NotNull] this Element element)
     {
         return ElementTransformUtils.CanMirrorElement(element.Document, element.Id);

@@ -68,7 +68,6 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void JoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
         JoinGeometryUtils.JoinGeometry(firstElement.Document, firstElement, secondElement);
@@ -90,7 +89,6 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void UnjoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
         JoinGeometryUtils.UnjoinGeometry(firstElement.Document, firstElement, secondElement);
@@ -107,8 +105,6 @@ public static class GeometryExtensions
     ///    The element secondElement was not found in the firstElement document
     /// </exception>
     [Pure]
-    [return: MarshalAs(UnmanagedType.U1)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool AreElementsJoined([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
         return JoinGeometryUtils.AreElementsJoined(firstElement.Document, firstElement, secondElement);
@@ -121,7 +117,6 @@ public static class GeometryExtensions
     /// <param name="element">The element</param>
     /// <returns>The set of elements that are joined to the given element</returns>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ICollection<ElementId> GetJoinedElements([NotNull] this Element element)
     {
         return JoinGeometryUtils.GetJoinedElements(element.Document, element);
@@ -146,7 +141,6 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Unable to switch the join order of these elements
     /// </exception>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void SwitchJoinOrder([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
         JoinGeometryUtils.SwitchJoinOrder(firstElement.Document, firstElement, secondElement);
@@ -166,8 +160,6 @@ public static class GeometryExtensions
     ///    The elements are not joined
     /// </exception>
     [Pure]
-    [return: MarshalAs(UnmanagedType.U1)]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsCuttingElementInJoin([NotNull] this Element firstElement, [NotNull] Element secondElement)
     {
         return JoinGeometryUtils.IsCuttingElementInJoin(firstElement.Document, firstElement, secondElement);

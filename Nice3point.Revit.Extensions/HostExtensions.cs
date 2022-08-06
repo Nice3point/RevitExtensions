@@ -19,7 +19,6 @@ public static class HostExtensions
     ///     This host object does not support access to top or bottom faces
     /// </exception>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<Reference> GetBottomFaces([NotNull] this HostObject host)
     {
         return HostObjectUtils.GetBottomFaces(host);
@@ -41,7 +40,6 @@ public static class HostExtensions
     ///     This host object does not support access to side faces
     /// </exception>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<Reference> GetSideFaces([NotNull] this HostObject host, ShellLayerType side)
     {
         return HostObjectUtils.GetSideFaces(host, side);
@@ -59,7 +57,6 @@ public static class HostExtensions
     ///     This host object does not support access to top or bottom faces
     /// </exception>
     [Pure]
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IList<Reference> GetTopFaces([NotNull] this HostObject host)
     {
         return HostObjectUtils.GetTopFaces(host);
