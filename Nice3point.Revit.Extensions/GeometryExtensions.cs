@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 
 namespace Nice3point.Revit.Extensions;
 

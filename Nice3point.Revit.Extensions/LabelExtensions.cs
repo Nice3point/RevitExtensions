@@ -1,4 +1,6 @@
-﻿using Autodesk.Revit.ApplicationServices;
+﻿#if R20_OR_GREATER
+using Autodesk.Revit.ApplicationServices;
+#endif
 using Autodesk.Revit.DB;
 
 namespace Nice3point.Revit.Extensions;

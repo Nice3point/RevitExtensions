@@ -468,6 +468,8 @@ Filter criteria are not applied to the method.
 
 ```c#
 document.GetElements().WhereElementIsViewIndependent().ToElements();
+document.GetElements(elementIds).WhereElementIsViewIndependent.ToElements();
+document.GetElements(viewId).ToElements();
 ```
 
 The remaining methods contain a ready implementation of the collector, with filters applied:
@@ -496,78 +498,22 @@ document.EnumerateInstances<Wall>(new []{elementParameterFilter, logicalFilter})
 document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls);
 document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
 document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
+```
 
-document.GetInstanceIds();
-document.GetInstanceIds(new ElementParameterFilter());
-document.GetInstanceIds(new []{elementParameterFilter, logicalFilter});
-
-document.GetInstanceIds(BuiltInCategory.OST_Walls);
-document.GetInstanceIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.GetInstanceIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
-
-document.EnumerateInstanceIds();
-document.EnumerateInstanceIds(new ElementParameterFilter());
-document.EnumerateInstanceIds(new []{elementParameterFilter, logicalFilter});
-
-document.EnumerateInstanceIds(BuiltInCategory.OST_Walls);
-document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateInstanceIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
-
-document.EnumerateInstanceIds<Wall>();
-document.EnumerateInstanceIds<Wall>(new ElementParameterFilter());
-document.EnumerateInstanceIds<Wall>(new []{elementParameterFilter, logicalFilter});
-
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls);
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateInstanceIds<Wall>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});  
-      
+The same overloads exist for InstanceIds, Type, TypeIds:
+```c#
 document.GetTypes();
-document.GetTypes(new ElementParameterFilter());
-document.GetTypes(new []{elementParameterFilter, logicalFilter});
-
-document.GetTypes(BuiltInCategory.OST_Walls);
-document.GetTypes(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.GetTypes(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
-
-document.EnumerateTypes();
-document.EnumerateTypes(new ElementParameterFilter());
-document.EnumerateTypes(new []{elementParameterFilter, logicalFilter});
-
-document.EnumerateTypes(BuiltInCategory.OST_Walls);
-document.EnumerateTypes(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateTypes(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
-
-document.EnumerateTypes<WallType>();
-document.EnumerateTypes<WallType>(new ElementParameterFilter());
-document.EnumerateTypes<WallType>(new []{elementParameterFilter, logicalFilter});
-
-document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls);
-document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateTypes<WallType>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
-
 document.GetTypeIds();
-document.GetTypeIds(new ElementParameterFilter());
-document.GetTypeIds(new []{elementParameterFilter, logicalFilter});
-
-document.GetTypeIds(BuiltInCategory.OST_Walls);
-document.GetTypeIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.GetTypeIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});    
-
+document.EnumerateTypes();
 document.EnumerateTypeIds();
-document.EnumerateTypeIds(new ElementParameterFilter());
-document.EnumerateTypeIds(new []{elementParameterFilter, logicalFilter});
+```
 
-document.EnumerateTypeIds(BuiltInCategory.OST_Walls);
-document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateTypeIds(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});   
-
-document.EnumerateTypeIds<WallType>();
-document.EnumerateTypeIds<WallType>(new ElementParameterFilter());
-document.EnumerateTypeIds<WallType>(new []{elementParameterFilter, logicalFilter});
-
-document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls);
-document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-document.EnumerateTypeIds<WallType>(BuiltInCategory.OST_Walls, new []{elementParameterFilter, logicalFilter});
+For instances, overloads are available with viewId. The collector will search and filter the visible elements in the view:
+```c#
+document.GetInstances(viewId);
+document.GetInstanceIds(viewId);
+document.EnumerateInstances(viewId);
+document.EnumerateInstanceIds(viewId);
 ```
 
 **Remarks**: Get methods are faster than Enumerate due to RevitApi internal optimizations. 
