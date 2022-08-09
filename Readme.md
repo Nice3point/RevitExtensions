@@ -504,8 +504,10 @@ The same overloads exist for InstanceIds, Type, TypeIds:
 ```c#
 document.GetTypes();
 document.GetTypeIds();
+document.GetInstanceIds();
 document.EnumerateTypes();
 document.EnumerateTypeIds();
+document.EnumerateInstanceIds();
 ```
 
 For instances, overloads are available with viewId. The collector will search and filter the visible elements in the view:

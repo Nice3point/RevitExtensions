@@ -1,3 +1,5 @@
-New Parameter extensions
+CollectorExtensions:
 
-Fixed GetParameter extensions for cases where the parameter value was not initialized
+- New GetElements(ElementId viewId) extension
+- New GetElements(ICollection<ElementId> elementIds) extension
+- New overloads for instances with ViewId

@@ -1,3 +1,11 @@
+# Release 2023.1.6
+
+CollectorExtensions:
+
+- New GetElements(ElementId viewId) extension
+- New GetElements(ICollection<ElementId> elementIds) extension
+- New overloads for instances with ViewId
+
 # Release 2023.1.5
 
 New Parameter extensions
