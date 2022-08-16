@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Nuke.Common.Tooling;
 
-namespace Tools;
+namespace RevitExtensions.Build.Tools;
 
 [PublicAPI]
 public static class DotNetNuGetDeleteSettingsExtensions
@@ -33,14 +33,14 @@ public static class DotNetNuGetDeleteSettingsExtensions
         toolSettings.ApiKey = apiKey;
         return toolSettings;
     }
-    
+
     public static T EnableInteractive<T>(this T toolSettings) where T : DotNetNuGetDeleteSettings
     {
         toolSettings = toolSettings.NewInstance();
         toolSettings.Interactive = true;
         return toolSettings;
     }
-    
+
     public static T EnableNonInteractive<T>(this T toolSettings) where T : DotNetNuGetDeleteSettings
     {
         toolSettings = toolSettings.NewInstance();

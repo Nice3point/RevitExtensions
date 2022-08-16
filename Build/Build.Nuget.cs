@@ -1,9 +1,9 @@
 ﻿using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Utilities.Collections;
-using Tools;
+using RevitExtensions.Build.Tools;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
-using static Tools.DotNetExtendedTasks;
+using static RevitExtensions.Build.Tools.DotNetExtendedTasks;
 
 partial class Build
 {

@@ -1,6 +1,6 @@
 ﻿using Nuke.Common.Tooling;
 
-namespace Tools;
+namespace RevitExtensions.Build.Tools;
 
 public static class DotNetExtendedTasks
 {
