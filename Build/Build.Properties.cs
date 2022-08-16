@@ -10,6 +10,5 @@ partial class Build
     };
 
     const string BuildConfiguration = "Release";
-    const string TestConfiguration = "UnitTests";
     const string ArtifactsFolder = "output";
 }

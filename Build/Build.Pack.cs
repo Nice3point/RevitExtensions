@@ -4,7 +4,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 partial class Build
 {
     Target Pack => _ => _
-        .TriggeredBy(Test)
+        .TriggeredBy(Compile)
         .Executes(() =>
         {
             var configurations = GetConfigurations(BuildConfiguration);
