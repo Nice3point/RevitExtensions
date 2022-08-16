@@ -13,14 +13,10 @@ public class DotNetNuGetDeleteSettings : ToolSettings
     public virtual string Package { get; internal set; }
     public virtual string Version { get; internal set; }
     public virtual string Source { get; internal set; }
-    public virtual string SymbolSource { get; internal set; }
-    public virtual int? Timeout { get; internal set; }
     public virtual string ApiKey { get; internal set; }
-    public virtual string SymbolApiKey { get; internal set; }
-    public virtual bool? DisableBuffering { get; internal set; }
-    public virtual bool? NoSymbols { get; internal set; }
     public virtual bool? ForceEnglishOutput { get; internal set; }
-    public virtual bool? SkipDuplicate { get; internal set; }
+    public virtual bool? Interactive { get; internal set; }
+    public virtual bool? NonInteractive { get; internal set; }
     public virtual bool? NoServiceEndpoint { get; internal set; }
 
     protected override Arguments ConfigureProcessArguments(Arguments arguments)
@@ -29,16 +25,12 @@ public class DotNetNuGetDeleteSettings : ToolSettings
             .Add("nuget delete")
             .Add("{value}", Package)
             .Add("{value}", Version)
-            .Add("--source {value}", Source)
-            .Add("--symbol-source {value}", SymbolSource)
-            .Add("--timeout {value}", Timeout)
-            .Add("--api-key {value}", ApiKey, secret: true)
-            .Add("--symbol-api-key {value}", SymbolApiKey, secret: true)
-            .Add("--disable-buffering", DisableBuffering)
-            .Add("--no-symbols", NoSymbols)
             .Add("--force-english-output", ForceEnglishOutput)
-            .Add("--skip-duplicate", SkipDuplicate)
-            .Add("--no-service-endpoint", NoServiceEndpoint);
+            .Add("--interactive", Interactive)
+            .Add("--api-key {value}", ApiKey, secret: true)
+            .Add("--no-service-endpoint", NoServiceEndpoint)
+            .Add("--non-interactive", NonInteractive)
+            .Add("--source {value}", Source);
         return base.ConfigureProcessArguments(arguments);
     }
 }

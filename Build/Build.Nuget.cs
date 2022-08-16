@@ -36,9 +36,10 @@ partial class Build
             {
                 DotNetNuGetDelete(settings => settings
                     .SetPackage("Nice3point.Revit.Extensions")
-                    .SetVersion(map.Key)
+                    .SetVersion(map.Value)
                     .SetSource(NugetApiUrl)
-                    .SetApiKey(NugetApiKey));
+                    .SetApiKey(NugetApiKey)
+                    .EnableNonInteractive());
             });
         });
 }

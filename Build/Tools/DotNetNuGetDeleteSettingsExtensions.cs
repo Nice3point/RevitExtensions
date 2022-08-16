@@ -1,7 +1,9 @@
-﻿using Nuke.Common.Tooling;
+﻿using JetBrains.Annotations;
+using Nuke.Common.Tooling;
 
 namespace Tools;
 
+[PublicAPI]
 public static class DotNetNuGetDeleteSettingsExtensions
 {
     public static T SetPackage<T>(this T toolSettings, string targetPath) where T : DotNetNuGetDeleteSettings
@@ -29,6 +31,20 @@ public static class DotNetNuGetDeleteSettingsExtensions
     {
         toolSettings = toolSettings.NewInstance();
         toolSettings.ApiKey = apiKey;
+        return toolSettings;
+    }
+    
+    public static T EnableInteractive<T>(this T toolSettings) where T : DotNetNuGetDeleteSettings
+    {
+        toolSettings = toolSettings.NewInstance();
+        toolSettings.Interactive = true;
+        return toolSettings;
+    }
+    
+    public static T EnableNonInteractive<T>(this T toolSettings) where T : DotNetNuGetDeleteSettings
+    {
+        toolSettings = toolSettings.NewInstance();
+        toolSettings.NonInteractive = true;
         return toolSettings;
     }
 }
