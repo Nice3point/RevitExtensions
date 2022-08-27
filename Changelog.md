@@ -1,3 +1,9 @@
+# Release 2023.1.7
+
+RibbonExtensions:
+
+- New RestrictAvailability() extension
+
 # Release 2023.1.6
 
 CollectorExtensions:

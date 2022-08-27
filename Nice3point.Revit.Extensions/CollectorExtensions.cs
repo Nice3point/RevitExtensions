@@ -250,7 +250,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category) where T : Element
     {
@@ -269,7 +269,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -288,7 +288,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -305,7 +305,7 @@ public static class CollectorExtensions
     /// </summary>
     /// <param name="document">The document</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document) where T : Element
     {
@@ -323,7 +323,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementFilter filter) where T : Element
     {
@@ -341,7 +341,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -505,7 +505,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category) where T : Element
     {
@@ -524,7 +524,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -543,7 +543,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -560,7 +560,7 @@ public static class CollectorExtensions
     /// </summary>
     /// <param name="document">The document</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document) where T : Element
     {
@@ -578,7 +578,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementFilter filter) where T : Element
     {
@@ -596,7 +596,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -773,7 +773,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category) where T : Element
     {
@@ -793,7 +793,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -813,7 +813,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -831,7 +831,7 @@ public static class CollectorExtensions
     /// <param name="document">The document that owns the view</param>
     /// <param name="viewId">The view id</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId) where T : Element
     {
@@ -850,7 +850,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, ElementFilter filter) where T : Element
     {
@@ -869,7 +869,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -1046,7 +1046,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category) where T : Element
     {
@@ -1066,7 +1066,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -1086,7 +1086,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
         where T : Element
@@ -1105,7 +1105,7 @@ public static class CollectorExtensions
     /// <param name="document">The document that owns the view</param>
     /// <param name="viewId">The view id</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId) where T : Element
     {
@@ -1124,7 +1124,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, ElementFilter filter) where T : Element
     {
@@ -1143,7 +1143,7 @@ public static class CollectorExtensions
     /// <param name="viewId">The view id</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -1307,7 +1307,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category) where T : Element
     {
@@ -1326,7 +1326,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -1345,7 +1345,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -1362,7 +1362,7 @@ public static class CollectorExtensions
     /// </summary>
     /// <param name="document">The document</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document) where T : Element
     {
@@ -1380,7 +1380,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document, ElementFilter filter) where T : Element
     {
@@ -1398,7 +1398,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<T> EnumerateTypes<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -1562,7 +1562,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="category">The category</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category) where T : Element
     {
@@ -1581,7 +1581,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
     {
@@ -1600,7 +1600,7 @@ public static class CollectorExtensions
     /// <param name="category">The category</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
     {
@@ -1617,7 +1617,7 @@ public static class CollectorExtensions
     /// </summary>
     /// <param name="document">The document</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document) where T : Element
     {
@@ -1635,7 +1635,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, ElementFilter filter) where T : Element
     {
@@ -1653,7 +1653,7 @@ public static class CollectorExtensions
     /// <param name="document">The document</param>
     /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
     /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
     {

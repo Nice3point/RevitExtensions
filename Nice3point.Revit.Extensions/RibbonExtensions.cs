@@ -166,4 +166,14 @@ public static class RibbonExtensions
     {
         button.LargeImage = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
     }
+
+    /// <summary>
+    ///     Specifies the class that decides the availability of push button
+    /// </summary>
+    /// <param name="button">The button that will be restricted on the ribbon</param>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/></typeparam>
+    public static void RestrictAvailability<T>(this PushButton button) where T: IExternalCommandAvailability
+    {
+        button.AvailabilityClassName = typeof(T).FullName;
+    }
 }

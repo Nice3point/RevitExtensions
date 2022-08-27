@@ -239,6 +239,12 @@ button.SetLargeImage("http://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
 ```
 
+The **RestrictAvailability()** method specifies the class that decides the availability of PushButton
+
+```c#
+pushButton.RestrictAvailability<CommandController>();
+```
+
 ### <a id="UnitExtensions">Unit Extensions</a>
 
 The **FromMillimeters()** method converts millimeters to internal Revit number format (feet).

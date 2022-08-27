@@ -52,7 +52,7 @@ public static class ParameterExtensions
     /// <param name="parameter">The parameter</param>
     /// <returns>The element contained in the parameter as an ElementId</returns>
     /// <remarks>The AsElement method should only be used if the StorageType property returns that the internal contents of the parameter is an ElementId</remarks>
-    /// <typeparam name="T">Type inherited from Element</typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
     [Pure]
     [CanBeNull]
     public static T AsElement<T>([NotNull] this Parameter parameter) where T : Element
