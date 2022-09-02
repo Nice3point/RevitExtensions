@@ -5,6 +5,10 @@ using Autodesk.Windows;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 
+// ReSharper disable InvertIf
+// ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+// ReSharper disable LoopCanBeConvertedToQuery
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -20,7 +24,16 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
-        var ribbonPanel = application.GetRibbonPanels(Tab.AddIns).FirstOrDefault(panel => panel.Name.Equals(panelName));
+        RibbonPanel ribbonPanel = null;
+        foreach (var panel in application.GetRibbonPanels(Tab.AddIns))
+        {
+            if (panel.Name.Equals(panelName))
+            {
+                ribbonPanel = panel;
+                break;
+            }
+        }
+
         return ribbonPanel ?? application.CreateRibbonPanel(panelName);
     }
 
@@ -33,14 +46,32 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">Too many custom tabs have been created in this session. (Maximum is 20)</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
-        var ribbonTab = ComponentManager.Ribbon.Tabs.FirstOrDefault(tab => tab.Id.Equals(tabName));
+        RibbonTab ribbonTab = null;
+        foreach (var tab in ComponentManager.Ribbon.Tabs)
+        {
+            if (tab.Id.Equals(tabName))
+            {
+                ribbonTab = tab;
+                break;
+            }
+        }
+
         if (ribbonTab is null)
         {
             application.CreateRibbonTab(tabName);
             return application.CreateRibbonPanel(tabName, panelName);
         }
 
-        var ribbonPanel = application.GetRibbonPanels(tabName).FirstOrDefault(panel => panel.Name.Equals(panelName));
+        RibbonPanel ribbonPanel = null;
+        foreach (var panel in application.GetRibbonPanels(tabName))
+        {
+            if (panel.Name.Equals(panelName))
+            {
+                ribbonPanel = panel;
+                break;
+            }
+        }
+
         return ribbonPanel ?? application.CreateRibbonPanel(tabName, panelName);
     }
 
@@ -60,7 +91,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The added PushButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the panel</exception>
-    public static PushButton AddPushButton<TCommand>(this RibbonPanel panel, string buttonText) where TCommand : IExternalCommand
+    public static PushButton AddPushButton<TCommand>(this RibbonPanel panel, string buttonText) where TCommand : IExternalCommand, new()
     {
         var command = typeof(TCommand);
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
@@ -138,7 +169,7 @@ public static class RibbonExtensions
     /// </summary>
     /// <returns>The newly added PushButton</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">Thrown when a PushButton already exists in the PushButton</exception>
-    public static PushButton AddPushButton<TCommand>(this PulldownButton pullDownButton, string buttonText) where TCommand : IExternalCommand
+    public static PushButton AddPushButton<TCommand>(this PulldownButton pullDownButton, string buttonText) where TCommand : IExternalCommand, new()
     {
         var command = typeof(TCommand);
         var pushButtonData = new PushButtonData(command.FullName, buttonText, Assembly.GetAssembly(command).Location, command.FullName);
@@ -172,7 +203,8 @@ public static class RibbonExtensions
     /// </summary>
     /// <param name="button">The button that will be restricted on the ribbon</param>
     /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/></typeparam>
-    public static void RestrictAvailability<T>(this PushButton button) where T: IExternalCommandAvailability
+    /// <remarks>Class T should share the same assembly with add-in External Command</remarks>
+    public static void SetAvailabilityController<T>(this PushButton button) where T : IExternalCommandAvailability, new()
     {
         button.AvailabilityClassName = typeof(T).FullName;
     }

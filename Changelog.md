@@ -2,7 +2,7 @@
 
 RibbonExtensions:
 
-- New RestrictAvailability() extension
+- New SetAvailabilityController() extension
 
 # Release 2023.1.6
 

@@ -1,3 +1,3 @@
 RibbonExtensions:
 
-- New RestrictAvailability() extension
+- New SetAvailabilityController() extension
