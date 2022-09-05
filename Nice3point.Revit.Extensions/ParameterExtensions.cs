@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 public static class ParameterExtensions
 {
     /// <summary>
-    ///    Provides access to the boolean value within the parameter
+    ///     Provides access to the boolean value within the parameter
     /// </summary>
     /// <param name="parameter">The parameter</param>
     /// <returns>The bool value contained in the parameter</returns>
@@ -20,7 +20,7 @@ public static class ParameterExtensions
     }
 
     /// <summary>
-    ///    Provides access to the Color within the parameter
+    ///     Provides access to the Color within the parameter
     /// </summary>
     /// <param name="parameter">The parameter</param>
     /// <returns>The Color value contained in the parameter</returns>
@@ -29,11 +29,11 @@ public static class ParameterExtensions
     public static Color AsColor([NotNull] this Parameter parameter)
     {
         var argb = parameter.AsInteger();
-        return new Color((byte) (argb & byte.MaxValue), (byte) (argb >> 8 & byte.MaxValue), (byte) (argb >> 16 & byte.MaxValue));
+        return new Color((byte) (argb & byte.MaxValue), (byte) ((argb >> 8) & byte.MaxValue), (byte) ((argb >> 16) & byte.MaxValue));
     }
 
     /// <summary>
-    ///    Provides access to the Element within the parameter
+    ///     Provides access to the Element within the parameter
     /// </summary>
     /// <param name="parameter">The parameter</param>
     /// <returns>The element contained in the parameter as an ElementId</returns>
@@ -47,17 +47,28 @@ public static class ParameterExtensions
     }
 
     /// <summary>
-    ///    Provides access to the Element within the parameter
+    ///     Provides access to the Element within the parameter
     /// </summary>
     /// <param name="parameter">The parameter</param>
     /// <returns>The element contained in the parameter as an ElementId</returns>
     /// <remarks>The AsElement method should only be used if the StorageType property returns that the internal contents of the parameter is an ElementId</remarks>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element" /></typeparam>
     [Pure]
     [CanBeNull]
     public static T AsElement<T>([NotNull] this Parameter parameter) where T : Element
     {
         var elementId = parameter.AsElementId();
         return elementId == ElementId.InvalidElementId ? null : parameter.Element.Document.GetElement(elementId) as T;
+    }
+
+    /// <summary>Sets the parameter to a new bool value</summary>
+    /// <param name="parameter">The parameter</param>
+    /// <param name="value">The new bool value to which the parameter is to be set</param>
+    /// <returns>The Set method will return True if the parameter was successfully set to the new value, otherwise false</returns>
+    /// <remarks>You should only use this method if the StorageType property reports the type of the parameter as an integer</remarks>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">The parameter is read-only</exception>
+    public static bool Set([NotNull] this Parameter parameter, bool value)
+    {
+        return parameter.Set(value ? 1 : 0);
     }
 }
