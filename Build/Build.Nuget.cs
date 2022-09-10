@@ -24,15 +24,6 @@ partial class Build
                         .SetSource(NugetApiUrl)
                         .SetApiKey(NugetApiKey));
                 });
-            
-            ArtifactsDirectory.GlobFiles("*.snupkg")
-                .ForEach(package =>
-                {
-                    DotNetNuGetPush(settings => settings
-                        .SetTargetPath(package)
-                        .SetSource(NugetApiUrl)
-                        .SetApiKey(NugetApiKey));
-                });
         });
 
     Target NuGetDelete => _ => _
