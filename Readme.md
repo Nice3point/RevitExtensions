@@ -239,10 +239,10 @@ button.SetLargeImage("http://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
 ```
 
-The **RestrictAvailability()** method specifies the class that decides the availability of PushButton
+ёThe **SetAvailabilityController()** method specifies the class that decides the availability of PushButton
 
 ```c#
-pushButton.RestrictAvailability<CommandController>();
+pushButton.SetAvailabilityController<CommandController>();
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
@@ -456,6 +456,13 @@ Element value = element.GetParameter("Door material").AsElement();
 Material value = element.GetParameter("Door material").AsElement<Material>();
 ```
 
+The **Set()** method sets the parameter to a new value
+
+```c#
+parameter.Set(true);
+parameter.Set(new Color(66, 69, 96);
+```
+
 ### <a id="ApplicationExtensions">Application Extensions</a>
 
 The **Show()** method opens a window and returns without waiting for the newly opened window to close.
@@ -599,6 +606,14 @@ The **Contains()** indicating whether a specified substring occurs within this s
 "Revit extensions".Contains("REVIT", StringComparison.OrdinalIgnoreCase) => true
 "Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase) => false
 ```
+
+## Symbol server
+
+When debugging, sometimes the library symbols are not available on your local machine.
+In this case, you can use [symbol servers](https://docs.microsoft.com/en-us/windows/win32/dxtecharts/debugging-with-symbols?redirectedfrom=MSDN#symbol-servers).
+Then, you can point your debugger to the symbol server to resolve symbol names.
+
+The symbols for this package are available at https://symbols.nuget.org/download/symbols
 
 ## Technology Sponsors
 
