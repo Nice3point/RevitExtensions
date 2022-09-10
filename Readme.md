@@ -239,7 +239,7 @@ button.SetLargeImage("http://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
 ```
 
-ёThe **SetAvailabilityController()** method specifies the class that decides the availability of PushButton
+The **SetAvailabilityController()** method specifies the class that decides the availability of PushButton
 
 ```c#
 pushButton.SetAvailabilityController<CommandController>();
