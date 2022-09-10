@@ -71,4 +71,15 @@ public static class ParameterExtensions
     {
         return parameter.Set(value ? 1 : 0);
     }
+
+    /// <summary>Sets the parameter to a new color</summary>
+    /// <param name="parameter">The parameter</param>
+    /// <param name="value">The new color to which the parameter is to be set</param>
+    /// <returns>The Set method will return True if the parameter was successfully set to the new value, otherwise false</returns>
+    /// <remarks>You should only use this method if the StorageType property reports the type of the parameter as an integer</remarks>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">The parameter is read-only</exception>
+    public static bool Set(this Parameter parameter, Color value)
+    {
+        return parameter.Set((value.Red << 0) | (value.Green << 8) | (value.Blue << 16));
+    }
 }
