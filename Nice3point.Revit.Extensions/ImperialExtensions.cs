@@ -71,22 +71,6 @@ public static class ImperialExtensions
     }
 
     /// <summary>
-    ///     Converts a number to text representation for the Imperial system with denominator 32
-    /// </summary>
-    /// <param name="source">Feet value</param>
-    /// <param name="denominator">Rounding</param>
-    /// <example>
-    ///     0 will be converted to 0"<br />
-    ///     1 will be converted to 1'-0"<br />
-    /// </example>
-    [NotNull]
-    [Pure]
-    public static string ToFraction(this int source, int denominator)
-    {
-        return ToFraction((double) source, denominator);
-    }
-
-    /// <summary>
     ///     Converts a number to text representation for the Imperial system
     /// </summary>
     /// <param name="source">Feet value</param>
@@ -103,21 +87,6 @@ public static class ImperialExtensions
     }
 
     /// <summary>
-    ///     Converts a number to text representation for the Imperial system
-    /// </summary>
-    /// <param name="source">Feet value</param>
-    /// <example>
-    ///     0 will be converted to 0"<br />
-    ///     1 will be converted to 1'-0"<br />
-    /// </example>
-    [NotNull]
-    [Pure]
-    public static string ToFraction(this int source)
-    {
-        return ToFraction((double) source, 32);
-    }
-
-    /// <summary>
     ///     Converts the textual representation of the Imperial system number to double
     /// </summary>
     /// <param name="source">Imperial number</param>
@@ -129,8 +98,8 @@ public static class ImperialExtensions
     ///     1'-3/32" will be converted to 1.007<br />
     ///     1'1.75" will be converted to 1.145
     /// </example>
-    [ContractAnnotation("source:null => false")]
     [Pure]
+    [ContractAnnotation("source:null => false")]
     public static bool FromFraction(this string source, out double value)
     {
         value = 0;
