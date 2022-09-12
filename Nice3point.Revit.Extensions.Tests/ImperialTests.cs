@@ -28,9 +28,6 @@ public class ImperialTests
         Assert.AreEqual("25'-2 3/4\"", 25.222d.ToFraction(4));
         Assert.AreEqual("25'-3\"", 25.222d.ToFraction(1));
         Assert.AreEqual("-25'-1\"", (-25.222d).ToFraction(1));
-        Assert.AreEqual("0\"", 0.ToFraction());
-        Assert.AreEqual("1'-0\"", 1.ToFraction());
-        Assert.AreEqual("2'-0\"", 2.ToFraction());
     }
 
     [TestCase]

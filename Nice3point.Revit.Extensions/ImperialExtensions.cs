@@ -17,7 +17,7 @@ public static class ImperialExtensions
     ///     Converts a number to text representation for the Imperial system with denominator 32
     /// </summary>
     /// <param name="source">Feet value</param>
-    /// <param name="denominator">Rounding</param>
+    /// <param name="denominator">Rounding. Denominator must be greater than or equal to 1</param>
     /// <example>
     ///     1 will be converted to 1'-0"<br />
     ///     0.0123 will be converted to 0 5/32"<br />
@@ -27,7 +27,9 @@ public static class ImperialExtensions
     [Pure]
     public static string ToFraction(this double source, int denominator)
     {
+        if (denominator < 1) throw new ArgumentException("Denominator must be greater than or equal to 1", nameof(denominator));
         var divider = denominator;
+
         var feet = (int) Math.Abs(source);
         var decimalInches = source * 12 % 12;
         var inches = (int) Math.Abs(decimalInches);
@@ -47,7 +49,7 @@ public static class ImperialExtensions
         }
 
         var valueBuilder = new StringBuilder();
-        if (source + 1d / denominator < 0) valueBuilder.Insert(0, "-");
+        if (source + 1d / denominator < 0) valueBuilder.Append("-");
 
         if (feet > 0)
         {
