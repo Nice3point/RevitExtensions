@@ -35,7 +35,7 @@ public static class UnitExtensions
         return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
 #else
-    public static double FromUnit(this double value, ForgeTypeId unitId)
+    public static double ToUnit(this double value, ForgeTypeId unitId)
     {
         return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
