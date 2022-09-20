@@ -1,3 +1,10 @@
+# Release 2023.1.8
+
+UnitExtensions:
+
+- New FromUnit extension
+- New ToUnit extension
+
 # Release 2023.1.7
 
 RibbonExtensions:

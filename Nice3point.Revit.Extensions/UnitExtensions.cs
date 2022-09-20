@@ -8,6 +8,40 @@ namespace Nice3point.Revit.Extensions;
 public static class UnitExtensions
 {
     /// <summary>
+    ///     Converts the specified unit to internal Revit format
+    /// </summary>
+    /// <returns>The converted value</returns>
+    [Pure]
+#if R19 || R20
+    public static double FromUnit(this double value, DisplayUnitType unitId)
+    {
+        return UnitUtils.ConvertFromInternalUnits(value, unitId);
+    }
+#else
+    public static double FromUnit(this double value, ForgeTypeId unitId)
+    {
+        return UnitUtils.ConvertFromInternalUnits(value, unitId);
+    }
+#endif
+
+    /// <summary>
+    ///     Converts a Revit internal format value to the specified unit
+    /// </summary>
+    /// <returns>The converted value</returns>
+    [Pure]
+#if R19 || R20
+    public static double ToUnit(this double value, DisplayUnitType unitId)
+    {
+        return UnitUtils.ConvertToInternalUnits(value, unitId);
+    }
+#else
+    public static double FromUnit(this double value, ForgeTypeId unitId)
+    {
+        return UnitUtils.ConvertToInternalUnits(value, unitId);
+    }
+#endif
+
+    /// <summary>
     ///     Converts millimeters to internal Revit format
     /// </summary>
     /// <returns>Value in feet</returns>
@@ -182,7 +216,6 @@ public static class UnitExtensions
     }
 #endif
 #if R21_OR_GREATER
-
     /// <summary>Formats a number with units into a string</summary>
     /// <param name="document">Document that stores units</param>
     /// <param name="specTypeId">Identifier of the spec of the value to format</param>
