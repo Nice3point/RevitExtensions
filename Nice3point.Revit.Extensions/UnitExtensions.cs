@@ -15,12 +15,12 @@ public static class UnitExtensions
 #if R19 || R20
     public static double FromUnit(this double value, DisplayUnitType unitId)
     {
-        return UnitUtils.ConvertFromInternalUnits(value, unitId);
+        return UnitUtils.ConvertToInternalUnits(value, unitId);
     }
 #else
     public static double FromUnit(this double value, ForgeTypeId unitId)
     {
-        return UnitUtils.ConvertFromInternalUnits(value, unitId);
+        return UnitUtils.ConvertToInternalUnits(value, unitId);
     }
 #endif
 
@@ -32,12 +32,12 @@ public static class UnitExtensions
 #if R19 || R20
     public static double ToUnit(this double value, DisplayUnitType unitId)
     {
-        return UnitUtils.ConvertToInternalUnits(value, unitId);
+        return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
 #else
     public static double FromUnit(this double value, ForgeTypeId unitId)
     {
-        return UnitUtils.ConvertToInternalUnits(value, unitId);
+        return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
 #endif
 
