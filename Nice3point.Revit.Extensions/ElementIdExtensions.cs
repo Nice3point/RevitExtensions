@@ -37,11 +37,11 @@ public static class ElementIdExtensions
     /// <remarks>
     ///     <see langword="null" /> Will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
-    [CanBeNull]
     [Pure]
+    [CanBeNull]
     public static T ToElement<T>(this ElementId id, Document document) where T : Element
     {
-        return (T) document.GetElement(id);
+        return document.GetElement(id) as T;
     }
 
     /// <summary>
