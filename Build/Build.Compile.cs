@@ -8,11 +8,11 @@ partial class Build
         .Executes(() =>
         {
             var configurations = GetConfigurations(BuildConfiguration);
-            configurations.ForEach(configuration =>
+            foreach (var configuration in configurations)
             {
                 DotNetBuild(settings => settings
                     .SetConfiguration(configuration)
                     .SetVerbosity(DotNetVerbosity.Minimal));
-            });
+            }
         });
 }

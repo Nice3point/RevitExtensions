@@ -16,7 +16,7 @@ public static class ElementIdExtensions
     /// </param>
     /// <returns>The element referenced by the input argument</returns>
     /// <remarks>
-    ///     <see langword="null" /> Will be returned if the input ElementId doesn't reference to a valid Element.
+    ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
     [CanBeNull]
     [Pure]
@@ -35,7 +35,7 @@ public static class ElementIdExtensions
     /// <typeparam name="T">A type derived from Element</typeparam>
     /// <returns>The element referenced by the input argument, casted to type T</returns>
     /// <remarks>
-    ///     <see langword="null" /> Will be returned if the input ElementId doesn't reference to a valid Element.
+    ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
     [Pure]
     [CanBeNull]
