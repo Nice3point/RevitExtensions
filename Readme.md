@@ -12,7 +12,8 @@ Extensions minimize the writing of repetitive code, add new methods not included
 
 ```c#
 new ElementId(123469)
-.ToElement(document)
+.ToElement<Door>(document)
+.Move(0, 0, 1)
 .GetParameter(BuiltInParameter.DOOR_HEIGHT)
 .AsDouble()
 .ToMillimeters()
@@ -295,6 +296,18 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 double(69).ToDegrees() => 3953
 ```
 
+The **FromUnit(UnitTypeId)** method converts specified unit type to internal Revit number format.
+
+```c#
+double(69).FromUnit(UnitTypeId.Celsius) => 342.15
+```
+
+The **ToUnit(UnitTypeId)** method converts a Revit internal format value to to specified unit type.
+
+```c#
+double(69).ToUnit(UnitTypeId.Celsius) => -204.15
+```
+
 The **FormatUnit()** method formats a number with units into a string.
 
 ```c#
@@ -422,7 +435,6 @@ edgeEndPoint.FindAllEdgeEndPointsAtVertex();
 The **SaveEntity()** method stores data in the element. Existing data is overwritten.
 
 ```c#
-var schema = Schema.Lookup(guid);
 document.ProjectInformation.SaveEntity(schema, "data", "schemaField");
 door.SaveEntity(schema, "white", "doorColorField");
 ```
@@ -430,7 +442,6 @@ door.SaveEntity(schema, "white", "doorColorField");
 The **LoadEntity()** method retrieves the value stored in the schema from the element.
 
 ```c#
-var schema = Schema.Lookup(guid);
 var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField");
 var color = door.LoadEntity<string>(schema, "doorColorField");
 ```
@@ -595,7 +606,8 @@ string(null).IsNullOrWhiteSpace() => true
 The **AppendPath()** method combines 2 paths.
 
 ```c#
-"C:\Folder".AppendPath("AddIn").AppendPath("file.txt") => "C:\Folder\AddIn\file.txt"
+"C:\Folder".AppendPath("AddIn") => "C:\Folder\AddIn"
+"C:\Folder".AppendPath("AddIn", "file.txt") => "C:\Folder\AddIn\file.txt"
 ```
 
 The **Contains()** indicating whether a specified substring occurs within this string with StringComparison support.
