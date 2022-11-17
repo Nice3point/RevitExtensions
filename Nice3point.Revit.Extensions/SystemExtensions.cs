@@ -87,6 +87,28 @@ public static class StringExtensions
     }
 
     /// <summary>
+    ///     Combines strings into a path
+    /// </summary>
+    /// <returns>The combined paths</returns>
+    /// <exception cref="System.ArgumentException">
+    ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
+    /// </exception>
+    /// <exception cref="System.ArgumentNullException">source or path is null</exception>
+    [Pure]
+    [NotNull]
+    public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] params string[] paths)
+    {
+        var strings = new string[paths.Length + 1];
+        strings[0] = source;
+        for (var i = 1; i < strings.Length; i++)
+        {
+            strings[i] = paths[i - 1];
+        }
+
+        return Path.Combine(strings);
+    }
+
+    /// <summary>
     ///     Returns a value indicating whether a specified substring occurs within this string.
     /// </summary>
     /// <param name="source">Source string</param>

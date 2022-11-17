@@ -16,19 +16,21 @@ public static class SchemaExtensions
     /// <param name="data">Type of data</param>
     /// <param name="fieldName">The Field name</param>
     /// <typeparam name="T">The type of data to be stored in the schema. The type must match the type of data specified in the SchemaBuilder</typeparam>
+    /// <returns>True if entity save succeeded</returns>
     /// <example>
     ///     <code>
     ///         document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
     ///     </code>
     /// </example>
-    public static void SaveEntity<T>([NotNull] this Element element, Schema schema, T data, string fieldName)
+    public static bool SaveEntity<T>([NotNull] this Element element, Schema schema, T data, string fieldName)
     {
         var field = schema.GetField(fieldName);
-        if (field is null) return;
+        if (field is null) return false;
         var entity = schema.GetEntity(element);
-        if (entity is null) return;
+        if (entity is null) return false;
         entity.Set(field, data);
         element.SetEntity(entity);
+        return true;
     }
 
     /// <summary>
