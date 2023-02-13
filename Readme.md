@@ -12,9 +12,9 @@ Extensions minimize the writing of repetitive code, add new methods not included
 
 ```c#
 new ElementId(123469)
-.ToElement<Door>(document)
-.Move(0, 0, 1)
-.GetParameter(BuiltInParameter.DOOR_HEIGHT)
+.ToElement<Door>()
+.Mirror()
+.GetParameter("Height")
 .AsDouble()
 .ToMillimeters()
 .Round()
