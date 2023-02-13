@@ -70,7 +70,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source);
     }
 #endif
-#if R19 || R20 || R21
+#if R20 || R21
     /// <summary>
     ///     Gets the user-visible name for a DisplayUnitType
     /// </summary>
@@ -91,7 +91,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source);
     }
 #endif
-#if R19 || R20 || R21 || R22
+#if R20 || R21 || R22
 
     /// <summary>
     ///     Gets the user-visible name for a ParameterType

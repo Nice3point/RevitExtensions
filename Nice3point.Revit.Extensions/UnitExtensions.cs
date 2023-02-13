@@ -12,7 +12,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>The converted value</returns>
     [Pure]
-#if R19 || R20
+#if R20
     public static double FromUnit(this double value, DisplayUnitType unitId)
     {
         return UnitUtils.ConvertToInternalUnits(value, unitId);
@@ -29,7 +29,7 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>The converted value</returns>
     [Pure]
-#if R19 || R20
+#if R20
     public static double ToUnit(this double value, DisplayUnitType unitId)
     {
         return UnitUtils.ConvertFromInternalUnits(value, unitId);
@@ -48,7 +48,7 @@ public static class UnitExtensions
     [Pure]
     public static double FromMillimeters(this double millimeters)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertToInternalUnits(millimeters, DisplayUnitType.DUT_MILLIMETERS);
 #else
         return UnitUtils.ConvertToInternalUnits(millimeters, UnitTypeId.Millimeters);
@@ -62,7 +62,7 @@ public static class UnitExtensions
     [Pure]
     public static double ToMillimeters(this double feet)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_MILLIMETERS);
 #else
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Millimeters);
@@ -76,7 +76,7 @@ public static class UnitExtensions
     [Pure]
     public static double FromMeters(this double meters)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertToInternalUnits(meters, DisplayUnitType.DUT_METERS);
 #else
         return UnitUtils.ConvertToInternalUnits(meters, UnitTypeId.Meters);
@@ -90,7 +90,7 @@ public static class UnitExtensions
     [Pure]
     public static double ToMeters(this double feet)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_METERS);
 #else
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Meters);
@@ -104,7 +104,7 @@ public static class UnitExtensions
     [Pure]
     public static double FromInches(this double inches)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertToInternalUnits(inches, DisplayUnitType.DUT_DECIMAL_INCHES);
 #else
         return UnitUtils.ConvertToInternalUnits(inches, UnitTypeId.Inches);
@@ -118,7 +118,7 @@ public static class UnitExtensions
     [Pure]
     public static double ToInches(this double feet)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_DECIMAL_INCHES);
 #else
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Inches);
@@ -132,7 +132,7 @@ public static class UnitExtensions
     [Pure]
     public static double FromDegrees(this double degrees)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertToInternalUnits(degrees, DisplayUnitType.DUT_DECIMAL_DEGREES);
 #else
         return UnitUtils.ConvertToInternalUnits(degrees, UnitTypeId.Degrees);
@@ -146,13 +146,13 @@ public static class UnitExtensions
     [Pure]
     public static double ToDegrees(this double radians)
     {
-#if R19 || R20
+#if R20
         return UnitUtils.ConvertFromInternalUnits(radians, DisplayUnitType.DUT_DECIMAL_DEGREES);
 #else
         return UnitUtils.ConvertFromInternalUnits(radians, UnitTypeId.Degrees);
 #endif
     }
-#if R19 || R20 || R21
+#if R20 || R21
 
     /// <summary>Formats a number with units into a string</summary>
     /// <param name="document">Document that stores units</param>
