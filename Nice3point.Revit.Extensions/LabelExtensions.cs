@@ -1,6 +1,4 @@
-﻿#if R20_OR_GREATER
-using Autodesk.Revit.ApplicationServices;
-#endif
+﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 
 namespace Nice3point.Revit.Extensions;
@@ -23,7 +21,6 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source);
     }
-#if R20_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameter in a specific LanguageType
@@ -42,7 +39,6 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source, language);
     }
-#endif
 
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameterGroup
@@ -50,11 +46,13 @@ public static class LabelExtensions
     /// <param name="source">The BuiltInParameterGroup to get the user-visible name</param>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
+#if R24
+    [Obsolete("This method is deprecated in Revit 2024 and may be removed in a future version of Revit. Please use the `GetLabelForGroup(ForgeTypeId)` method instead.")]
+#endif
     public static string ToLabel(this BuiltInParameterGroup source)
     {
         return LabelUtils.GetLabelFor(source);
     }
-#if R20_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a BuiltInCategory
@@ -69,7 +67,6 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source);
     }
-#endif
 #if R20 || R21
     /// <summary>
     ///     Gets the user-visible name for a DisplayUnitType
