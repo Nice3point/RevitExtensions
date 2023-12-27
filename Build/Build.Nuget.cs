@@ -1,6 +1,5 @@
 ﻿using Nuke.Common.Git;
 using Nuke.Common.Tools.DotNet;
-using Nuke.Common.Utilities.Collections;
 using RevitExtensions.Build.Tools;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 using static RevitExtensions.Build.Tools.DotNetExtendedTasks;
@@ -12,34 +11,29 @@ partial class Build
 
     Target NuGetPush => _ => _
         .Requires(() => NugetApiKey)
-        .OnlyWhenStatic(() => GitRepository.IsOnMainOrMasterBranch())
-        .OnlyWhenStatic(() => IsLocalBuild)
+        .OnlyWhenStatic(() => IsLocalBuild && GitRepository.IsOnMainOrMasterBranch())
         .Executes(() =>
         {
-            ArtifactsDirectory.GlobFiles("*.nupkg")
-                .ForEach(package =>
-                {
-                    DotNetNuGetPush(settings => settings
-                        .SetTargetPath(package)
-                        .SetSource(NugetApiUrl)
-                        .SetApiKey(NugetApiKey));
-                });
+            foreach (var package in ArtifactsDirectory.GlobFiles("*.nupkg"))
+                DotNetNuGetPush(settings => settings
+                    .SetTargetPath(package)
+                    .SetSource(NugetApiUrl)
+                    .SetApiKey(NugetApiKey));
         });
 
     Target NuGetDelete => _ => _
         .Requires(() => NugetApiKey)
-        .OnlyWhenStatic(() => GitRepository.IsOnMainOrMasterBranch())
-        .OnlyWhenStatic(() => IsLocalBuild)
+        .OnlyWhenStatic(() => IsLocalBuild && GitRepository.IsOnMainOrMasterBranch())
         .Executes(() =>
         {
-            VersionMap.ForEach(map =>
+            foreach (var (config, version) in VersionMap)
             {
                 DotNetNuGetDelete(settings => settings
                     .SetPackage("Nice3point.Revit.Extensions")
-                    .SetVersion(map.Value)
+                    .SetVersion(version)
                     .SetSource(NugetApiUrl)
                     .SetApiKey(NugetApiKey)
                     .EnableNonInteractive());
-            });
+            }
         });
 }

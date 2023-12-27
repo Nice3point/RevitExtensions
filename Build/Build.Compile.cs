@@ -1,18 +1,29 @@
-﻿using Nuke.Common.Tools.DotNet;
+﻿using System.IO.Enumeration;
+using Nuke.Common.Tools.DotNet;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-partial class Build
+sealed partial class Build
 {
     Target Compile => _ => _
-        .TriggeredBy(Cleaning)
+        .TriggeredBy(Clean)
         .Executes(() =>
         {
-            var configurations = GetConfigurations(BuildConfiguration);
-            foreach (var configuration in configurations)
-            {
+            foreach (var configuration in GlobBuildConfigurations())
                 DotNetBuild(settings => settings
                     .SetConfiguration(configuration)
                     .SetVerbosity(DotNetVerbosity.Minimal));
-            }
         });
+
+    List<string> GlobBuildConfigurations()
+    {
+        var configurations = Solution.Configurations
+            .Select(pair => pair.Key)
+            .Select(config => config.Remove(config.LastIndexOf('|')))
+            .Where(config => Configurations.Any(wildcard => FileSystemName.MatchesSimpleExpression(wildcard, config)))
+            .ToList();
+
+        Assert.NotEmpty(configurations, $"No solution configurations have been found. Pattern: {string.Join(" | ", Configurations)}");
+
+        return configurations;
+    }
 }

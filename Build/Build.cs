@@ -1,26 +1,65 @@
+using System.Text;
 using Nuke.Common.Git;
 using Nuke.Common.ProjectModel;
+using Nuke.Common.Tools.Git;
 
-partial class Build : NukeBuild
+sealed partial class Build : NukeBuild
 {
-    readonly AbsolutePath ArtifactsDirectory = RootDirectory / ArtifactsFolder;
-    [Solution] readonly Solution Solution;
+    string Version;
+    string[] Configurations;
+    Dictionary<string, string> VersionMap;
+
+    [Parameter] string GitHubToken;
     [GitRepository] readonly GitRepository GitRepository;
+    [Solution(GenerateProjects = true)] readonly Solution Solution;
 
-    public static int Main() => Execute<Build>(x => x.Cleaning);
+    public static int Main() => Execute<Build>(x => x.Clean);
 
-    List<string> GetConfigurations(params string[] startPatterns)
+    void ValidateVersion()
     {
-        var configurations = Solution.Configurations
-            .Select(pair => pair.Key)
-            .Where(s => startPatterns.Any(s.StartsWith))
-            .Select(s =>
+        var tags = GitTasks.Git("describe --tags --abbrev=0", logInvocation: false, logOutput: false);
+        if (tags.Count == 0) return;
+
+        Assert.False(tags.Last().Text == PublishVersion, $"A Release with the specified tag already exists in the repository: {PublishVersion}");
+        Log.Information("Version: {Version}", PublishVersion);
+    }
+
+    StringBuilder ReadChangelog()
+    {
+        const string separator = "# ";
+
+        var hasEntry = false;
+        var changelog = new StringBuilder();
+        foreach (var line in File.ReadLines(ChangeLogPath))
+        {
+            if (hasEntry)
             {
-                var platformIndex = s.LastIndexOf('|');
-                return s.Remove(platformIndex);
-            })
-            .ToList();
-        if (configurations.Count == 0) throw new Exception($"Can't find configurations in the solution by patterns: {string.Join(" | ", startPatterns)}.");
-        return configurations;
+                if (line.StartsWith(separator)) break;
+
+                changelog.AppendLine(line);
+                continue;
+            }
+
+            if (line.StartsWith(separator) && line.Contains(PublishVersion))
+            {
+                hasEntry = true;
+            }
+        }
+
+        TrimEmptyLines(changelog);
+        return changelog;
+    }
+
+    static void TrimEmptyLines(StringBuilder changelog)
+    {
+        while (changelog[^1] == '\r' || changelog[^1] == '\n')
+        {
+            changelog.Remove(changelog.Length - 1, 1);
+        }
+
+        while (changelog[0] == '\r' || changelog[0] == '\n')
+        {
+            changelog.Remove(0, 1);
+        }
     }
 }
