@@ -25,6 +25,7 @@ sealed partial class Build
 
             var artifacts = Directory.GetFiles(ArtifactsDirectory, "*");
             var changelog = CreateGithubChangelog();
+            Assert.NotEmpty(artifacts, "No artifacts were found to create the Release");
 
             var newRelease = new NewRelease(PublishVersion)
             {
