@@ -6,10 +6,10 @@
 
     protected override void OnBuildInitialized()
     {
-        Configurations = new[]
-        {
+        Configurations =
+        [
             "Release*"
-        };
+        ];
 
         VersionMap = new()
         {
