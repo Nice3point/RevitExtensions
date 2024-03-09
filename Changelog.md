@@ -1,3 +1,7 @@
+# Release 2025.0.0-preview.1.0
+
+- Revit 2025 support
+
 # Release 2024.0.0
 
 Revit 2024 support
