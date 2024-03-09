@@ -152,7 +152,7 @@ public static class UnitExtensions
         return UnitUtils.ConvertFromInternalUnits(radians, UnitTypeId.Degrees);
 #endif
     }
-#if R20 || R21
+#if !R22_OR_GREATER
 
     /// <summary>Formats a number with units into a string</summary>
     /// <param name="document">Document that stores units</param>

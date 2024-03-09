@@ -9,7 +9,10 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ImperialExtensions
 {
-    private const string Expr = @"^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?""?)?)\s*$";
+    private const string Expr =
+        """
+        ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
+        """;
 
     private static readonly Regex Regex = new(Expr, RegexOptions.Compiled);
 
@@ -30,10 +33,10 @@ public static class ImperialExtensions
         if (denominator < 1) throw new ArgumentException("Denominator must be greater than or equal to 1", nameof(denominator));
         var divider = denominator;
 
-        var feet = (int) Math.Abs(source);
+        var feet = (int)Math.Abs(source);
         var decimalInches = source * 12 % 12;
-        var inches = (int) Math.Abs(decimalInches);
-        var numerator = (int) ((Math.Abs(decimalInches) - Math.Abs(inches)) * divider + 0.5);
+        var inches = (int)Math.Abs(decimalInches);
+        var numerator = (int)((Math.Abs(decimalInches) - Math.Abs(inches)) * divider + 0.5);
 
         while (numerator % 2 == 0 && divider % 2 == 0)
         {
@@ -102,7 +105,27 @@ public static class ImperialExtensions
     /// </example>
     [Pure]
     [ContractAnnotation("source:null => false")]
+    [Obsolete("Use TryFromFraction instead")]
     public static bool FromFraction(this string source, out double value)
+    {
+        return TryFromFraction(source, out value);
+    }
+
+    /// <summary>
+    ///     Converts the textual representation of the Imperial system number to double
+    /// </summary>
+    /// <param name="source">Imperial number</param>
+    /// <param name="value">Feet value</param>
+    /// <returns>True if conversion is successful</returns>
+    /// <example>
+    ///     1' will be converted to 1<br />
+    ///     1/8" will be converted to 0.010<br />
+    ///     1'-3/32" will be converted to 1.007<br />
+    ///     1'1.75" will be converted to 1.145
+    /// </example>
+    [Pure]
+    [ContractAnnotation("source:null => false")]
+    public static bool TryFromFraction(this string source, out double value)
     {
         value = 0;
         if (source is null) return false;

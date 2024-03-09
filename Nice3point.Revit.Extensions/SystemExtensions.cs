@@ -1,4 +1,6 @@
-﻿namespace Nice3point.Revit.Extensions;
+﻿using System.IO;
+
+namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     System.String Extensions

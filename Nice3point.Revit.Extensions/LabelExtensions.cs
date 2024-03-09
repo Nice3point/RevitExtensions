@@ -40,6 +40,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source, language);
     }
 
+#if !R25_OR_GREATER
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameterGroup
     /// </summary>
@@ -53,6 +54,7 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source);
     }
+#endif
 
     /// <summary>
     ///     Gets the user-visible name for a BuiltInCategory
@@ -67,7 +69,7 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source);
     }
-#if R20 || R21
+#if !R22_OR_GREATER
     /// <summary>
     ///     Gets the user-visible name for a DisplayUnitType
     /// </summary>
@@ -88,7 +90,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source);
     }
 #endif
-#if R20 || R21 || R22
+#if !R23_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a ParameterType
