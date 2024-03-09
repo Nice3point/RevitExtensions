@@ -10,6 +10,7 @@ partial class Build
     [Secret] [Parameter] string NugetApiKey;
 
     Target NuGetPush => _ => _
+        .DependsOn(Pack)
         .Requires(() => NugetApiKey)
         .OnlyWhenStatic(() => IsLocalBuild && GitRepository.IsOnMainOrMasterBranch())
         .Executes(() =>

@@ -31,7 +31,10 @@ sealed partial class Build
             {
                 Name = PublishVersion,
                 Body = changelog,
-                TargetCommitish = GitRepository.Commit
+                TargetCommitish = GitRepository.Commit,
+                Prerelease = Version.Contains("-beta") ||
+                             Version.Contains("-dev") ||
+                             Version.Contains("-preview")
             };
 
             var release = await GitHubTasks.GitHubClient.Repository.Release.Create(gitHubOwner, gitHubName, newRelease);
@@ -55,6 +58,7 @@ sealed partial class Build
         var tags = GitTasks.Git("describe --tags --abbrev=0", logInvocation: false, logOutput: false);
         if (tags.Count == 0) return;
 
+        if (changelog[^1] != '\r' || changelog[^1] != '\n') changelog.AppendLine(Environment.NewLine);
         changelog.Append("Full changelog: ");
         changelog.Append(GitRepository.GetGitHubCompareTagsUrl(PublishVersion, tags.Last().Text));
     }
