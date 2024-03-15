@@ -1,23 +1,26 @@
-<h3 align="center"><img src="https://user-images.githubusercontent.com/20504884/147851991-6da425cf-44ee-4517-86ad-a6d22253d197.png" width="500px"></h3>
-
-# Improve your experience with Revit API now
-
 <p align="center">
-  <a href="https://www.nuget.org/packages/Nice3point.Revit.Extensions"><img src="https://img.shields.io/nuget/v/Nice3point.Revit.Extensions?style=for-the-badge"></a>
-  <a href="https://www.nuget.org/packages/Nice3point.Revit.Extensions"><img src="https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge"></a>
-  <a href="https://github.com/Nice3point/RevitExtensions/commits/develop"><img src="https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge"></a>
+    <picture>
+        <source media="(prefers-color-scheme: dark)" width="750" srcset="https://github.com/Nice3point/RevitExtensions/assets/20504884/a1772d7d-38d4-4a9b-9985-1d83b8cbea8d">
+        <img alt="RevitLookup" width="750" src="https://github.com/Nice3point/RevitExtensions/assets/20504884/a1772d7d-38d4-4a9b-9985-1d83b8cbea8d">
+    </picture>
 </p>
 
-Extensions minimize the writing of repetitive code, add new methods not included in RevitApi, and also allow you to write chained methods without worrying about API versioning:
+## Improve your experience with Revit API
+
+[![Nuget](https://img.shields.io/nuget/v/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
+[![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
+[![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge)](https://github.com/Nice3point/RevitExtensions/commits/develop)
+
+Extensions minimize the writing of repetitive code, add new methods not included in RevitAPI, and also allow you to write chained methods without worrying about API versioning:
 
 ```c#
 new ElementId(123469)
-.ToElement<Door>()
-.Mirror()
-.GetParameter("Height")
-.AsDouble()
-.ToMillimeters()
-.Round()
+    .ToElement<Door>()
+    .Mirror()
+    .FindParameter("Height")
+    .AsDouble()
+    .ToMillimeters()
+    .Round()
 ```
 
 Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
@@ -34,9 +37,7 @@ Packages are compiled for a specific version of Revit, to support different vers
 
 Package included by default in [Revit Templates](https://github.com/Nice3point/RevitTemplates).
 
-## Features
-
-### Table of contents
+## Table of contents
 
 - [Element Extensions](#ElementExtensions)
 - [ElementId Extensions](#ElementIdExtensions)
@@ -63,12 +64,12 @@ Floor floor = element.Cast<Floor>();
 HostObject hostObject = element.Cast<HostObject>();
 ```
 
-The **GetParameter()** method retrieves a parameter from an element. For instances that do not have such a parameter, the method will retrieve that parameter from the element type
+The **FindParameter()** method finds a parameter in an element. For instances that do not have such a parameter, this method will find and return it at the element type
 
 ```c#
-element.GetParameter(ParameterTypeId.AllModelUrl, snoopType = true);
-element.GetParameter(BuiltInParameter.ALL_MODEL_URL);
-element.GetParameter("URL");
+element.FindParameter(ParameterTypeId.AllModelUrl);
+element.FindParameter(BuiltInParameter.ALL_MODEL_URL);
+element.FindParameter("URL");
 ```
 
 The **Copy()** method copies an element and places the copy at a location indicated by a given transformation.
@@ -451,20 +452,20 @@ var color = door.LoadEntity<string>(schema, "doorColorField");
 The **AsBool()** method provides access to the boolean value within the parameter
 
 ```c#
-bool value = element.GetParameter("IsClosed").AsBool();
+bool value = element.FindParameter("IsClosed").AsBool();
 ```
 
 The **AsColor()** method provides access to the Color within the parameter
 
 ```c#
-Color value = element.GetParameter("Door color").AsColor();
+Color value = element.FindParameter("Door color").AsColor();
 ```
 
 The **AsElement()** method provides access to the Element within the parameter
 
 ```c#
-Element value = element.GetParameter("Door material").AsElement();
-Material value = element.GetParameter("Door material").AsElement<Material>();
+Element value = element.FindParameter("Door material").AsElement();
+Material value = element.FindParameter("Door material").AsElement<Material>();
 ```
 
 The **Set()** method sets the parameter to a new value
