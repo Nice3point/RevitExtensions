@@ -559,7 +559,7 @@ double(-25.222).ToFraction() => 25’-2 21/32〞
 double(-25.222).ToFraction(4) => 25’-2 3/4〞
 ```
 
-The **FromFraction()** method converts the textual representation of the Imperial system number to number.
+The **FromFraction()**, **TryFromFraction()** methods convert the textual representation of the Imperial system number to number.
 
 ```c#
 string("").FromFraction() => double(0)
@@ -567,11 +567,11 @@ string(1 17/64〞).FromFraction() => double(0.105)
 string(1’1.75).FromFraction() => double(1.145)
 string(-69’-69〞).FromFraction() => double(-74.75)
 
-string(-2’-1 15/64〞).FromFraction(out var value) => true
-string("-").FromFraction(out var value) => true
-string(".").FromFraction(out var value) => false
-string("value").FromFraction(out var value) => false
-string(null).FromFraction(out var value) => false
+string(-2’-1 15/64〞).TryFromFraction(out var value) => true
+string("-").TryFromFraction(out var value) => true
+string(".").TryFromFraction(out var value) => false
+string("value").TryFromFraction(out var value) => false
+string(null).TryFromFraction(out var value) => false
 ```
 
 ### <a id="SystemExtensions">System Extensions</a>
