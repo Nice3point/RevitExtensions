@@ -72,19 +72,15 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.*" />
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="!$(Configuration.Contains('R25'))"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="!$(Configuration.Contains('R25'))"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="!$(Configuration.Contains('R25'))"/>
-
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-preview-*" PrivateAssets="all" Condition="$(Configuration.Contains('R25'))"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-preview-*" PrivateAssets="all" Condition="$(Configuration.Contains('R25'))"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-preview-*" PrivateAssets="all" Condition="$(Configuration.Contains('R25'))"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all" />
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all" />
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
         <Using Include="JetBrains.Annotations" />
         <Using Include="System.Runtime.CompilerServices" />
-        <Using Remove="System.Net.Http" />
+        <Using Remove="System.Net.Http" Condition="!$(DefineConstants.Contains('R25_OR_GREATER'))"/>
     </ItemGroup>
 
     <ItemGroup>
