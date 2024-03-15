@@ -627,8 +627,3 @@ In this case, you can use [symbol servers](https://docs.microsoft.com/en-us/wind
 Then, you can point your debugger to the symbol server to resolve symbol names.
 
 The symbols for this package are available at https://symbols.nuget.org/download/symbols
-
-## Technology Sponsors
-
-Thanks to [JetBrains](https://jetbrains.com) for providing licenses for [Rider](https://jetbrains.com/rider) and [dotUltimate](https://www.jetbrains.com/dotnet/) tools, which both
-make open-source development a real pleasure!
