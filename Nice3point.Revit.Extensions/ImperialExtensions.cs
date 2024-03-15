@@ -9,12 +9,12 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class ImperialExtensions
 {
-    private const string Expr =
+    private const string Expression =
         """
         ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
         """;
 
-    private static readonly Regex Regex = new(Expr, RegexOptions.Compiled);
+    private static readonly Regex Regex = new(Expression, RegexOptions.Compiled);
 
     /// <summary>
     ///     Converts a number to text representation for the Imperial system with denominator 32
