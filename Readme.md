@@ -56,7 +56,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
-The **Cast<T>()** method cast the element to the specified type.
+The **Cast<T>()** method casts the element to the specified type.
 
 ```c#
 Wall wall = element.Cast<Wall>();
