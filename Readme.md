@@ -1,6 +1,6 @@
 <p align="center">
     <picture>
-        <source media="(prefers-color-scheme: dark)" width="750" srcset="https://github.com/Nice3point/RevitExtensions/assets/20504884/a1772d7d-38d4-4a9b-9985-1d83b8cbea8d">
+        <source media="(prefers-color-scheme: dark)" width="750" srcset="https://github.com/Nice3point/RevitExtensions/assets/20504884/d605eb83-74a7-4a47-9db8-cb0daced374e">
         <img alt="RevitLookup" width="750" src="https://github.com/Nice3point/RevitExtensions/assets/20504884/a1772d7d-38d4-4a9b-9985-1d83b8cbea8d">
     </picture>
 </p>
