@@ -1,3 +1,9 @@
+# Release 2025.0.0-preview.2.0
+
+- New package icon
+- New `FindParameter()` overloads with GUID and Definition. This method combines all API methods for getting a parameter, such as `get_Parameter`, `LookupParameter`, `GetParameter`. It also searches for a parameter in the element type if there is no such parameter in the element
+- `GetParameter()` method is obsolete. Use `FindParameter()` instead
+
 # Release 2025.0.0-preview.1.0
 
 - Revit 2025 support
