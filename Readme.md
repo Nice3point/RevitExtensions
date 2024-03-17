@@ -64,7 +64,9 @@ Floor floor = element.Cast<Floor>();
 HostObject hostObject = element.Cast<HostObject>();
 ```
 
-The **FindParameter()** method finds a parameter in an element. For instances that do not have such a parameter, this method will find and return it at the element type
+The **FindParameter()** method finds a parameter in an element.
+For instances that do not have such a parameter, this method will find and return it at the element type.
+This method combines all API methods for getting a parameter into one, such as `get_Parameter`, `LookupParameter`, `GetParameter`.
 
 ```c#
 element.FindParameter(ParameterTypeId.AllModelUrl);
