@@ -80,7 +80,7 @@
     <ItemGroup>
         <Using Include="JetBrains.Annotations" />
         <Using Include="System.Runtime.CompilerServices" />
-        <Using Remove="System.Net.Http" Condition="!$(DefineConstants.Contains('R25_OR_GREATER'))"/>
+        <Using Remove="System.Net.Http" />
     </ItemGroup>
 
     <ItemGroup>
