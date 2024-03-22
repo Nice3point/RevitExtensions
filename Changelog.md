@@ -1,3 +1,56 @@
+# Release 2025.0.0-preview.3.0
+
+Added new extensions to help you add context menu items without creating additional classes or specifying type names. Revit 2025 and higher
+
+The **ConfigureContextMenu()** method registers an action used to configure a Context menu.
+
+```c#
+application.ConfigureContextMenu(menu =>
+{
+    menu.AddMenuItem<Command>("Menu title");
+    menu.AddMenuItem<Command>("Menu title")
+        .SetAvailabilityController<Controller>()
+        .SetToolTip("Description");
+});
+```
+
+You can also specify your own context menu title. By default, Revit uses the Application name
+
+```c#
+application.ConfigureContextMenu("Title", menu =>
+{
+    menu.AddMenuItem<Command>("Menu title");
+});
+```
+
+The **AddMenuItem()** method adds a menu item to the Context Menu.
+
+```c#
+menu.AddMenuItem<Command>("Menu title");
+```
+
+The **AddSeparator()** method adds a separator to the Context Menu.
+
+```c#
+menu.AddSeparator();
+```
+
+The **AddSubMenu()** method adds a sub menu to the Context Menu.
+
+```c#
+var subMenu = new ContextMenu();
+subMenu.AddMenuItem<Command>("Menu title");
+subMenu.AddMenuItem<Command>("Menu title");
+
+menu.AddSubMenu("Sub menu title", subMenu);
+```
+
+The **SetAvailabilityController()** method specifies the class type that decides the availability of menu item.
+
+```c#
+menuItem.SetAvailabilityController<Controller>()
+```
+
 # Release 2025.0.0-preview.2.0
 
 - New package icon
