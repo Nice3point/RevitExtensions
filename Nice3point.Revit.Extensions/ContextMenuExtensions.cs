@@ -5,70 +5,89 @@ using ContextMenu = Autodesk.Revit.UI.ContextMenu;
 
 namespace Nice3point.Revit.Extensions;
 
+/// <summary>
+///     Revit Context Menu Extensions
+/// </summary>
 public static class ContextMenuExtensions
 {
     /// <summary>
-    ///     Adds a menu to the Context Menu
+    ///     Adds a menu item to the Context Menu
     /// </summary>
-    /// <param name="menu">Menu item owner</param>
+    /// <param name="menu">The menu item parent</param>
     /// <param name="name">The name will show on the menu</param>
     /// <typeparam name="TCommand">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommand"/></typeparam>
-    public static ContextMenu AddMenuItem<TCommand>(this ContextMenu menu, string name) where TCommand : IExternalCommand, new()
+    public static CommandMenuItem AddMenuItem<TCommand>(this ContextMenu menu, string name) where TCommand : IExternalCommand, new()
     {
         var command = typeof(TCommand);
         var menuItem = new CommandMenuItem(name, command.FullName, Assembly.GetAssembly(command)!.Location);
         menu.AddItem(menuItem);
 
-        return menu;
+        return menuItem;
     }
 
     /// <summary>
     ///     Adds a separator to the Context Menu
     /// </summary>
-    /// <param name="menu">Menu item owner</param>
-    public static ContextMenu AddSeparator(this ContextMenu menu)
+    /// <param name="menu">The separator parent</param>
+    public static SeparatorItem AddSeparator(this ContextMenu menu)
     {
         var separator = new SeparatorItem();
         menu.AddItem(separator);
 
-        return menu;
+        return separator;
     }
 
     /// <summary>
     ///     Adds a sub menu to the Context Menu
     /// </summary>
-    /// <param name="menu">Menu item owner</param>
-    /// <param name="name">The name will show on menu</param>
-    /// <param name="subMenu">The child of Context Menu</param>
+    /// <param name="menu">The sub menu parent</param>
+    /// <param name="name">The name will show on sub menu</param>
+    /// <param name="subMenu">The sub menu object</param>
     public static ContextMenu AddSubMenu(this ContextMenu menu, string name, ContextMenu subMenu)
     {
-        var separator = new SubMenuItem(name, subMenu);
-        menu.AddItem(separator);
+        var subMenuItem = new SubMenuItem(name, subMenu);
+        menu.AddItem(subMenuItem);
 
-        return menu;
+        return subMenu;
     }
 
     /// <summary>
-    ///     Specifies the class that decides the availability of menu item
+    ///     Specifies the class type that decides the availability of menu item
     /// </summary>
-    /// <param name="menuItem">The menu item that will be restricted on the context menu</param>
     /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/></typeparam>
-    /// <remarks>Class T should share the same assembly with add-in External Command</remarks>
     public static CommandMenuItem SetAvailabilityController<T>(this CommandMenuItem menuItem) where T : IExternalCommandAvailability, new()
     {
         menuItem.SetAvailabilityClassName(typeof(T).FullName);
+
         return menuItem;
     }
 
     /// <summary>
-    ///     Register and configure the newly created Context Menu
+    ///     Registers an action used to configure a Context menu
     /// </summary>
-    public static UIControlledApplication RegisterContextMenu(this UIControlledApplication application, Action<ContextMenu> handler)
+    /// <param name="application">The Revit application</param>
+    /// <param name="configuration">The action used to configure the context menu</param>
+    /// <remarks>The assembly name will be used for root Context Menu title</remarks>
+    public static UIControlledApplication ConfigureContextMenu(this UIControlledApplication application, Action<ContextMenu> configuration)
     {
-        var callingAssembly = Assembly.GetCallingAssembly();
+        var caller = Assembly.GetCallingAssembly();
+        var creator = new ContextMenuCreator(configuration);
+        application.RegisterContextMenu(caller.GetName().Name, creator);
 
-        var creator = new ContextMenuCreator(handler);
-        application.RegisterContextMenu(callingAssembly.FullName, creator);
+        return application;
+    }
+
+    /// <summary>
+    ///     Registers an action used to configure a Context menu
+    /// </summary>
+    /// <param name="application">The Revit application</param>
+    /// <param name="title">The Context menu root title</param>
+    /// <param name="configuration">The action used to configure the context menu</param>
+    public static UIControlledApplication ConfigureContextMenu(this UIControlledApplication application, string title, Action<ContextMenu> configuration)
+    {
+        var creator = new ContextMenuCreator(configuration);
+        application.RegisterContextMenu(title, creator);
+
         return application;
     }
 
