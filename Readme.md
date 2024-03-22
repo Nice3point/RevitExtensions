@@ -43,6 +43,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 - [ElementId Extensions](#ElementIdExtensions)
 - [Geometry Extensions](#GeometryExtensions)
 - [Ribbon Extensions](#RibbonExtensions)
+- [ContextMenu Extensions](#ContextMenuExtensions)
 - [Unit Extensions](#UnitExtensions)
 - [Host Extensions](#HostExtensions)
 - [Label Extensions](#LabelExtensions)
@@ -247,6 +248,57 @@ The **SetAvailabilityController()** method specifies the class that decides the 
 
 ```c#
 pushButton.SetAvailabilityController<CommandController>();
+```
+
+### <a id="ContextMenuExtensions">ContextMenu Extensions</a>
+
+The **ConfigureContextMenu()** method registers an action used to configure a Context menu.
+
+```c#
+application.ConfigureContextMenu(menu =>
+{
+    menu.AddMenuItem<Command>("Menu title");
+    menu.AddMenuItem<Command>("Menu title")
+        .SetAvailabilityController<Controller>()
+        .SetToolTip("Description");
+});
+```
+
+You can also specify your own context menu title. By default, Revit uses the Application name
+
+```c#
+application.ConfigureContextMenu("Title", menu =>
+{
+    menu.AddMenuItem<Command>("Menu title");
+});
+```
+
+The **AddMenuItem()** method adds a menu item to the Context Menu.
+
+```c#
+menu.AddMenuItem<Command>("Menu title");
+```
+
+The **AddSeparator()** method adds a separator to the Context Menu.
+
+```c#
+menu.AddSeparator();
+```
+
+The **AddSubMenu()** method adds a sub menu to the Context Menu.
+
+```c#
+var subMenu = new ContextMenu();
+subMenu.AddMenuItem<Command>("Menu title");
+subMenu.AddMenuItem<Command>("Menu title");
+
+menu.AddSubMenu("Sub menu title", subMenu);
+```
+
+The **SetAvailabilityController()** method specifies the class type that decides the availability of menu item.
+
+```c#
+menuItem.SetAvailabilityController<Controller>()
 ```
 
 ### <a id="UnitExtensions">Unit Extensions</a>
