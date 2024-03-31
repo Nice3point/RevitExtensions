@@ -1,3 +1,7 @@
+# Release 2025.0.0-preview.3.1
+
+Include define constants generation
+
 # Release 2025.0.0-preview.3.0
 
 Added new extensions to help you add context menu items without creating additional classes or specifying type names. Revit 2025 and higher
