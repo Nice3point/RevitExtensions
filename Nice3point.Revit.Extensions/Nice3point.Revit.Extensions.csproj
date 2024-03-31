@@ -20,11 +20,18 @@
         <PackageIcon>images\PackageIcon.png</PackageIcon>
         <PackageLicenseFile>License.md</PackageLicenseFile>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EnablePackageValidation>true</EnablePackageValidation>
+        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.Contains('Release'))">
+        <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
