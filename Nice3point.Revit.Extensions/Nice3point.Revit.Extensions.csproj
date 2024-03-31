@@ -23,17 +23,14 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <EnablePackageValidation>true</EnablePackageValidation>
-        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="$(Configuration.Contains('Release'))">
         <IsPackable>true</IsPackable>
+        <EnablePackageValidation>true</EnablePackageValidation>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
         <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
+
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
         <RevitVersion>2020</RevitVersion>
         <TargetFramework>net47</TargetFramework>
@@ -61,8 +58,8 @@
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.*" />
-        <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*-*" PrivateAssets="all" />
-        
+        <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*-*" />
+
         <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
