@@ -1,4 +1,8 @@
-# Release 2025.0.0-preview.3.1
+# Release 2025.0.0-preview.3.4
+
+Fix symbols package
+
+# Release 2025.0.0-preview.3.2
 
 Include define constants generation
 
