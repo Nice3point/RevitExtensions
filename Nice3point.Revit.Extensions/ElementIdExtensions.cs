@@ -49,7 +49,7 @@ public static class ElementIdExtensions
     [Pure]
     public static bool AreEquals(this ElementId elementId, BuiltInCategory category)
     {
-#if R24_OR_GREATER
+#if REVIT2024_OR_GREATER
         return elementId.Value == (long) category;
 #else
         return elementId.IntegerValue == (int) category;
@@ -62,7 +62,7 @@ public static class ElementIdExtensions
     [Pure]
     public static bool AreEquals(this ElementId elementId, BuiltInParameter parameter)
     {
-#if R24_OR_GREATER
+#if REVIT2024_OR_GREATER
         return elementId.Value == (long) parameter;
 #else
         return elementId.IntegerValue == (int) parameter;

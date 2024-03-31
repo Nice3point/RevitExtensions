@@ -12,13 +12,13 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>The converted value</returns>
     [Pure]
-#if R20
-    public static double FromUnit(this double value, DisplayUnitType unitId)
+#if REVIT2021_OR_GREATER
+    public static double FromUnit(this double value, ForgeTypeId unitId)
     {
         return UnitUtils.ConvertToInternalUnits(value, unitId);
     }
 #else
-    public static double FromUnit(this double value, ForgeTypeId unitId)
+    public static double FromUnit(this double value, DisplayUnitType unitId)
     {
         return UnitUtils.ConvertToInternalUnits(value, unitId);
     }
@@ -29,13 +29,13 @@ public static class UnitExtensions
     /// </summary>
     /// <returns>The converted value</returns>
     [Pure]
-#if R20
-    public static double ToUnit(this double value, DisplayUnitType unitId)
+#if REVIT2021_OR_GREATER
+    public static double ToUnit(this double value, ForgeTypeId unitId)
     {
         return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
 #else
-    public static double ToUnit(this double value, ForgeTypeId unitId)
+    public static double ToUnit(this double value, DisplayUnitType unitId)
     {
         return UnitUtils.ConvertFromInternalUnits(value, unitId);
     }
@@ -48,10 +48,10 @@ public static class UnitExtensions
     [Pure]
     public static double FromMillimeters(this double millimeters)
     {
-#if R20
-        return UnitUtils.ConvertToInternalUnits(millimeters, DisplayUnitType.DUT_MILLIMETERS);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertToInternalUnits(millimeters, UnitTypeId.Millimeters);
+#else
+        return UnitUtils.ConvertToInternalUnits(millimeters, DisplayUnitType.DUT_MILLIMETERS);
 #endif
     }
 
@@ -62,10 +62,10 @@ public static class UnitExtensions
     [Pure]
     public static double ToMillimeters(this double feet)
     {
-#if R20
-        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_MILLIMETERS);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Millimeters);
+#else
+        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_MILLIMETERS);
 #endif
     }
 
@@ -76,10 +76,10 @@ public static class UnitExtensions
     [Pure]
     public static double FromMeters(this double meters)
     {
-#if R20
-        return UnitUtils.ConvertToInternalUnits(meters, DisplayUnitType.DUT_METERS);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertToInternalUnits(meters, UnitTypeId.Meters);
+#else
+        return UnitUtils.ConvertToInternalUnits(meters, DisplayUnitType.DUT_METERS);
 #endif
     }
 
@@ -90,10 +90,10 @@ public static class UnitExtensions
     [Pure]
     public static double ToMeters(this double feet)
     {
-#if R20
-        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_METERS);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Meters);
+#else
+        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_METERS);
 #endif
     }
 
@@ -104,10 +104,10 @@ public static class UnitExtensions
     [Pure]
     public static double FromInches(this double inches)
     {
-#if R20
-        return UnitUtils.ConvertToInternalUnits(inches, DisplayUnitType.DUT_DECIMAL_INCHES);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertToInternalUnits(inches, UnitTypeId.Inches);
+#else
+        return UnitUtils.ConvertToInternalUnits(inches, DisplayUnitType.DUT_DECIMAL_INCHES);
 #endif
     }
 
@@ -118,10 +118,10 @@ public static class UnitExtensions
     [Pure]
     public static double ToInches(this double feet)
     {
-#if R20
-        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_DECIMAL_INCHES);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertFromInternalUnits(feet, UnitTypeId.Inches);
+#else
+        return UnitUtils.ConvertFromInternalUnits(feet, DisplayUnitType.DUT_DECIMAL_INCHES);
 #endif
     }
 
@@ -132,10 +132,10 @@ public static class UnitExtensions
     [Pure]
     public static double FromDegrees(this double degrees)
     {
-#if R20
-        return UnitUtils.ConvertToInternalUnits(degrees, DisplayUnitType.DUT_DECIMAL_DEGREES);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertToInternalUnits(degrees, UnitTypeId.Degrees);
+#else
+        return UnitUtils.ConvertToInternalUnits(degrees, DisplayUnitType.DUT_DECIMAL_DEGREES);
 #endif
     }
 
@@ -146,13 +146,13 @@ public static class UnitExtensions
     [Pure]
     public static double ToDegrees(this double radians)
     {
-#if R20
-        return UnitUtils.ConvertFromInternalUnits(radians, DisplayUnitType.DUT_DECIMAL_DEGREES);
-#else
+#if REVIT2021_OR_GREATER
         return UnitUtils.ConvertFromInternalUnits(radians, UnitTypeId.Degrees);
+#else
+        return UnitUtils.ConvertFromInternalUnits(radians, DisplayUnitType.DUT_DECIMAL_DEGREES);
 #endif
     }
-#if !R22_OR_GREATER
+#if !REVIT2022_OR_GREATER
 
     /// <summary>Formats a number with units into a string</summary>
     /// <param name="document">Document that stores units</param>
@@ -175,7 +175,7 @@ public static class UnitExtensions
     ///     A value passed for an enumeration argument is not a member of that enumeration
     /// </exception>
     [Pure]
-#if R21
+#if REVIT2021
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
     public static string FormatUnit(this Document document, UnitType unitType, double value, bool maxAccuracy, bool forEditing)
@@ -207,7 +207,7 @@ public static class UnitExtensions
     ///     A value passed for an enumeration argument is not a member of that enumeration
     /// </exception>
     [Pure]
-#if R21
+#if REVIT2021
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
     public static string FormatUnit(this Document document, UnitType unitType, double value, bool maxAccuracy, bool forEditing, FormatValueOptions options)
@@ -215,7 +215,7 @@ public static class UnitExtensions
         return UnitFormatUtils.Format(document.GetUnits(), unitType, value, maxAccuracy, forEditing, options);
     }
 #endif
-#if R21_OR_GREATER
+#if REVIT2021_OR_GREATER
     /// <summary>Formats a number with units into a string</summary>
     /// <param name="document">Document that stores units</param>
     /// <param name="specTypeId">Identifier of the spec of the value to format</param>

@@ -18,7 +18,7 @@ public static class ElementExtensions
         return (T)element;
     }
 
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
     /// <summary>
     ///     Retrieves a parameter from the instance or symbol given identifier
     /// </summary>
@@ -71,7 +71,7 @@ public static class ElementExtensions
         return FindParameter(element, parameter);
     }
 
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
     /// <summary>
     ///     Find a parameter in the instance or symbol by identifier
     /// </summary>

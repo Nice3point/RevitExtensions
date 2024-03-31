@@ -1,4 +1,4 @@
-﻿#if R25_OR_GREATER
+﻿#if REVIT2025_OR_GREATER
 using System.Reflection;
 using Autodesk.Revit.UI;
 using ContextMenu = Autodesk.Revit.UI.ContextMenu;

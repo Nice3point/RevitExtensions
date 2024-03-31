@@ -40,14 +40,14 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source, language);
     }
 
-#if !R25_OR_GREATER
+#if !REVIT2025_OR_GREATER
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameterGroup
     /// </summary>
     /// <param name="source">The BuiltInParameterGroup to get the user-visible name</param>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
-#if R24
+#if REVIT2024
     [Obsolete("This method is deprecated in Revit 2024 and may be removed in a future version of Revit. Please use the `GetLabelForGroup(ForgeTypeId)` method instead.")]
 #endif
     public static string ToLabel(this BuiltInParameterGroup source)
@@ -69,7 +69,7 @@ public static class LabelExtensions
     {
         return LabelUtils.GetLabelFor(source);
     }
-#if !R22_OR_GREATER
+#if !REVIT2022_OR_GREATER
     /// <summary>
     ///     Gets the user-visible name for a DisplayUnitType
     /// </summary>
@@ -82,7 +82,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
-#if R21
+#if REVIT2021
     [Obsolete("This method is deprecated in Revit 2021")]
 #endif
     public static string ToLabel(this DisplayUnitType source)
@@ -90,7 +90,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source);
     }
 #endif
-#if !R23_OR_GREATER
+#if !REVIT2023_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a ParameterType
@@ -101,7 +101,7 @@ public static class LabelExtensions
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
-#if R22
+#if REVIT2022
     [Obsolete("This method is deprecated in Revit 2022")]
 #endif
     public static string ToLabel(this ParameterType source)
@@ -109,7 +109,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelFor(source);
     }
 #endif
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a ForgeTypeId
@@ -130,7 +130,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForDiscipline(source);
     }
 #endif
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a discipline
@@ -149,7 +149,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForDiscipline(source);
     }
 #endif
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a built-in parameter group
@@ -164,7 +164,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForGroup(source);
     }
 #endif
-#if R21_OR_GREATER
+#if REVIT2021_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a spec
@@ -183,7 +183,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForSpec(source);
     }
 #endif
-#if R21_OR_GREATER
+#if REVIT2021_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a symbol
@@ -202,7 +202,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForSymbol(source);
     }
 #endif
-#if R21_OR_GREATER
+#if REVIT2021_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a unit
@@ -221,7 +221,7 @@ public static class LabelExtensions
         return LabelUtils.GetLabelForUnit(source);
     }
 #endif
-#if R22_OR_GREATER
+#if REVIT2022_OR_GREATER
 
     /// <summary>
     ///     Gets the user-visible name for a built-in parameter
