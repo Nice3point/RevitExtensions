@@ -673,11 +673,3 @@ The **Contains()** indicating whether a specified substring occurs within this s
 "Revit extensions".Contains("REVIT", StringComparison.OrdinalIgnoreCase) => true
 "Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase) => false
 ```
-
-## Symbol server
-
-When debugging, sometimes the library symbols are not available on your local machine.
-In this case, you can use [symbol servers](https://docs.microsoft.com/en-us/windows/win32/dxtecharts/debugging-with-symbols?redirectedfrom=MSDN#symbol-servers).
-Then, you can point your debugger to the symbol server to resolve symbol names.
-
-The symbols for this package are available at https://symbols.nuget.org/download/symbols
