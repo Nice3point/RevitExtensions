@@ -11,7 +11,7 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge)](https://github.com/Nice3point/RevitExtensions/commits/develop)
 
-Extensions minimize the writing of repetitive code, add new methods not included in RevitAPI, and also allow you to write chained methods without worrying about API versioning:
+Extensions minimize the writing of repetitive code, add new methods not included in RevitAPI, and also help you write chained methods without worrying about API versioning:
 
 ```c#
 new ElementId(123469)
@@ -57,14 +57,6 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ### <a id="ElementExtensions">Element Extensions</a>
 
-The **Cast<T>()** method casts the element to the specified type.
-
-```c#
-Wall wall = element.Cast<Wall>();
-Floor floor = element.Cast<Floor>();
-HostObject hostObject = element.Cast<HostObject>();
-```
-
 The **FindParameter()** method finds a parameter in an element.
 For instances that do not have such a parameter, this method will find and return it at the element type.
 This method combines all API methods for getting a parameter into one, such as `get_Parameter`, `LookupParameter`, `GetParameter`.
@@ -105,6 +97,14 @@ The **CanBeMirrored()** method determines whether element can be mirrored.
 
 ```c#
 element.CanBeMirrored();
+```
+
+The **Cast<T>()** method casts the element to the specified type. Handy for joining a method into a chain.
+
+```c#
+Wall wall = element.Cast<Wall>();
+Floor floor = element.Cast<Floor>();
+HostObject hostObject = element.Cast<HostObject>();
 ```
 
 ### <a id="ElementIdExtensions">ElementId Extensions</a>
@@ -351,13 +351,13 @@ The **ToDegrees()** method converts a Revit internal format value (radians) to d
 double(69).ToDegrees() => 3953
 ```
 
-The **FromUnit(UnitTypeId)** method converts specified unit type to internal Revit number format.
+The **FromUnit(UnitTypeId)** method converts the specified unit type to internal Revit number format.
 
 ```c#
 double(69).FromUnit(UnitTypeId.Celsius) => 342.15
 ```
 
-The **ToUnit(UnitTypeId)** method converts a Revit internal format value to to specified unit type.
+The **ToUnit(UnitTypeId)** method converts a Revit internal format value to the specified unit type.
 
 ```c#
 double(69).ToUnit(UnitTypeId.Celsius) => -204.15
@@ -597,7 +597,7 @@ document.EnumerateInstances(viewId);
 document.EnumerateInstanceIds(viewId);
 ```
 
-**Remarks**: Get methods are faster than Enumerate due to RevitApi internal optimizations. 
+**Remarks**: `Get` methods are faster than `Enumerate` due to RevitApi internal optimizations. 
 However, enumeration allows for more flexibility in finding elements.
 Don't try to call ```GetInstances().Select().Tolist()``` instead of ```EnumerateInstances().Select().Tolist()```, you will degrade performance.
 
@@ -665,7 +665,7 @@ The **AppendPath()** method combines 2 paths.
 "C:\Folder".AppendPath("AddIn", "file.txt") => "C:\Folder\AddIn\file.txt"
 ```
 
-The **Contains()** indicating whether a specified substring occurs within this string with StringComparison support.
+The **Contains()** indicating whether a specified substring occurs within this string with `StringComparison` support.
 
 ```c#
 "Revit extensions".Contains("Revit", StringComparison.OrdinalIgnoreCase) => true
