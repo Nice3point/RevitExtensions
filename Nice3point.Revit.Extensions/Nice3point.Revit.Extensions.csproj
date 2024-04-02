@@ -71,9 +71,9 @@
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.*" />
 
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
