@@ -1,14 +1,9 @@
-# Release 2025.0.0-preview.3.4
+# Release 2025.0.0
 
-Fix symbols package
-
-# Release 2025.0.0-preview.3.2
-
-Include define constants generation
-
-# Release 2025.0.0-preview.3.0
-
-Added new extensions to help you add context menu items without creating additional classes or specifying type names. Revit 2025 and higher
+- Revit 2025 support
+- New `FindParameter()` overloads with GUID and Definition. This method combines all API methods for getting a parameter, such as `get_Parameter`, `LookupParameter`, `GetParameter`. It also searches for a parameter in the element type if there is no such parameter in the element
+- `GetParameter()` method is obsolete. Use `FindParameter()` instead
+- New extensions to help you add context menu items without creating additional classes or specifying type names. Revit 2025 and higher
 
 The **ConfigureContextMenu()** method registers an action used to configure a Context menu.
 
@@ -58,16 +53,6 @@ The **SetAvailabilityController()** method specifies the class type that decides
 ```c#
 menuItem.SetAvailabilityController<Controller>()
 ```
-
-# Release 2025.0.0-preview.2.0
-
-- New package icon
-- New `FindParameter()` overloads with GUID and Definition. This method combines all API methods for getting a parameter, such as `get_Parameter`, `LookupParameter`, `GetParameter`. It also searches for a parameter in the element type if there is no such parameter in the element
-- `GetParameter()` method is obsolete. Use `FindParameter()` instead
-
-# Release 2025.0.0-preview.1.0
-
-- Revit 2025 support
 
 # Release 2024.0.0
 
