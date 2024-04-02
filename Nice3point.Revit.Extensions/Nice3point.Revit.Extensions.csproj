@@ -23,53 +23,61 @@
     </PropertyGroup>
 
     <PropertyGroup>
+        <Optimize>true</Optimize>
         <IsPackable>true</IsPackable>
-        <EnablePackageValidation>true</EnablePackageValidation>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
-        <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
         <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
         <RevitVersion>2020</RevitVersion>
         <TargetFramework>net47</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2020</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R21'))">
         <RevitVersion>2021</RevitVersion>
         <TargetFramework>net48</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2021</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2021_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R22'))">
         <RevitVersion>2022</RevitVersion>
         <TargetFramework>net48</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2022</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2022_OR_GREATER;REVIT2021_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R23'))">
         <RevitVersion>2023</RevitVersion>
         <TargetFramework>net48</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2023</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2023_OR_GREATER;REVIT2022_OR_GREATER;REVIT2021_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R24'))">
         <RevitVersion>2024</RevitVersion>
         <TargetFramework>net48</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2024</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2024_OR_GREATER;REVIT2023_OR_GREATER;REVIT2022_OR_GREATER;REVIT2021_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R25'))">
         <RevitVersion>2025</RevitVersion>
         <TargetFramework>net8.0-windows</TargetFramework>
+        <DefineConstants>$(DefineConstants);REVIT2025</DefineConstants>
+        <DefineConstants>$(DefineConstants);REVIT2025_OR_GREATER;REVIT2024_OR_GREATER;REVIT2023_OR_GREATER;REVIT2022_OR_GREATER;REVIT2021_OR_GREATER;REVIT2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.*" />
-        <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="*-*" />
 
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all" Condition="$(RevitVersion) &lt; '2025'"/>
-
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="2025.0.0-preview.3.240313" PrivateAssets="all" Condition="$(RevitVersion) == '2025'"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.0.0-preview.3.240313" PrivateAssets="all" Condition="$(RevitVersion) == '2025'"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.0.0-preview.3.240313" PrivateAssets="all" Condition="$(RevitVersion) == '2025'"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
+        <Using Include="Autodesk.Revit.DB" />
         <Using Include="JetBrains.Annotations" />
         <Using Include="System.Runtime.CompilerServices" />
         <Using Remove="System.Net.Http" />
