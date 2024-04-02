@@ -23,7 +23,7 @@ new ElementId(123469)
     .Round()
 ```
 
-Extensions include annotations to help ReShaper parse your code and signal when a method may return null or the value returned by the method is not used in your code.
+Extensions include annotations to help ReShaper parse your code and report warnings when a method may return null or the value returned by the method is not used in your code.
 
 ## Installation
 
