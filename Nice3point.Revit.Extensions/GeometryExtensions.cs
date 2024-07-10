@@ -47,6 +47,77 @@ public static class GeometryExtensions
     }
 
     /// <summary>
+    ///     Determines whether the specified point is contained within this BoundingBox
+    /// </summary>
+    /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
+    /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
+    /// <returns>
+    ///     <c>true</c> if the specified point is within the bounds of the BoundingBoxXYZ
+    /// </returns>
+    public static bool Contains(this BoundingBoxXYZ source, XYZ point)
+    {
+        var sourceMin = source.Transform.OfPoint(source.Min);
+        var sourceMax = source.Transform.OfPoint(source.Max);
+
+        if (sourceMin.X > point.X + 1e-9) return false;
+        if (sourceMax.X < point.X - 1e-9) return false;
+        if (sourceMin.Y > point.Y + 1e-9) return false;
+        if (sourceMax.Y < point.Y - 1e-9) return false;
+        if (sourceMin.Z > point.Z + 1e-9) return false;
+        if (sourceMax.Z < point.Z - 1e-9) return false;
+
+        return true;
+    }
+
+    /// <summary>
+    /// Determines whether this BoundingBoxXYZ completely contains another BoundingBoxXYZ
+    /// </summary>
+    /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
+    /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
+    /// <returns>
+    ///     <c>true</c> if the source BoundingBoxXYZ completely contains the other Autodesk.Revit.DB.BoundingBoxXYZ instance
+    /// </returns>
+    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other)
+    {
+        var sourceMin = source.Transform.OfPoint(source.Min);
+        var sourceMax = source.Transform.OfPoint(source.Max);
+        var otherMin = other.Transform.OfPoint(other.Min);
+        var otherMax = other.Transform.OfPoint(other.Max);
+
+        if (sourceMin.X > otherMin.X + 1e-9) return false;
+        if (sourceMax.X < otherMax.X - 1e-9) return false;
+        if (sourceMin.Y > otherMin.Y + 1e-9) return false;
+        if (sourceMax.Y < otherMax.Y - 1e-9) return false;
+        if (sourceMin.Z > otherMin.Z + 1e-9) return false;
+        if (sourceMax.Z < otherMax.Z - 1e-9) return false;
+
+        return true;
+    }
+
+    /// <summary>
+    ///     Determines whether this BoundingBox overlaps with another BoundingBox
+    /// </summary>
+    /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
+    /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
+    /// <returns><c>true</c> if the two <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instances overlap</returns>
+    public static bool Overlaps(this BoundingBoxXYZ source, BoundingBoxXYZ other)
+    {
+        var sourceMin = source.Transform.OfPoint(source.Min);
+        var sourceMax = source.Transform.OfPoint(source.Max);
+        var otherMin = other.Transform.OfPoint(other.Min);
+        var otherMax = other.Transform.OfPoint(other.Max);
+
+        if (sourceMax.X < otherMin.X - 1e-9) return false;
+        if (sourceMin.X > otherMax.X + 1e-9) return false;
+        if (sourceMax.Y < otherMin.Y - 1e-9) return false;
+        if (sourceMin.Y > otherMax.Y + 1e-9) return false;
+        if (sourceMax.Z < otherMin.Z - 1e-9) return false;
+        if (sourceMin.Z > otherMax.Z + 1e-9) return false;
+
+        return true;
+    }
+
+    /// <summary>
     ///     Creates clean joins between two elements that share a common face
     /// </summary>
     /// <remarks>
