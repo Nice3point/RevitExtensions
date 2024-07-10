@@ -8,6 +8,15 @@ namespace Nice3point.Revit.Extensions;
 public static class StringExtensions
 {
     /// <summary>
+    ///     Converts an object's type to <typeparamref name="T"/> type
+    /// </summary>
+    [Pure]
+    public static T Cast<T>(this object obj)
+    {
+        return (T)obj;
+    }
+
+    /// <summary>
     ///     Rounds a value within the minimum allowed by Revit
     /// </summary>
     /// <param name="source">A double-precision floating-point number to be rounded</param>

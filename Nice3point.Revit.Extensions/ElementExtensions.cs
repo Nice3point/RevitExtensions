@@ -5,17 +5,6 @@
 /// </summary>
 public static class ElementExtensions
 {
-    /// <summary>
-    ///     Cast the element to the specified type
-    /// </summary>
-    /// <typeparam name="T">A type derived from Element</typeparam>
-    /// <exception cref="InvalidCastException">Element cannot be cast to type T</exception>
-    [Pure]
-    public static T Cast<T>(this Element element) where T : Element
-    {
-        return (T)element;
-    }
-
 #if REVIT2022_OR_GREATER
     /// <summary>
     ///     Retrieves a parameter from the instance or symbol given identifier
