@@ -208,7 +208,7 @@ public static class RibbonExtensions
     /// <param name="button">The button that will be restricted on the ribbon</param>
     /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/></typeparam>
     /// <remarks>Class T should share the same assembly with add-in External Command</remarks>
-    public static RibbonButton SetAvailabilityController<T>(this PushButton button) where T : IExternalCommandAvailability, new()
+    public static PushButton SetAvailabilityController<T>(this PushButton button) where T : IExternalCommandAvailability, new()
     {
         button.AvailabilityClassName = typeof(T).FullName;
         return button;
