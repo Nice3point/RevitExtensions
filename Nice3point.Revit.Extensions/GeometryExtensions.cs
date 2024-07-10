@@ -266,4 +266,37 @@ public static class GeometryExtensions
         var centerPoint = arc.Evaluate(0.5, true);
         return Arc.Create(new XYZ(endPoint0.X, endPoint0.Y, z), new XYZ(endPoint1.X, endPoint1.Y, z), new XYZ(centerPoint.X, centerPoint.Y, z));
     }
+
+    /// <summary>
+    ///     Creates an instance of a point with a new coordinate
+    /// </summary>
+    /// <param name="point">Initial point</param>
+    /// <param name="x">New coordinate</param>
+    [Pure]
+    public static XYZ SetX([NotNull] this XYZ point, double x)
+    {
+        return new XYZ(x, point.Y, point.Z);
+    }
+
+    /// <summary>
+    ///     Creates an instance of a point with a new coordinate
+    /// </summary>
+    /// <param name="point">Initial point</param>
+    /// <param name="y">New coordinate</param>
+    [Pure]
+    public static XYZ SetY([NotNull] this XYZ point, double y)
+    {
+        return new XYZ(point.X, y, point.Z);
+    }
+
+    /// <summary>
+    ///     Creates an instance of a point with a new coordinate
+    /// </summary>
+    /// <param name="point">Initial point</param>
+    /// <param name="z">New coordinate</param>
+    [Pure]
+    public static XYZ SetZ([NotNull] this XYZ point, double z)
+    {
+        return new XYZ(point.X, point.Y, z);
+    }
 }
