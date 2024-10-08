@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit Element Extensions
 /// </summary>
+[PublicAPI]
 public static class ElementExtensions
 {
 #if REVIT2022_OR_GREATER
@@ -16,19 +17,10 @@ public static class ElementExtensions
     ///     ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
     /// </exception>
     [Pure]
-    [CanBeNull]
     [Obsolete("Use FindParameter() instead")]
-    public static Parameter GetParameter([NotNull] this Element element, ForgeTypeId parameter, bool snoopType)
+    public static Parameter? GetParameter(this Element element, ForgeTypeId parameter, bool snoopType)
     {
-        var instanceParameter = element.GetParameter(parameter);
-        if (instanceParameter is { HasValue: true } || snoopType == false) return instanceParameter;
-
-        var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
-
-        var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.GetParameter(parameter);
-        return symbolParameter ?? instanceParameter;
+        return FindParameter(element, parameter);
     }
 
 #endif
@@ -38,9 +30,8 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="parameter">The built-in parameter ID</param>
     [Pure]
-    [CanBeNull]
     [Obsolete("Use FindParameter() instead")]
-    public static Parameter GetParameter([NotNull] this Element element, BuiltInParameter parameter)
+    public static Parameter? GetParameter(this Element element, BuiltInParameter parameter)
     {
         return FindParameter(element, parameter);
     }
@@ -51,9 +42,8 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="parameter">The name of the parameter to be retrieved</param>
     [Pure]
-    [CanBeNull]
     [Obsolete("Use FindParameter() instead")]
-    public static Parameter GetParameter([NotNull] this Element element, [NotNull] string parameter)
+    public static Parameter? GetParameter(this Element element, string parameter)
     {
         return FindParameter(element, parameter);
     }
@@ -68,18 +58,16 @@ public static class ElementExtensions
     ///     ForgeTypeId does not identify a built-in parameter. See Parameter.IsBuiltInParameter(ForgeTypeId) and Parameter.GetParameterTypeId(BuiltInParameter).
     /// </exception>
     [Pure]
-    [CanBeNull]
-    public static Parameter FindParameter([NotNull] this Element element, ForgeTypeId parameter)
+    public static Parameter? FindParameter(this Element element, ForgeTypeId parameter)
     {
         var instanceParameter = element.GetParameter(parameter);
-        if (instanceParameter is { HasValue: true }) return instanceParameter;
+        if (instanceParameter is not null) return instanceParameter;
 
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
+        if (elementTypeId == ElementId.InvalidElementId) return null;
 
         var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.GetParameter(parameter);
-        return symbolParameter ?? instanceParameter;
+        return elementType.GetParameter(parameter);
     }
 
 #endif
@@ -90,18 +78,16 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="parameter">The built-in parameter ID</param>
     [Pure]
-    [CanBeNull]
-    public static Parameter FindParameter([NotNull] this Element element, BuiltInParameter parameter)
+    public static Parameter? FindParameter(this Element element, BuiltInParameter parameter)
     {
         var instanceParameter = element.get_Parameter(parameter);
-        if (instanceParameter is { HasValue: true }) return instanceParameter;
+        if (instanceParameter is not null) return instanceParameter;
 
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
+        if (elementTypeId == ElementId.InvalidElementId) return null;
 
         var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.get_Parameter(parameter);
-        return symbolParameter ?? instanceParameter;
+        return elementType.get_Parameter(parameter);
     }
 
     /// <summary>
@@ -110,18 +96,16 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="definition">The internal or external definition of the parameter</param>
     [Pure]
-    [CanBeNull]
-    public static Parameter FindParameter([NotNull] this Element element, Definition definition)
+    public static Parameter? FindParameter(this Element element, Definition definition)
     {
         var instanceParameter = element.get_Parameter(definition);
-        if (instanceParameter is { HasValue: true }) return instanceParameter;
+        if (instanceParameter is not null) return instanceParameter;
 
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
+        if (elementTypeId == ElementId.InvalidElementId) return null;
 
         var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.get_Parameter(definition);
-        return symbolParameter ?? instanceParameter;
+        return elementType.get_Parameter(definition);
     }
 
     /// <summary>
@@ -130,18 +114,16 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="guid">The unique id associated with the shared parameter</param>
     [Pure]
-    [CanBeNull]
-    public static Parameter FindParameter([NotNull] this Element element, Guid guid)
+    public static Parameter? FindParameter(this Element element, Guid guid)
     {
         var instanceParameter = element.get_Parameter(guid);
-        if (instanceParameter is { HasValue: true }) return instanceParameter;
+        if (instanceParameter is not null) return instanceParameter;
 
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
+        if (elementTypeId == ElementId.InvalidElementId) return null;
 
         var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.get_Parameter(guid);
-        return symbolParameter ?? instanceParameter;
+        return elementType.get_Parameter(guid);
     }
 
     /// <summary>
@@ -150,18 +132,16 @@ public static class ElementExtensions
     /// <param name="element">The element</param>
     /// <param name="parameter">The name of the parameter to be found</param>
     [Pure]
-    [CanBeNull]
-    public static Parameter FindParameter([NotNull] this Element element, [NotNull] string parameter)
+    public static Parameter? FindParameter(this Element element, string parameter)
     {
         var instanceParameter = element.LookupParameter(parameter);
-        if (instanceParameter is { HasValue: true }) return instanceParameter;
+        if (instanceParameter is not null) return instanceParameter;
 
         var elementTypeId = element.GetTypeId();
-        if (elementTypeId == ElementId.InvalidElementId) return instanceParameter;
+        if (elementTypeId == ElementId.InvalidElementId) return null;
 
         var elementType = element.Document.GetElement(elementTypeId);
-        var symbolParameter = elementType.LookupParameter(parameter);
-        return symbolParameter ?? instanceParameter;
+        return elementType.LookupParameter(parameter);
     }
 
     /// <summary>
@@ -175,7 +155,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    public static ICollection<ElementId> Copy([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
+    public static ICollection<ElementId> Copy(this Element element, double deltaX, double deltaY, double deltaZ)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
     }
@@ -189,7 +169,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to copy the element
     /// </exception>
-    public static ICollection<ElementId> Copy([NotNull] this Element element, XYZ vector)
+    public static ICollection<ElementId> Copy(this Element element, XYZ vector)
     {
         return ElementTransformUtils.CopyElement(element.Document, element.Id, vector);
     }
@@ -200,7 +180,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Element cannot be mirrored or element does not exist in the document
     /// </exception>
-    public static Element Mirror([NotNull] this Element element, [NotNull] Plane plane)
+    public static Element Mirror(this Element element, Plane plane)
     {
         ElementTransformUtils.MirrorElement(element.Document, element.Id, plane);
         return element;
@@ -216,7 +196,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    public static Element Move([NotNull] this Element element, double deltaX, double deltaY, double deltaZ)
+    public static Element Move(this Element element, double deltaX = 0d, double deltaY = 0d, double deltaZ = 0d)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
         return element;
@@ -230,7 +210,7 @@ public static class ElementExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
     /// </exception>
-    public static Element Move([NotNull] this Element element, XYZ vector)
+    public static Element Move(this Element element, XYZ vector)
     {
         ElementTransformUtils.MoveElement(element.Document, element.Id, vector);
         return element;
@@ -240,7 +220,7 @@ public static class ElementExtensions
     /// <param name="element">The element to rotate</param>
     /// <param name="axis">The axis of rotation</param>
     /// <param name="angle">The angle of rotation in radians</param>
-    public static Element Rotate([NotNull] this Element element, [NotNull] Line axis, double angle)
+    public static Element Rotate(this Element element, Line axis, double angle)
     {
         ElementTransformUtils.RotateElement(element.Document, element.Id, axis, angle);
         return element;
@@ -248,7 +228,7 @@ public static class ElementExtensions
 
     /// <summary>Determines whether element can be mirrored</summary>
     /// <returns>True if the element can be mirrored</returns>
-    public static bool CanBeMirrored([NotNull] this Element element)
+    public static bool CanBeMirrored(this Element element)
     {
         return ElementTransformUtils.CanMirrorElement(element.Document, element.Id);
     }

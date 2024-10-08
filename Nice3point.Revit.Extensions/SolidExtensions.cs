@@ -3,13 +3,14 @@
 /// <summary>
 ///     Revit Solid Extensions
 /// </summary>
+[PublicAPI]
 public static class SolidExtensions
 {
     /// <summary>Creates a new Solid which is a copy of the input Solid</summary>
     /// <param name="solid">The input solid to be copied</param>
     /// <returns>The newly created Solid</returns>
     [Pure]
-    public static Solid Clone([NotNull] this Solid solid)
+    public static Solid Clone(this Solid solid)
     {
         return SolidUtils.Clone(solid);
     }
@@ -23,7 +24,7 @@ public static class SolidExtensions
     ///    Or transform has a scale that is negative or zero
     /// </exception>
     [Pure]
-    public static Solid CreateTransformed([NotNull] this Solid solid, Transform transform)
+    public static Solid CreateTransformed(this Solid solid, Transform transform)
     {
         return SolidUtils.CreateTransformed(solid, transform);
     }
@@ -38,7 +39,7 @@ public static class SolidExtensions
     ///    Failed to split the solid geometry
     /// </exception>
     [Pure]
-    public static IList<Solid> SplitVolumes([NotNull] this Solid solid)
+    public static IList<Solid> SplitVolumes(this Solid solid)
     {
         return SolidUtils.SplitVolumes(solid);
     }
@@ -47,7 +48,7 @@ public static class SolidExtensions
     /// <param name="solid">The solid or shell</param>
     /// <returns>True if the solid or shell is valid for tessellation, false otherwise</returns>
     [Pure]
-    public static bool IsValidForTessellation([NotNull] this Solid solid)
+    public static bool IsValidForTessellation(this Solid solid)
     {
         return SolidUtils.IsValidForTessellation(solid);
     }
@@ -77,10 +78,11 @@ public static class SolidExtensions
     ///    Unable to triangulate the solid or shell
     /// </exception>
     [Pure]
-    public static TriangulatedSolidOrShell TessellateSolidOrShell([NotNull] this Solid solid, SolidOrShellTessellationControls tessellationControls)
+    public static TriangulatedSolidOrShell TessellateSolidOrShell(this Solid solid, SolidOrShellTessellationControls tessellationControls)
     {
         return SolidUtils.TessellateSolidOrShell(solid, tessellationControls);
-    }
+    }    
+    
 #if REVIT2021_OR_GREATER
 
     /// <summary>Find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint</summary>
@@ -90,7 +92,7 @@ public static class SolidExtensions
     ///    Failed to find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint
     /// </exception>
     [Pure]
-    public static IList<EdgeEndPoint> FindAllEdgeEndPointsAtVertex([NotNull] this EdgeEndPoint edgeEndPoint)
+    public static IList<EdgeEndPoint> FindAllEdgeEndPointsAtVertex(this EdgeEndPoint edgeEndPoint)
     {
         return SolidUtils.FindAllEdgeEndPointsAtVertex(edgeEndPoint);
     }

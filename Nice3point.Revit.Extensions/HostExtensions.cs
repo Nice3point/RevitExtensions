@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit Host Extensions
 /// </summary>
+[PublicAPI]
 public static class HostExtensions
 {
     /// <summary>Returns the bottom faces for this host object</summary>
@@ -17,7 +18,7 @@ public static class HostExtensions
     ///     This host object does not support access to top or bottom faces
     /// </exception>
     [Pure]
-    public static IList<Reference> GetBottomFaces([NotNull] this HostObject host)
+    public static IList<Reference> GetBottomFaces(this HostObject host)
     {
         return HostObjectUtils.GetBottomFaces(host);
     }
@@ -38,7 +39,7 @@ public static class HostExtensions
     ///     This host object does not support access to side faces
     /// </exception>
     [Pure]
-    public static IList<Reference> GetSideFaces([NotNull] this HostObject host, ShellLayerType side)
+    public static IList<Reference> GetSideFaces(this HostObject host, ShellLayerType side)
     {
         return HostObjectUtils.GetSideFaces(host, side);
     }
@@ -55,7 +56,7 @@ public static class HostExtensions
     ///     This host object does not support access to top or bottom faces
     /// </exception>
     [Pure]
-    public static IList<Reference> GetTopFaces([NotNull] this HostObject host)
+    public static IList<Reference> GetTopFaces(this HostObject host)
     {
         return HostObjectUtils.GetTopFaces(host);
     }

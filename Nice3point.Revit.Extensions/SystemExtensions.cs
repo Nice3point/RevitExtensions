@@ -5,7 +5,8 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     System.String Extensions
 /// </summary>
-public static class StringExtensions
+[PublicAPI]
+public static class SystemExtensions
 {
     /// <summary>
     ///     Converts an object's type to <typeparamref name="T"/> type
@@ -63,10 +64,11 @@ public static class StringExtensions
     /// <summary>
     ///     Indicates whether the specified string is null or an empty string ("")
     /// </summary>
+    /// <param name="source">The string to test</param>
     /// <returns>True if the value parameter is null or an empty string (""); otherwise, false</returns>
     [Pure]
     [ContractAnnotation("null=>true", true)]
-    public static bool IsNullOrEmpty(this string source)
+    public static bool IsNullOrEmpty(this string? source)
     {
         return string.IsNullOrEmpty(source);
     }
@@ -74,10 +76,11 @@ public static class StringExtensions
     /// <summary>
     ///     Indicates whether a specified string is null, empty, or consists only of white-space characters
     /// </summary>
+    /// <param name="source">The string to test</param>
     /// <returns>True if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
     [Pure]
     [ContractAnnotation("null=>true", true)]
-    public static bool IsNullOrWhiteSpace(this string source)
+    public static bool IsNullOrWhiteSpace(this string? source)
     {
         return string.IsNullOrWhiteSpace(source);
     }
@@ -85,14 +88,17 @@ public static class StringExtensions
     /// <summary>
     ///     Combines strings into a path
     /// </summary>
-    /// <returns>The combined paths</returns>
+    /// <returns>
+    ///     The combined paths.
+    ///     If one of the specified paths is a zero-length string, this method returns the other path.
+    ///     If path2 contains an absolute path, this method returns path2.
+    /// </returns>
     /// <exception cref="System.ArgumentException">
-    ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
+    ///     NET Framework and .NET Core versions older than 2.1: path1 or path2 contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
     /// </exception>
     /// <exception cref="System.ArgumentNullException">source or path is null</exception>
     [Pure]
-    [NotNull]
-    public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] string path)
+    public static string AppendPath(this string source, string path)
     {
         return Path.Combine(source, path);
     }
@@ -102,12 +108,11 @@ public static class StringExtensions
     /// </summary>
     /// <returns>The combined paths</returns>
     /// <exception cref="System.ArgumentException">
-    ///     source or path contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
+    ///     NET Framework and .NET Core versions older than 2.1: path1 or path2 contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
     /// </exception>
     /// <exception cref="System.ArgumentNullException">source or path is null</exception>
     [Pure]
-    [NotNull]
-    public static string AppendPath([NotNull] [LocalizationRequired(false)] this string source, [NotNull] [LocalizationRequired(false)] params string[] paths)
+    public static string AppendPath(this string source, params string[] paths)
     {
         var strings = new string[paths.Length + 1];
         strings[0] = source;
@@ -118,6 +123,7 @@ public static class StringExtensions
 
         return Path.Combine(strings);
     }
+#if !NETCOREAPP
 
     /// <summary>
     ///     Returns a value indicating whether a specified substring occurs within this string.
@@ -127,11 +133,9 @@ public static class StringExtensions
     /// <param name="comparison">One of the enumeration values that specifies the rules for the search</param>
     /// <returns>True if the value parameter occurs within this string, or if value is the empty string (""); otherwise, false</returns>
     [Pure]
-    [ContractAnnotation("source:null => false; value:null => false")]
     public static bool Contains(this string source, string value, StringComparison comparison)
     {
-        if (source is null) return false;
-        if (value is null) return false;
         return source.IndexOf(value, comparison) >= 0;
     }
+#endif
 }

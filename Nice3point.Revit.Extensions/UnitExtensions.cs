@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit Unit Extensions
 /// </summary>
+[PublicAPI]
 public static class UnitExtensions
 {
     /// <summary>

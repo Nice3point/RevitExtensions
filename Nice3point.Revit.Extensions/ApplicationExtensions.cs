@@ -6,6 +6,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Extensions to simplify the interaction of custom windows with Revit
 /// </summary>
+[PublicAPI]
 public static class ApplicationExtensions
 {
     /// <summary>
@@ -24,8 +25,11 @@ public static class ApplicationExtensions
     /// </example>
     public static void Show(this Window window, IntPtr handle)
     {
-        // ReSharper disable once ObjectCreationAsStatement
-        new WindowInteropHelper(window) {Owner = handle};
+        _ = new WindowInteropHelper(window)
+        {
+            Owner = handle
+        };
+
         window.Show();
     }
 }

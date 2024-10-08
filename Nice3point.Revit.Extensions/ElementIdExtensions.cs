@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit Element Extensions
 /// </summary>
+[PublicAPI]
 public static class ElementIdExtensions
 {
     /// <summary>
@@ -16,9 +17,8 @@ public static class ElementIdExtensions
     /// <remarks>
     ///     <see langword="null" /> will be returned if the input ElementId doesn't reference to a valid Element.
     /// </remarks>
-    [CanBeNull]
     [Pure]
-    public static Element ToElement(this ElementId id, Document document)
+    public static Element? ToElement(this ElementId id, Document document)
     {
         return document.GetElement(id);
     }

@@ -3,14 +3,17 @@
 /// <summary>
 ///     Revit Geometry Extensions
 /// </summary>
+[PublicAPI]
 public static class GeometryExtensions
 {
+    private const double Tolerance = 1e-9;
+
     /// <summary>
     ///     Returns the distance between Lines. The Lines are considered to be endless
     /// </summary>
     /// <returns>Distance between lines. Returns 0 if the lines intersect</returns>
     [Pure]
-    public static double Distance([NotNull] this Line line1, [NotNull] Line line2)
+    public static double Distance(this Line line1, Line line2)
     {
         double distance;
 
@@ -27,7 +30,7 @@ public static class GeometryExtensions
         var rp = v1.Z * v2.X - v2.Z * v1.X;
         var dev = Math.Sqrt(Math.Pow(qr, 2) + Math.Pow(rp, 2) + Math.Pow(pq, 2));
 
-        if (dev < 1e-9)
+        if (dev < Tolerance)
         {
             var bp = b * v1.X;
             var br = b * v1.Z;
@@ -51,47 +54,57 @@ public static class GeometryExtensions
     /// </summary>
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
-    /// <returns>
-    ///     <c>true</c> if the specified point is within the bounds of the BoundingBoxXYZ
-    /// </returns>
-    public static bool Contains(this BoundingBoxXYZ source, XYZ point)
+    /// <param name="strict"><c>true</c> if the point needs to be fully on the inside of the source. A point coinciding with the box border will be considered 'outside'.</param>
+    /// <returns><c>true</c> if the specified point is within the bounds of the <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></returns>
+    public static bool Contains(this BoundingBoxXYZ source, XYZ point, bool strict = false)
     {
-        var sourceMin = source.Transform.OfPoint(source.Min);
-        var sourceMax = source.Transform.OfPoint(source.Max);
+        if (!source.Transform.IsIdentity)
+        {
+            point = source.Transform.Inverse.OfPoint(point);
+        }
 
-        if (sourceMin.X > point.X + 1e-9) return false;
-        if (sourceMax.X < point.X - 1e-9) return false;
-        if (sourceMin.Y > point.Y + 1e-9) return false;
-        if (sourceMax.Y < point.Y - 1e-9) return false;
-        if (sourceMin.Z > point.Z + 1e-9) return false;
-        if (sourceMax.Z < point.Z - 1e-9) return false;
+        var insideX = strict
+            ? point.X > source.Min.X + Tolerance && point.X < source.Max.X - Tolerance
+            : point.X >= source.Min.X - Tolerance && point.X <= source.Max.X + Tolerance;
 
-        return true;
+        var insideY = strict
+            ? point.Y > source.Min.Y + Tolerance && point.Y < source.Max.Y - Tolerance
+            : point.Y >= source.Min.Y - Tolerance && point.Y <= source.Max.Y + Tolerance;
+
+        var insideZ = strict
+            ? point.Z > source.Min.Z + Tolerance && point.Z < source.Max.Z - Tolerance
+            : point.Z >= source.Min.Z - Tolerance && point.Z <= source.Max.Z + Tolerance;
+
+        return insideX && insideY && insideZ;
     }
 
     /// <summary>
-    /// Determines whether this BoundingBoxXYZ completely contains another BoundingBoxXYZ
+    /// Determines whether this <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains another <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/>
     /// </summary>
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
-    /// <returns>
-    ///     <c>true</c> if the source BoundingBoxXYZ completely contains the other Autodesk.Revit.DB.BoundingBoxXYZ instance
-    /// </returns>
-    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other)
+    /// <param name="strict"><c>true</c> if the box needs to be fully on the inside of the source. Coincident boxes will be considered 'outside'.</param>
+    /// <returns><c>true</c> if the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains the other <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</returns>
+    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other, bool strict = false)
     {
-        var sourceMin = source.Transform.OfPoint(source.Min);
-        var sourceMax = source.Transform.OfPoint(source.Max);
-        var otherMin = other.Transform.OfPoint(other.Min);
-        var otherMax = other.Transform.OfPoint(other.Max);
+        var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
+        var sourceMax = source.Transform.IsIdentity ? source.Max : source.Transform.OfPoint(source.Max);
+        var otherMin = other.Transform.IsIdentity ? other.Min : other.Transform.OfPoint(other.Min);
+        var otherMax = other.Transform.IsIdentity ? other.Max : other.Transform.OfPoint(other.Max);
 
-        if (sourceMin.X > otherMin.X + 1e-9) return false;
-        if (sourceMax.X < otherMax.X - 1e-9) return false;
-        if (sourceMin.Y > otherMin.Y + 1e-9) return false;
-        if (sourceMax.Y < otherMax.Y - 1e-9) return false;
-        if (sourceMin.Z > otherMin.Z + 1e-9) return false;
-        if (sourceMax.Z < otherMax.Z - 1e-9) return false;
+        var insideX = strict
+            ? otherMin.X > sourceMin.X + Tolerance && otherMax.X < sourceMax.X - Tolerance
+            : otherMin.X >= sourceMin.X - Tolerance && otherMax.X <= sourceMax.X + Tolerance;
 
-        return true;
+        var insideY = strict
+            ? otherMin.Y > sourceMin.Y + Tolerance && otherMax.Y < sourceMax.Y - Tolerance
+            : otherMin.Y >= sourceMin.Y - Tolerance && otherMax.Y <= sourceMax.Y + Tolerance;
+
+        var insideZ = strict
+            ? otherMin.Z > sourceMin.Z + Tolerance && otherMax.Z < sourceMax.Z - Tolerance
+            : otherMin.Z >= sourceMin.Z - Tolerance && otherMax.Z <= sourceMax.Z + Tolerance;
+
+        return insideX && insideY && insideZ;
     }
 
     /// <summary>
@@ -99,22 +112,19 @@ public static class GeometryExtensions
     /// </summary>
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
-    /// <returns><c>true</c> if the two <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instances overlap</returns>
+    /// <returns><c>true</c> if the two <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instances have at least one common point</returns>
     public static bool Overlaps(this BoundingBoxXYZ source, BoundingBoxXYZ other)
     {
-        var sourceMin = source.Transform.OfPoint(source.Min);
-        var sourceMax = source.Transform.OfPoint(source.Max);
-        var otherMin = other.Transform.OfPoint(other.Min);
-        var otherMax = other.Transform.OfPoint(other.Max);
+        var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
+        var sourceMax = source.Transform.IsIdentity ? source.Max : source.Transform.OfPoint(source.Max);
+        var otherMin = other.Transform.IsIdentity ? other.Min : other.Transform.OfPoint(other.Min);
+        var otherMax = other.Transform.IsIdentity ? other.Max : other.Transform.OfPoint(other.Max);
 
-        if (sourceMax.X < otherMin.X - 1e-9) return false;
-        if (sourceMin.X > otherMax.X + 1e-9) return false;
-        if (sourceMax.Y < otherMin.Y - 1e-9) return false;
-        if (sourceMin.Y > otherMax.Y + 1e-9) return false;
-        if (sourceMax.Z < otherMin.Z - 1e-9) return false;
-        if (sourceMin.Z > otherMax.Z + 1e-9) return false;
+        var overlapX = !(sourceMax.X < otherMin.X - Tolerance || sourceMin.X > otherMax.X + Tolerance);
+        var overlapY = !(sourceMax.Y < otherMin.Y - Tolerance || sourceMin.Y > otherMax.Y + Tolerance);
+        var overlapZ = !(sourceMax.Z < otherMin.Z - Tolerance || sourceMin.Z > otherMax.Z + Tolerance);
 
-        return true;
+        return overlapX && overlapY && overlapZ;
     }
 
     /// <summary>
@@ -136,7 +146,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void JoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
+    public static void JoinGeometry(this Element firstElement, Element secondElement)
     {
         JoinGeometryUtils.JoinGeometry(firstElement.Document, firstElement, secondElement);
     }
@@ -157,7 +167,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Please remove or add segments on curtain grids instead of joining or unjoining geometry of the panels
     /// </exception>
-    public static void UnjoinGeometry([NotNull] this Element firstElement, [NotNull] Element secondElement)
+    public static void UnjoinGeometry(this Element firstElement, Element secondElement)
     {
         JoinGeometryUtils.UnjoinGeometry(firstElement.Document, firstElement, secondElement);
     }
@@ -173,7 +183,7 @@ public static class GeometryExtensions
     ///    The element secondElement was not found in the firstElement document
     /// </exception>
     [Pure]
-    public static bool AreElementsJoined([NotNull] this Element firstElement, [NotNull] Element secondElement)
+    public static bool AreElementsJoined(this Element firstElement, Element secondElement)
     {
         return JoinGeometryUtils.AreElementsJoined(firstElement.Document, firstElement, secondElement);
     }
@@ -185,7 +195,7 @@ public static class GeometryExtensions
     /// <param name="element">The element</param>
     /// <returns>The set of elements that are joined to the given element</returns>
     [Pure]
-    public static ICollection<ElementId> GetJoinedElements([NotNull] this Element element)
+    public static ICollection<ElementId> GetJoinedElements(this Element element)
     {
         return JoinGeometryUtils.GetJoinedElements(element.Document, element);
     }
@@ -209,7 +219,7 @@ public static class GeometryExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
     ///    Unable to switch the join order of these elements
     /// </exception>
-    public static void SwitchJoinOrder([NotNull] this Element firstElement, [NotNull] Element secondElement)
+    public static void SwitchJoinOrder(this Element firstElement, Element secondElement)
     {
         JoinGeometryUtils.SwitchJoinOrder(firstElement.Document, firstElement, secondElement);
     }
@@ -228,7 +238,7 @@ public static class GeometryExtensions
     ///    The elements are not joined
     /// </exception>
     [Pure]
-    public static bool IsCuttingElementInJoin([NotNull] this Element firstElement, [NotNull] Element secondElement)
+    public static bool IsCuttingElementInJoin(this Element firstElement, Element secondElement)
     {
         return JoinGeometryUtils.IsCuttingElementInJoin(firstElement.Document, firstElement, secondElement);
     }
@@ -243,7 +253,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Line SetCoordinateX([NotNull] this Line line, double x)
+    public static Line SetCoordinateX(this Line line, double x)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -260,7 +270,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Line SetCoordinateY([NotNull] this Line line, double y)
+    public static Line SetCoordinateY(this Line line, double y)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -277,7 +287,7 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Line SetCoordinateZ([NotNull] this Line line, double z)
+    public static Line SetCoordinateZ(this Line line, double z)
     {
         var endPoint0 = line.GetEndPoint(0);
         var endPoint1 = line.GetEndPoint(1);
@@ -294,12 +304,17 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Arc SetCoordinateX([NotNull] this Arc arc, double x)
+    public static Arc SetCoordinateX(this Arc arc, double x)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
-        var centerPoint = arc.Evaluate(0.5, true);
-        return Arc.Create(new XYZ(x, endPoint0.Y, endPoint0.Z), new XYZ(x, endPoint1.Y, endPoint1.Z), new XYZ(x, centerPoint.Y, centerPoint.Z));
+        var endParameter0 = arc.GetEndParameter(0);
+        var endParameter1 = arc.GetEndParameter(1);
+        var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+        return Arc.Create(
+            new XYZ(x, endPoint0.Y, endPoint0.Z),
+            new XYZ(x, endPoint1.Y, endPoint1.Z),
+            new XYZ(x, centerPoint.Y, centerPoint.Z));
     }
 
     /// <summary>
@@ -312,12 +327,17 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Arc SetCoordinateY([NotNull] this Arc arc, double y)
+    public static Arc SetCoordinateY(this Arc arc, double y)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
-        var centerPoint = arc.Evaluate(0.5, true);
-        return Arc.Create(new XYZ(endPoint0.X, y, endPoint0.Z), new XYZ(endPoint1.X, y, endPoint1.Z), new XYZ(centerPoint.X, y, centerPoint.Z));
+        var endParameter0 = arc.GetEndParameter(0);
+        var endParameter1 = arc.GetEndParameter(1);
+        var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+        return Arc.Create(
+            new XYZ(endPoint0.X, y, endPoint0.Z),
+            new XYZ(endPoint1.X, y, endPoint1.Z),
+            new XYZ(centerPoint.X, y, centerPoint.Z));
     }
 
     /// <summary>
@@ -330,12 +350,17 @@ public static class GeometryExtensions
     ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
     /// </exception>
     [Pure]
-    public static Arc SetCoordinateZ([NotNull] this Arc arc, double z)
+    public static Arc SetCoordinateZ(this Arc arc, double z)
     {
         var endPoint0 = arc.GetEndPoint(0);
         var endPoint1 = arc.GetEndPoint(1);
-        var centerPoint = arc.Evaluate(0.5, true);
-        return Arc.Create(new XYZ(endPoint0.X, endPoint0.Y, z), new XYZ(endPoint1.X, endPoint1.Y, z), new XYZ(centerPoint.X, centerPoint.Y, z));
+        var endParameter0 = arc.GetEndParameter(0);
+        var endParameter1 = arc.GetEndParameter(1);
+        var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+        return Arc.Create(
+            new XYZ(endPoint0.X, endPoint0.Y, z),
+            new XYZ(endPoint1.X, endPoint1.Y, z),
+            new XYZ(centerPoint.X, centerPoint.Y, z));
     }
 
     /// <summary>
@@ -344,7 +369,7 @@ public static class GeometryExtensions
     /// <param name="point">Initial point</param>
     /// <param name="x">New coordinate</param>
     [Pure]
-    public static XYZ SetX([NotNull] this XYZ point, double x)
+    public static XYZ SetX(this XYZ point, double x)
     {
         return new XYZ(x, point.Y, point.Z);
     }
@@ -355,7 +380,7 @@ public static class GeometryExtensions
     /// <param name="point">Initial point</param>
     /// <param name="y">New coordinate</param>
     [Pure]
-    public static XYZ SetY([NotNull] this XYZ point, double y)
+    public static XYZ SetY(this XYZ point, double y)
     {
         return new XYZ(point.X, y, point.Z);
     }
@@ -366,7 +391,7 @@ public static class GeometryExtensions
     /// <param name="point">Initial point</param>
     /// <param name="z">New coordinate</param>
     [Pure]
-    public static XYZ SetZ([NotNull] this XYZ point, double z)
+    public static XYZ SetZ(this XYZ point, double z)
     {
         return new XYZ(point.X, point.Y, z);
     }

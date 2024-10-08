@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit Label Extensions
 /// </summary>
+[PublicAPI]
 public static class LabelExtensions
 {
     /// <summary>

@@ -16,6 +16,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit Ribbon Extensions
 /// </summary>
+[PublicAPI]
 public static class RibbonExtensions
 {
     /// <summary>
@@ -26,7 +27,7 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
-        RibbonPanel ribbonPanel = null;
+        RibbonPanel? ribbonPanel = null;
         foreach (var panel in application.GetRibbonPanels(Tab.AddIns))
         {
             if (panel.Name.Equals(panelName))
@@ -48,7 +49,7 @@ public static class RibbonExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">Too many custom tabs have been created in this session. (Maximum is 20)</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
-        RibbonTab ribbonTab = null;
+        RibbonTab? ribbonTab = null;
         foreach (var tab in ComponentManager.Ribbon.Tabs)
         {
             if (tab.Id.Equals(tabName))
@@ -64,7 +65,7 @@ public static class RibbonExtensions
             return application.CreateRibbonPanel(tabName, panelName);
         }
 
-        RibbonPanel ribbonPanel = null;
+        RibbonPanel? ribbonPanel = null;
         foreach (var panel in application.GetRibbonPanels(tabName))
         {
             if (panel.Name.Equals(panelName))

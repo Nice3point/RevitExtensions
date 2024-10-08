@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit schema extensions
 /// </summary>
+[PublicAPI]
 public static class SchemaExtensions
 {
     /// <summary>
@@ -21,12 +22,11 @@ public static class SchemaExtensions
     ///         document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
     ///     </code>
     /// </example>
-    public static bool SaveEntity<T>([NotNull] this Element element, Schema schema, T data, string fieldName)
+    public static bool SaveEntity<T>(this Element element, Schema schema, T data, string fieldName)
     {
         var field = schema.GetField(fieldName);
         if (field is null) return false;
         var entity = schema.GetEntity(element);
-        if (entity is null) return false;
         entity.Set(field, data);
         element.SetEntity(entity);
         return true;
@@ -46,19 +46,15 @@ public static class SchemaExtensions
     ///     </code>
     /// </example>
     [Pure]
-    [CanBeNull]
-    public static T LoadEntity<T>([NotNull] this Element element, Schema schema, string fieldName)
+    public static T? LoadEntity<T>(this Element element, Schema schema, string fieldName)
     {
         var field = schema.GetField(fieldName);
         var entity = schema.GetEntity(element);
-        return entity is null || field is null ? default : entity.Get<T>(field);
+        return field is null ? default : entity.Get<T>(field);
     }
 
-    [CanBeNull]
-    [ContractAnnotation("element:null => null")]
-    private static Entity GetEntity(this Schema schema, [CanBeNull] Element element)
+    private static Entity GetEntity(this Schema schema, Element element)
     {
-        if (element is null) return null;
         var entity = element.GetEntity(schema);
         if (entity.Schema is not null) return entity;
         entity = new Entity(schema);
