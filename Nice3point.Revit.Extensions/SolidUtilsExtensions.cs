@@ -1,10 +1,10 @@
 ﻿namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit Solid Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.SolidUtils"/> class.
 /// </summary>
 [PublicAPI]
-public static class SolidExtensions
+public static class SolidUtilsExtensions
 {
     /// <summary>Creates a new Solid which is a copy of the input Solid</summary>
     /// <param name="solid">The input solid to be copied</param>
@@ -52,7 +52,7 @@ public static class SolidExtensions
     {
         return SolidUtils.IsValidForTessellation(solid);
     }
-    
+
     /// <summary>
     ///    This function facets (i.e., triangulates) a solid or an open shell. Each boundary
     ///    component of the solid or shell is represented by a single triangulated structure
@@ -81,8 +81,8 @@ public static class SolidExtensions
     public static TriangulatedSolidOrShell TessellateSolidOrShell(this Solid solid, SolidOrShellTessellationControls tessellationControls)
     {
         return SolidUtils.TessellateSolidOrShell(solid, tessellationControls);
-    }    
-    
+    }
+
 #if REVIT2021_OR_GREATER
 
     /// <summary>Find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint</summary>

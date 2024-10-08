@@ -36,7 +36,7 @@
 ///     </p>
 /// </remarks>
 [PublicAPI]
-public static class CollectorExtensions
+public static class FilteredElementCollectorExtensions
 {
     /// <summary>
     ///     Searches for elements in a document
@@ -1664,25 +1664,21 @@ public static class CollectorExtensions
         }
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document)
     {
         return new FilteredElementCollector(document).WhereElementIsNotElementType();
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, BuiltInCategory category)
     {
         return CollectInstances(document).OfCategory(category);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementFilter filter)
     {
         return CollectInstances(document).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectInstances(document);
@@ -1690,13 +1686,11 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, BuiltInCategory category, ElementFilter filter)
     {
         return CollectInstances(document, category).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectInstances(document, category);
@@ -1704,25 +1698,21 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId)
     {
         return new FilteredElementCollector(document, viewId).WhereElementIsNotElementType();
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId, BuiltInCategory category)
     {
         return CollectInstances(document, viewId).OfCategory(category);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId, ElementFilter filter)
     {
         return CollectInstances(document, viewId).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectInstances(document, viewId);
@@ -1730,13 +1720,11 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter)
     {
         return CollectInstances(document, viewId, category).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectInstances(Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectInstances(document, viewId, category);
@@ -1744,25 +1732,21 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document)
     {
         return new FilteredElementCollector(document).WhereElementIsElementType();
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document, BuiltInCategory category)
     {
         return CollectTypes(document).OfCategory(category);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document, ElementFilter filter)
     {
         return CollectTypes(document).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectTypes(document);
@@ -1770,13 +1754,11 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document, BuiltInCategory category, ElementFilter filter)
     {
         return CollectTypes(document, category).WherePasses(filter);
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static FilteredElementCollector CollectTypes(Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
     {
         var elements = CollectTypes(document, category);
@@ -1784,7 +1766,6 @@ public static class CollectorExtensions
         return elements;
     }
 
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static void ApplyFilters(FilteredElementCollector elements, IEnumerable<ElementFilter> filters)
     {
         foreach (var elementFilter in filters) elements.WherePasses(elementFilter);

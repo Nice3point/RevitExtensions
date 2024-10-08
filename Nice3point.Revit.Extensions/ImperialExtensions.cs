@@ -105,7 +105,7 @@ public static class ImperialExtensions
     [Pure]
     [ContractAnnotation("source:null => false")]
     [Obsolete("Use TryFromFraction instead")]
-    public static bool FromFraction(this string source, out double value)
+    public static bool FromFraction(this string? source, out double value)
     {
         return TryFromFraction(source, out value);
     }

@@ -3,10 +3,10 @@
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit Label Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.LabelUtils"/> class.
 /// </summary>
 [PublicAPI]
-public static class LabelExtensions
+public static class LabelUtilsExtensions
 {
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameter
@@ -139,9 +139,6 @@ public static class LabelExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Discipline must have a definition
     /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null
-    /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
     public static string ToDisciplineLabel(this ForgeTypeId source)
@@ -192,9 +189,6 @@ public static class LabelExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Symbol must have a definition
     /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null
-    /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
     public static string ToSymbolLabel(this ForgeTypeId source)
@@ -210,9 +204,6 @@ public static class LabelExtensions
     /// <param name="source">Identifier of the unit to get the user-visible name</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///     Cannot find DisplayUnitTypeInfo for the given unit identifier
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null
     /// </exception>
     /// <remarks>The name is obtained in the current Revit language</remarks>
     [Pure]
