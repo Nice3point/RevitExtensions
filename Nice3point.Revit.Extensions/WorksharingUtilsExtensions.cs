@@ -3,7 +3,6 @@
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.WorksharingUtils"/> class.
 /// </summary>
-[PublicAPI]
 public static class WorksharingUtilsExtensions
 {
     /// <summary>Gets the ownership status of an element.</summary>

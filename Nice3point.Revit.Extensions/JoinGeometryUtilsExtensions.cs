@@ -1,9 +1,10 @@
-﻿namespace Nice3point.Revit.Extensions;
+﻿using System.Diagnostics.Contracts;
+
+namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.JoinGeometryUtils"/> class.
 /// </summary>
-[PublicAPI]
 public static class JoinGeometryUtilsExtensions
 {
     /// <summary>

@@ -3,7 +3,6 @@
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.HostObjectUtils"/> class.
 /// </summary>
-[PublicAPI]
 public static class HostObjectUtilsExtensions
 {
     /// <summary>Returns the bottom faces for this host object</summary>

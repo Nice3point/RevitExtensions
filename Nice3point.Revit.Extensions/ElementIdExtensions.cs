@@ -3,7 +3,6 @@
 /// <summary>
 ///     Revit Element Extensions
 /// </summary>
-[PublicAPI]
 public static class ElementIdExtensions
 {
     /// <summary>

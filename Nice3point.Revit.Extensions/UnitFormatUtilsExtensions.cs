@@ -3,7 +3,6 @@
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitFormatUtils"/> class.
 /// </summary>
-[PublicAPI]
 public static class UnitFormatUtilsExtensions
 {
 #if !REVIT2022_OR_GREATER

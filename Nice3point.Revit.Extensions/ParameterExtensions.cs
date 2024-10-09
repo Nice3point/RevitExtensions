@@ -3,7 +3,6 @@
 /// <summary>
 ///     Revit Parameter Extensions
 /// </summary>
-[PublicAPI]
 public static class ParameterExtensions
 {
     /// <summary>Provides access to the boolean value within the parameter</summary>

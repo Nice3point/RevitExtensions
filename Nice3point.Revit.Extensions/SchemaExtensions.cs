@@ -5,7 +5,6 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit schema extensions
 /// </summary>
-[PublicAPI]
 public static class SchemaExtensions
 {
     /// <summary>

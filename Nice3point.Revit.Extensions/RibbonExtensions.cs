@@ -16,7 +16,6 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit Ribbon Extensions
 /// </summary>
-[PublicAPI]
 public static class RibbonExtensions
 {
     /// <summary>

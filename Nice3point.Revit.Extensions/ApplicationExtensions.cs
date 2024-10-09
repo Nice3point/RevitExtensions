@@ -6,7 +6,6 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Extensions to simplify the interaction of custom windows with Revit
 /// </summary>
-[PublicAPI]
 public static class ApplicationExtensions
 {
     /// <summary>

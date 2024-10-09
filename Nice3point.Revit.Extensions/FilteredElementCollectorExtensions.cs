@@ -35,7 +35,6 @@
 ///         is also looking at the contents of the collector.
 ///     </p>
 /// </remarks>
-[PublicAPI]
 public static class FilteredElementCollectorExtensions
 {
     /// <summary>

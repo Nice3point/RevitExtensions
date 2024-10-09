@@ -7,7 +7,6 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Imperial Units Extensions
 /// </summary>
-[PublicAPI]
 public static class ImperialExtensions
 {
     private const string Expression =
@@ -103,7 +102,6 @@ public static class ImperialExtensions
     ///     1'1.75" will be converted to 1.145
     /// </example>
     [Pure]
-    [ContractAnnotation("source:null => false")]
     [Obsolete("Use TryFromFraction instead")]
     public static bool FromFraction(this string? source, out double value)
     {
@@ -123,7 +121,6 @@ public static class ImperialExtensions
     ///     1'1.75" will be converted to 1.145
     /// </example>
     [Pure]
-    [ContractAnnotation("source:null => false")]
     public static bool TryFromFraction(this string? source, out double value)
     {
         value = 0;

@@ -3,7 +3,6 @@
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitUtils"/> class.
 /// </summary>
-[PublicAPI]
 public static class UnitUtilsExtensions
 {
     /// <summary>

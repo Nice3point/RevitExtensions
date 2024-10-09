@@ -5,7 +5,6 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     System.String Extensions
 /// </summary>
-[PublicAPI]
 public static class SystemExtensions
 {
     /// <summary>
@@ -67,7 +66,6 @@ public static class SystemExtensions
     /// <param name="source">The string to test</param>
     /// <returns>True if the value parameter is null or an empty string (""); otherwise, false</returns>
     [Pure]
-    [ContractAnnotation("null=>true", true)]
     public static bool IsNullOrEmpty(this string? source)
     {
         return string.IsNullOrEmpty(source);
@@ -79,7 +77,6 @@ public static class SystemExtensions
     /// <param name="source">The string to test</param>
     /// <returns>True if the value parameter is null or Empty, or if value consists exclusively of white-space characters</returns>
     [Pure]
-    [ContractAnnotation("null=>true", true)]
     public static bool IsNullOrWhiteSpace(this string? source)
     {
         return string.IsNullOrWhiteSpace(source);
