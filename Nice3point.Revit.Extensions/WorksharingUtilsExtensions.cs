@@ -145,7 +145,7 @@ public static class WorksharingUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerInternalException">
     ///    An internal error happened on the server, please contact the server administrator.
     /// </exception>
-    public static ICollection<WorksetId> CheckoutWorksets(this Document document, ICollection<WorksetId> worksetsToCheckout)
+    public static ICollection<WorksetId> CheckoutWorksets(this ICollection<WorksetId> worksetsToCheckout, Document document)
     {
         return WorksharingUtils.CheckoutWorksets(document, worksetsToCheckout);
     }
@@ -212,7 +212,7 @@ public static class WorksharingUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerInternalException">
     ///    An internal error happened on the server, please contact the server administrator.
     /// </exception>
-    public static ICollection<WorksetId> CheckoutWorksets(this Document document, ISet<WorksetId> worksetsToCheckout, TransactWithCentralOptions? options)
+    public static ICollection<WorksetId> CheckoutWorksets(this ISet<WorksetId> worksetsToCheckout, Document document, TransactWithCentralOptions? options)
     {
         return WorksharingUtils.CheckoutWorksets(document, worksetsToCheckout, options);
     }
@@ -274,7 +274,7 @@ public static class WorksharingUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerInternalException">
     ///    An internal error happened on the server, please contact the server administrator.
     /// </exception>
-    public static ICollection<ElementId> CheckoutElements(this Document document, ICollection<ElementId> elementsToCheckout)
+    public static ICollection<ElementId> CheckoutElements(this ICollection<ElementId> elementsToCheckout, Document document)
     {
         return WorksharingUtils.CheckoutElements(document, elementsToCheckout);
     }
@@ -338,7 +338,7 @@ public static class WorksharingUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerInternalException">
     ///    An internal error happened on the server, please contact the server administrator.
     /// </exception>
-    public static ICollection<ElementId> CheckoutElements(this Document document, ISet<ElementId> elementsToCheckout, TransactWithCentralOptions? options)
+    public static ICollection<ElementId> CheckoutElements(this ISet<ElementId> elementsToCheckout, Document document, TransactWithCentralOptions? options)
     {
         return WorksharingUtils.CheckoutElements(document, elementsToCheckout, options);
     }
