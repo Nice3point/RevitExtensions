@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-
+﻿// ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
