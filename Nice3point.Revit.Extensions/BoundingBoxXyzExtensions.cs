@@ -10,6 +10,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box from which the centroid is calculated.</param>
     /// <returns>A point representing the centroid of the bounding box.</returns>
+    [Pure]
     public static XYZ ComputeCentroid(this BoundingBoxXYZ boundingBox)
     {
         return (boundingBox.Min + boundingBox.Max) / 2;
@@ -20,6 +21,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box from which the vertices are computed.</param>
     /// <returns>An array of points representing the vertices of the bounding box.</returns>
+    [Pure]
     public static XYZ[] ComputeVertices(this BoundingBoxXYZ boundingBox)
     {
         return
@@ -40,6 +42,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box for which the volume is calculated.</param>
     /// <returns>The volume of the bounding box.</returns>
+    [Pure]
     public static double ComputeVolume(this BoundingBoxXYZ boundingBox)
     {
         var length = boundingBox.Max.X - boundingBox.Min.X;
@@ -54,6 +57,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box for which the surface area is calculated.</param>
     /// <returns>The total surface area of the bounding box.</returns>
+    [Pure]
     public static double ComputeSurfaceArea(this BoundingBoxXYZ boundingBox)
     {
         var length = boundingBox.Max.X - boundingBox.Min.X;
