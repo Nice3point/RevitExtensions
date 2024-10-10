@@ -3,7 +3,7 @@
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit TemporaryGraphicsManager Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.TemporaryGraphicsManager"/> class.
 /// </summary>
 public static class TemporaryGraphicsManagerExtensions
 {

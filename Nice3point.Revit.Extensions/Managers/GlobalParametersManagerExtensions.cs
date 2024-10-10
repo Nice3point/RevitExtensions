@@ -3,7 +3,7 @@
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit GlobalParametersManager Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.GlobalParametersManager"/> class.
 /// </summary>
 public static class GlobalParametersManagerExtensions
 {

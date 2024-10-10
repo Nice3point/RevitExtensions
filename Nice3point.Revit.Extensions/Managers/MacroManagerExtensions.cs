@@ -5,7 +5,7 @@ using Autodesk.Revit.DB.Macros;
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit MacroManager Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.Macros.MacroManager"/> class.
 /// </summary>
 public static class MacroManagerExtensions
 {

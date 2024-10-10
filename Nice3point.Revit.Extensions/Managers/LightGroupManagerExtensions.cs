@@ -4,7 +4,7 @@
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Revit LightGroupManager Extensions
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.Lighting.LightGroupManager"/> class.
 /// </summary>
 public static class LightGroupManagerExtensions
 {
