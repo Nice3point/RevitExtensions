@@ -1,10 +1,8 @@
-﻿using JetBrains.Annotations;
-using Nuke.Common.Tooling;
+﻿using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 
 namespace RevitExtensions.Build.Tools;
 
-[PublicAPI]
 [Serializable]
 public class DotNetNuGetDeleteSettings : ToolSettings
 {
