@@ -91,7 +91,7 @@ public static class ContextMenuExtensions
         return application;
     }
 
-    private class ContextMenuCreator(Action<ContextMenu> handler) : IContextMenuCreator
+    private sealed class ContextMenuCreator(Action<ContextMenu> handler) : IContextMenuCreator
     {
         public void BuildContextMenu(ContextMenu menu) => handler.Invoke(menu);
     }

@@ -53,9 +53,22 @@ public static class GeometryExtensions
     /// </summary>
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
+    /// <returns><c>true</c> if the specified point is within the bounds of the <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></returns>
+    [Pure]
+    public static bool Contains(this BoundingBoxXYZ source, XYZ point)
+    {
+        return Contains(source, point, false);
+    }
+
+    /// <summary>
+    ///     Determines whether the specified point is contained within this BoundingBox
+    /// </summary>
+    /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
+    /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
     /// <param name="strict"><c>true</c> if the point needs to be fully on the inside of the source. A point coinciding with the box border will be considered 'outside'.</param>
     /// <returns><c>true</c> if the specified point is within the bounds of the <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></returns>
-    public static bool Contains(this BoundingBoxXYZ source, XYZ point, bool strict = false)
+    [Pure]
+    public static bool Contains(this BoundingBoxXYZ source, XYZ point, bool strict)
     {
         if (!source.Transform.IsIdentity)
         {
@@ -82,9 +95,22 @@ public static class GeometryExtensions
     /// </summary>
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
+    /// <returns><c>true</c> if the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains the other <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</returns>
+    [Pure]
+    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other)
+    {
+        return Contains(source, other, false);
+    }
+
+    /// <summary>
+    /// Determines whether this <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains another <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/>
+    /// </summary>
+    /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
+    /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
     /// <param name="strict"><c>true</c> if the box needs to be fully on the inside of the source. Coincident boxes will be considered 'outside'.</param>
     /// <returns><c>true</c> if the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains the other <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</returns>
-    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other, bool strict = false)
+    [Pure]
+    public static bool Contains(this BoundingBoxXYZ source, BoundingBoxXYZ other, bool strict)
     {
         var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
         var sourceMax = source.Transform.IsIdentity ? source.Max : source.Transform.OfPoint(source.Max);
@@ -112,6 +138,7 @@ public static class GeometryExtensions
     /// <param name="source">The source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</param>
     /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
     /// <returns><c>true</c> if the two <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instances have at least one common point</returns>
+    [Pure]
     public static bool Overlaps(this BoundingBoxXYZ source, BoundingBoxXYZ other)
     {
         var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
