@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -467,5 +468,62 @@ public static class WorksharingUtilsExtensions
     {
         WorksharingUtils.CreateNewLocal(source, target);
         return target;
+    }
+
+        /// <summary>
+    ///    Gets information about user worksets in a workshared model file, without fully opening the file.
+    /// </summary>
+    /// <remarks>
+    ///    This method provides a preview of the user worksets available in a file, allowing an
+    ///    application to look up the necessary workset ids and information to properly fill out a WorksetConfiguration
+    ///    structure before opening or linking to this model.
+    /// </remarks>
+    /// <param name="path">The path to the workshared model.</param>
+    /// <returns>
+    ///    Information about all the user worksets in the model.
+    ///    The list is sorted by workset id.
+    /// </returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.CentralModelAccessDeniedException">
+    ///    Access to the central model was denied due to lack of access privileges.
+    ///    -or-
+    ///    Access to the central model was denied. A possible reason is because the model was under maintenance.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.CentralModelContentionException">
+    ///    The central model are locked by another client.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.CentralModelException">
+    ///    The central model is missing.
+    ///    -or-
+    ///    The central model is corrupt or not an RVT file.
+    ///    -or-
+    ///    The model is not workshared.
+    ///    -or-
+    ///    The central model is overwritten by other user.
+    ///    -or-
+    ///    An internal error happened on the central model, please contact the server administrator.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.FileAccessException">
+    ///    The model could not be accessed due to lack of access privileges.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.FileArgumentNotFoundException">
+    ///    The Revit model specified by path doesn't exist.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.FileNotFoundException">
+    ///    The model could not be found at the specified path.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///    This functionality is not available in Revit LT.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
+    ///    The server-based central model could not be accessed
+    ///    because of a network communication error.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.RevitServerInternalException">
+    ///    An internal error happened on the server, please contact the server administrator.
+    /// </exception>
+    [Pure]
+    public static IList<WorksetPreview> GetUserWorksetInfo(this ModelPath path)
+    {
+        return WorksharingUtils.GetUserWorksetInfo(path);
     }
 }
