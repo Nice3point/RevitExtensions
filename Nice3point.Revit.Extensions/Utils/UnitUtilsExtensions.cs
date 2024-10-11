@@ -171,7 +171,7 @@ public static class UnitUtilsExtensions
     /// <param name="specTypeId">The identifier to check.</param>
     /// <returns>True if the ForgeTypeId identifies a measurable spec, false otherwise.</returns>
     [Pure]
-    public static bool IsValidUnit(this ForgeTypeId specTypeId)
+    public static bool IsMeasurableSpec(this ForgeTypeId specTypeId)
     {
         return UnitUtils.IsMeasurableSpec(specTypeId);
     }

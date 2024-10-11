@@ -94,6 +94,24 @@ public static class PlumbingUtilsExtensions
         var document = connector1.ConnectorManager.Owner.Document;
         return PlumbingUtils.ConnectPipePlaceholdersAtCross(document, connector1, connector2, connector3, connector4);
     }
+    
+    /// <summary>
+    ///    Places caps on the open connectors of the pipe curve.
+    /// </summary>
+    /// <remarks>
+    ///    In order to place the cap, the cap type should be defined in the routing preferences that associates with the pipe type of the given element.
+    /// </remarks>
+    /// <param name="pipe">Pipe curve</param>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    The pipe has no opened piping connector.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///    this operation failed.
+    /// </exception>
+    public static void PlaceCapOnOpenEnds(this Pipe pipe)
+    {
+        PlumbingUtils.PlaceCapOnOpenEnds(pipe.Document, pipe.Id, null);
+    }
 
     /// <summary>
     ///    Places caps on the open connectors of the pipe curve.
@@ -116,24 +134,6 @@ public static class PlumbingUtilsExtensions
     public static void PlaceCapOnOpenEnds(this Pipe pipe, ElementId typeId)
     {
         PlumbingUtils.PlaceCapOnOpenEnds(pipe.Document, pipe.Id, typeId);
-    }
-
-    /// <summary>
-    ///    Places caps on the open connectors of the pipe curve.
-    /// </summary>
-    /// <remarks>
-    ///    In order to place the cap, the cap type should be defined in the routing preferences that associates with the pipe type of the given element.
-    /// </remarks>
-    /// <param name="pipe">Pipe curve</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    The pipe has no opened piping connector.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-    ///    this operation failed.
-    /// </exception>
-    public static void PlaceCapOnOpenEnds(this Pipe pipe)
-    {
-        PlumbingUtils.PlaceCapOnOpenEnds(pipe.Document, pipe.Id, null);
     }
 
     /// <summary>

@@ -134,7 +134,7 @@ public static class PartUtilsExtensions
     ///    The elements that created the part. Empty if partId is not a Part or Part is not divided.
     /// </returns> 
     [Pure]
-    public static ISet<ElementId> GetSplittingElements(this Element part)
+    public static ISet<ElementId> GetSplittingElements(this Part part)
     {
         return PartUtils.GetSplittingElements(part.Document, part.Id);
     }
@@ -148,7 +148,7 @@ public static class PartUtilsExtensions
     ///    The curves that created the part. Empty if partId is not a part or Part is not divided.
     /// </returns> 
     [Pure]
-    public static IList<Curve> GetSplittingCurves(this Element part, out Plane sketchPlane)
+    public static IList<Curve> GetSplittingCurves(this Part part, out Plane sketchPlane)
     {
         return PartUtils.GetSplittingCurves(part.Document, part.Id, out sketchPlane);
     }
@@ -159,7 +159,7 @@ public static class PartUtilsExtensions
     ///    The curves that created the part. Empty if partId is not a Part or Part is not divided.
     /// </returns> 
     [Pure]
-    public static IList<Curve> GetSplittingCurves(this Element part)
+    public static IList<Curve> GetSplittingCurves(this Part part)
     {
         return PartUtils.GetSplittingCurves(part.Document, part.Id);
     }
@@ -304,8 +304,7 @@ public static class PartUtilsExtensions
     }
 
     /// <summary>
-    ///    Create a single merged part which represents the Parts
-    ///    specified by partsToMerge.
+    ///    Create a single merged part which represents the Parts specified by partsToMerge.
     /// </summary>
     /// <param name="document">The document.</param>
     /// <param name="partIds">The elements that the merged part will be created from.</param>
@@ -339,8 +338,7 @@ public static class PartUtilsExtensions
     }
 
     /// <summary>
-    ///    Segregates a set of elements into subsets which are
-    ///    valid for merge.
+    ///    Segregates a set of elements into subsets which are valid for merge.
     /// </summary>
     /// <remarks>
     ///    Element ids in the input set that do not correspond to Part

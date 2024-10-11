@@ -198,6 +198,51 @@ public static class ElementTransformUtilsExtensions
     ///      <p>This method can be used for both view-specific and model elements.</p>
     ///      <p>Both source and destination views must be 2D graphics views capable of drawing details and view-specific elements (floor and ceiling plans, elevations, sections, drafting views.)
     /// Drafting views cannot be used as a destination for model elements.</p>
+    ///      <p>The pasted elements are repositioned to ensure proper placement in the destination view (e.g. elevation is changed when copying from a level to a different level.)</p>
+    ///      <p>The destination view can be in the same document as the source view.</p>
+    ///      <p>The destination view can be the same as the source view.</p>
+    ///      <p>All view-specific elements in the set must be specific to the source view. Elements specific to views other than the source view or to multiple views cannot be copied.</p>
+    ///      <p>This method performs rehosting of elements where applicable.</p>
+    ///    </remarks>
+    /// <param name="sourceView">
+    ///    The view in the source document that contains the elements to copy.
+    /// </param>
+    /// <param name="elementsToCopy">The set of elements to copy.</param>
+    /// <param name="destinationView">
+    ///    The view in the destination document that the elements will be pasted into.
+    /// </param>
+    /// <returns>The ids of the newly created copied elements.</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    The given element id set is empty.
+    ///    -or-
+    ///    The specified view cannot be used as a source or destination for copying elements between two views.
+    ///    -or-
+    ///    Some of the elements cannot be copied, because they belong to a different document.
+    ///    -or-
+    ///    Some of the elements cannot be copied, because they belong to a different view.
+    ///    -or-
+    ///    The elements cannot be copied into the destination view. Drafting views cannot contain model elements.
+    ///    -or-
+    ///    The input set of elements contains Sketch members along with other elements and the Sketch Id of those members isn't in the set.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///    It is not allowed to copy Sketch members between non-parallel sketches.
+    ///    -or-
+    ///    The elements cannot be copied.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.OperationCanceledException">
+    ///    User cancelled the operation.
+    /// </exception>
+    public static ICollection<ElementId> CopyElements(this ICollection<ElementId> elementsToCopy, View sourceView, View destinationView)
+    {
+        return ElementTransformUtils.CopyElements(sourceView, elementsToCopy, destinationView, null, null);
+    }
+
+    /// <summary>Copies a set of elements from source view to destination view.</summary>
+    /// <remarks>
+    ///      <p>This method can be used for both view-specific and model elements.</p>
+    ///      <p>Both source and destination views must be 2D graphics views capable of drawing details and view-specific elements (floor and ceiling plans, elevations, sections, drafting views.)
+    /// Drafting views cannot be used as a destination for model elements.</p>
     ///      <p>The pasted elements are repositioned to ensure proper placement in the destination view (e.g. elevation is changed when copying from a level to a different level.)
     /// Additional transformation within the destination view can be performed by providing additionalTransform argument. This additional transformation must be within the plane of the destination view.</p>
     ///      <p>The destination view can be in the same document as the source view.</p>

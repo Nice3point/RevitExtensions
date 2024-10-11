@@ -15,7 +15,7 @@ public static class FamilyUtilsExtensions
     /// Also, false is returned if the family does not belong to one of the following categories:
     /// <list type="bullet"><item>OST_CommunicationDevices</item><item>OST_DataDevices</item><item>OST_DuctTerminal</item><item>OST_ElectricalEquipment</item><item>OST_ElectricalFixtures</item><item>OST_FireAlarmDevices</item><item>OST_LightingDevices</item><item>OST_LightingFixtures</item><item>OST_MechanicalControlDevices</item><item>OST_MechanicalEquipment</item><item>OST_NurseCallDevices</item><item>OST_PlumbingEquipment</item><item>OST_PlumbingFixtures</item><item>OST_SecurityDevices</item><item>OST_Sprinklers</item><item>OST_TelephoneDevices</item></list></returns>
     [Pure]
-    public static bool FamilyCanConvertToFaceHostBased(this Family family)
+    public static bool CanConvertToFaceHostBased(this Family family)
     {
         return FamilyUtils.FamilyCanConvertToFaceHostBased(family.Document, family.Id);
     }
@@ -34,7 +34,7 @@ public static class FamilyUtilsExtensions
     ///    -or-
     ///    The family is already unhosted.
     /// </exception>
-    public static void ConvertFamilyToFaceHostBased(this Family family)
+    public static void ConvertToFaceHostBased(this Family family)
     {
         FamilyUtils.ConvertFamilyToFaceHostBased(family.Document, family.Id);
     }
