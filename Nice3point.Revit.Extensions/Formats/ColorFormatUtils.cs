@@ -103,7 +103,7 @@ internal static class ColorFormatUtils
 
         var min = Math.Min(Math.Min(color.R, color.G), color.B) / 255d;
 
-        return (color.GetHue(), 1d - (min / intensity), intensity);
+        return (color.GetHue(), 1d - min / intensity, intensity);
     }
 
     /// <summary>
@@ -173,14 +173,14 @@ internal static class ColorFormatUtils
         var b = color.B / 255d;
 
         // inverse companding, gamma correction must be undone
-        var rLinear = (r > 0.04045) ? Math.Pow((r + 0.055) / 1.055, 2.4) : (r / 12.92);
-        var gLinear = (g > 0.04045) ? Math.Pow((g + 0.055) / 1.055, 2.4) : (g / 12.92);
-        var bLinear = (b > 0.04045) ? Math.Pow((b + 0.055) / 1.055, 2.4) : (b / 12.92);
+        var rLinear = r > 0.04045 ? Math.Pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+        var gLinear = g > 0.04045 ? Math.Pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+        var bLinear = b > 0.04045 ? Math.Pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
 
         return (
-            (rLinear * 0.41239079926595948) + (gLinear * 0.35758433938387796) + (bLinear * 0.18048078840183429),
-            (rLinear * 0.21263900587151036) + (gLinear * 0.71516867876775593) + (bLinear * 0.07219231536073372),
-            (rLinear * 0.01933081871559185) + (gLinear * 0.11919477979462599) + (bLinear * 0.95053215224966058)
+            rLinear * 0.41239079926595948 + gLinear * 0.35758433938387796 + bLinear * 0.18048078840183429,
+            rLinear * 0.21263900587151036 + gLinear * 0.71516867876775593 + bLinear * 0.07219231536073372,
+            rLinear * 0.01933081871559185 + gLinear * 0.11919477979462599 + bLinear * 0.95053215224966058
         );
     }
 
@@ -189,9 +189,9 @@ internal static class ColorFormatUtils
     /// The constants of the formula used come from this wikipedia page:
     /// https://en.wikipedia.org/wiki/CIELAB_color_space#Converting_between_CIELAB_and_CIEXYZ_coordinates
     /// </summary>
-    /// <param name="x">The <see cref="x"/> represents a mix of the three CIE RGB curves</param>
-    /// <param name="y">The <see cref="y"/> represents the luminance</param>
-    /// <param name="z">The <see cref="z"/> is quasi-equal to blue (of CIE RGB)</param>
+    /// <param name="x">The x represents a mix of the three CIE RGB curves</param>
+    /// <param name="y">The y represents the luminance</param>
+    /// <param name="z">The z is quasi-equal to blue (of CIE RGB)</param>
     /// <returns>The lightness [0..100] and two chromaticities [-128..127]</returns>
     private static (double Lightness, double ChromaticityA, double ChromaticityB) GetCielabColorFromCieXyz(double x, double y, double z)
     {
@@ -211,14 +211,14 @@ internal static class ColorFormatUtils
 
         // XYZ to CIELab transformation
         const double delta = 6d / 29;
-        var m = (1d / 3) * Math.Pow(delta, -2);
+        var m = 1d / 3 * Math.Pow(delta, -2);
         var t = Math.Pow(delta, 3);
 
-        var fx = (x > t) ? Math.Pow(x, 1.0 / 3.0) : (x * m) + (16.0 / 116.0);
-        var fy = (y > t) ? Math.Pow(y, 1.0 / 3.0) : (y * m) + (16.0 / 116.0);
-        var fz = (z > t) ? Math.Pow(z, 1.0 / 3.0) : (z * m) + (16.0 / 116.0);
+        var fx = x > t ? Math.Pow(x, 1.0 / 3.0) : x * m + 16.0 / 116.0;
+        var fy = y > t ? Math.Pow(y, 1.0 / 3.0) : y * m + 16.0 / 116.0;
+        var fz = z > t ? Math.Pow(z, 1.0 / 3.0) : z * m + 16.0 / 116.0;
 
-        var l = (116 * fy) - 16;
+        var l = 116 * fy - 16;
         var a = 500 * (fx - fy);
         var b = 200 * (fy - fz);
 
