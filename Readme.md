@@ -11,8 +11,9 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge)](https://github.com/Nice3point/RevitExtensions/commits/develop)
 
-Extensions minimizes the need for boilerplate code and introduces additional methods to RevitAPI. 
-It also supports annotations for modern .NET, while converting Revit utility classes into easy-to-use extension methods.
+Extensions bring a fresh, intuitive way to interact with the Revit API. By adding extension methods, they make your code more readable, maintainable, and concise.
+
+Forget about complex utility methods — Extensions provide a fluent syntax that lets you focus on what matters:
 
 ```csharp
 new ElementId(123469)
@@ -24,7 +25,7 @@ new ElementId(123469)
     .Round()
 ```
 
-Extensions include annotations to help ReShaper parse your code and report warnings when a method may return null or the value returned by the method is not used in your code.
+Extensions integrate seamlessly with modern .NET features like Nullable types and Generics, giving you greater flexibility and control over your code.
 
 ## Installation
 
@@ -40,8 +41,43 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ## Table of contents
 
+<!-- TOC -->
+  * [Element extensions](#element-extensions)
+    * [Element transform extensions](#element-transform-extensions)
+    * [Element association extensions](#element-association-extensions)
+    * [Element worksharing extensions](#element-worksharing-extensions)
+    * [Element schema extensions](#element-schema-extensions)
+  * [ElementId extensions](#elementid-extensions)
+    * [ElementId transform extensions](#elementid-transform-extensions)
+  * [Application extensions](#application-extensions)
+    * [Ribbon Extensions](#ribbon-extensions)
+    * [ContextMenu Extensions](#contextmenu-extensions)
+  * [Document extensions](#document-extensions)
+    * [Document managers extensions](#document-managers-extensions)
+  * [Geometry extensions](#geometry-extensions)
+    * [Element geometry extensions](#element-geometry-extensions)
+  * [Parameters extensions](#parameters-extensions)
+    * [Document global parameters extensions](#document-global-parameters-extensions)
+  * [FilteredElementCollector extensions](#filteredelementcollector-extensions)
+  * [ForgeTypeId extensions](#forgetypeid-extensions)
+  * [Unit Extensions](#unit-extensions)
+  * [Label Extensions](#label-extensions)
+  * [Color extensions](#color-extensions)
+  * [Family extensions](#family-extensions)
+  * [Host class extensions](#host-class-extensions)
+  * [Plumbing extensions](#plumbing-extensions)
+  * [Solid extensions](#solid-extensions)
+    * [Element solid cut extensions](#element-solid-cut-extensions)
+  * [View extensions](#view-extensions)
+    * [View managers extensions](#view-managers-extensions)
+  * [Part extensions](#part-extensions)
+    * [Element part extensions](#element-part-extensions)
+    * [ElementId parts extensions](#elementid-parts-extensions)
+  * [Imperial Extensions](#imperial-extensions)
+  * [System Extensions](#system-extensions)
+<!-- TOC -->
 
-### Element extensions
+## Element extensions
 
 **FindParameter** extension finds a parameter in the instance or symbol by identifier.
 For instances that do not have such a parameter, this method will find and return it at the element type.
@@ -93,100 +129,6 @@ var canRotate = element.CanBeMirrored();
 var canRotate = element.CanBeMirrored();
 ```
 
-### Element geometry extensions
-
-**JoinGeometry** extension creates clean joins between two elements that share a common face.
-
-```csharp
-element1.JoinGeometry(element2);
-```
-
-**UnjoinGeometry** extension removes a join between two elements.
-
-```csharp
-element1.UnjoinGeometry(element2);
-```
-
-**AreElementsJoined** extension determines whether two elements are joined.
-
-```csharp
-var areJoined = element1.AreElementsJoined(element2);
-```
-
-**GetJoinedElements** extension returns all elements joined to given element.
-
-```csharp
-var elements = element1.GetJoinedElements();
-```
-
-**SwitchJoinOrder** extension reverses the order in which two elements are joined.
-
-```csharp
-element1.SwitchJoinOrder();
-```
-
-**IsCuttingElementInJoin** extension determines whether the first of two joined elements is cutting the second element.
-
-```csharp
-var isCutting = element1.IsCuttingElementInJoin(element2);
-```
-
-### Element solid cut extensions
-
-**GetCuttingSolids** extension gets all the solids which cut the input element.
-
-```csharp
-var solids = element.GetCuttingSolids();
-```
-
-**GetSolidsBeingCut** extension gets all the solids which are cut by the input element.
-
-```csharp
-var solids = element.GetSolidsBeingCut();
-```
-
-**IsAllowedForSolidCut** extension validates that the element is eligible for a solid-solid cut.
-
-```csharp
-var isAllowed = element.IsAllowedForSolidCut();
-```
-
-**IsElementFromAppropriateContext** extension validates that the element is from an appropriate document.
-
-```csharp
-var fromContext = element.IsElementFromAppropriateContext();
-```
-
-**CanElementCutElement** extension verifies if the cutting element can add a solid cut to the target element.
-
-```csharp
-var canCut = element1.CanElementCutElement(element2, out var reason);
-```
-
-**CutExistsBetweenElements** extension checks that if there is a solid-solid cut between two elements.
-
-```csharp
-var isCutExists = element1.CutExistsBetweenElements(element2, out var isFirstCuts);
-```
-
-**AddCutBetweenSolids** extension adds a solid-solid cut for the two elements.
-
-```csharp
-element1.AddCutBetweenSolids(element2);
-```
-
-**RemoveCutBetweenSolids** extension removes the solid-solid cut between the two elements if it exists.
-
-```csharp
-element1.RemoveCutBetweenSolids(element2);
-```
-
-**SplitFacesOfCuttingSolid** extension removes the solid-solid cut between the two elements if it exists.
-
-```csharp
-element1.SplitFacesOfCuttingSolid(element2);
-```
-
 ### Element association extensions
  
 **IsAnalyticalElement** extension returns true if the element is an analytical element.
@@ -227,7 +169,7 @@ var info = element.GetWorksharingTooltipInfo();
 var status = element.GetModelUpdatesStatus();
 ```
 
-### Element schema Extensions
+### Element schema extensions
 
 **SaveEntity** extension stores data in the element. Existing data is overwritten.
 
@@ -243,33 +185,7 @@ var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField")
 var color = door.LoadEntity<string>(schema, "doorColorField");
 ```
 
-### Element part extensions
-
-**IsElementValidForCreateParts** extension identifies if the given element can be used to create parts.
-
-```csharp
-var isValid = element.IsElementValidForCreateParts();
-```
-
-**HasAssociatedParts** extension checks if an element has associated parts.
-
-```csharp
-var hasParts = element.HasAssociatedParts();
-```
-
-**GetAssociatedParts** returns all Parts that are associated with the given element.
-
-```csharp
-var parts = element.GetAssociatedParts(includePartsWithAssociatedParts: true, includeAllChildren: true);
-```
-
-**GetAssociatedPartMaker** returns all Parts that are associated with the given element.
-
-```csharp
-var partMaker = element.GetAssociatedPartMaker();
-```
-
-### ElementId extensions
+## ElementId extensions
 
 **ToElement** extension gets the element from the ID for a specified document.
 
@@ -285,33 +201,7 @@ categoryId.AreEquals(BuiltInCategory.OST_Walls);
 parameterId.AreEquals(BuiltInParameter.WALL_BOTTOM_IS_ATTACHED);
 ```
 
-### ElementId parts extensions
-
-**IsValidForCreateParts** extension identifies if the given element can be used to create parts.
-
-```csharp
-var isValid = linkedElementId.IsValidForCreateParts(document);
-```
-
-**HasAssociatedParts** extension checks if an element has associated parts.
-
-```csharp
-var hasParts = linkedElementId.HasAssociatedParts(document);
-```
-
-**GetAssociatedParts** extension returns all Parts that are associated with the given element
-
-```csharp
-var parts = linkedElementId.GetAssociatedParts(document, includePartsWithAssociatedParts: true, includeAllChildren: true);
-```
-
-**GetAssociatedPartMaker** extension returns all Parts that are associated with the given element
-
-```csharp
-var partMaker = linkedElementId.GetAssociatedPartMaker(document);
-```
-
-### ElementId collection transform extensions
+### ElementId transform extensions
 
 **CanMirrorElements** extension determines whether elements can be mirrored.
 
@@ -350,143 +240,24 @@ var copy = elementIds.CopyElements(source, destination, transform, options);
 var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 ```
 
-### ElementId collection parts extensions
+## Application extensions
 
-**CreateParts** extension creates a new set of parts out of the original elements.
+**SetMacroSecurityOptions** extension sets the application macro security options.
 
 ```csharp
-elementIds.CreateParts(document);
-linkElementIds.CreateParts(document);
+application.SetMacroSecurityOptions(ApplicationMacroOptions.EnableMacros);
 ```
 
-**DivideParts** extension creates divided parts out of parts.
+**GetMacroSecurityOptions** extension gets the application macro security options.
 
 ```csharp
-elementIds.DivideParts(intersectingReferenceIds, document, curveArray, sketchPlaneId);
+var options = application.GetMacroSecurityOptions();
 ```
 
-**FindMergeableClusters** extension segregates a set of elements into subsets which are valid for merge.
+**GetMacroManager** extension gets the Macro manager from the application.
 
 ```csharp
-var clusters = elementIds.FindMergeableClusters(document);
-```
-
-**CreateMergedPart** extension creates a single merged part which represents the Parts specified by partsToMerge.
-
-```csharp
-var parkMaker = elementIds.CreateMergedPart(document);
-```
-
-**ArePartsValidForMerge** extension identifies whether Part elements may be merged.
-
-```csharp
-var isValid = elementIds.ArePartsValidForMerge(document);
-```
-
-**ArePartsValidForDivide** extension identifies if provided members are valid for dividing parts.
-
-```csharp
-var isValid = elementIds.ArePartsValidForDivide(document);
-```
-
-**AreElementsValidForCreateParts** extension identifies if the given elements can be used to create parts.
-
-```csharp
-var isValid = elementIds.AreElementsValidForCreateParts(document);
-```
-
-### Geometry extensions
-
-**Distance** extension returns distance between two lines. The lines are considered endless.
-
-```csharp
-var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
-var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
-var distance = line1.Distance(line2);
-```
-
-**Contains** extension determines whether the specified point is contained within this BoundingBox.
-
-```csharp
-var point = new XYZ(1,1,1);
-var isContains = boundinBox.Contains(point);
-```
-
-**Contains** extension determines whether the specified point is contained within this BoundingBox.
-Set strict mode if the point needs to be fully on the inside of the source. 
-A point coinciding with the box border will be considered outside.
-
-```csharp
-var point = new XYZ(1,1,1);
-var isContains = boundinBox.Contains(point, strict:true);
-```
-
-**Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
-
-```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Contains(boundinBox2);
-```
-
-**Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
-Set strict mode if the box needs to be fully on the inside of the source.
-Coincident boxes will be considered outside.
-
-```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Contains(boundinBox2, strict:true);
-```
-
-**Overlaps** extension determines whether this BoundingBox overlaps with another BoundingBox.
-
-```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Overlaps(boundinBox2);
-```
-
-**ComputeCentroid** extension computes the geometric center point of the bounding box.
-
-```csharp
-var center = boundinBox.ComputeCentroid();
-```
-
-**ComputeVertices** extension retrieves the coordinates of the eight vertices that define the bounding box.
-
-```csharp
-var vertices = boundinBox.ComputeVertices();
-```
-
-**ComputeVolume** extension calculates the volume enclosed by the bounding box.
-
-```csharp
-var volume = boundinBox.ComputeVolume();
-```
-
-**ComputeSurfaceArea** extension calculates the total surface area of the bounding box.
-
-```csharp
-var area = boundinBox.ComputeSurfaceArea();
-```
-
-**SetCoordinateX** extension creates an instance of a curve with a new X coordinate.
-
-```csharp
-var newLine = line.SetCoordinateX(1);
-var newArc = arc.SetCoordinateX(1);
-```
-
-**SetCoordinateY** extension creates an instance of a curve with a new Y coordinate.
-
-```csharp
-var newLine = line.SetCoordinateY(1);
-var newArc = arc.SetCoordinateY(1);
-```
-
-**SetCoordinateZ** extension creates an instance of a curve with a new coordinate.
-
-```csharp
-var newLine = line.SetCoordinateZ(1);
-var newArc = arc.SetCoordinateZ(1);
+var manager = application.GetMacroManager();
 ```
 
 ### Ribbon Extensions
@@ -610,154 +381,321 @@ menu.AddSubMenu("Sub menu title", subMenu);
 menuItem.SetAvailabilityController<Controller>()
 ```
 
-### Unit Extensions
+## Document extensions
 
-**FromMillimeters** extension converts millimeters to internal Revit number format (feet).
-
-```csharp
-var value = 69d.FromMillimeters(); // 0.226
-```
-
-**ToMillimeters** extension converts a Revit internal format value (feet) to millimeters.
+**GetProfileSymbols** extension gets the profile Family Symbols of the document.
 
 ```csharp
-var value = 69d.ToMillimeters(); // 21031
+var symbols = document.GetProfileSymbols(ProfileFamilyUsage.Any, oneCurveLoopOnly: true);
 ```
 
-**FromMeters** extension converts meters to internal Revit number format (feet).
+**RelinquishOwnership** extension gets the profile Family Symbols of the document.
 
 ```csharp
-var value = 69d.FromMeters(); // 226.377
+var items = document.RelinquishOwnership(relinquishOptions, transactOptions);
 ```
 
-**ToMeters** extension converts a Revit internal format value (feet) to meters.
+### Document managers extensions
+
+**GetTemporaryGraphicsManager** extension gets a TemporaryGraphicsManager reference of the document.
 
 ```csharp
-var value = 69d.ToMeters(); // 21.031
+var manager = document.GetTemporaryGraphicsManager();
 ```
 
-**FromInches** extension converts inches to internal Revit number format (feet).
+**GetAnalyticalToPhysicalAssociationManager** extension gets a AnalyticalToPhysicalAssociationManager reference of the document.
 
 ```csharp
-var value = 69d.FromInches(); // 5.750
+var manager = document.GetAnalyticalToPhysicalAssociationManager();
 ```
 
-**ToInches** extension converts a Revit internal format value (feet) to inches.
+**GetLightGroupManager** extension creates a light group manager object from the given document.
 
 ```csharp
-var value = 69d.ToInches(); // 827.999
+var manager = document.GetLightGroupManager();
 ```
 
-**FromDegrees** extension converts degrees to internal Revit number format (radians).
+## Geometry extensions
+
+**Distance** extension returns distance between two lines. The lines are considered endless.
 
 ```csharp
-var value = 69d.FromDegrees(); // 1.204
+var line1 = Line.CreateBound(new XYZ(0,0,1), new XYZ(1,1,1));
+var line2 = Line.CreateBound(new XYZ(1,2,2), new XYZ(1,2,2));
+var distance = line1.Distance(line2);
 ```
 
-**ToDegrees** extension converts a Revit internal format value (radians) to degrees.
+**Contains** extension determines whether the specified point is contained within this BoundingBox.
 
 ```csharp
-var value = 69d.ToDegrees(); // 3953
+var point = new XYZ(1,1,1);
+var isContains = boundinBox.Contains(point);
 ```
 
-**FromUnit(UnitTypeId)** extension converts the specified unit type to internal Revit number format.
+**Contains** extension determines whether the specified point is contained within this BoundingBox.
+Set strict mode if the point needs to be fully on the inside of the source. 
+A point coinciding with the box border will be considered outside.
 
 ```csharp
-var value = 69d.FromUnit(UnitTypeId.Celsius); // 342.15
+var point = new XYZ(1,1,1);
+var isContains = boundinBox.Contains(point, strict:true);
 ```
 
-**ToUnit(UnitTypeId)** extension converts a Revit internal format value to the specified unit type.
+**Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
 
 ```csharp
-var value = 69d.ToUnit(UnitTypeId.Celsius); // -204.15
+var boundinBox2 = new BoundingBoxXYZ();
+var isContains = boundinBox1.Contains(boundinBox2);
 ```
 
-**FormatUnit** extension formats a number with units into a string.
+**Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
+Set strict mode if the box needs to be fully on the inside of the source.
+Coincident boxes will be considered outside.
 
 ```csharp
-var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false); // 21031
-var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false, new FormatValueOptions {AppendUnitSymbol = true}); // 21031 mm
+var boundinBox2 = new BoundingBoxXYZ();
+var isContains = boundinBox1.Contains(boundinBox2, strict:true);
 ```
 
-### Host class extensions
-
-**GetBottomFaces** extension returns the bottom faces for the host object.
+**Overlaps** extension determines whether this BoundingBox overlaps with another BoundingBox.
 
 ```csharp
-floor.Cast<HostObject>().GetBottomFaces();
+var boundinBox2 = new BoundingBoxXYZ();
+var isContains = boundinBox1.Overlaps(boundinBox2);
 ```
 
-**GetTopFaces** extension returns the top faces for the host object.
+**ComputeCentroid** extension computes the geometric center point of the bounding box.
 
 ```csharp
-floor.Cast<HostObject>().GetTopFaces();
+var center = boundinBox.ComputeCentroid();
 ```
 
-**GetSideFaces** extension returns the major side faces for the host object.
+**ComputeVertices** extension retrieves the coordinates of the eight vertices that define the bounding box.
 
 ```csharp
-wall.Cast<HostObject>().GetSideFaces(ShellLayerType.Interior);
+var vertices = boundinBox.ComputeVertices();
 ```
 
-### Label Extensions
-
-**ToLabel** extension convert Enum to user-visible name.
+**ComputeVolume** extension calculates the volume enclosed by the bounding box.
 
 ```csharp
-var label = BuiltInCategory.OST_Walls.ToLabel(); // "Walls"
-var label = BuiltInParameter.WALL_TOP_OFFSET.ToLabel(); // "Top Offset"
-var label = BuiltInParameter.WALL_TOP_OFFSET.ToLabel(LanguageType.Russian); // "Смещение сверху"
-var label = BuiltInParameterGroup.PG_LENGTH.ToLabel(); // "Length"
-var label = DisplayUnitType.DUT_KILOWATTS.ToLabel(); // "Kilowatts"
-
-**ToLabel** extension convert ForgeTypeId to user-visible name.
-    
-var label = ParameterType.Length.ToLabel(); // "Length"
-var label = DisciplineTypeId.Hvac.ToLabel(); // "HVAC"
-var label = GroupTypeId.Geometry.ToLabel(); // "Dimensions"
-var label = ParameterTypeId.DoorCost.ToLabel(); // "Cost"
-var label = SpecTypeId.SheetLength.ToLabel(); // "Sheet Length"
-var label = SymbolTypeId.Hour.ToLabel(); // "h"
-var label = UnitTypeId.Hertz.ToLabel(); // "Hertz"
+var volume = boundinBox.ComputeVolume();
 ```
 
-**ToDisciplineLabel** extension convert ForgeTypeId to user-visible name a discipline.
+**ComputeSurfaceArea** extension calculates the total surface area of the bounding box.
 
 ```csharp
-var label = DisciplineTypeId.Hvac.ToDisciplineLabel(); // "HVAC"
+var area = boundinBox.ComputeSurfaceArea();
 ```
 
-**ToGroupLabel** extension converts ForgeTypeId to user-visible name for a built-in parameter group.
+**SetCoordinateX** extension creates an instance of a curve with a new X coordinate.
 
 ```csharp
-var label = GroupTypeId.Geometry.ToGroupLabel(); // "Dimensions"
+var newLine = line.SetCoordinateX(1);
+var newArc = arc.SetCoordinateX(1);
 ```
 
-**ToParameterLabel** extension converts ForgeTypeId to user-visible name for a built-in parameter.
+**SetCoordinateY** extension creates an instance of a curve with a new Y coordinate.
 
 ```csharp
-var label = ParameterTypeId.DoorCost.ToParameterLabel(); // "Cost"
+var newLine = line.SetCoordinateY(1);
+var newArc = arc.SetCoordinateY(1);
 ```
 
-**ToSpecLabel** extension converts ForgeTypeId to user-visible name for a spec.
+**SetCoordinateZ** extension creates an instance of a curve with a new coordinate.
 
 ```csharp
-var label = SpecTypeId.SheetLength.ToSpecLabel(); // "Sheet Length"
+var newLine = line.SetCoordinateZ(1);
+var newArc = arc.SetCoordinateZ(1);
 ```
 
-**ToSymbolLabel** extension convert ForgeTypeId to user-visible name for a symbol.
+### Element geometry extensions
+
+**JoinGeometry** extension creates clean joins between two elements that share a common face.
 
 ```csharp
-var label = SymbolTypeId.Hour.ToSymbolLabel(); // "h"
+element1.JoinGeometry(element2);
 ```
 
-**ToUnitLabel** extension converts ForgeTypeId to user-visible name for a unit.
+**UnjoinGeometry** extension removes a join between two elements.
 
 ```csharp
-var label = UnitTypeId.Hertz.ToUnitLabel(); // "Hertz"
+element1.UnjoinGeometry(element2);
 ```
 
-### ForgeTypeId extensions
+**AreElementsJoined** extension determines whether two elements are joined.
+
+```csharp
+var areJoined = element1.AreElementsJoined(element2);
+```
+
+**GetJoinedElements** extension returns all elements joined to given element.
+
+```csharp
+var elements = element1.GetJoinedElements();
+```
+
+**SwitchJoinOrder** extension reverses the order in which two elements are joined.
+
+```csharp
+element1.SwitchJoinOrder();
+```
+
+**IsCuttingElementInJoin** extension determines whether the first of two joined elements is cutting the second element.
+
+```csharp
+var isCutting = element1.IsCuttingElementInJoin(element2);
+```
+
+## Parameters extensions
+
+**AsBool** extension provides access to the boolean value within the parameter.
+
+```csharp
+bool value = element.FindParameter("IsClosed").AsBool();
+```
+
+**AsColor** extension provides access to the Color within the parameter.
+
+```csharp
+Color value = element.FindParameter("Door color").AsColor();
+```
+
+**AsElement** extension provides access to the Element within the parameter.
+
+```csharp
+Element value = element.FindParameter("Door material").AsElement();
+Material value = element.FindParameter("Door material").AsElement<Material>();
+```
+
+**Set** extension sets the parameter to a new value.
+
+```csharp
+parameter.Set(true);
+parameter.Set(new Color(66, 69, 96);
+```
+
+**IsBuiltInParameter** extension checks whether a Parameter identifies a built-in parameter.
+
+```csharp
+var isBuiltIn = parameter.IsBuiltInParameter();
+```
+
+### Document global parameters extensions
+
+**FindGlobalParameter** extension finds whether a global parameter with the given name exists in the input document.
+
+```csharp
+var parameter = document.FindGlobalParameter(name);
+```
+
+**GetAllGlobalParameters** extension returns all global parameters available in the given document.
+
+```csharp
+var parameters = document.GetAllGlobalParameters();
+```
+
+**GetGlobalParametersOrdered** extension returns all global parameters in an ordered array.
+
+```csharp
+var parameters = document.GetGlobalParametersOrdered();
+```
+
+**SortGlobalParameters** extension sorts global parameters in the desired order.
+
+```csharp
+document.SortGlobalParameters(ParametersOrder.Ascending);
+```
+
+**MoveGlobalParameterUpOrder** extension moves given global parameter Up in the current order.
+
+```csharp
+var isMoved = document.MoveGlobalParameterUpOrder(parameterId);
+```
+
+**MoveGlobalParameterDownOrder** extension moves given global parameter Down in the current order.
+
+```csharp
+var isMoved = document.MoveGlobalParameterDownOrder(parameterId);
+```
+
+**IsUniqueGlobalParameterName** extension tests whether a name is unique among existing global parameters of a given document.
+
+```csharp
+var isUnique = document.IsUniqueGlobalParameterName(name);
+```
+
+**IsValidGlobalParameter** extension tests whether an ElementId is of a global parameter in the given document.
+
+```csharp
+var isValid = document.IsValidGlobalParameter(parameterId);
+```
+
+**AreGlobalParametersAllowed** extension tests whether global parameters are allowed in the given document.
+
+```csharp
+var isAllowed = document.AreGlobalParametersAllowed();
+```
+
+
+## FilteredElementCollector extensions
+
+This set of extensions encapsulates all the work of searching for elements in the Revit database.
+
+**GetElements** a generic method which constructs a new FilteredElementCollector that will search and filter the set of elements in a document.
+Filter criteria are not applied to the method.
+
+```csharp
+var elements = document.GetElements().WhereElementIsViewIndependent().ToElements();
+var elements = document.GetElements(elementIds).WhereElementIsViewIndependent.ToElements();
+var elements = document.GetElements(viewId).ToElements();
+```
+
+The remaining methods contain a ready implementation of the collector, with filters applied:
+
+```csharp
+var elements = document.GetInstances();
+var elements = document.GetInstances(new ElementParameterFilter());
+var elements = document.GetInstances([elementParameterFilter, logicalFilter]);
+
+var elements = document.GetInstances(BuiltInCategory.OST_Walls);
+var elements = document.GetInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+var elements = document.GetInstances(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);    
+
+var elements = document.EnumerateInstances();
+var elements = document.EnumerateInstances(new ElementParameterFilter());
+var elements = document.EnumerateInstances([elementParameterFilter, logicalFilter]);
+
+var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls);
+var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);   
+
+var elements = document.EnumerateInstances<Wall>();
+var elements = document.EnumerateInstances<Wall>(new ElementParameterFilter());
+var elements = document.EnumerateInstances<Wall>(new [elementParameterFilter, logicalFilter]);
+
+var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls);
+var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
+var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);   
+```
+
+The same overloads exist for InstanceIds, Type, TypeIds:
+
+```csharp
+var types = document.GetTypes();
+var types = document.GetTypeIds();
+var types = document.GetInstanceIds();
+var types = document.EnumerateTypes();
+var types = document.EnumerateTypeIds();
+var types = document.EnumerateInstanceIds();
+```
+
+**Remarks**: `Get` methods are faster than `Enumerate` due to RevitApi internal optimizations.
+However, enumeration allows for more flexibility in finding elements.
+
+Don't try to call `GetInstances().Select().Tolist()` instead of `EnumerateInstances().Select().Tolist()`, you will degrade performance.
+
+## ForgeTypeId extensions
 
 **IsSpec** extension Checks whether a ForgeTypeId identifies a spec.
 
@@ -843,7 +781,7 @@ var catalog = specTypeId.GetTypeCatalogStringForSpec();
 var catalog = unitTypeId.GetTypeCatalogStringForUnit();
 ```
 
-**DownloadCompanyName** extension downloads the name of the given parameter's owning account and records it in the given document. 
+**DownloadCompanyName** extension downloads the name of the given parameter's owning account and records it in the given document.
 If the owning account's name is already recorded in the given document, this method returns the name without downloading it again.
 
 ```csharp
@@ -862,236 +800,136 @@ var options = forgeId.DownloadParameterOptions(document);
 var sharedParameter = forgeId.DownloadParameter(document, options);
 ```
 
-### Solid extensions
+## Unit Extensions
 
-**Clone** extension creates a new Solid, which is a copy of the input Solid.
-
-```csharp
-var clone = solid.Clone();
-```
-
-**CreateTransformed** extension creates a new Solid which is the transformation of the input Solid.
+**FromMillimeters** extension converts millimeters to internal Revit number format (feet).
 
 ```csharp
-var transformed = solid.CreateTransformed(Transform.CreateRotationAtPoint());
-var transformed = solid.CreateTransformed(Transform.CreateReflection());
+var value = 69d.FromMillimeters(); // 0.226
 ```
 
-**SplitVolumes** extension splits a solid geometry into several solids.
+**ToMillimeters** extension converts a Revit internal format value (feet) to millimeters.
 
 ```csharp
-var solids = solid.SplitVolumes();
+var value = 69d.ToMillimeters(); // 21031
 ```
 
-**IsValidForTessellation** extension tests if the input solid or shell is valid for tessellation.
+**FromMeters** extension converts meters to internal Revit number format (feet).
 
 ```csharp
-var isValid = solid.IsValidForTessellation();
+var value = 69d.FromMeters(); // 226.377
 ```
 
-**TessellateSolidOrShell** extension facets (i.e., triangulates) a solid or an open shell.
+**ToMeters** extension converts a Revit internal format value (feet) to meters.
 
 ```csharp
-var tesselation = solid.TessellateSolidOrShell();
+var value = 69d.ToMeters(); // 21.031
 ```
 
-**FindAllEdgeEndPointsAtVertex** extension finds all EdgeEndPoints at a vertex identified by the input EdgeEndPoint.
+**FromInches** extension converts inches to internal Revit number format (feet).
 
 ```csharp
-var point = edgeEndPoint.FindAllEdgeEndPointsAtVertex();
+var value = 69d.FromInches(); // 5.750
 ```
 
-### Parameter extensions
-
-**AsBool** extension provides access to the boolean value within the parameter.
+**ToInches** extension converts a Revit internal format value (feet) to inches.
 
 ```csharp
-bool value = element.FindParameter("IsClosed").AsBool();
+var value = 69d.ToInches(); // 827.999
 ```
 
-**AsColor** extension provides access to the Color within the parameter.
+**FromDegrees** extension converts degrees to internal Revit number format (radians).
 
 ```csharp
-Color value = element.FindParameter("Door color").AsColor();
+var value = 69d.FromDegrees(); // 1.204
 ```
 
-**AsElement** extension provides access to the Element within the parameter.
+**ToDegrees** extension converts a Revit internal format value (radians) to degrees.
 
 ```csharp
-Element value = element.FindParameter("Door material").AsElement();
-Material value = element.FindParameter("Door material").AsElement<Material>();
+var value = 69d.ToDegrees(); // 3953
 ```
 
-**Set** extension sets the parameter to a new value.
+**FromUnit(UnitTypeId)** extension converts the specified unit type to internal Revit number format.
 
 ```csharp
-parameter.Set(true);
-parameter.Set(new Color(66, 69, 96);
+var value = 69d.FromUnit(UnitTypeId.Celsius); // 342.15
 ```
 
-**IsBuiltInParameter** extension checks whether a Parameter identifies a built-in parameter.
+**ToUnit(UnitTypeId)** extension converts a Revit internal format value to the specified unit type.
 
 ```csharp
-var isBuiltIn = parameter.IsBuiltInParameter();
+var value = 69d.ToUnit(UnitTypeId.Celsius); // -204.15
 ```
 
-### Document extensions
-
-**GetProfileSymbols** extension gets the profile Family Symbols of the document.
+**FormatUnit** extension formats a number with units into a string.
 
 ```csharp
-var symbols = document.GetProfileSymbols(ProfileFamilyUsage.Any, oneCurveLoopOnly: true);
+var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false); // 21031
+var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false, new FormatValueOptions {AppendUnitSymbol = true}); // 21031 mm
 ```
 
-**RelinquishOwnership** extension gets the profile Family Symbols of the document.
+## Label Extensions
+
+**ToLabel** extension convert Enum to user-visible name.
 
 ```csharp
-var items = document.RelinquishOwnership(relinquishOptions, transactOptions);
+var label = BuiltInCategory.OST_Walls.ToLabel(); // "Walls"
+var label = BuiltInParameter.WALL_TOP_OFFSET.ToLabel(); // "Top Offset"
+var label = BuiltInParameter.WALL_TOP_OFFSET.ToLabel(LanguageType.Russian); // "Смещение сверху"
+var label = BuiltInParameterGroup.PG_LENGTH.ToLabel(); // "Length"
+var label = DisplayUnitType.DUT_KILOWATTS.ToLabel(); // "Kilowatts"
 ```
 
-### Document managers extensions
-
-**GetTemporaryGraphicsManager** extension gets a TemporaryGraphicsManager reference of the document.
+**ToLabel** extension convert ForgeTypeId to user-visible name.
 
 ```csharp
-var manager = document.GetTemporaryGraphicsManager();
+var label = ParameterType.Length.ToLabel(); // "Length"
+var label = DisciplineTypeId.Hvac.ToLabel(); // "HVAC"
+var label = GroupTypeId.Geometry.ToLabel(); // "Dimensions"
+var label = ParameterTypeId.DoorCost.ToLabel(); // "Cost"
+var label = SpecTypeId.SheetLength.ToLabel(); // "Sheet Length"
+var label = SymbolTypeId.Hour.ToLabel(); // "h"
+var label = UnitTypeId.Hertz.ToLabel(); // "Hertz"
 ```
 
-**GetAnalyticalToPhysicalAssociationManager** extension gets a AnalyticalToPhysicalAssociationManager reference of the document.
+**ToDisciplineLabel** extension convert ForgeTypeId to user-visible name a discipline.
 
 ```csharp
-var manager = document.GetAnalyticalToPhysicalAssociationManager();
+var label = DisciplineTypeId.Hvac.ToDisciplineLabel(); // "HVAC"
 ```
 
-**GetLightGroupManager** extension creates a light group manager object from the given document.
+**ToGroupLabel** extension converts ForgeTypeId to user-visible name for a built-in parameter group.
 
 ```csharp
-var manager = document.GetLightGroupManager();
+var label = GroupTypeId.Geometry.ToGroupLabel(); // "Dimensions"
 ```
 
-### Document global parameters extensions
-
-**FindGlobalParameter** extension finds whether a global parameter with the given name exists in the input document.
+**ToParameterLabel** extension converts ForgeTypeId to user-visible name for a built-in parameter.
 
 ```csharp
-var parameter = document.FindGlobalParameter(name);
+var label = ParameterTypeId.DoorCost.ToParameterLabel(); // "Cost"
 ```
 
-**GetAllGlobalParameters** extension returns all global parameters available in the given document.
+**ToSpecLabel** extension converts ForgeTypeId to user-visible name for a spec.
 
 ```csharp
-var parameters = document.GetAllGlobalParameters();
+var label = SpecTypeId.SheetLength.ToSpecLabel(); // "Sheet Length"
 ```
 
-**GetGlobalParametersOrdered** extension returns all global parameters in an ordered array.
+**ToSymbolLabel** extension convert ForgeTypeId to user-visible name for a symbol.
 
 ```csharp
-var parameters = document.GetGlobalParametersOrdered();
+var label = SymbolTypeId.Hour.ToSymbolLabel(); // "h"
 ```
 
-**SortGlobalParameters** extension sorts global parameters in the desired order.
+**ToUnitLabel** extension converts ForgeTypeId to user-visible name for a unit.
 
 ```csharp
-document.SortGlobalParameters(ParametersOrder.Ascending);
+var label = UnitTypeId.Hertz.ToUnitLabel(); // "Hertz"
 ```
 
-**MoveGlobalParameterUpOrder** extension moves given global parameter Up in the current order.
-
-```csharp
-var isMoved = document.MoveGlobalParameterUpOrder(parameterId);
-```
-
-**MoveGlobalParameterDownOrder** extension moves given global parameter Down in the current order.
-
-```csharp
-var isMoved = document.MoveGlobalParameterDownOrder(parameterId);
-```
-
-**IsUniqueGlobalParameterName** extension tests whether a name is unique among existing global parameters of a given document.
-
-```csharp
-var isUnique = document.IsUniqueGlobalParameterName(name);
-```
-
-**IsValidGlobalParameter** extension tests whether an ElementId is of a global parameter in the given document.
-
-```csharp
-var isValid = document.IsValidGlobalParameter(parameterId);
-```
-
-**AreGlobalParametersAllowed** extension tests whether global parameters are allowed in the given document.
-
-```csharp
-var isAllowed = document.AreGlobalParametersAllowed();
-```
-
-### PresentationFramework extensions
-
-**Show** extension opens a window and returns without waiting for the newly opened window to close.
-Sets the owner of a child window. Applicable for modeless windows to be attached to Revit.
-
-```csharp
-new RevitAddinView.Show(uiApplication.MainWindowHandle)
-```
-
-### FilteredElementCollector extensions
-
-This set of extensions encapsulates all the work of searching for elements in the Revit database.
-
-**GetElements** a generic method which constructs a new FilteredElementCollector that will search and filter the set of elements in a document.
-Filter criteria are not applied to the method.
-
-```csharp
-var elements = document.GetElements().WhereElementIsViewIndependent().ToElements();
-var elements = document.GetElements(elementIds).WhereElementIsViewIndependent.ToElements();
-var elements = document.GetElements(viewId).ToElements();
-```
-
-The remaining methods contain a ready implementation of the collector, with filters applied:
-
-```csharp
-var elements = document.GetInstances();
-var elements = document.GetInstances(new ElementParameterFilter());
-var elements = document.GetInstances([elementParameterFilter, logicalFilter]);
-
-var elements = document.GetInstances(BuiltInCategory.OST_Walls);
-var elements = document.GetInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-var elements = document.GetInstances(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);    
-
-var elements = document.EnumerateInstances();
-var elements = document.EnumerateInstances(new ElementParameterFilter());
-var elements = document.EnumerateInstances([elementParameterFilter, logicalFilter]);
-
-var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls);
-var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-var elements = document.EnumerateInstances(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);   
-
-var elements = document.EnumerateInstances<Wall>();
-var elements = document.EnumerateInstances<Wall>(new ElementParameterFilter());
-var elements = document.EnumerateInstances<Wall>(new [elementParameterFilter, logicalFilter]);
-
-var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls);
-var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, new ElementParameterFilter());
-var elements = document.EnumerateInstances<Wall>(BuiltInCategory.OST_Walls, [elementParameterFilter, logicalFilter]);   
-```
-
-The same overloads exist for InstanceIds, Type, TypeIds:
-
-```csharp
-var types = document.GetTypes();
-var types = document.GetTypeIds();
-var types = document.GetInstanceIds();
-var types = document.EnumerateTypes();
-var types = document.EnumerateTypeIds();
-var types = document.EnumerateInstanceIds();
-```
-
-**Remarks**: `Get` methods are faster than `Enumerate` due to RevitApi internal optimizations. 
-However, enumeration allows for more flexibility in finding elements.
-
-Don't try to call `GetInstances().Select().Tolist()` instead of `EnumerateInstances().Select().Tolist()`, you will degrade performance.
-
-### Color extensions
+## Color extensions
 
 **ToHex** extension returns a hexadecimal representation of a color.
 
@@ -1177,27 +1015,197 @@ var float = color.ToFloat();
 var decimal = color.ToDecimal();
 ```
 
-### Application extensions
+## Family extensions
 
-**SetMacroSecurityOptions** extension sets the application macro security options.
-
-```csharp
-application.SetMacroSecurityOptions(ApplicationMacroOptions.EnableMacros);
-```
-
-**GetMacroSecurityOptions** extension gets the application macro security options.
+**CanConvertToFaceHostBased** extension indicates whether the family can be converted to face host based.
 
 ```csharp
-var options = application.GetMacroSecurityOptions();
+var canConvert = family.CanConvertToFaceHostBased();
 ```
 
-**GetMacroManager** extension gets the Macro manager from the application.
+**ConvertToFaceHostBased** extension converts a family to be face host based.
 
 ```csharp
-var manager = application.GetMacroManager();
+family.ConvertToFaceHostBased();
 ```
 
-### Part extensions
+## Host class extensions
+
+**GetBottomFaces** extension returns the bottom faces for the host object.
+
+```csharp
+floor.Cast<HostObject>().GetBottomFaces();
+```
+
+**GetTopFaces** extension returns the top faces for the host object.
+
+```csharp
+floor.Cast<HostObject>().GetTopFaces();
+```
+
+**GetSideFaces** extension returns the major side faces for the host object.
+
+```csharp
+wall.Cast<HostObject>().GetSideFaces(ShellLayerType.Interior);
+```
+
+## Plumbing extensions
+
+**ConnectPipePlaceholdersAtElbow** extension connects placeholders that looks like elbow connection.
+
+```csharp
+var isConnected = connector1.ConnectPipePlaceholdersAtElbow(connector2);
+```
+
+**ConnectPipePlaceholdersAtTee** extension connects three placeholders that looks like Tee connection.
+
+```csharp
+var isConnected = connector1.ConnectPipePlaceholdersAtTee(connector2, connector3);
+```
+
+**ConnectPipePlaceholdersAtCross** extension connects placeholders that looks like Cross connection.
+
+```csharp
+var isConnected = connector1.ConnectPipePlaceholdersAtCross(connector2, connector3, connector4);
+```
+
+**PlaceCapOnOpenEnds** extension places caps on the open connectors of the pipe curve.
+
+```csharp
+pipe.PlaceCapOnOpenEnds();
+pipe.PlaceCapOnOpenEnds(typeId);
+```
+
+**HasOpenConnector** extension checks if there is open piping connector for the given pipe curve.
+
+```csharp
+var hasOpenConnector = pipe.HasOpenConnector();
+```
+
+**BreakCurve** extension breaks the pipe curve into two parts at the given position.
+
+```csharp
+var pipeCurve = pipe.BreakCurve(new XYZ(1, 1, 1));
+```
+
+## Solid extensions
+
+**Clone** extension creates a new Solid, which is a copy of the input Solid.
+
+```csharp
+var clone = solid.Clone();
+```
+
+**CreateTransformed** extension creates a new Solid which is the transformation of the input Solid.
+
+```csharp
+var transformed = solid.CreateTransformed(Transform.CreateRotationAtPoint());
+var transformed = solid.CreateTransformed(Transform.CreateReflection());
+```
+
+**SplitVolumes** extension splits a solid geometry into several solids.
+
+```csharp
+var solids = solid.SplitVolumes();
+```
+
+**IsValidForTessellation** extension tests if the input solid or shell is valid for tessellation.
+
+```csharp
+var isValid = solid.IsValidForTessellation();
+```
+
+**TessellateSolidOrShell** extension facets (i.e., triangulates) a solid or an open shell.
+
+```csharp
+var tesselation = solid.TessellateSolidOrShell();
+```
+
+**FindAllEdgeEndPointsAtVertex** extension finds all EdgeEndPoints at a vertex identified by the input EdgeEndPoint.
+
+```csharp
+var point = edgeEndPoint.FindAllEdgeEndPointsAtVertex();
+```
+
+### Element solid cut extensions
+
+**GetCuttingSolids** extension gets all the solids which cut the input element.
+
+```csharp
+var solids = element.GetCuttingSolids();
+```
+
+**GetSolidsBeingCut** extension gets all the solids which are cut by the input element.
+
+```csharp
+var solids = element.GetSolidsBeingCut();
+```
+
+**IsAllowedForSolidCut** extension validates that the element is eligible for a solid-solid cut.
+
+```csharp
+var isAllowed = element.IsAllowedForSolidCut();
+```
+
+**IsElementFromAppropriateContext** extension validates that the element is from an appropriate document.
+
+```csharp
+var fromContext = element.IsElementFromAppropriateContext();
+```
+
+**CanElementCutElement** extension verifies if the cutting element can add a solid cut to the target element.
+
+```csharp
+var canCut = element1.CanElementCutElement(element2, out var reason);
+```
+
+**CutExistsBetweenElements** extension checks that if there is a solid-solid cut between two elements.
+
+```csharp
+var isCutExists = element1.CutExistsBetweenElements(element2, out var isFirstCuts);
+```
+
+**AddCutBetweenSolids** extension adds a solid-solid cut for the two elements.
+
+```csharp
+element1.AddCutBetweenSolids(element2);
+```
+
+**RemoveCutBetweenSolids** extension removes the solid-solid cut between the two elements if it exists.
+
+```csharp
+element1.RemoveCutBetweenSolids(element2);
+```
+
+**SplitFacesOfCuttingSolid** extension removes the solid-solid cut between the two elements if it exists.
+
+```csharp
+element1.SplitFacesOfCuttingSolid(element2);
+```
+
+## View extensions
+
+**GetTransformFromViewToView** extension returns a transformation that is applied to elements when copying from one view to another view.
+
+```csharp
+var transform = view1.GetTransformFromViewToView(view2);
+```
+
+### View managers extensions
+
+**CreateSpatialFieldManager** extension creates SpatialField for the given view.
+
+```csharp
+var manager = view.CreateSpatialFieldManager(numberOfMeasurements: 69);
+```
+
+**GetSpatialFieldManager** extension retrieves SpatialField manager for the given view.
+
+```csharp
+var manager = view.GetSpatialFieldManager();
+```
+
+## Part extensions
 
 **GetSplittingElements** extension identifies the elements (reference planes, levels, grids) that were used to create the part.
 
@@ -1241,82 +1249,102 @@ var isDerived = part.IsPartDerivedFromLink();
 var method = partMaker.GetPartMakerMethodToDivideVolumeFw();
 ```
 
-### Plumbing extensions
+### Element part extensions
 
-**ConnectPipePlaceholdersAtElbow** extension connects placeholders that looks like elbow connection.
-
-```csharp
-var isConnected = connector1.ConnectPipePlaceholdersAtElbow(connector2);
-```
-
-**ConnectPipePlaceholdersAtTee** extension connects three placeholders that looks like Tee connection.
+**IsElementValidForCreateParts** extension identifies if the given element can be used to create parts.
 
 ```csharp
-var isConnected = connector1.ConnectPipePlaceholdersAtTee(connector2, connector3);
+var isValid = element.IsElementValidForCreateParts();
 ```
 
-**ConnectPipePlaceholdersAtCross** extension connects placeholders that looks like Cross connection.
+**HasAssociatedParts** extension checks if an element has associated parts.
 
 ```csharp
-var isConnected = connector1.ConnectPipePlaceholdersAtCross(connector2, connector3, connector4);
+var hasParts = element.HasAssociatedParts();
 ```
 
-**PlaceCapOnOpenEnds** extension places caps on the open connectors of the pipe curve.
+**GetAssociatedParts** returns all Parts that are associated with the given element.
 
 ```csharp
-pipe.PlaceCapOnOpenEnds();
-pipe.PlaceCapOnOpenEnds(typeId);
+var parts = element.GetAssociatedParts(includePartsWithAssociatedParts: true, includeAllChildren: true);
 ```
 
-**HasOpenConnector** extension checks if there is open piping connector for the given pipe curve.
+**GetAssociatedPartMaker** returns all Parts that are associated with the given element.
 
 ```csharp
-var hasOpenConnector = pipe.HasOpenConnector();
+var partMaker = element.GetAssociatedPartMaker();
 ```
 
-**BreakCurve** extension breaks the pipe curve into two parts at the given position.
+### ElementId parts extensions
+
+**CreateParts** extension creates a new set of parts out of the original elements.
 
 ```csharp
-var pipeCurve = pipe.BreakCurve(new XYZ(1, 1, 1));
+elementIds.CreateParts(document);
+linkElementIds.CreateParts(document);
 ```
 
-### View extensions
-
-**GetTransformFromViewToView** extension returns a transformation that is applied to elements when copying from one view to another view.
+**DivideParts** extension creates divided parts out of parts.
 
 ```csharp
-var transform = view1.GetTransformFromViewToView(view2);
+elementIds.DivideParts(intersectingReferenceIds, document, curveArray, sketchPlaneId);
 ```
 
-### View managers extensions
-
-**CreateSpatialFieldManager** extension creates SpatialField for the given view.
+**FindMergeableClusters** extension segregates a set of elements into subsets which are valid for merge.
 
 ```csharp
-var manager = view.CreateSpatialFieldManager(numberOfMeasurements: 69);
+var clusters = elementIds.FindMergeableClusters(document);
 ```
 
-**GetSpatialFieldManager** extension retrieves SpatialField manager for the given view.
+**CreateMergedPart** extension creates a single merged part which represents the Parts specified by partsToMerge.
 
 ```csharp
-var manager = view.GetSpatialFieldManager();
+var parkMaker = elementIds.CreateMergedPart(document);
 ```
 
-### Family extensions
-
-**CanConvertToFaceHostBased** extension indicates whether the family can be converted to face host based.
+**ArePartsValidForMerge** extension identifies whether Part elements may be merged.
 
 ```csharp
-var canConvert = family.CanConvertToFaceHostBased();
+var isValid = elementIds.ArePartsValidForMerge(document);
 ```
 
-**ConvertToFaceHostBased** extension converts a family to be face host based.
+**ArePartsValidForDivide** extension identifies if provided members are valid for dividing parts.
 
 ```csharp
-family.ConvertToFaceHostBased();
+var isValid = elementIds.ArePartsValidForDivide(document);
 ```
 
-### Imperial Extensions
+**AreElementsValidForCreateParts** extension identifies if the given elements can be used to create parts.
+
+```csharp
+var isValid = elementIds.AreElementsValidForCreateParts(document);
+```
+
+**IsValidForCreateParts** extension identifies if the given element can be used to create parts.
+
+```csharp
+var isValid = linkedElementId.IsValidForCreateParts(document);
+```
+
+**HasAssociatedParts** extension checks if an element has associated parts.
+
+```csharp
+var hasParts = linkedElementId.HasAssociatedParts(document);
+```
+
+**GetAssociatedParts** extension returns all Parts that are associated with the given element
+
+```csharp
+var parts = linkedElementId.GetAssociatedParts(document, includePartsWithAssociatedParts: true, includeAllChildren: true);
+```
+
+**GetAssociatedPartMaker** extension returns all Parts that are associated with the given element
+
+```csharp
+var partMaker = linkedElementId.GetAssociatedPartMaker(document);
+```
+
+## Imperial Extensions
 
 **ToFraction** extension converts a number to Imperial fractional format.
 
@@ -1347,7 +1375,7 @@ var result = "value".TryFromFraction(out var value); // false
 var result = null.TryFromFraction(out var value); // false
 ```
 
-### System Extensions
+## System Extensions
 
 **Cast<T>** extension casts an object to the specified type. Method chain is supported
 
@@ -1401,4 +1429,11 @@ var isContains = "Revit extensions".Contains("Revit", StringComparison.OrdinalIg
 var isContains = "Revit extensions".Contains("revit", StringComparison.OrdinalIgnoreCase); // true
 var isContains = "Revit extensions".Contains("REVIT", StringComparison.OrdinalIgnoreCase); // true
 var isContains = "Revit extensions".Contains("invalid", StringComparison.OrdinalIgnoreCase); // false
+```
+
+**Show** extension opens a window and returns without waiting for the newly opened window to close.
+Sets the owner of a child window. Applicable for modeless windows to be attached to Revit.
+
+```csharp
+new RevitAddinView.Show(uiApplication.MainWindowHandle)
 ```
