@@ -151,6 +151,7 @@ public static class UnitUtilsExtensions
         return UnitUtils.ConvertFromInternalUnits(radians, DisplayUnitType.DUT_DECIMAL_DEGREES);
 #endif
     }
+#if REVIT2021_OR_GREATER
 
     /// <summary>Checks whether a unit is valid for a given measurable spec.</summary>
     /// <param name="specTypeId">Identifier of the measurable spec.</param>
@@ -163,17 +164,6 @@ public static class UnitUtilsExtensions
     public static bool IsValidUnit(this ForgeTypeId specTypeId, ForgeTypeId unitTypeId)
     {
         return UnitUtils.IsValidUnit(specTypeId, unitTypeId);
-    }
-
-    /// <summary>
-    ///    Checks whether a ForgeTypeId identifies a spec associated with units of measurement.
-    /// </summary>
-    /// <param name="specTypeId">The identifier to check.</param>
-    /// <returns>True if the ForgeTypeId identifies a measurable spec, false otherwise.</returns>
-    [Pure]
-    public static bool IsMeasurableSpec(this ForgeTypeId specTypeId)
-    {
-        return UnitUtils.IsMeasurableSpec(specTypeId);
     }
 
     /// <summary>Checks whether a ForgeTypeId identifies a symbol.</summary>
@@ -195,19 +185,7 @@ public static class UnitUtilsExtensions
     {
         return UnitUtils.IsUnit(unitTypeId);
     }
-
-    /// <summary>Gets the discipline for a given measurable spec.</summary>
-    /// <param name="specTypeId">Identifier of the measurable spec.</param>
-    /// <returns>Identifier of the discipline.</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
-    /// </exception>
-    [Pure]
-    public static ForgeTypeId GetDiscipline(this ForgeTypeId specTypeId)
-    {
-        return UnitUtils.GetDiscipline(specTypeId);
-    }
-
+    
     /// <summary>Gets the identifiers of all valid units for a given measurable spec.</summary>
     /// <param name="specTypeId">Identifier of the measurable spec.</param>
     /// <returns>Identifiers of the valid units.</returns>
@@ -247,4 +225,30 @@ public static class UnitUtilsExtensions
     {
         return UnitUtils.GetTypeCatalogStringForUnit(unitTypeId);
     }
+#endif
+#if REVIT2022_OR_GREATER
+
+    /// <summary>
+    ///    Checks whether a ForgeTypeId identifies a spec associated with units of measurement.
+    /// </summary>
+    /// <param name="specTypeId">The identifier to check.</param>
+    /// <returns>True if the ForgeTypeId identifies a measurable spec, false otherwise.</returns>
+    [Pure]
+    public static bool IsMeasurableSpec(this ForgeTypeId specTypeId)
+    {
+        return UnitUtils.IsMeasurableSpec(specTypeId);
+    }
+
+    /// <summary>Gets the discipline for a given measurable spec.</summary>
+    /// <param name="specTypeId">Identifier of the measurable spec.</param>
+    /// <returns>Identifier of the discipline.</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
+    /// </exception>
+    [Pure]
+    public static ForgeTypeId GetDiscipline(this ForgeTypeId specTypeId)
+    {
+        return UnitUtils.GetDiscipline(specTypeId);
+    }
+#endif
 }

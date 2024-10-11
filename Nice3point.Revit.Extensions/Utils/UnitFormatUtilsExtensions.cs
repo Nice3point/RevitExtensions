@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -109,7 +110,6 @@ public static class UnitFormatUtilsExtensions
     {
         return UnitFormatUtils.Format(units, specTypeId, value, forEditing, options);
     }
-#endif
 
     /// <summary>Parses a formatted string into a number with units if possible.</summary>
     /// <param name="units">The units formatting settings.</param>
@@ -190,4 +190,5 @@ public static class UnitFormatUtilsExtensions
     {
         return UnitFormatUtils.TryParse(units, specTypeId, stringToParse, valueParsingOptions, out value);
     }
+#endif
 }
