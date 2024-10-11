@@ -32,9 +32,9 @@ sealed partial class Build
                 Name = PublishVersion,
                 Body = changelog,
                 TargetCommitish = GitRepository.Commit,
-                Prerelease = Version.Contains("-beta") ||
-                             Version.Contains("-dev") ||
-                             Version.Contains("-preview")
+                Prerelease = Version.Contains("beta") ||
+                             Version.Contains("dev") ||
+                             Version.Contains("preview")
             };
 
             var release = await GitHubTasks.GitHubClient.Repository.Release.Create(gitHubOwner, gitHubName, newRelease);

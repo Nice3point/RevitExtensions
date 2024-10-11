@@ -12,14 +12,16 @@ partial class Build
         {
             ValidateRelease();
 
+            var changelog = CreateNugetChangelog();
             var readme = CreateNugetReadme();
+            
             foreach (var configuration in GlobBuildConfigurations())
                 DotNetPack(settings => settings
                     .SetConfiguration(configuration)
                     .SetVersion(GetPackVersion(configuration))
                     .SetOutputDirectory(ArtifactsDirectory)
                     .SetVerbosity(DotNetVerbosity.minimal)
-                    .SetPackageReleaseNotes(CreateNugetChangelog()));
+                    .SetPackageReleaseNotes(changelog));
 
             RestoreReadme(readme);
         });
