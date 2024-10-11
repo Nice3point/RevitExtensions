@@ -1,6 +1,147 @@
-# Release 2025.0.4
+# Release 2025.0.1-preview.1.0
 
-- TODO
+This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
+
+**Element Association Extensions**
+
+- **IsAnalyticalElement:** Determines whether an element is an analytical element.
+- **IsPhysicalElement:** Checks if an element is a physical one.
+
+**Element Worksharing Extensions**
+
+- **GetCheckoutStatus:** Retrieves the ownership status of an element, with an optional parameter to return the owner's name.
+- **GetWorksharingTooltipInfo:** Provides worksharing information about an element for in-canvas tooltips.
+- **GetModelUpdatesStatus:** Gets the status of an element in the central model.
+
+**ElementId Transform Extensions**
+
+- **CanMirrorElements:** Verifies whether a set of elements can be mirrored.
+- **MirrorElements:** Mirrors elements across a plane, with support for mirrored copies.
+- **MoveElements:** Moves elements according to a specified transformation.
+- **RotateElements:** Rotates elements around a given axis by a specified angle.
+- **CopyElements:** Copies elements between views or within the same document, with options for translation and transformation.
+
+**Application Extensions**
+
+- **SetMacroSecurityOptions:** Configures macro security settings.
+- **GetMacroSecurityOptions:** Retrieves the current macro security options.
+- **GetMacroManager:** Provides access to the Macro Manager for the current application.
+
+**Document Extensions**
+
+- **GetProfileSymbols:** Returns profile family symbols in the document.
+- **RelinquishOwnership:** Allows relinquishment of ownership based on specified options.
+
+**Document Managers Extensions**
+
+- **GetTemporaryGraphicsManager:** Fetches a reference to the document’s temporary graphics manager.
+- **GetAnalyticalToPhysicalAssociationManager:** Retrieves the manager for analytical-to-physical element associations.
+- **GetLightGroupManager:** Creates or retrieves the light group manager for the document.
+
+**Geometry Extensions**
+
+- **Contains:** Determines if a point or another bounding box is contained within the bounding box, with strict mode available for more precise containment checks.
+- **Overlaps:** Checks whether two bounding boxes overlap.
+- **ComputeCentroid:** Calculates the geometric center of a bounding box.
+- **ComputeVertices:** Returns the coordinates of the eight vertices of a bounding box.
+- **ComputeVolume:** Computes the volume enclosed by the bounding box.
+- **ComputeSurfaceArea:** Calculates the total surface area of the bounding box.
+
+**Parameters Extensions**
+
+- **IsBuiltInParameter:** Verifies if a parameter is a built-in parameter.
+
+**Document Global Parameters Extensions**
+
+- **FindGlobalParameter:** Locates a global parameter by name in the document.
+- **GetAllGlobalParameters:** Returns all global parameters in the document.
+- **GetGlobalParametersOrdered:** Retrieves ordered global parameters.
+- **SortGlobalParameters:** Sorts global parameters in the specified order.
+- **MoveGlobalParameterUpOrder:** Moves a global parameter up in the order.
+- **MoveGlobalParameterDownOrder:** Moves a global parameter down in the order.
+- **IsUniqueGlobalParameterName:** Checks if a global parameter name is unique.
+- **IsValidGlobalParameter:** Validates if an ElementId is a global parameter.
+- **AreGlobalParametersAllowed:** Checks if global parameters are permitted in the document.
+
+**ForgeTypeId Extensions**
+
+- **IsSpec:** Validates if a ForgeTypeId identifies a spec.
+- **IsBuiltInGroup:** Determines whether a ForgeTypeId identifies a built-in parameter group.
+- **IsBuiltInParameter:** Validates if a ForgeTypeId identifies a built-in parameter.
+- **IsSymbol:** Checks if a ForgeTypeId identifies a symbol.
+- **IsUnit:** Verifies if a ForgeTypeId identifies a unit.
+- **IsValidDataType:** Determines if a ForgeTypeId identifies a valid parameter data type.
+- **IsValidUnit:** Validates if a unit is valid for a measurable spec.
+- **IsMeasurableSpec:** Checks if a ForgeTypeId represents a measurable spec.
+- **GetBuiltInParameter:** Retrieves a BuiltInParameter from a ForgeTypeId.
+- **GetParameterTypeId:** Fetches the ForgeTypeId corresponding to a BuiltInParameter.
+- **GetDiscipline:** Gets the discipline for a measurable spec.
+- **GetValidUnits:** Retrieves all valid units for a measurable spec.
+- **GetTypeCatalogStringForSpec:** Fetches the type catalog string for a measurable spec.
+- **GetTypeCatalogStringForUnit:** Retrieves the type catalog string for a unit.
+- **DownloadCompanyName:** Downloads the owning company name for a parameter and records it in the document.
+- **DownloadParameterOptions:** Fetches settings related to a parameter from the Parameters Service.
+- **DownloadParameter:** Creates a shared parameter element in a document based on a downloaded parameter definition.
+
+**Color Extensions**
+
+- **ToHex:** Converts a color to its hexadecimal representation.
+- **ToHexInteger:** Returns the hexadecimal integer representation of a color.
+- **ToRgb:** Provides the RGB representation of a color.
+- **ToHsl:** Converts a color to its HSL representation.
+- **ToHsv:** Converts a color to its HSV representation.
+- **ToCmyk:** Retrieves the CMYK representation of a color.
+- **ToHsb:** Converts a color to HSB.
+- **ToHsi:** Converts a color to HSI format.
+- **ToHwb:** Provides the HWB representation of a color.
+- **ToNCol:** Converts a color to NCol format.
+- **ToCielab:** Retrieves the Cielab representation of a color.
+- **ToCieXyz:** Converts a color to CieXyz format.
+- **ToFloat:** Returns the float representation of a color.
+- **ToDecimal:** Returns the decimal representation of a color.
+
+**Family Extensions**
+
+- **CanConvertToFaceHostBased:** Indicates whether a family can be converted to a face-hosted version.
+- **ConvertToFaceHostBased:** Converts a family to be face-host based.
+
+**Plumbing Extensions**
+
+- **ConnectPipePlaceholdersAtElbow:** Connects pipe placeholders that form an elbow connection.
+- **ConnectPipePlaceholdersAtTee:** Connects pipe placeholders to form a Tee connection.
+- **ConnectPipePlaceholdersAtCross:** Connects pipe placeholders to form a Cross connection.
+- **PlaceCapOnOpenEnds:** Places caps on open pipe connectors.
+- **HasOpenConnector:** Checks if a pipe curve has an open piping connector.
+- **BreakCurve:** Splits a pipe curve at a specified point.
+
+**Element Solid Cut Extensions**
+
+- **GetCuttingSolids:** Retrieves solids that cut a given element.
+- **GetSolidsBeingCut:** Returns solids that are cut by the given element.
+- **IsAllowedForSolidCut:** Verifies if the element can be involved in a solid-solid cut.
+- **IsElementFromAppropriateContext:** Checks if the element belongs to a suitable context for solid cuts.
+- **CanElementCutElement:** Determines whether a cutting element can create a solid cut on a target element.
+- **CutExistsBetweenElements:** Checks if there is an existing solid-solid cut between two elements.
+- **AddCutBetweenSolids:** Adds a solid-solid cut between two elements.
+- **RemoveCutBetweenSolids:** Removes an existing solid cut between two elements.
+- **SplitFacesOfCuttingSolid:** Splits the faces of a cutting solid element.
+
+**View Extensions**
+
+- **GetTransformFromViewToView:** Returns a transformation to copy elements between two views.
+
+**View Managers Extensions**
+
+- **CreateSpatialFieldManager:** Creates a SpatialField manager for a given view.
+- **GetSpatialFieldManager:** Retrieves the SpatialField manager for a specific view.
+
+**Part Extensions**
+
+- **GetSplittingElements:** Identifies elements used to create parts.
+- **GetSplittingCurves:** Identifies curves used to create parts and the plane they reside in.
+- **GetChainLengthToOriginal:** Calculates the chain length from a part to its original element.
+- **GetMergedParts:** Retrieves element IDs of merged parts.
+- **IsPartDerivedFromLink:** Checks if a part originates from linked geometry.
 
 # Release 2025.0.0
 
