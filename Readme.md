@@ -13,7 +13,7 @@
 
 Extensions bring a fresh, intuitive way to interact with the Revit API. By adding extension methods, they make your code more readable, maintainable, and concise.
 
-Forget about complex utility methods — Extensions provide a fluent syntax that lets you focus on what matters:
+Forget about complex utility methods — extensions provide a fluent syntax that lets you focus on what matters:
 
 ```csharp
 new ElementId(123469)
@@ -25,7 +25,7 @@ new ElementId(123469)
     .Round()
 ```
 
-Extensions integrate seamlessly with modern .NET features like Nullable types and Generics, giving you greater flexibility and control over your code.
+Seamless integration with modern .NET features like `Nullable` and `Generics` gives you greater flexibility and control over your code.
 
 ## Installation
 
@@ -262,7 +262,7 @@ var manager = application.GetMacroManager();
 
 ### Ribbon Extensions
 
-**CreatePanel** extension create a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
+**CreatePanel** extension creates a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
 
 ```csharp
 application.CreatePanel("Panel name");
@@ -272,9 +272,7 @@ application.CreatePanel("Panel name", "Tab name");
 **AddPushButton** extension adds a PushButton to the ribbon.
 
 ```csharp
-panel.AddPushButton(typeof(Command), "Button text");
 panel.AddPushButton<Command>("Button text");
-pullDownButton.AddPushButton(typeof(Command), "Button text");
 pullDownButton.AddPushButton<Command>("Button text");
 ```
 
@@ -313,7 +311,7 @@ panel.AddTextBox("Button name");
 ```csharp
 button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16.png");
 button.SetImage("https://example.com/RibbonIcon16.png");
-button.SetImage("C:\Pictures\RibbonIcon16.png");
+button.SetImage("C:/Pictures/RibbonIcon16.png");
 ```
 
 **SetLargeImage** extension adds a large image to the RibbonButton.
@@ -321,7 +319,7 @@ button.SetImage("C:\Pictures\RibbonIcon16.png");
 ```csharp
 button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 button.SetLargeImage("https://example.com/RibbonIcon32.png");
-button.SetLargeImage("C:\Pictures\RibbonIcon32.png");
+button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
 ```
 
 **SetAvailabilityController** extension specifies the class that decides the availability of PushButton
@@ -429,7 +427,7 @@ var distance = line1.Distance(line2);
 
 ```csharp
 var point = new XYZ(1,1,1);
-var isContains = boundinBox.Contains(point);
+var isContains = boundingBox.Contains(point);
 ```
 
 **Contains** extension determines whether the specified point is contained within this BoundingBox.
@@ -438,14 +436,14 @@ A point coinciding with the box border will be considered outside.
 
 ```csharp
 var point = new XYZ(1,1,1);
-var isContains = boundinBox.Contains(point, strict:true);
+var isContains = boundingBox.Contains(point, strict:true);
 ```
 
 **Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
 
 ```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Contains(boundinBox2);
+var boundingBox2 = new BoundingBoxXYZ();
+var isContains = boundingBox1.Contains(boundingBox2);
 ```
 
 **Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
@@ -453,39 +451,39 @@ Set strict mode if the box needs to be fully on the inside of the source.
 Coincident boxes will be considered outside.
 
 ```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Contains(boundinBox2, strict:true);
+var boundingBox2 = new BoundingBoxXYZ();
+var isContains = boundingBox1.Contains(boundingBox2, strict:true);
 ```
 
 **Overlaps** extension determines whether this BoundingBox overlaps with another BoundingBox.
 
 ```csharp
-var boundinBox2 = new BoundingBoxXYZ();
-var isContains = boundinBox1.Overlaps(boundinBox2);
+var boundingBox2 = new BoundingBoxXYZ();
+var isContains = boundingBox1.Overlaps(boundingBox2);
 ```
 
 **ComputeCentroid** extension computes the geometric center point of the bounding box.
 
 ```csharp
-var center = boundinBox.ComputeCentroid();
+var center = boundingBox.ComputeCentroid();
 ```
 
 **ComputeVertices** extension retrieves the coordinates of the eight vertices that define the bounding box.
 
 ```csharp
-var vertices = boundinBox.ComputeVertices();
+var vertices = boundingBox.ComputeVertices();
 ```
 
 **ComputeVolume** extension calculates the volume enclosed by the bounding box.
 
 ```csharp
-var volume = boundinBox.ComputeVolume();
+var volume = boundingBox.ComputeVolume();
 ```
 
 **ComputeSurfaceArea** extension calculates the total surface area of the bounding box.
 
 ```csharp
-var area = boundinBox.ComputeSurfaceArea();
+var area = boundingBox.ComputeSurfaceArea();
 ```
 
 **SetCoordinateX** extension creates an instance of a curve with a new X coordinate.
@@ -775,7 +773,7 @@ var unitIds = specTypeId.GetValidUnits();
 var catalog = specTypeId.GetTypeCatalogStringForSpec();
 ```
 
-**GetTypeCatalogStringForUnit** extension the string used in type catalogs to identify a given unit.
+**GetTypeCatalogStringForUnit** extension gets the string used in type catalogs to identify a given unit.
 
 ```csharp
 var catalog = unitTypeId.GetTypeCatalogStringForUnit();
@@ -1213,7 +1211,7 @@ var manager = view.GetSpatialFieldManager();
 var elements = part.GetSplittingElements();
 ```
 
-**GetSplittingElements** extension identifies the curves used to create the part.
+**GetSplittingCurves** extension identifies the curves used to create the part.
 
 ```csharp
 var curves = part.GetSplittingCurves();
@@ -1359,7 +1357,7 @@ var imperial = -25.222d.ToFraction(4); // 25'-2 3/4"
 **FromFraction** extension converts the textual representation of the Imperial system number to number.
 
 ```csharp
-var metric = "").FromFraction(); // 0
+var metric = "".FromFraction(); // 0
 var metric = "1 17/64\"".FromFraction(); // 0.105
 var metric = "1'1.75".FromFraction(); // 1.145
 var metric = "-69'-69\"".FromFraction(); // -74.75
