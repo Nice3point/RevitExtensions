@@ -1,4 +1,4 @@
-# Release 2025.0.1-preview.1.0
+# Release 2025.0.1-preview.1.8
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
 
@@ -13,6 +13,13 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **GetWorksharingTooltipInfo:** Provides worksharing information about an element for in-canvas tooltips.
 - **GetModelUpdatesStatus:** Gets the status of an element in the central model.
 
+**ElementId Extensions**
+
+- **ToElements:** Retrieves a collection of Elements associated with the specified ElementIds.
+- **ToElements<T>:** Retrieves a collection of Elements associated with the specified ElementIds as the specified type T.
+- **ToOrderedElements:** Retrieves the Elements associated with the specified ElementIds in their original order.
+- **ToOrderedElements<T>:** Retrieves the Elements associated with the specified ElementIds and casts them to the specified type T in their original order.
+
 **ElementId Transform Extensions**
 
 - **CanMirrorElements:** Verifies whether a set of elements can be mirrored.
@@ -20,12 +27,6 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **MoveElements:** Moves elements according to a specified transformation.
 - **RotateElements:** Rotates elements around a given axis by a specified angle.
 - **CopyElements:** Copies elements between views or within the same document, with options for translation and transformation.
-
-**Application Extensions**
-
-- **SetMacroSecurityOptions:** Configures macro security settings.
-- **GetMacroSecurityOptions:** Retrieves the current macro security options.
-- **GetMacroManager:** Provides access to the Macro Manager for the current application.
 
 **Document Extensions**
 
@@ -57,8 +58,8 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **GetAllGlobalParameters:** Returns all global parameters in the document.
 - **GetGlobalParametersOrdered:** Retrieves ordered global parameters.
 - **SortGlobalParameters:** Sorts global parameters in the specified order.
-- **MoveGlobalParameterUpOrder:** Moves a global parameter up in the order.
-- **MoveGlobalParameterDownOrder:** Moves a global parameter down in the order.
+- **MoveUpOrder:** Moves a global parameter up in the order.
+- **MoveDownOrder:** Moves a global parameter down in the order.
 - **IsUniqueGlobalParameterName:** Checks if a global parameter name is unique.
 - **IsValidGlobalParameter:** Validates if an ElementId is a global parameter.
 - **AreGlobalParametersAllowed:** Checks if global parameters are permitted in the document.
@@ -134,14 +135,6 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 - **CreateSpatialFieldManager:** Creates a SpatialField manager for a given view.
 - **GetSpatialFieldManager:** Retrieves the SpatialField manager for a specific view.
-
-**Part Extensions**
-
-- **GetSplittingElements:** Identifies elements used to create parts.
-- **GetSplittingCurves:** Identifies curves used to create parts and the plane they reside in.
-- **GetChainLengthToOriginal:** Calculates the chain length from a part to its original element.
-- **GetMergedParts:** Retrieves element IDs of merged parts.
-- **IsPartDerivedFromLink:** Checks if a part originates from linked geometry.
 
 # Release 2025.0.0
 
