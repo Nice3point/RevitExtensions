@@ -8,14 +8,73 @@ namespace Nice3point.Revit.Extensions;
 ///     Imperial Units Extensions
 /// </summary>
 [PublicAPI]
-public static class ImperialExtensions
+public static partial class ImperialExtensions
 {
-    private const string Expression =
+    private const string ImperialExpression =
         """
         ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
         """;
 
-    private static readonly Regex Regex = new(Expression, RegexOptions.Compiled);
+    private static readonly Regex ImperialRegex = InvokeImperialRegexGenerator();
+    [GeneratedRegex(ImperialExpression, RegexOptions.Compiled)] private static partial Regex InvokeImperialRegexGenerator();
+
+    /// <summary>
+    ///     Converts a string representation of a measurement in the Imperial system (feet and inches) to a double value.
+    /// </summary>
+    /// <param name="source">The Imperial system number as a string (e.g., 1'-3/32").</param>
+    /// <returns>The equivalent value in feet as a double.</returns>
+    /// <exception cref="FormatException">Thrown when the input string has an invalid format.</exception>
+    /// <remarks>
+    ///     This method handles input in the format of feet, inches, and fractional inches. It supports several variations:
+    ///     <list type="bullet">
+    ///         <item>Whole feet (e.g., 1')</item>
+    ///         <item>Fractional inches (e.g., 1/8")</item>
+    ///         <item>Feet and fractional inches (e.g., 1'-3/32")</item>
+    ///         <item>Feet and decimal inches (e.g., 1'1.75")</item>
+    ///     </list>
+    ///     The method will convert these values into a total feet measurement, returning the result as a double.
+    /// </remarks>
+    [Pure]
+    public static double FromFraction(this string source)
+    {
+        var match = ImperialRegex.Match(source);
+        if (!match.Success) throw new FormatException($"Invalid imperial format: {source}");
+
+        return ParseFraction(match);
+    }
+
+    /// <summary>
+    ///     Attempts to convert the string representation of a measurement in the Imperial system (feet and inches)
+    ///     to a double value, returning a success flag instead of throwing an exception on failure.
+    /// </summary>
+    /// <param name="source">The Imperial system number as a string (e.g., 1'-3/32").</param>
+    /// <param name="value">When this method returns, contains the converted value in feet if the conversion was successful; otherwise, 0.</param>
+    /// <returns>
+    ///     <c>true</c> if the string was successfully converted to a double; otherwise, <c>false</c>.
+    /// </returns>
+    /// <remarks>
+    ///     The method does not throw exceptions on invalid input, but instead returns <c>false</c>.
+    ///     It supports several variations of the Imperial system format:
+    ///     <list type="bullet">
+    ///         <item>Whole feet (e.g., 1')</item>
+    ///         <item>Fractional inches (e.g., 1/8")</item>
+    ///         <item>Feet and fractional inches (e.g., 1'-3/32")</item>
+    ///         <item>Feet and decimal inches (e.g., 1'1.75")</item>
+    ///     </list>
+    /// </remarks>
+    [Pure]
+    public static bool TryFromFraction(this string? source, out double value)
+    {
+        value = 0;
+
+        if (string.IsNullOrWhiteSpace(source)) return false;
+
+        var match = ImperialRegex.Match(source);
+        if (!match.Success) return false;
+        
+        value = ParseFraction(match);
+        return true;
+    }
 
     /// <summary>
     ///     Converts a number to text representation for the Imperial system with denominator 32
@@ -107,55 +166,6 @@ public static class ImperialExtensions
     public static bool FromFraction(this string? source, out double value)
     {
         return TryFromFraction(source, out value);
-    }
-
-    /// <summary>
-    ///     Converts the textual representation of the Imperial system number to double
-    /// </summary>
-    /// <param name="source">Imperial number</param>
-    /// <param name="value">Feet value</param>
-    /// <returns>True if conversion is successful</returns>
-    /// <example>
-    ///     1' will be converted to 1<br />
-    ///     1/8" will be converted to 0.010<br />
-    ///     1'-3/32" will be converted to 1.007<br />
-    ///     1'1.75" will be converted to 1.145
-    /// </example>
-    [Pure]
-    public static bool TryFromFraction(this string? source, out double value)
-    {
-        value = 0;
-        if (source is null) return false;
-        if (source.Trim() == string.Empty) return true;
-
-        var match = Regex.Match(source);
-        if (!match.Success) return false;
-
-        value = ParseFraction(match);
-        return true;
-    }
-
-    /// <summary>
-    ///     Converts the textual representation of the Imperial system number to double
-    /// </summary>
-    /// <param name="source">Imperial number</param>
-    /// <returns>Feet value</returns>
-    /// <exception cref="FormatException">Invalid number format</exception>
-    /// <example>
-    ///     1' will be converted to 1<br />
-    ///     1/8" will be converted to 0.010<br />
-    ///     1'-3/32" will be converted to 1.007<br />
-    ///     1'1.75" will be converted to 1.145
-    /// </example>
-    [Pure]
-    public static double FromFraction(this string source)
-    {
-        if (source.Trim() == string.Empty) return 0;
-
-        var match = Regex.Match(source);
-        if (!match.Success) throw new FormatException($"Invalid number format: {source}");
-
-        return ParseFraction(match);
     }
 
     private static double ParseFraction(Match match)
