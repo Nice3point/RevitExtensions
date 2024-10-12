@@ -6,6 +6,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     System PresentationFramework Extensions
 /// </summary>
+[PublicAPI]
 public static class PresentationFrameworkExtensions
 {
     /// <summary>

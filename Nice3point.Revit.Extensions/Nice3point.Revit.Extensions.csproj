@@ -29,6 +29,7 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <DefineConstants>$(DefineConstants);JETBRAINS_ANNOTATIONS</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
@@ -77,7 +78,7 @@
 
     <ItemGroup>
         <Using Include="Autodesk.Revit.DB" />
-        <Using Include="System.Diagnostics.Contracts" />
+        <Using Include="JetBrains.Annotations" />
         <Using Include="System.Runtime.CompilerServices" />
     </ItemGroup>
 

@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.SpecUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class SpecUtilsExtensions
 {
     /// <summary>Checks whether a ForgeTypeId identifies a spec.</summary>

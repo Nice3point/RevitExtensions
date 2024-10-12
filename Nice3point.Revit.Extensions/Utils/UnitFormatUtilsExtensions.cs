@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitFormatUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class UnitFormatUtilsExtensions
 {
 #if !REVIT2022_OR_GREATER
@@ -84,7 +85,7 @@ public static class UnitFormatUtilsExtensions
     ///     Or the given value for value is not finite
     /// </exception>
     [Pure]
-    public static string FormatUnit(this Units units, ForgeTypeId specTypeId, double value, bool forEditing)
+    public static string Format(this Units units, ForgeTypeId specTypeId, double value, bool forEditing)
     {
         return UnitFormatUtils.Format(units, specTypeId, value, forEditing);
     }
@@ -106,7 +107,7 @@ public static class UnitFormatUtilsExtensions
     ///     See UnitUtils.IsValidUnit(ForgeTypeId, ForgeTypeId) and UnitUtils.GetValidUnits(ForgeTypeId)
     /// </exception>
     [Pure]
-    public static string FormatUnit(this Units units, ForgeTypeId specTypeId, double value, bool forEditing, FormatValueOptions options)
+    public static string Format(this Units units, ForgeTypeId specTypeId, double value, bool forEditing, FormatValueOptions options)
     {
         return UnitFormatUtils.Format(units, specTypeId, value, forEditing, options);
     }
@@ -125,8 +126,7 @@ public static class UnitFormatUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
     /// </exception>
-    [Pure]
-    public static bool FormatUnit(this Units units, ForgeTypeId specTypeId, string stringToParse, out double value, out string message)
+    public static bool TryParse(this Units units, ForgeTypeId specTypeId, string stringToParse, out double value, out string message)
     {
         return UnitFormatUtils.TryParse(units, specTypeId, stringToParse, out value, out message);
     }
@@ -142,8 +142,7 @@ public static class UnitFormatUtilsExtensions
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
     /// </exception>
-    [Pure]
-    public static bool FormatUnit(this Units units, ForgeTypeId specTypeId, string stringToParse, out double value)
+    public static bool TryParse(this Units units, ForgeTypeId specTypeId, string stringToParse, out double value)
     {
         return UnitFormatUtils.TryParse(units, specTypeId, stringToParse, out value);
     }
@@ -165,8 +164,7 @@ public static class UnitFormatUtilsExtensions
     ///    -or-
     ///    The unit in the FormatOptions in valueParsingOptions is not a valid unit for specTypeId. See UnitUtils.IsValidUnit(ForgeTypeId, ForgeTypeId) and UnitUtils.GetValidUnits(ForgeTypeId).
     /// </exception>
-    [Pure]
-    public static bool FormatUnit(this Units units, ForgeTypeId specTypeId, string stringToParse, ValueParsingOptions valueParsingOptions, out double value, out string message)
+    public static bool TryParse(this Units units, ForgeTypeId specTypeId, string stringToParse, ValueParsingOptions valueParsingOptions, out double value, out string message)
     {
         return UnitFormatUtils.TryParse(units, specTypeId, stringToParse, valueParsingOptions, out value, out message);
     }
@@ -185,8 +183,7 @@ public static class UnitFormatUtilsExtensions
     ///    -or-
     ///    The unit in the FormatOptions in valueParsingOptions is not a valid unit for specTypeId. See UnitUtils.IsValidUnit(ForgeTypeId, ForgeTypeId) and UnitUtils.GetValidUnits(ForgeTypeId).
     /// </exception>
-    [Pure]
-    public static bool FormatUnit(this Units units, ForgeTypeId specTypeId, string stringToParse, ValueParsingOptions valueParsingOptions, out double value)
+    public static bool TryParse(this Units units, ForgeTypeId specTypeId, string stringToParse, ValueParsingOptions valueParsingOptions, out double value)
     {
         return UnitFormatUtils.TryParse(units, specTypeId, stringToParse, valueParsingOptions, out value);
     }

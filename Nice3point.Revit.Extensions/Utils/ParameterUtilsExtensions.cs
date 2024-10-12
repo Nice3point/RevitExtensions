@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ParameterUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class ParameterUtilsExtensions
 {
     /// <summary> Gets the ForgeTypeId identifying the built-in parameter corresponding to the given BuiltInParameter value.</summary>

@@ -7,6 +7,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager"/> class.
 /// </summary>
+[PublicAPI]
 public static class AnalyticalToPhysicalAssociationManagerExtensions
 {
     /// <summary>Returns the AnalyticalToPhysicalAssociationManager for this document.</summary>

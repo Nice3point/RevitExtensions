@@ -6,6 +6,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.Analysis.SpatialFieldManager"/> class.
 /// </summary>
+[PublicAPI]
 public static class SpatialFieldManagerExtensions
 {
     /// <summary>Factory method - creates manager object for the given view</summary>

@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.GlobalParametersManager"/> class.
 /// </summary>
+[PublicAPI]
 public static class GlobalParametersManagerExtensions
 {
     /// <summary>Tests whether global parameters are allowed in the given document.</summary>
@@ -23,7 +24,7 @@ public static class GlobalParametersManagerExtensions
 
     /// <summary>Returns all global parameters available in the given document.</summary>
     /// <param name="document">The document containing the global parameters</param>
-    /// <returns>A collection of Element Ids of global parameter elements.</returns>
+    /// <returns>A collection of GlobalParameters</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    Global parameters are not supported in the given document.
     ///    A possible cause is that it is not a project document,
@@ -38,21 +39,17 @@ public static class GlobalParametersManagerExtensions
     /// <summary>
     ///    Finds whether a global parameter with the given name exists in the input document.
     /// </summary>
-    /// <remarks>
-    ///    No exception is thrown when no parameter with such a name exists in the document;
-    ///    instead, the method returns an ElementId.InvalidElementId.
-    /// </remarks>
     /// <param name="document">The document expected to contain the global parameter.</param>
     /// <param name="name">Name of the global parameter</param>
     /// <returns>
-    ///    ElementId of the parameter element, or InvalidElementId if it was not found.
+    ///    GlobalParameter, or null if it was not found.
     /// </returns>
     [Pure]
     public static GlobalParameter? FindGlobalParameter(this Document document, string name)
     {
         var parameterId = GlobalParametersManager.FindByName(document, name);
         if (parameterId == ElementId.InvalidElementId) return null;
-        
+
         return parameterId.ToElement<GlobalParameter>(document);
     }
 
@@ -92,7 +89,7 @@ public static class GlobalParametersManagerExtensions
     /// thus available on the DB level as well.</p>
     ///    </remarks>
     /// <param name="document">Document containing the requested global parameters</param>
-    /// <returns>An array of Element Ids of all Global Parameters in the document.</returns>
+    /// <returns>A list of Global Parameters in the document.</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    Global parameters are not supported in the given document.
     ///    A possible cause is that it is not a project document,
@@ -136,19 +133,11 @@ public static class GlobalParametersManagerExtensions
     /// dialog. However, the order of parameters is serialized in the document,
     /// thus available on the DB level as well.</p>
     ///    </remarks>
-    /// <param name="document">Document containing the give global parameter</param>
-    /// <param name="parameterId">The parameter to move up</param>
+    /// <param name="parameter">The parameter to move up</param>
     /// <returns>Indicates whether the parameter could be moved Up in order or not.</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Global parameters are not supported in the given document.
-    ///    A possible cause is that it is not a project document,
-    ///    for global parameters are not supported in Revit families.
-    ///    -or-
-    ///    The input parameterId is not of a valid global parameter of the given document.
-    /// </exception>
-    public static bool MoveGlobalParameterUpOrder(this Document document, ElementId parameterId)
+    public static bool MoveUpOrder(this GlobalParameter parameter)
     {
-        return GlobalParametersManager.MoveParameterUpOrder(document, parameterId);
+        return GlobalParametersManager.MoveParameterUpOrder(parameter.Document, parameter.Id);
     }
 
     /// <summary>Moves given global parameter Down in the current order.</summary>
@@ -162,18 +151,10 @@ public static class GlobalParametersManagerExtensions
     /// dialog. However, the order of parameters is serialized in the document,
     /// thus available on the DB level as well.</p>
     ///    </remarks>
-    /// <param name="document">Document containing the give global parameter</param>
-    /// <param name="parameterId">The parameter to move Down</param>
+    /// <param name="parameter">The parameter to move Down</param>
     /// <returns>Indicates whether the parameter could be moved Down in order or not.</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    Global parameters are not supported in the given document.
-    ///    A possible cause is that it is not a project document,
-    ///    for global parameters are not supported in Revit families.
-    ///    -or-
-    ///    The input parameterId is not of a valid global parameter of the given document.
-    /// </exception>
-    public static bool MoveGlobalParameterDownOrder(this Document document, ElementId parameterId)
+    public static bool MoveDownOrder(this GlobalParameter parameter)
     {
-        return GlobalParametersManager.MoveParameterDownOrder(document, parameterId);
+        return GlobalParametersManager.MoveParameterDownOrder(parameter.Document, parameter.Id);
     }
 }

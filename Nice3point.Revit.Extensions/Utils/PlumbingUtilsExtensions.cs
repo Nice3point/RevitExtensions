@@ -6,6 +6,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.Plumbing.PlumbingUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class PlumbingUtilsExtensions
 {
     /// <summary>Connects placeholders that looks like elbow connection.</summary>
@@ -110,7 +111,7 @@ public static class PlumbingUtilsExtensions
     /// </exception>
     public static void PlaceCapOnOpenEnds(this Pipe pipe)
     {
-        PlumbingUtils.PlaceCapOnOpenEnds(pipe.Document, pipe.Id, null);
+        PlumbingUtils.PlaceCapOnOpenEnds(pipe.Document, pipe.Id, ElementId.InvalidElementId);
     }
 
     /// <summary>
@@ -152,13 +153,16 @@ public static class PlumbingUtilsExtensions
     /// <param name="pipe">The pipe curve to break.</param>
     /// <param name="breakPoint">The break point on the pipe curve.</param>
     /// <returns>
-    ///    The new pipe curve element id if successful otherwise if a failure occurred an invalidElementId is returned.
+    ///    The new pipe curve element if successful otherwise null if a failure occurred.
     /// </returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    The given point is not on the pipe curve.
     /// </exception>
-    public static ElementId BreakCurve(this Pipe pipe, XYZ breakPoint)
+    public static Pipe? BreakCurve(this Pipe pipe, XYZ breakPoint)
     {
-        return PlumbingUtils.BreakCurve(pipe.Document, pipe.Id, breakPoint);
+        var curveId = PlumbingUtils.BreakCurve(pipe.Document, pipe.Id, breakPoint);
+        if (curveId == ElementId.InvalidElementId) return null;
+        
+        return curveId.ToElement<Pipe>(pipe.Document);
     }
 }

@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit and System Color Extensions
 /// </summary>
+[PublicAPI]
 public static class ColorExtensions
 {
     /// <summary>

@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.TemporaryGraphicsManager"/> class.
 /// </summary>
+[PublicAPI]
 public static class TemporaryGraphicsManagerExtensions
 {
     /// <summary>Gets a TemporaryGraphicsManager reference of the document.</summary>

@@ -46,6 +46,7 @@ public static class FamilyUtilsExtensions
     ///    Whether or not to return only profiles with one curve loop.
     /// </param>
     /// <returns>The set of profile Family Symbol element ids.</returns>
+    [Pure]
     public static ICollection<ElementId> GetProfileSymbols(this Document document, ProfileFamilyUsage profileFamilyUsage, bool oneCurveLoopOnly)
     {
         return FamilyUtils.GetProfileSymbols(document, profileFamilyUsage, oneCurveLoopOnly);

@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit Geometry Extensions
 /// </summary>
+[PublicAPI]
 public static class GeometryExtensions
 {
     private const double Tolerance = 1e-9;

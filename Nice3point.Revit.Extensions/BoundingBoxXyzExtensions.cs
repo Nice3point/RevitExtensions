@@ -3,6 +3,7 @@
 /// <summary>
 ///     Revit BoundingBoxXyz Extensions
 /// </summary>
+[PublicAPI]
 public static class BoundingBoxXyzExtensions
 {
     /// <summary>
@@ -10,6 +11,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box from which the centroid is calculated.</param>
     /// <returns>A point representing the centroid of the bounding box.</returns>
+    /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform"/> is not applied</remarks>
     [Pure]
     public static XYZ ComputeCentroid(this BoundingBoxXYZ boundingBox)
     {
@@ -21,6 +23,7 @@ public static class BoundingBoxXyzExtensions
     /// </summary>
     /// <param name="boundingBox">The bounding box from which the vertices are computed.</param>
     /// <returns>An array of points representing the vertices of the bounding box.</returns>
+    /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform"/> is not applied</remarks>
     [Pure]
     public static XYZ[] ComputeVertices(this BoundingBoxXYZ boundingBox)
     {

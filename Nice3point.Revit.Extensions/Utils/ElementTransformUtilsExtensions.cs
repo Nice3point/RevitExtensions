@@ -1,9 +1,11 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ElementTransformUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class ElementTransformUtilsExtensions
 {
     /// <summary>Determines whether element can be mirrored</summary>
@@ -18,16 +20,17 @@ public static class ElementTransformUtilsExtensions
     /// <param name="document">The document where the elements reside.</param>
     /// <param name="elementIds">The elements identified by id.</param>
     /// <returns>True if the elements can be mirrored.</returns>
-    public static void CanMirrorElements(this ICollection<ElementId> elementIds, Document document)
+    [Pure]
+    public static bool CanMirrorElements(this ICollection<ElementId> elementIds, Document document)
     {
-        ElementTransformUtils.CanMirrorElements(document, elementIds);
+        return ElementTransformUtils.CanMirrorElements(document, elementIds);
     }
 
     /// <summary>Creates a mirrored copy of an element about a given plane</summary>
     /// <param name="element">The element to mirror</param>
     /// <param name="plane">The mirror plane</param>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     Element cannot be mirrored or element does not exist in the document
+    ///     Element cannot be mirrored
     /// </exception>
     public static Element Mirror(this Element element, Plane plane)
     {
@@ -112,9 +115,10 @@ public static class ElementTransformUtilsExtensions
     ///    -or-
     ///    Move operation failed.
     /// </exception>
-    public static void MoveElements(this ICollection<ElementId> elementsToMove, Document document, XYZ translation)
+    public static ICollection<ElementId> MoveElements(this ICollection<ElementId> elementsToMove, Document document, XYZ translation)
     {
         ElementTransformUtils.MoveElements(document, elementsToMove, translation);
+        return elementsToMove;
     }
 
     /// <summary>Rotates an element about the given axis and angle</summary>
@@ -137,9 +141,10 @@ public static class ElementTransformUtilsExtensions
     ///    -or-
     ///    One or more elements in elementsToRotate do not exist in the document.
     /// </exception>
-    public static void RotateElements(this ICollection<ElementId> elementsToRotate, Document document, Line axis, double angle)
+    public static ICollection<ElementId> RotateElements(this ICollection<ElementId> elementsToRotate, Document document, Line axis, double angle)
     {
         ElementTransformUtils.RotateElements(document, elementsToRotate, axis, angle);
+        return elementsToRotate;
     }
 
     /// <summary>
@@ -258,10 +263,10 @@ public static class ElementTransformUtilsExtensions
     ///    The view in the destination document that the elements will be pasted into.
     /// </param>
     /// <param name="additionalTransform">
-    ///    The transform for the new elements, in addition to the transformation between the source and destination views. Can be <see langword="null" /> if no transform is required. The transformation must be within the plane of the destination view.
+    ///    The transform for the new elements, in addition to the transformation between the source and destination views. The transformation must be within the plane of the destination view.
     /// </param>
     /// <param name="options">
-    ///    Optional settings. Can be <see langword="null" /> if default settings should be used.
+    ///    Optional settings.
     /// </param>
     /// <returns>The ids of the newly created copied elements.</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
@@ -290,10 +295,45 @@ public static class ElementTransformUtilsExtensions
     public static ICollection<ElementId> CopyElements(this ICollection<ElementId> elementsToCopy,
         View sourceView,
         View destinationView,
-        Transform? additionalTransform,
-        CopyPasteOptions? options)
+        Transform additionalTransform,
+        CopyPasteOptions options)
     {
         return ElementTransformUtils.CopyElements(sourceView, elementsToCopy, destinationView, additionalTransform, options);
+    }
+    
+    /// <summary>Copies a set of elements from source document to destination document.</summary>
+    /// <remarks>
+    ///   <p>Copies are placed at their respective original locations or locations specified by the optional transformation.</p>
+    ///   <p>This method can be used for copying non-view specific elements only. For copying view-specific elements, use the view-specific form of the CopyElements method.</p>
+    ///   <p>The destination document can be the same as the source document.</p>
+    ///   <p>This method performs rehosting of elements where applicable.</p>
+    /// </remarks>
+    /// <param name="sourceDocument">The document that contains the elements to copy.</param>
+    /// <param name="elementsToCopy">The set of elements to copy.</param>
+    /// <param name="destinationDocument">
+    ///    The destination document to paste the elements into.
+    /// </param>
+    /// <returns>The ids of the newly created copied elements.</returns>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    The given element id set is empty.
+    ///    -or-
+    ///    One or more elements in elementsToCopy do not exist in the document.
+    ///    -or-
+    ///    Some of the elements cannot be copied, because they are view-specific.
+    ///    -or-
+    ///    The input set of elements contains Sketch members along with other elements or there is no active Sketch edit mode.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///    It is not allowed to copy Sketch members between non-parallel sketches.
+    ///    -or-
+    ///    The elements cannot be copied.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.OperationCanceledException">
+    ///    User cancelled the operation.
+    /// </exception>
+    public static ICollection<ElementId> CopyElements(this ICollection<ElementId> elementsToCopy, Document sourceDocument, Document destinationDocument)
+    {
+        return ElementTransformUtils.CopyElements(sourceDocument, elementsToCopy, destinationDocument, null, null);
     }
 
     /// <summary>Copies a set of elements from source document to destination document.</summary>
@@ -309,10 +349,10 @@ public static class ElementTransformUtilsExtensions
     ///    The destination document to paste the elements into.
     /// </param>
     /// <param name="transform">
-    ///    The transform for the new elements. Can be <see langword="null" /> if no transform is required.
+    ///    The transform for the new elements.
     /// </param>
     /// <param name="options">
-    ///    Optional settings. Can be <see langword="null" /> if default settings should be used.
+    ///    Optional settings.
     /// </param>
     /// <returns>The ids of the newly created copied elements.</returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
@@ -335,8 +375,8 @@ public static class ElementTransformUtilsExtensions
     public static ICollection<ElementId> CopyElements(this ICollection<ElementId> elementsToCopy,
         Document sourceDocument,
         Document destinationDocument,
-        Transform? transform,
-        CopyPasteOptions? options)
+        Transform transform,
+        CopyPasteOptions options)
     {
         return ElementTransformUtils.CopyElements(sourceDocument, elementsToCopy, destinationDocument, transform, options);
     }

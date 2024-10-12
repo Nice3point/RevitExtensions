@@ -7,6 +7,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Imperial Units Extensions
 /// </summary>
+[PublicAPI]
 public static class ImperialExtensions
 {
     private const string Expression =

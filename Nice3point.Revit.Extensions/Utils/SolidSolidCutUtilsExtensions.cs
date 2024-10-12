@@ -4,6 +4,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.SolidSolidCutUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class SolidSolidCutUtilsExtensions
 {
     /// <summary>Gets all the solids which cut the input element.</summary>

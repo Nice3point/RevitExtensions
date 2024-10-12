@@ -4,6 +4,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.SolidUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class SolidUtilsExtensions
 {
     /// <summary>Creates a new Solid which is a copy of the input Solid</summary>

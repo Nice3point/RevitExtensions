@@ -7,74 +7,64 @@ using RibbonButton = Autodesk.Revit.UI.RibbonButton;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 using TextBox = Autodesk.Revit.UI.TextBox;
 
-// ReSharper disable InvertIf
-// ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
-// ReSharper disable LoopCanBeConvertedToQuery
-
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Revit Ribbon Extensions
 /// </summary>
+[PublicAPI]
 public static class RibbonExtensions
 {
     /// <summary>
-    ///     Creates a panel in the "Add-ins" tab
+    ///     Creates or retrieves an existing panel in the "Add-ins" tab of the Revit ribbon.
     /// </summary>
-    /// <returns>New or existing Ribbon panel</returns>
+    /// <returns>The created or existing Ribbon panel.</returns>
+    /// <remarks>If a panel with the specified name already exists, it will return that panel. Otherwise, a new panel will be created.</remarks>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName)
     {
-        RibbonPanel? ribbonPanel = null;
         foreach (var panel in application.GetRibbonPanels(Tab.AddIns))
         {
-            if (panel.Name.Equals(panelName))
+            if (panel.Name == panelName)
             {
-                ribbonPanel = panel;
-                break;
+                return panel;
             }
         }
 
-        return ribbonPanel ?? application.CreateRibbonPanel(panelName);
+        return application.CreateRibbonPanel(panelName);
     }
 
     /// <summary>
-    ///     Creates a panel in the specified tab
+    ///     Creates or retrieves an existing panel in the specified tab of the Revit ribbon.
     /// </summary>
-    /// <returns>New or existing Ribbon panel</returns>
+    /// <returns>The created or existing Ribbon panel.</returns>
+    /// <remarks>
+    ///     If the tab doesn't exist, it will be created.
+    ///     Then, a panel with the specified name will either be created or returned if it already exists within the tab.</remarks>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">panelName or tabName is Empty</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">If more than 100 panels were created</exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">Too many custom tabs have been created in this session. (Maximum is 20)</exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
-        RibbonTab? ribbonTab = null;
         foreach (var tab in ComponentManager.Ribbon.Tabs)
         {
-            if (tab.Id.Equals(tabName))
+            if (tab.Id == tabName)
             {
-                ribbonTab = tab;
-                break;
+                foreach (var panel in application.GetRibbonPanels(tabName))
+                {
+                    if (panel.Name == panelName)
+                    {
+                        return panel;
+                    }
+                }
+
+                return application.CreateRibbonPanel(tabName, panelName);
             }
         }
 
-        if (ribbonTab is null)
-        {
-            application.CreateRibbonTab(tabName);
-            return application.CreateRibbonPanel(tabName, panelName);
-        }
-
-        RibbonPanel? ribbonPanel = null;
-        foreach (var panel in application.GetRibbonPanels(tabName))
-        {
-            if (panel.Name.Equals(panelName))
-            {
-                ribbonPanel = panel;
-                break;
-            }
-        }
-
-        return ribbonPanel ?? application.CreateRibbonPanel(tabName, panelName);
+        application.CreateRibbonTab(tabName);
+        return application.CreateRibbonPanel(tabName, panelName);
     }
 
     /// <summary>

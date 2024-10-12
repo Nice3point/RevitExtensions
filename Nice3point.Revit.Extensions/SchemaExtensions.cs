@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit schema extensions
 /// </summary>
+[PublicAPI]
 public static class SchemaExtensions
 {
     /// <summary>
@@ -18,13 +19,14 @@ public static class SchemaExtensions
     /// <returns>True if entity save succeeded</returns>
     /// <example>
     ///     <code>
-    ///         document.ProjectInformation.SaveEntity(schema, "data", "schemaField")
+    ///         wall.SaveEntity(schema, "Factory", "Manufacturer")
     ///     </code>
     /// </example>
     public static bool SaveEntity<T>(this Element element, Schema schema, T data, string fieldName)
     {
         var field = schema.GetField(fieldName);
         if (field is null) return false;
+        
         var entity = schema.GetEntity(element);
         entity.Set(field, data);
         element.SetEntity(entity);
@@ -41,7 +43,7 @@ public static class SchemaExtensions
     /// <returns>Data stored in the element. null will be returned if the field does not exist or the data has not been saved before</returns>
     /// <example>
     ///     <code>
-    ///         document.ProjectInformation.LoadEntity&lt;string&lt;(schema, "schemaField")
+    ///         var value = wall.LoadEntity&lt;string&lt;(schema, "Manufacturer")
     ///     </code>
     /// </example>
     [Pure]
@@ -56,6 +58,7 @@ public static class SchemaExtensions
     {
         var entity = element.GetEntity(schema);
         if (entity.Schema is not null) return entity;
+        
         entity = new Entity(schema);
         return entity;
     }

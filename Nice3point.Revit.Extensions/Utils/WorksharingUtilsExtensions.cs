@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.WorksharingUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class WorksharingUtilsExtensions
 {
     /// <summary>Gets the ownership status of an element.</summary>
@@ -427,8 +428,6 @@ public static class WorksharingUtilsExtensions
     ///    The central model is not saved in the current Revit version.
     ///    -or-
     ///    The model is transmitted.
-    ///    -or-
-    /// 
     ///    -or-
     ///    The specified filepath is invalid.
     /// </exception>

@@ -5,6 +5,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     System.String Extensions
 /// </summary>
+[PublicAPI]
 public static class SystemExtensions
 {
     /// <summary>
