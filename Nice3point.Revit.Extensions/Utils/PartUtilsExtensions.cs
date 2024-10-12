@@ -1,4 +1,5 @@
-﻿// ReSharper disable once CheckNamespace
+﻿#if FEATURE_PARTS
+// ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -6,6 +7,34 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 public static class PartUtilsExtensions
 {
+    /// <summary>Creates a new set of parts out of the original element.</summary>
+    /// <remarks>Parts will be added to the model after regeneration.</remarks>
+    /// <param name="element">The element that parts will be created from.</param>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+    ///    Element was not permitted for creating parts.
+    ///    Element should be of a valid category and should not already be divided into parts.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+    ///    The document is in failure mode: an operation has failed,
+    ///    and Revit requires the user to either cancel the operation
+    ///    or fix the problem (usually by deleting certain elements).
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ModificationForbiddenException">
+    ///    The document is in failure mode: an operation has failed,
+    ///    and Revit requires the user to either cancel the operation
+    ///    or fix the problem (usually by deleting certain elements).
+    ///    -or-
+    ///    The document is being loaded, or is in the midst of another
+    ///    sensitive process.
+    /// </exception>
+    /// <exception cref="T:Autodesk.Revit.Exceptions.ModificationOutsideTransactionException">
+    ///    The document has no open transaction.
+    /// </exception>
+    public static void CreateParts(this Element element)
+    {
+        PartUtils.CreateParts(element.Document, [element.Id]);
+    }
+    
     /// <summary>Creates a new set of parts out of the original elements.</summary>
     /// <remarks>Parts will be added to the model after regeneration.</remarks>
     /// <param name="document">The document containing the elements.</param>
@@ -115,12 +144,12 @@ public static class PartUtilsExtensions
     {
         return PartUtils.DivideParts(document, elementIdsToDivide, intersectingReferenceIds, curveArray, sketchPlaneId);
     }
-    
+
     /// <summary>Identifies if the given element can be used to create parts.</summary>
     /// <param name="document">The document.</param>
     /// <param name="hostOrLinkElementId">Id to be tested for validity for creating part.</param>
     /// <returns>True if this id is valid, false otherwise.</returns>
-    [Pure] 
+    [Pure]
     public static bool IsValidForCreateParts(this LinkElementId hostOrLinkElementId, Document document)
     {
         return PartUtils.IsValidForCreateParts(document, hostOrLinkElementId);
@@ -134,9 +163,12 @@ public static class PartUtilsExtensions
     ///    The elements that created the part. Empty if partId is not a Part or Part is not divided.
     /// </returns> 
     [Pure]
-    public static ISet<ElementId> GetSplittingElements(this Part part)
+    public static IList<Element> GetSplittingElements(this Part part)
     {
-        return PartUtils.GetSplittingElements(part.Document, part.Id);
+        var elementIds = PartUtils.GetSplittingElements(part.Document, part.Id);
+        if (elementIds.Count == 0) return [];
+
+        return new FilteredElementCollector(part.Document, elementIds).ToElements();
     }
 
     /// <summary>
@@ -168,7 +200,7 @@ public static class PartUtilsExtensions
     /// <param name="element">Element to be tested for validity for creating parts.</param>
     /// <returns>True if element is valid, false otherwise.</returns>
     [Pure]
-    public static bool IsElementValidForCreateParts(this Element element)
+    public static bool IsValidForCreateParts(this Element element)
     {
         return PartUtils.AreElementsValidForCreateParts(element.Document, [element.Id]);
     }
@@ -183,6 +215,17 @@ public static class PartUtilsExtensions
         return PartUtils.AreElementsValidForCreateParts(document, elementIds);
     }
 
+    /// <summary>Identifies if provided part are valid for dividing parts.</summary>
+    /// <param name="partToDivide">
+    ///   Part to be tested for validity for dividing parts.
+    /// </param>
+    /// <returns>True if part is valid, false otherwise.</returns> 
+    [Pure]
+    public static bool IsValidForDivide(this Part partToDivide)
+    {
+        return PartUtils.ArePartsValidForDivide(partToDivide.Document, [partToDivide.Id]);
+    }
+    
     /// <summary>Identifies if provided members are valid for dividing parts.</summary>
     /// <param name="document">The document.</param>
     /// <param name="elementIdsToDivide">
@@ -236,9 +279,13 @@ public static class PartUtilsExtensions
     /// </param>
     /// <returns>Parts that are associated to the element.</returns>  
     [Pure]
-    public static ICollection<ElementId> GetAssociatedParts(this Element element, bool includePartsWithAssociatedParts, bool includeAllChildren)
+    public static IList<Part> GetAssociatedParts(this Element element, bool includePartsWithAssociatedParts, bool includeAllChildren)
     {
-        return PartUtils.GetAssociatedParts(element.Document, element.Id, includePartsWithAssociatedParts, includeAllChildren);
+        var partIds = PartUtils.GetAssociatedParts(element.Document, element.Id, includePartsWithAssociatedParts, includeAllChildren);
+        if (partIds.Count == 0) return [];
+
+        var collector = new FilteredElementCollector(element.Document, partIds);
+        return Enumerable.Cast<Part>(collector).ToList();
     }
 
     /// <summary>Returns all Parts that are associated with the given element</summary>
@@ -253,12 +300,16 @@ public static class PartUtilsExtensions
     /// </param>
     /// <returns>Parts that are associated to the element</returns>  
     [Pure]
-    public static ICollection<ElementId> GetAssociatedParts(this LinkElementId hostOrLinkElementId,
+    public static IList<Part> GetAssociatedParts(this LinkElementId hostOrLinkElementId,
         Document hostDocument,
         bool includePartsWithAssociatedParts,
         bool includeAllChildren)
     {
-        return PartUtils.GetAssociatedParts(hostDocument, hostOrLinkElementId, includePartsWithAssociatedParts, includeAllChildren);
+        var partIds = PartUtils.GetAssociatedParts(hostDocument, hostOrLinkElementId, includePartsWithAssociatedParts, includeAllChildren);
+        if (partIds.Count == 0) return [];
+
+        var collector = new FilteredElementCollector(hostDocument, partIds);
+        return Enumerable.Cast<Part>(collector).ToList();
     }
 
     /// <summary>Gets associated PartMaker for an element.</summary>
@@ -296,7 +347,7 @@ public static class PartUtilsExtensions
     ///    none of the parts already has associated parts,
     ///    the parts have contiguous geometry, all report the same materials,
     ///    and all have the same creation and demolition phases.
-    /// </returns> 
+    /// </returns>
     [Pure]
     public static bool ArePartsValidForMerge(this ICollection<ElementId> partIds, Document document)
     {
@@ -331,7 +382,7 @@ public static class PartUtilsExtensions
     /// </exception>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ModificationOutsideTransactionException">
     ///    The document has no open transaction.
-    /// </exception> 
+    /// </exception>
     public static PartMaker? CreateMergedPart(this ICollection<ElementId> partIds, Document document)
     {
         return PartUtils.CreateMergedPart(document, partIds);
@@ -362,7 +413,7 @@ public static class PartUtilsExtensions
     /// <summary>Is the Part the result of a merge.</summary>
     /// <returns>True if the Part is the result of a merge operation.</returns> 
     [Pure]
-    public static bool IsMergedPart(Part part)
+    public static bool IsMergedPart(this Part part)
     {
         return PartUtils.IsMergedPart(part);
     }
@@ -370,19 +421,23 @@ public static class PartUtilsExtensions
     /// <summary>Retrieves the element ids of the source elements of a merged part.</summary>
     /// <param name="part">A merged part.</param>
     /// <returns>
-    ///    The element ids of the parts that were merged to create the specified merged part.
+    ///    Parts that were merged to create the specified merged part.
     /// </returns>
     /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
     ///    The specified Part is not a merged part.
     /// </exception>  
     [Pure]
-    public static ICollection<ElementId> GetMergedParts(Part part)
+    public static IList<Part> GetMergedParts(this Part part)
     {
-        return PartUtils.GetMergedParts(part);
+        var partIds = PartUtils.GetMergedParts(part);
+        if (partIds.Count == 0) return [];
+
+        var collector = new FilteredElementCollector(part.Document, partIds);
+        return Enumerable.Cast<Part>(collector).ToList();
     }
 
     /// <summary>Is the Part derived from link geometry.</summary> 
-    public static bool IsPartDerivedFromLink(Part part)
+    public static bool IsPartDerivedFromLink(this Part part)
     {
         return PartUtils.IsPartDerivedFromLink(part);
     }
@@ -397,8 +452,9 @@ public static class PartUtilsExtensions
     ///    PartMaker does not represent divided volumes.
     /// </returns>
     [Pure]
-    public static PartMakerMethodToDivideVolumes? GetPartMakerMethodToDivideVolumeFw(PartMaker partMaker)
+    public static PartMakerMethodToDivideVolumes? GetPartMakerMethodToDivideVolumeFw(this PartMaker partMaker)
     {
         return PartUtils.GetPartMakerMethodToDivideVolumeFW(partMaker);
     }
 }
+#endif
