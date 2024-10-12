@@ -70,9 +70,6 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
     * [Element solid cut extensions](#element-solid-cut-extensions)
   * [View extensions](#view-extensions)
     * [View managers extensions](#view-managers-extensions)
-  * [Part extensions](#part-extensions)
-    * [Element part extensions](#element-part-extensions)
-    * [ElementId parts extensions](#elementid-parts-extensions)
   * [Imperial Extensions](#imperial-extensions)
   * [System Extensions](#system-extensions)
 <!-- TOC -->
@@ -187,12 +184,31 @@ var color = door.LoadEntity<string>(schema, "doorColorField");
 
 ## ElementId extensions
 
-**ToElement** extension gets the element from the ID for a specified document.
+**ToElement** extension retrieves the element associated with the specified ElementId.
 
 ```csharp
 Element element = wallId.ToElement(document);
 Wall wall = wallId.ToElement<Wall>(document);
 ```
+
+**ToElements** extension retrieves a collection of elements associated with the specified ElementIds.
+
+```csharp
+IList<Element> element = wallIds.ToElements(document);
+IList<Wall> element = wallIds.ToElements<Wall>(document);
+```
+
+To improve the database access performance, it is not guaranteed that the elements will be retrieved in the original order,
+if you need the same order, use the `ToOrderedElements` extension.
+
+**ToOrderedElements** extension retrieves the elements associated with the specified ElementIds in their original order.
+
+```csharp
+IList<Element> element = wallIds.ToOrderedElements(document);
+IList<Wall> element = wallIds.ToOrderedElements<Wall>(document);
+```
+
+The elements will be retrieved in the same order as the original ElementIds collection.
 
 **AreEquals** extension checks if an ID matches BuiltInСategory or BuiltInParameter.
 
@@ -241,25 +257,6 @@ var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 ```
 
 ## Application extensions
-
-**SetMacroSecurityOptions** extension sets the application macro security options.
-
-```csharp
-application.SetMacroSecurityOptions(ApplicationMacroOptions.EnableMacros);
-```
-
-**GetMacroSecurityOptions** extension gets the application macro security options.
-
-```csharp
-var options = application.GetMacroSecurityOptions();
-```
-
-**GetMacroManager** extension gets the Macro manager from the application.
-
-```csharp
-var manager = application.GetMacroManager();
-```
-
 ### Ribbon Extensions
 
 **CreatePanel** extension creates a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
@@ -608,13 +605,13 @@ document.SortGlobalParameters(ParametersOrder.Ascending);
 **MoveGlobalParameterUpOrder** extension moves given global parameter Up in the current order.
 
 ```csharp
-var isMoved = document.MoveGlobalParameterUpOrder(parameterId);
+var isMoved = globalParameter.MoveUpOrder();
 ```
 
 **MoveGlobalParameterDownOrder** extension moves given global parameter Down in the current order.
 
 ```csharp
-var isMoved = document.MoveGlobalParameterDownOrder(parameterId);
+var isMoved = globalParameter.MoveDownOrder();
 ```
 
 **IsUniqueGlobalParameterName** extension tests whether a name is unique among existing global parameters of a given document.
@@ -865,6 +862,12 @@ var value = 69d.ToUnit(UnitTypeId.Celsius); // -204.15
 ```csharp
 var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false); // 21031
 var value = document.GetUnits().FormatUnit(SpecTypeId.Length, 69, false, new FormatValueOptions {AppendUnitSymbol = true}); // 21031 mm
+```
+
+**TryParse** extension parses a formatted string into a number with units if possible.
+
+```csharp
+var isParsec = document.GetUnits().TryParse(SpecTypeId.Length, "21031 mm", out var value); // 69
 ```
 
 ## Label Extensions
@@ -1201,145 +1204,6 @@ var manager = view.CreateSpatialFieldManager(numberOfMeasurements: 69);
 
 ```csharp
 var manager = view.GetSpatialFieldManager();
-```
-
-## Part extensions
-
-**GetSplittingElements** extension identifies the elements (reference planes, levels, grids) that were used to create the part.
-
-```csharp
-var elements = part.GetSplittingElements();
-```
-
-**GetSplittingCurves** extension identifies the curves used to create the part.
-
-```csharp
-var curves = part.GetSplittingCurves();
-```
-
-**GetSplittingCurves** extension identifies the curves used to create the part and the plane in which they reside.
-
-```csharp
-var curves = part.GetSplittingCurves(out var plane);
-```
-
-**GetChainLengthToOriginal** extension calculates the length of the longest chain of divisions/merges to reach to an original non-Part element that is the source of the tested part.
-
-```csharp
-var length = part.GetChainLengthToOriginal();
-```
-
-**GetMergedParts** extension retrieves the element ids of the source elements of a merged part.
-
-```csharp
-var parts = part.GetMergedParts();
-```
-
-**IsPartDerivedFromLink** extension check if the Part derived from link geometry.
-
-```csharp
-var isDerived = part.IsPartDerivedFromLink();
-```
-
-**GetPartMakerMethodToDivideVolumeFw** extension obtains the object allowing access to the divided volume.
-
-```csharp
-var method = partMaker.GetPartMakerMethodToDivideVolumeFw();
-```
-
-### Element part extensions
-
-**IsElementValidForCreateParts** extension identifies if the given element can be used to create parts.
-
-```csharp
-var isValid = element.IsElementValidForCreateParts();
-```
-
-**HasAssociatedParts** extension checks if an element has associated parts.
-
-```csharp
-var hasParts = element.HasAssociatedParts();
-```
-
-**GetAssociatedParts** returns all Parts that are associated with the given element.
-
-```csharp
-var parts = element.GetAssociatedParts(includePartsWithAssociatedParts: true, includeAllChildren: true);
-```
-
-**GetAssociatedPartMaker** returns all Parts that are associated with the given element.
-
-```csharp
-var partMaker = element.GetAssociatedPartMaker();
-```
-
-### ElementId parts extensions
-
-**CreateParts** extension creates a new set of parts out of the original elements.
-
-```csharp
-elementIds.CreateParts(document);
-linkElementIds.CreateParts(document);
-```
-
-**DivideParts** extension creates divided parts out of parts.
-
-```csharp
-elementIds.DivideParts(intersectingReferenceIds, document, curveArray, sketchPlaneId);
-```
-
-**FindMergeableClusters** extension segregates a set of elements into subsets which are valid for merge.
-
-```csharp
-var clusters = elementIds.FindMergeableClusters(document);
-```
-
-**CreateMergedPart** extension creates a single merged part which represents the Parts specified by partsToMerge.
-
-```csharp
-var parkMaker = elementIds.CreateMergedPart(document);
-```
-
-**ArePartsValidForMerge** extension identifies whether Part elements may be merged.
-
-```csharp
-var isValid = elementIds.ArePartsValidForMerge(document);
-```
-
-**ArePartsValidForDivide** extension identifies if provided members are valid for dividing parts.
-
-```csharp
-var isValid = elementIds.ArePartsValidForDivide(document);
-```
-
-**AreElementsValidForCreateParts** extension identifies if the given elements can be used to create parts.
-
-```csharp
-var isValid = elementIds.AreElementsValidForCreateParts(document);
-```
-
-**IsValidForCreateParts** extension identifies if the given element can be used to create parts.
-
-```csharp
-var isValid = linkedElementId.IsValidForCreateParts(document);
-```
-
-**HasAssociatedParts** extension checks if an element has associated parts.
-
-```csharp
-var hasParts = linkedElementId.HasAssociatedParts(document);
-```
-
-**GetAssociatedParts** extension returns all Parts that are associated with the given element
-
-```csharp
-var parts = linkedElementId.GetAssociatedParts(document, includePartsWithAssociatedParts: true, includeAllChildren: true);
-```
-
-**GetAssociatedPartMaker** extension returns all Parts that are associated with the given element
-
-```csharp
-var partMaker = linkedElementId.GetAssociatedPartMaker(document);
 ```
 
 ## Imperial Extensions
