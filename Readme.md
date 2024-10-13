@@ -1306,8 +1306,8 @@ var isEmpty = null.IsNullOrWhiteSpace(); // true
 **AppendPath** extension combines paths.
 
 ```csharp
-var path = "C:\Folder".AppendPath("AddIn"); // C:/Folder/AddIn
-var path = "C:\Folder".AppendPath("AddIn", "file.txt"); // C:/Folder/AddIn/file.txt
+var path = "C:/Folder".AppendPath("AddIn"); // C:/Folder/AddIn
+var path = "C:/Folder".AppendPath("AddIn", "file.txt"); // C:/Folder/AddIn/file.txt
 ```
 
 **Contains** indicating whether a specified substring occurs within this string with `StringComparison` support.
