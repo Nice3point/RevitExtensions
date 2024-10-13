@@ -64,7 +64,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
   * [Label Extensions](#label-extensions)
   * [Color extensions](#color-extensions)
   * [Family extensions](#family-extensions)
-  * [Host class extensions](#host-class-extensions)
+  * [HostObject extensions](#hostobject-extensions)
   * [Plumbing extensions](#plumbing-extensions)
   * [Solid extensions](#solid-extensions)
     * [Element solid cut extensions](#element-solid-cut-extensions)
@@ -262,45 +262,45 @@ var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 **CreatePanel** extension creates a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
 
 ```csharp
-application.CreatePanel("Panel name");
-application.CreatePanel("Panel name", "Tab name");
+var panel = application.CreatePanel("Panel name");
+var panel = application.CreatePanel("Panel name", "Tab name");
 ```
 
 **AddPushButton** extension adds a PushButton to the ribbon.
 
 ```csharp
-panel.AddPushButton<Command>("Button text");
-pullDownButton.AddPushButton<Command>("Button text");
+var button = panel.AddPushButton<Command>("Button text");
+var button = pullDownButton.AddPushButton<Command>("Button text");
 ```
 
 **AddPullDownButton** extension adds a PullDownButton to the ribbon.
 
 ```csharp
-panel.AddPullDownButton("Button name", "Button text");
+var button = panel.AddPullDownButton("Button text");
 ```
 
 **AddSplitButton** extension adds a SplitButton to the ribbon.
 
 ```csharp
-panel.AddSplitButton("Button name", "Button text");
+var button = panel.AddSplitButton("Button text");
 ```
 
 **AddRadioButtonGroup** extension adds a RadioButtonGroup to the ribbon.
 
 ```csharp
-panel.AddRadioButtonGroup("Button name");
+var radioGroup = panel.AddRadioButtonGroup();
 ```
 
 **AddComboBox** extension adds a ComboBox to the ribbon.
 
 ```csharp
-panel.AddComboBox("Button name");
+var comboBox = panel.AddComboBox();
 ```
 
 **AddTextBox** extension adds a TextBox to the ribbon.
 
 ```csharp
-panel.AddTextBox("Button name");
+var textBox = panel.AddTextBox();
 ```
 
 ![regularControls](https://github.com/user-attachments/assets/c5d202e0-0c16-4c84-b183-b09582676b05)
@@ -1054,7 +1054,7 @@ var canConvert = family.CanConvertToFaceHostBased();
 family.ConvertToFaceHostBased();
 ```
 
-## Host class extensions
+## HostObject extensions
 
 **GetBottomFaces** extension returns the bottom faces for the host object.
 
@@ -1263,7 +1263,7 @@ var converted = "value".TryFromFraction(out var value); // false
 
 ## System Extensions
 
-**Cast<T>** extension casts an object to the specified type. Method chain is supported
+**Cast<T>** extension casts an object to the specified type.
 
 ```csharp
 var width = element.Cast<Wall>().Width;
@@ -1308,7 +1308,7 @@ var path = "C:\Folder".AppendPath("AddIn", "file.txt"); // C:/Folder/AddIn/file.
 
 **Contains** indicating whether a specified substring occurs within this string with `StringComparison` support.
 
-Available only for .NET Framework builds. .NET Core has a built-in support for this method
+Available only for .NET Framework builds. .NET Core has a built-in support for this method.
 
 ```csharp
 var isContains = "Revit extensions".Contains("Revit", StringComparison.OrdinalIgnoreCase); // true

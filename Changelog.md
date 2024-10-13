@@ -151,11 +151,11 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 ## Breaking changes
 
-- **ToFraction:** Now uses 8 precision, instead of 32
-- **ToFraction:** Now suppress 0 for inches part
-- **SetAvailabilityController:** Now returns PushButton instead of RibbonButton
+- **ToFraction:** Now uses 8 precision, instead of 32.
+- **ToFraction:** Now suppress 0 for inches part.
+- **SetAvailabilityController:** Now returns PushButton instead of RibbonButton.
 
-**Readme** file has been updated, you can find a detailed description and code samples in it
+**Readme** file has been updated, you can find a detailed description and code samples in it.
 
 # Release 2025.0.0
 
