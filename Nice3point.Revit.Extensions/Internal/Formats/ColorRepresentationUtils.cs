@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Color = System.Drawing.Color;
 
-namespace Nice3point.Revit.Extensions.Formats;
+namespace Nice3point.Revit.Extensions.Internal.Formats;
 
 /// <summary>
 ///     Helper class to easier work with color representation

@@ -1,6 +1,7 @@
 ﻿#if REVIT2025_OR_GREATER
 using System.Reflection;
 using Autodesk.Revit.UI;
+using Nice3point.Revit.Extensions.Abstraction;
 using ContextMenu = Autodesk.Revit.UI.ContextMenu;
 
 namespace Nice3point.Revit.Extensions;
@@ -90,10 +91,6 @@ public static class ContextMenuExtensions
 
         return application;
     }
-
-    private sealed class ContextMenuCreator(Action<ContextMenu> handler) : IContextMenuCreator
-    {
-        public void BuildContextMenu(ContextMenu menu) => handler.Invoke(menu);
-    }
 }
+
 #endif
