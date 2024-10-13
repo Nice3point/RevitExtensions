@@ -303,6 +303,30 @@ panel.AddComboBox("Button name");
 panel.AddTextBox("Button name");
 ```
 
+![regularControls](https://github.com/user-attachments/assets/c5d202e0-0c16-4c84-b183-b09582676b05)
+
+**AddStackPanel** extension adds a vertical stack panel to the specified Ribbon panel.
+
+```csharp
+var stackPanel = panel.AddStackPanel();
+```
+
+By default, the StackPanel accommodates one to three elements vertically. 
+If the added items exceed the maximum threshold, they will be automatically added to a new column.
+
+These 5 items will create 2 vertical panels, one will contain 3 items and the other 2 items:
+
+```csharp
+var stackPanel = panel.AddStackPanel();
+stackPanel.AddPushButton&lt;StartupCommand&lt;("Execute");
+stackPanel.AddPullDownButton("Execute");
+stackPanel.AddSplitButton("Execute");
+stackPanel.AddComboBox();
+stackPanel.AddTextBox();
+```
+
+![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
+
 **SetImage** extension adds an image to the RibbonButton.
 
 ```csharp
@@ -319,7 +343,7 @@ button.SetLargeImage("https://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
 ```
 
-**SetAvailabilityController** extension specifies the class that decides the availability of PushButton
+**SetAvailabilityController** extension specifies the class that decides the availability of PushButton.
 
 ```csharp
 pushButton.SetAvailabilityController<CommandController>();
