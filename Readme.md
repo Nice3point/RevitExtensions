@@ -64,7 +64,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
   * [Label Extensions](#label-extensions)
   * [Color extensions](#color-extensions)
   * [Family extensions](#family-extensions)
-  * [Host class extensions](#host-class-extensions)
+  * [HostObject extensions](#hostobject-extensions)
   * [Plumbing extensions](#plumbing-extensions)
   * [Solid extensions](#solid-extensions)
     * [Element solid cut extensions](#element-solid-cut-extensions)
@@ -1054,7 +1054,7 @@ var canConvert = family.CanConvertToFaceHostBased();
 family.ConvertToFaceHostBased();
 ```
 
-## Host class extensions
+## HostObject extensions
 
 **GetBottomFaces** extension returns the bottom faces for the host object.
 
