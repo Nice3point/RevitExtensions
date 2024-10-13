@@ -318,7 +318,7 @@ These 5 items will create 2 vertical panels, one will contain 3 items and the ot
 
 ```csharp
 var stackPanel = panel.AddStackPanel();
-stackPanel.AddPushButton&lt;StartupCommand&lt;("Execute");
+stackPanel.AddPushButton<StartupCommand>("Execute");
 stackPanel.AddPullDownButton("Execute");
 stackPanel.AddSplitButton("Execute");
 stackPanel.AddComboBox();
