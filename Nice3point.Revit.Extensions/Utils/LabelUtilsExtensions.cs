@@ -123,6 +123,8 @@ public static class LabelUtilsExtensions
     [Pure]
     public static string ToLabel(this ForgeTypeId source)
     {
+        if (source.Empty()) return string.Empty;
+        
         if (ParameterUtils.IsBuiltInParameter(source)) return LabelUtils.GetLabelForBuiltInParameter(source);
         if (ParameterUtils.IsBuiltInGroup(source)) return LabelUtils.GetLabelForGroup(source);
         if (UnitUtils.IsUnit(source)) return LabelUtils.GetLabelForUnit(source);
