@@ -27,8 +27,8 @@ public static class RibbonExtensions
     /// <param name="panelName">The name of the panel to create.</param>
     /// <returns>The created or existing Ribbon panel.</returns>
     /// <remarks>
-    ///     If a panel with the specified name already exists in the "Add-ins" tab, 
-    ///     it will return that panel. Otherwise, a new panel will be created with the given name.
+    ///     If a panel with the specified name already exists in the "Add-ins" tab, it will return that panel.
+    ///     Otherwise, a new panel will be created with the given name.
     /// </remarks>
     /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">Thrown when the panelName is empty.</exception>
     /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">

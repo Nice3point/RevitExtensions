@@ -259,7 +259,11 @@ var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 ## Application extensions
 ### Ribbon Extensions
 
-**CreatePanel** extension creates a new panel in the default AddIn tab or the specified tab. If the panel exists on the ribbon, the method will return it.
+[Revit API Ribbon controls Guidelines](https://help.autodesk.com/view/RVT/2025/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Ribbon_Panels_and_Controls_html)
+
+**CreatePanel** extension creates or retrieves an existing panel in the "Add-ins" tab of the Revit ribbon.
+
+If a panel with the specified name already exists within the tab, it will return that panel; otherwise, a new one will be created.
 
 ```csharp
 var panel = application.CreatePanel("Panel name");
@@ -305,7 +309,7 @@ var textBox = panel.AddTextBox();
 
 ![regularControls](https://github.com/user-attachments/assets/c5d202e0-0c16-4c84-b183-b09582676b05)
 
-**AddStackPanel** extension adds a vertical stack panel to the specified Ribbon panel.
+**AddStackPanel** extension adds a vertical stack panel to the Ribbon panel.
 
 ```csharp
 var stackPanel = panel.AddStackPanel();
