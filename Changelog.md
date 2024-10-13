@@ -1,6 +1,8 @@
-# Release 2025.0.1-preview.1.8
+# Release 2025.0.1-preview.2.0
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
+
+## New Extensions
 
 **Element Association Extensions**
 
@@ -135,6 +137,25 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 - **CreateSpatialFieldManager:** Creates a SpatialField manager for a given view.
 - **GetSpatialFieldManager:** Retrieves the SpatialField manager for a specific view.
+
+**Ribbon Extensions**
+
+- **AddStackPanel:** Adds a vertical stack panel to the specified Ribbon panel.
+- **AddPushButton:** Adds a PushButton to the vertical stack panel.
+- **AddPullDownButton:** Adds a PullDownButton to the vertical stack panel.
+- **AddSplitButton:** Adds a SplitButton to the vertical stack panel.
+- **AddComboBox:** Adds a ComboBox to the vertical stack panel.
+- **AddTextBox:** Adds a TextBox to the vertical stack panel.
+
+![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
+
+## Breaking changes
+
+- **ToFraction:** Now uses 8 precision, instead of 32
+- **ToFraction:** Now suppress 0 for inches part
+- **SetAvailabilityController:** Now returns PushButton instead of RibbonButton
+
+**Readme** file has been updated, you can find a detailed description and code samples in it
 
 # Release 2025.0.0
 
