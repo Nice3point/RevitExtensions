@@ -1208,33 +1208,33 @@ var manager = view.GetSpatialFieldManager();
 
 ## Imperial Extensions
 
-**ToFraction** extension converts a number to Imperial fractional format.
+**ToFraction** extension converts a double value representing a measurement in feet to its string representation in the Imperial system, expressed as feet, inches, and fractional inches.
 
 ```csharp
-var imperial = 1d.ToFraction(); // 1'-0"
-var imperial = 0.0123d.ToFraction(); // 0 5/32"
-var imperial = 15.125d.ToFraction(); // 15'-1 1/2"
-var imperial = -25.222d.ToFraction(); // 25'-2 21/32"
-var imperial = -25.222d.ToFraction(4); // 25'-2 3/4"
+var imperial = 0.0123.ToFraction(); // 1/8"
+var imperial = 12.011.ToFraction(); // 12'-1/8"
+var imperial = 25.222.ToFraction(); // 25'-2 1/8"
+var imperial = 0.0123.ToFraction(8); // 1/8"
+var imperial = 12.006.ToFraction(16); // 12'-1/16"
+var imperial = 25.222.ToFraction(32); // 25'-2 21/32"
 ```
 
-**FromFraction** extension converts the textual representation of the Imperial system number to number.
+**FromFraction** extension converts a string representation of a measurement in the Imperial system (feet and inches) to a double value.
 
 ```csharp
-var metric = "".FromFraction(); // 0
-var metric = "1 17/64\"".FromFraction(); // 0.105
-var metric = "1'1.75".FromFraction(); // 1.145
-var metric = "-69'-69\"".FromFraction(); // -74.75
+var value = "17/64\"".FromFraction(); // 0.092
+var value = "1'1.75".FromFraction(); // 1.145
+var value = "-69'-69\"".FromFraction(); // -74.75
+var value = "2'-1 15/64\"".FromFraction(); // 2.102
 ```
 
 **TryFromFraction** extension converts the textual representation of the Imperial system number to number.
 
 ```csharp
-var result = "-2'-1 15/64\"".TryFromFraction(out var value); // true
-var result = "-".TryFromFraction(out var value); // true
-var result = ".".TryFromFraction(out var value); // false
-var result = "value".TryFromFraction(out var value); // false
-var result = null.TryFromFraction(out var value); // false
+var converted = "1'".TryFromFraction(out var value); // true
+var converted = "69\"".TryFromFraction(out var value); // true
+var converted = "-2'-1 15/64\"".TryFromFraction(out var value); // true
+var converted = "value".TryFromFraction(out var value); // false
 ```
 
 ## System Extensions
