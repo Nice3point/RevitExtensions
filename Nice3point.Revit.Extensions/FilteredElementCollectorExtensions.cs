@@ -35,7 +35,7 @@
 ///         is also looking at the contents of the collector.
 ///     </p>
 /// </remarks>
-public static class FilteredElementCollectorExtensions
+public static class CollectorExtensions
 {
     /// <summary>
     ///     Searches for elements in a document

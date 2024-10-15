@@ -5,7 +5,7 @@ namespace Nice3point.Revit.Extensions;
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.HostObjectUtils"/> class.
 /// </summary>
 [PublicAPI]
-public static class HostObjectUtilsExtensions
+public static class HostExtensions
 {
     /// <summary>Returns the bottom faces for this host object</summary>
     /// <remarks>
