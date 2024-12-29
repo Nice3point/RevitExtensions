@@ -265,9 +265,17 @@ var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 
 If a panel with the specified name already exists within the tab, it will return that panel; otherwise, a new one will be created.
 
+Adding a panel also supports built-in tabs. To add a panel to the built-in Revit tab, specify the panel **ID** or **Name** as the `tabName` parameter
+
 ```csharp
 var panel = application.CreatePanel("Panel name");
 var panel = application.CreatePanel("Panel name", "Tab name");
+```
+
+**RemovePanel** extension removes RibbonPanel from the Revit ribbon.
+
+```csharp
+var textBox = panel.RemovePanel();
 ```
 
 **AddPushButton** extension adds a PushButton to the ribbon.
@@ -345,6 +353,18 @@ button.SetImage("C:/Pictures/RibbonIcon16.png");
 button.SetLargeImage("/RevitAddIn;component/Resources/Icons/RibbonIcon32.png");
 button.SetLargeImage("https://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
+```
+
+**SetToolTip** extension sets the tooltip text for the RibbonItem.
+
+```csharp
+button.SetToolTip("Tooltip);
+```
+
+**SetLongDescription** extension sets the extended tooltip description for the RibbonItem.
+
+```csharp
+button.SetLongDescription("Description);
 ```
 
 **SetAvailabilityController** extension specifies the class that decides the availability of PushButton.
