@@ -5,6 +5,7 @@ using Autodesk.Windows;
 using Nice3point.Revit.Extensions.Abstraction;
 using ComboBox = Autodesk.Revit.UI.ComboBox;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
+using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 using TextBox = Autodesk.Revit.UI.TextBox;
 
@@ -55,10 +56,12 @@ public static class RibbonExtensions
     /// <param name="tabName">The name of the tab in which the panel should be located.</param>
     /// <returns>The created or existing Ribbon panel.</returns>
     /// <remarks>
-    ///     If the tab doesn't exist, it will be created first. 
-    ///     If a panel with the specified name already exists within the tab, it will return that panel; otherwise, a new one will be created.
+    ///     If the tab doesn't exist, it will be created first. <br />
+    ///     If a panel with the specified name already exists within the tab, it will return that panel; otherwise, a new one will be created. <br />
+    ///     Adding a panel also supports built-in tabs.
+    ///     To add a panel to the built-in Revit tab, specify the panel ID or name as the <paramref name="tabName"/> parameter.
     /// </remarks>
-    /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">Thrown when panelName or tabName is empty.</exception>
+    /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">Thrown when <paramref name="panelName"/> or <paramref name="tabName"/> is empty.</exception>
     /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">
     ///     Thrown if more than 100 panels were created, or if the maximum number of custom tabs (20) has been exceeded.
     /// </exception>
@@ -66,22 +69,120 @@ public static class RibbonExtensions
     {
         foreach (var tab in ComponentManager.Ribbon.Tabs)
         {
-            if (tab.Id == tabName)
-            {
-                foreach (var panel in application.GetRibbonPanels(tabName))
-                {
-                    if (panel.Name == panelName)
-                    {
-                        return panel;
-                    }
-                }
+            if (!tab.IsVisible || (tab.Id != tabName && tab.Title != tabName)) continue;
 
-                return application.CreateRibbonPanel(tabName, panelName);
+            var cachedTabs = GetCachedTabs();
+            if (cachedTabs.TryGetValue(tab.Id, out var cachedPanels))
+            {
+                if (cachedPanels.TryGetValue(panelName, out var cachedPanel))
+                {
+                    return cachedPanel;
+                }
             }
+
+            var (internalPanel, panel) = CreateInternalPanel(tab.Id, panelName);
+            tab.Panels.Add(internalPanel);
+            return panel;
         }
 
         application.CreateRibbonTab(tabName);
         return application.CreateRibbonPanel(tabName, panelName);
+    }
+
+    /// <summary>
+    ///     Retrieves the internal <see cref="Autodesk.Windows.RibbonPanel"/> instance associated with the specified <see cref="RibbonPanel"/>.
+    ///     This method uses reflection to access the private field "m_RibbonPanel" within the provided <see cref="RibbonPanel"/>.
+    /// </summary>
+    /// <param name="panel">The <see cref="RibbonPanel"/> to extract the internal <see cref="Autodesk.Windows.RibbonPanel"/> from.</param>
+    /// <returns>The internal <see cref="Autodesk.Windows.RibbonPanel"/> instance.</returns>
+    private static Autodesk.Windows.RibbonPanel GetInternalPanel(this RibbonPanel panel)
+    {
+        var panelField = panel.GetType().GetField("m_RibbonPanel", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
+        return (Autodesk.Windows.RibbonPanel)panelField.GetValue(panel)!;
+    }
+
+    /// <summary>
+    ///     Creates a new internal <see cref="Autodesk.Windows.RibbonPanel"/> and its corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/> for the specified tab and panel name.
+    /// </summary>
+    /// <param name="tabId">The ID of the tab where the panel should be added.</param>
+    /// <param name="panelName">The name of the panel to create.</param>
+    /// <returns>A tuple containing the internal <see cref="Autodesk.Windows.RibbonPanel"/> and the corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/>.</returns>
+    private static (Autodesk.Windows.RibbonPanel internalPanel, RibbonPanel panel) CreateInternalPanel(string tabId, string panelName)
+    {
+        var internalPanel = new Autodesk.Windows.RibbonPanel
+        {
+            Source = new RibbonPanelSource
+            {
+                Title = panelName
+            }
+        };
+
+        var cachedTabs = GetCachedTabs();
+        if (!cachedTabs.TryGetValue(tabId, out var cachedPanels))
+        {
+            cachedTabs[tabId] = cachedPanels = new Dictionary<string, RibbonPanel>();
+        }
+
+        var panel = CreatePanel(internalPanel, tabId);
+        panel.Name = panelName;
+        cachedPanels[panelName] = panel;
+
+        return (internalPanel, panel);
+    }
+
+    /// <summary>
+    ///     Creates a new <see cref="Autodesk.Revit.UI.RibbonPanel"/> using the specified internal <see cref="Autodesk.Windows.RibbonPanel"/>.
+    /// </summary>
+    /// <param name="panel">The internal <see cref="Autodesk.Windows.RibbonPanel"/> instance.</param>
+    /// <param name="tabId">The ID of the tab where the panel should be added.</param>
+    /// <returns>The created <see cref="Autodesk.Revit.UI.RibbonPanel"/>.</returns>
+    private static RibbonPanel CreatePanel(Autodesk.Windows.RibbonPanel panel, string tabId)
+    {
+        var type = typeof(RibbonPanel);
+#if NETCOREAPP
+        var constructorInfo = type.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly,
+            [typeof(Autodesk.Windows.RibbonPanel), typeof(string)])!;
+#else
+        var constructorInfo = type.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly,
+            null,
+            [typeof(Autodesk.Windows.RibbonPanel), typeof(string)],
+            null)!;
+#endif
+        return (RibbonPanel)constructorInfo.Invoke([panel, tabId]);
+    }
+
+    /// <summary>
+    ///     Retrieves the cached dictionary of tabs and panels within the Revit application.
+    /// </summary>
+    /// <returns>A dictionary where keys are tab IDs and values are dictionaries of tab names and their corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/> instances.</returns>
+    [Pure]
+    private static Dictionary<string, Dictionary<string, RibbonPanel>> GetCachedTabs()
+    {
+        var applicationType = typeof(UIApplication);
+        var panelsField = applicationType.GetField("m_ItemsNameDictionary", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly)!;
+        return (Dictionary<string, Dictionary<string, RibbonPanel>>)panelsField.GetValue(null)!;
+    }
+
+    /// <summary>
+    ///     Removes a specified <see cref="Autodesk.Revit.UI.RibbonPanel"/> from the Revit ribbon.
+    /// </summary>
+    /// <param name="panel">The <see cref="Autodesk.Revit.UI.RibbonPanel"/> to remove.</param>
+    public static void RemovePanel(this RibbonPanel panel)
+    {
+        var cachedPanels = GetCachedTabs();
+
+        var internalPanel = panel.GetInternalPanel();
+        var internalTab = internalPanel.Tab;
+
+        internalTab.Panels.Remove(internalPanel);
+
+        var ribbonPanels = cachedPanels[internalTab.Id];
+        ribbonPanels.Remove(panel.Name);
+
+        if (internalTab.Panels.Count == 0)
+        {
+            ComponentManager.Ribbon.Tabs.Remove(internalTab);
+        }
     }
 
     /// <summary>
@@ -288,7 +389,6 @@ public static class RibbonExtensions
         return AddTextBox(panel, Guid.NewGuid().ToString());
     }
 
-
     /// <summary>
     ///     Adds a TextBox to the specified Ribbon panel with a unique internal name.
     /// </summary>
@@ -303,7 +403,6 @@ public static class RibbonExtensions
         var pushButtonData = new TextBoxData(internalName);
         return (TextBox)panel.AddItem(pushButtonData);
     }
-
 
     /// <summary>
     ///     Sets a 16x16 pixel, 96dpi image from the specified URI source to the given Ribbon button.
@@ -348,6 +447,45 @@ public static class RibbonExtensions
     public static PushButton SetAvailabilityController<T>(this PushButton button) where T : IExternalCommandAvailability, new()
     {
         button.AvailabilityClassName = typeof(T).FullName;
+        return button;
+    }
+
+    /// <summary>
+    ///     Sets the tooltip text for the RibbonItem.
+    /// </summary>
+    /// <param name="button">The RibbonItem to which the tooltip will be added.</param>
+    /// <param name="tooltip">The text to display as a tooltip when the mouse pointer hovers over the button.</param>
+    /// <returns>The RibbonItem with the specified tooltip text.</returns>
+    /// <remarks>
+    ///     The tooltip text appears when the mouse pointer hovers over the button in the Revit UI. 
+    ///     This method does not affect SplitButton or RadioButtonGroup controls. For SplitButton, the current PushButton's tooltip will always be displayed.
+    ///     RadioButtonGroup controls do not support tooltips.
+    /// </remarks>
+    public static RibbonItem SetToolTip(this RibbonItem button, string tooltip)
+    {
+        button.ToolTip = tooltip;
+        return button;
+    }
+
+    /// <summary>
+    ///     Sets the extended tooltip description for the RibbonItem.
+    /// </summary>
+    /// <param name="button">The RibbonItem to which the extended tooltip description will be added.</param>
+    /// <param name="description">
+    ///     The text to display as part of the button's extended tooltip. 
+    ///     This text is shown when the mouse hovers over the button for a prolonged period. 
+    ///     Use &lt;p&gt; tags to separate the text into multiple paragraphs if needed.
+    /// </param>
+    /// <returns>The RibbonItem with the specified extended tooltip description.</returns>
+    /// <remarks>
+    ///     The extended tooltip provides additional information about the command and is optional. 
+    ///     If neither this property nor the TooltipImage is set, the button will not have an extended tooltip. 
+    ///     SplitButton and RadioButtonGroup controls cannot display the extended tooltip set by this method. 
+    ///     For SplitButton, the current PushButton's tooltip is always displayed, while RadioButtonGroup does not support extended tooltips.
+    /// </remarks>
+    public static RibbonItem SetLongDescription(this RibbonItem button, string description)
+    {
+        button.LongDescription = description;
         return button;
     }
 }
