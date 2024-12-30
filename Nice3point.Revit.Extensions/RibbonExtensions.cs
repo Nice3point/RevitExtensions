@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
@@ -588,14 +589,11 @@ public static class RibbonExtensions
             var sourceSpan = source.AsSpan();
             var before = sourceSpan[..themeIndex];
             var after = sourceSpan[(themeIndex + currentTheme.Length)..];
-
-            return string.Concat(before, newTheme, after);
 #else
             var before = source[..themeIndex];
             var after = source[(themeIndex + currentTheme.Length)..];
-
-            return string.Concat(before, newTheme, after);
 #endif
+            return after.IndexOf(Path.AltDirectorySeparatorChar) >= 0 || after.IndexOf(Path.DirectorySeparatorChar) >= 0 ? source : string.Concat(before, newTheme, after);
         }
     }
 #endif
