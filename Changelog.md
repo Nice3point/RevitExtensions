@@ -1,4 +1,4 @@
-# Release 2025.0.1-preview.3.1
+# Release 2025.0.1-preview.4.1
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
 
@@ -150,6 +150,8 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **SetToolTip:** Sets the tooltip text for the PushButton.
 - **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
 - **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage and other tabs.
+- **SetImage** support for Light and Dark UI themes.
+- **SetLargeImage** support for Light and Dark UI themes.
 
 ![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
 
