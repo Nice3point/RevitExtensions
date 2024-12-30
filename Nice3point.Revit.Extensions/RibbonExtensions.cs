@@ -524,7 +524,7 @@ public static class RibbonExtensions
     {
         ApplicationTheme.CurrentTheme.PropertyChanged -= OnApplicationThemeChanged;
         ApplicationTheme.CurrentTheme.PropertyChanged += OnApplicationThemeChanged;
-        
+
         _themedButtons.Add(button);
     }
 
@@ -584,11 +584,18 @@ public static class RibbonExtensions
 
         static string UpdateThemeUri(string source, string currentTheme, string newTheme, int themeIndex)
         {
+#if NETCOREAPP
             var sourceSpan = source.AsSpan();
             var before = sourceSpan[..themeIndex];
             var after = sourceSpan[(themeIndex + currentTheme.Length)..];
 
             return string.Concat(before, newTheme, after);
+#else
+            var before = source[..themeIndex];
+            var after = source[(themeIndex + currentTheme.Length)..];
+
+            return string.Concat(before, newTheme, after);
+#endif
         }
     }
 #endif
