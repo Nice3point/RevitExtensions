@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
 using Nice3point.Revit.Extensions.Abstraction;
+using UIFramework;
 using ComboBox = Autodesk.Revit.UI.ComboBox;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
@@ -415,7 +417,16 @@ public static class RibbonExtensions
     /// </example>
     public static RibbonButton SetImage(this RibbonButton button, string uri)
     {
-        button.Image = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
+#if REVIT2024_OR_GREATER
+        if (TryGetThemedUri(uri, out var themedIconUri))
+        {
+            MonitorButtonTheme(button);
+        }
+#else
+        var themedIconUri = uri;
+#endif
+
+        button.Image = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
         return button;
     }
 
@@ -430,7 +441,16 @@ public static class RibbonExtensions
     /// </example>
     public static RibbonButton SetLargeImage(this RibbonButton button, string uri)
     {
-        button.LargeImage = new BitmapImage(new Uri(uri, UriKind.RelativeOrAbsolute));
+#if REVIT2024_OR_GREATER
+        if (TryGetThemedUri(uri, out var themedIconUri))
+        {
+            MonitorButtonTheme(button);
+        }
+#else
+        var themedIconUri = uri;
+#endif
+
+        button.LargeImage = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
         return button;
     }
 
@@ -488,4 +508,88 @@ public static class RibbonExtensions
         button.LongDescription = description;
         return button;
     }
+
+#if REVIT2024_OR_GREATER
+
+    /// <summary>
+    ///     List of Ribbon buttons that are monitored for theme changes.
+    /// </summary>
+    private static HashSet<RibbonButton> _themedButtons = [];
+
+    /// <summary>
+    ///     Monitors the button for theme changes and updates the image accordingly.
+    /// </summary>
+    /// <param name="button">The Ribbon button to monitor.</param>
+    private static void MonitorButtonTheme(RibbonButton button)
+    {
+        ApplicationTheme.CurrentTheme.PropertyChanged -= OnApplicationThemeChanged;
+        ApplicationTheme.CurrentTheme.PropertyChanged += OnApplicationThemeChanged;
+        
+        _themedButtons.Add(button);
+    }
+
+    /// <summary>
+    ///     Handles the ApplicationThemeChanged event and updates the button image to match the current UI theme.
+    /// </summary>
+    private static void OnApplicationThemeChanged(object? sender, PropertyChangedEventArgs args)
+    {
+        if (args.PropertyName != nameof(ApplicationTheme.CurrentTheme.RibbonPanelBackgroundBrush)) return;
+        if (UIThemeManager.CurrentTheme.ToString() == ApplicationTheme.CurrentTheme.RibbonTheme.Name) return;
+
+        foreach (var button in _themedButtons)
+        {
+            if (button.Image is BitmapImage image)
+            {
+                TryGetThemedUri(image.UriSource.OriginalString, out var themedIconUri);
+                button.Image = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
+            }
+
+            if (button.LargeImage is BitmapImage largeImage)
+            {
+                TryGetThemedUri(largeImage.UriSource.OriginalString, out var themedIconUri);
+                button.LargeImage = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Attempts to modify the given URI to match the current UI theme.
+    /// </summary>
+    /// <param name="uri">The original URI.</param>
+    /// <param name="result">The modified URI corresponding to the current UI theme, or the original URI if no modifications were made.</param>
+    /// <returns><see langword="true"/> if the URI was modified to match the current UI theme; otherwise, <see langword="false"/>.</returns>
+    private static bool TryGetThemedUri(string uri, out string result)
+    {
+        var theme = UITheme.Light;
+        var themeIndex = uri.LastIndexOf("light", StringComparison.OrdinalIgnoreCase);
+        if (themeIndex == -1)
+        {
+            theme = UITheme.Dark;
+            themeIndex = uri.LastIndexOf("dark", StringComparison.OrdinalIgnoreCase);
+            if (themeIndex == -1)
+            {
+                result = uri;
+                return false;
+            }
+        }
+
+        result = UIThemeManager.CurrentTheme switch
+        {
+            UITheme.Light when theme == UITheme.Dark => UpdateThemeUri(uri, "dark", "light", themeIndex),
+            UITheme.Dark when theme == UITheme.Light => UpdateThemeUri(uri, "light", "dark", themeIndex),
+            _ => uri
+        };
+
+        return true;
+
+        static string UpdateThemeUri(string source, string currentTheme, string newTheme, int themeIndex)
+        {
+            var sourceSpan = source.AsSpan();
+            var before = sourceSpan[..themeIndex];
+            var after = sourceSpan[(themeIndex + currentTheme.Length)..];
+
+            return string.Concat(before, newTheme, after);
+        }
+    }
+#endif
 }
