@@ -355,6 +355,20 @@ button.SetLargeImage("https://example.com/RibbonIcon32.png");
 button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
 ```
 
+Starting with Revit 2024 **SetImage** and **SetLargeImage** extensions support Light and Dark UI themes.
+
+When the provided URI contains "light" or "dark" (case-insensitive), the extensions automatically modify the URI to match the current UI theme. 
+For example:
+
+```csharp
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16-Light.png");
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16_light.png");
+
+// in the Dark Revit theme will be converted to:
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16-Dark.png");
+button.SetImage("/RevitAddIn;component/Resources/Icons/RibbonIcon16_dark.png");
+```
+
 **SetToolTip** extension sets the tooltip text for the RibbonItem.
 
 ```csharp
