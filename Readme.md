@@ -323,6 +323,12 @@ var textBox = panel.AddTextBox();
 var stackPanel = panel.AddStackPanel();
 ```
 
+**AddLabel** extension adds a label to the vertical stack panel. Usually uses as a caption for the combo box in Revit.
+
+```csharp
+stackPanel.AddLabel("Items:");
+```
+
 By default, the StackPanel accommodates one to three elements vertically. 
 If the added items exceed the maximum threshold, they will be automatically added to a new column.
 
@@ -333,6 +339,7 @@ var stackPanel = panel.AddStackPanel();
 stackPanel.AddPushButton<StartupCommand>("Execute");
 stackPanel.AddPullDownButton("Execute");
 stackPanel.AddSplitButton("Execute");
+stackPanel.AddLabel("Items:");
 stackPanel.AddComboBox();
 stackPanel.AddTextBox();
 ```
