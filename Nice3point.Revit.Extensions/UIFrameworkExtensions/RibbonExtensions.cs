@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
-using Nice3point.Revit.Extensions.Abstraction;
+using Nice3point.Revit.Extensions.UIFrameworkExtensions;
 using UIFramework;
 using ComboBox = Autodesk.Revit.UI.ComboBox;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
@@ -12,6 +12,7 @@ using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 using TextBox = Autodesk.Revit.UI.TextBox;
 
+// ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>

@@ -1,5 +1,4 @@
 ﻿// ReSharper disable once CheckNamespace
-
 namespace Autodesk.Revit.UI;
 
 /// <summary>
@@ -86,4 +85,10 @@ public interface IRibbonStackPanel
     ///     Thrown if a TextBox with the same internalName already exists in the panel.
     /// </exception>
     TextBox AddTextBox(string internalName);
+    
+    /// <summary>
+    ///     Adds a label to the vertical stack panel.
+    /// </summary>
+    /// <param name="labelText">The text content for the label.</param>
+    void AddLabel(string labelText);
 }

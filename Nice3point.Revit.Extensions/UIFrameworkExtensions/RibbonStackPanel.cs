@@ -4,7 +4,7 @@ using Autodesk.Windows;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 
-namespace Nice3point.Revit.Extensions.Abstraction;
+namespace Nice3point.Revit.Extensions.UIFrameworkExtensions;
 
 internal sealed class RibbonStackPanel : IRibbonStackPanel
 {
@@ -80,6 +80,16 @@ internal sealed class RibbonStackPanel : IRibbonStackPanel
         var pushButtonData = new TextBoxData(internalName);
         return (TextBox)AddStakedItem(pushButtonData);
     }
+    
+    public void AddLabel(string labelText)
+    {
+        var ribbonLabel = new RibbonLabel
+        {
+            Text = labelText
+        };
+        
+        AddStakedItem(ribbonLabel);
+    }
 
     private RibbonItem AddStakedItem(RibbonItemData itemData)
     {
@@ -109,5 +119,25 @@ internal sealed class RibbonStackPanel : IRibbonStackPanel
         }
 
         return (RibbonItem)item;
+    }
+    
+    private void AddStakedItem(Autodesk.Windows.RibbonItem itemData)
+    {
+        if (_currentPanel.Items.Count >= MaxStackPanelItemsCount)
+        {
+            _currentPanel = new RibbonRowPanel();
+        }
+
+        if ((_currentPanel.Items.Count + 1) % 2 == 0)
+        {
+            _currentPanel.Items.Add(new RibbonRowBreak());
+        }
+
+        _currentPanel.Items.Add(itemData);
+        
+        if (_currentPanel.Items.Count < 2)
+        {
+            _rawPanel.Source.Items.Add(_currentPanel);
+        }
     }
 }
