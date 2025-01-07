@@ -1,11 +1,10 @@
 ﻿// ReSharper disable once CheckNamespace
-
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ElementTransformUtils"/> class.
 /// </summary>
-public static partial class ElementExtensions
+public static partial class ElementExtensions // partial for backwards compatibility
 {
     /// <summary>Determines whether element can be mirrored</summary>
     /// <returns>True if the element can be mirrored</returns>
@@ -299,7 +298,7 @@ public static partial class ElementExtensions
     {
         return ElementTransformUtils.CopyElements(sourceView, elementsToCopy, destinationView, additionalTransform, options);
     }
-    
+
     /// <summary>Copies a set of elements from source document to destination document.</summary>
     /// <remarks>
     ///   <p>Copies are placed at their respective original locations or locations specified by the optional transformation.</p>
