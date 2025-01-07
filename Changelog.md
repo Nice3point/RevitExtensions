@@ -146,6 +146,7 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **AddSplitButton:** Adds a SplitButton to the vertical stack panel.
 - **AddComboBox:** Adds a ComboBox to the vertical stack panel.
 - **AddTextBox:** Adds a TextBox to the vertical stack panel.
+- **AddLabel:** Adds a text label to the vertical stack panel.
 - **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
 - **SetToolTip:** Sets the tooltip text for the PushButton.
 - **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
