@@ -10,7 +10,7 @@ sealed partial class Build
         Log.Information("Changelog: {Path}", ChangeLogPath);
 
         var changelog = BuildChangelog();
-        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {Version}");
+        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {ReleaseVersion}");
 
         return EscapeMsBuild(changelog.ToString());
     }
@@ -21,7 +21,7 @@ sealed partial class Build
         Log.Information("Changelog: {Path}", ChangeLogPath);
 
         var changelog = BuildChangelog();
-        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {Version}");
+        Assert.True(changelog.Length > 0, $"No version entry exists in the changelog: {ReleaseVersion}");
 
         WriteCompareUrl(changelog);
         return changelog.ToString();
@@ -56,7 +56,7 @@ sealed partial class Build
                 continue;
             }
 
-            if (line.StartsWith(separator) && line.Contains(Version))
+            if (line.StartsWith(separator) && line.Contains(ReleaseVersion))
             {
                 hasEntry = true;
             }

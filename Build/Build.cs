@@ -7,7 +7,7 @@ using Nuke.Common.ProjectModel;
 sealed partial class Build : NukeBuild
 {
     string[] Configurations;
-    Dictionary<string, string> PackageVersionMap;
+    Dictionary<string, string> AssemblyVersionMap;
 
     [GitRepository] readonly GitRepository GitRepository;
     [Solution(GenerateProjects = true)] readonly Solution Solution;

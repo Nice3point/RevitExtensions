@@ -15,12 +15,12 @@ sealed partial class Build
             var artifacts = Directory.GetFiles(ArtifactsDirectory, "*");
             Assert.NotEmpty(artifacts, "No artifacts were found to create the Release");
 
-            var newRelease = new NewRelease(Version)
+            var newRelease = new NewRelease(ReleaseVersion)
             {
-                Name = Version,
+                Name = ReleaseVersion,
                 Body = changelog,
                 TargetCommitish = GitRepository.Commit,
-                Prerelease = Version.Contains("preview", StringComparison.OrdinalIgnoreCase)
+                Prerelease = ReleaseVersion.Contains("preview", StringComparison.OrdinalIgnoreCase)
             };
 
             var release = await GitHubTasks.GitHubClient.Repository.Release.Create(gitHubOwner, gitHubName, newRelease);

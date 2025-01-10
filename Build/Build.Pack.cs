@@ -29,7 +29,7 @@ partial class Build
 
     string GetPackVersion(string configuration)
     {
-        if (PackageVersionMap.TryGetValue(configuration, out var version)) return version;
+        if (AssemblyVersionMap.TryGetValue(configuration, out var version)) return version;
         throw new Exception($"Can't find pack version for configuration: {configuration}");
     }
 
