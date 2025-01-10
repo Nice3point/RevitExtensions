@@ -5,6 +5,7 @@ sealed partial class Build
 {
     Target PublishGitHub => _ => _
         .DependsOn(Pack)
+        .Requires(() => ReleaseVersion)
         .OnlyWhenStatic(() => IsServerBuild)
         .Executes(async () =>
         {

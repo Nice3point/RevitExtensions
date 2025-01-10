@@ -28,7 +28,7 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
-        <DebugType>pdbonly</DebugType>
+        <DebugType>portable</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

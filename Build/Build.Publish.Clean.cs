@@ -4,8 +4,9 @@ sealed partial class Build
 {
     Target CleanFailedRelease => _ => _
         .AssuredAfterFailure()
-        .OnlyWhenDynamic(() => FailedTargets.Contains(PublishGitHub) || FailedTargets.Contains(PublishNuget))
         .TriggeredBy(PublishGitHub)
+        .Requires(() => ReleaseVersion)
+        .OnlyWhenDynamic(() => FailedTargets.Contains(PublishGitHub) || FailedTargets.Contains(PublishNuget))
         .Executes(() =>
         {
             Log.Information("Cleaning failed GitHub release");
