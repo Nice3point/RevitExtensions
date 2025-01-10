@@ -7,7 +7,7 @@ partial class Build
     const string NugetSource = "https://api.nuget.org/v3/index.json";
     [Parameter] [Secret] string NugetApiKey = EnvironmentInfo.GetVariable("NUGET_API_KEY");
 
-    Target NuGetPush => _ => _
+    Target PublishNuget => _ => _
         .DependsOn(PublishGitHub)
         .Requires(() => NugetApiKey)
         .Executes(() =>
@@ -21,7 +21,7 @@ partial class Build
             }
         });
 
-    Target NuGetDelete => _ => _
+    Target DeleteNuGet => _ => _
         .Requires(() => NugetApiKey)
         .OnlyWhenStatic(() => IsLocalBuild)
         .Executes(() =>
