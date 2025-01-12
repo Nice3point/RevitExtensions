@@ -6,6 +6,7 @@ sealed partial class Build
         .Unlisted()
         .AssuredAfterFailure()
         .Requires(() => ReleaseVersion)
+        .TriggeredBy(PublishGitHub, PublishNuget)
         .OnlyWhenDynamic(() => (ScheduledTargets.Contains(PublishGitHub) ||
                                 ScheduledTargets.Contains(PublishNuget)) &&
                                (FailedTargets.Contains(PublishGitHub) ||
