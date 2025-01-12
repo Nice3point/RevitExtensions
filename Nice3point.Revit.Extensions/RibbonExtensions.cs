@@ -71,21 +71,35 @@ public static class RibbonExtensions
     /// </exception>
     public static RibbonPanel CreatePanel(this UIControlledApplication application, string panelName, string tabName)
     {
-        foreach (var tab in ComponentManager.Ribbon.Tabs)
+        var cachedTabs = GetCachedTabs();
+        if (cachedTabs.TryGetValue(tabName, out var cachedPanels))
         {
-            if (!tab.IsVisible || (tab.Id != tabName && tab.Title != tabName)) continue;
-
-            var cachedTabs = GetCachedTabs();
-            if (cachedTabs.TryGetValue(tab.Id, out var cachedPanels))
+            if (cachedPanels.TryGetValue(panelName, out var cachedPanel))
             {
-                if (cachedPanels.TryGetValue(panelName, out var cachedPanel))
-                {
-                    return cachedPanel;
-                }
+                return cachedPanel;
             }
+        }
 
-            var (internalPanel, panel) = CreateInternalPanel(tab.Id, panelName);
-            tab.Panels.Add(internalPanel);
+        var tabsCollection = new List<RibbonTab>();
+        foreach (var tab in RevitRibbonControl.RibbonControl.Tabs)
+        {
+            if (tab.Id == tabName || tab.Title == tabName)
+            {
+                tabsCollection.Add(tab);
+            }
+        }
+
+        var existedTab = tabsCollection.Count switch
+        {
+            1 => tabsCollection[0],
+            0 => null,
+            _ => tabsCollection.FirstOrDefault(tab => tab.IsVisible) ?? tabsCollection[0]
+        };
+
+        if (existedTab is not null)
+        {
+            var (internalPanel, panel) = CreateInternalPanel(existedTab.Id, panelName);
+            existedTab.Panels.Add(internalPanel);
             return panel;
         }
 
@@ -179,13 +193,16 @@ public static class RibbonExtensions
         var internalTab = internalPanel.Tab;
 
         internalTab.Panels.Remove(internalPanel);
-
-        var ribbonPanels = cachedPanels[internalTab.Id];
-        ribbonPanels.Remove(panel.Name);
-
         if (internalTab.Panels.Count == 0)
         {
             ComponentManager.Ribbon.Tabs.Remove(internalTab);
+        }
+
+        var ribbonPanels = cachedPanels[internalTab.Id];
+        ribbonPanels.Remove(panel.Name);
+        if (ribbonPanels.Count == 0)
+        {
+            cachedPanels.Remove(internalTab.Id);
         }
     }
 
