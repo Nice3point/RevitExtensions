@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel;
 using System.IO;
 using System.Reflection;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
 using Nice3point.Revit.Extensions.UIFrameworkExtensions;
 using UIFramework;
+using Color = System.Windows.Media.Color;
 using ComboBox = Autodesk.Revit.UI.ComboBox;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
@@ -204,6 +206,75 @@ public static class RibbonExtensions
         {
             cachedPanels.Remove(internalTab.Id);
         }
+    }
+    
+    /// <summary>
+    ///     Sets the panel background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The color string representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetBackground("Red");
+    ///         panel.SetBackground("#FF6669");
+    ///         panel.SetBackground("#FFFF6669");
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetBackground(this RibbonPanel panel, string color)
+    {
+        var convertedColor = (Color) ColorConverter.ConvertFromString(color);
+        
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelBackground = new SolidColorBrush(convertedColor);
+
+        return panel;
+    }
+    
+    /// <summary>
+    ///     Sets the panel background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The Color object representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetBackground(Colors.Red);
+    ///         panel.SetBackground(Color.FromRgb(255, 0, 0));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetBackground(this RibbonPanel panel, Color color)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelBackground = new SolidColorBrush(color);
+
+        return panel;
+    }
+    
+    /// <summary>
+    ///     Sets the panel background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="brush">The Brush representing the background.</param>
+    /// <returns>The Ribbon panel with the updated background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetBackground(new SolidColorBrush(Colors.Red));
+    ///         
+    ///          panel.SetBackground(new LinearGradientBrush(
+    ///              new GradientStopCollection
+    ///              {
+    ///                  new GradientStop(Colors.Red, 0),
+    ///                  new GradientStop(Colors.Black, 1)
+    ///              }, 45));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetBackground(this RibbonPanel panel, Brush brush)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelBackground = brush;
+
+        return panel;
     }
 
     /// <summary>
