@@ -5,7 +5,6 @@ partial class Build
 {
     Target Pack => _ => _
         .DependsOn(Clean)
-        .Requires(() => ReleaseVersion)
         .Executes(() =>
         {
             var readme = CreateNugetReadme();
