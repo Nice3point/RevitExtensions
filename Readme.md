@@ -278,6 +278,51 @@ var panel = application.CreatePanel("Panel name", "Tab name");
 var textBox = panel.RemovePanel();
 ```
 
+**SetBackground** extension sets the panel background color.
+
+```csharp
+panel.SetBackground("Red");
+panel.SetBackground("#FF0000");
+panel.SetBackground("#AAFF0000");
+panel.SetBackground(Colors.Red);
+panel.SetBackground(Brushes.Red);
+panel.SetBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Red, 1)
+], 45));
+```
+
+**SetTitleBarBackground** extension sets the panel title bar background color.
+
+```csharp
+panel.SetTitleBarBackground("Blue");
+panel.SetTitleBarBackground("#0000FF");
+panel.SetTitleBarBackground("#AA0000FF");
+panel.SetTitleBarBackground(Colors.Blue);
+panel.SetTitleBarBackground(Brushes.Blue);
+panel.SetTitleBarBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Blue, 1)
+], 45));
+```
+
+**SetSlideOutPanelBackground** extension sets the slide-out panel background color for the target panel.
+
+```csharp
+panel.SetSlideOutBackground("Green");
+panel.SetSlideOutBackground("#00FF00");
+panel.SetSlideOutBackground("#AA00FF00");
+panel.SetSlideOutBackground(Colors.Green);
+panel.SetSlideOutBackground(Brushes.Green);
+panel.SetSlideOutBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Green, 1)
+], 45));
+```
+
 **AddPushButton** extension adds a PushButton to the ribbon.
 
 ```csharp
