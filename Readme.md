@@ -272,10 +272,49 @@ var panel = application.CreatePanel("Panel name");
 var panel = application.CreatePanel("Panel name", "Tab name");
 ```
 
+![regularControls](https://github.com/user-attachments/assets/c5d202e0-0c16-4c84-b183-b09582676b05)
+
 **RemovePanel** extension removes RibbonPanel from the Revit ribbon.
 
 ```csharp
 var textBox = panel.RemovePanel();
+```
+
+**AddPushButton** extension adds a PushButton to the ribbon.
+
+```csharp
+var button = panel.AddPushButton<Command>("Button text");
+var button = pullDownButton.AddPushButton<Command>("Button text");
+```
+
+**AddPullDownButton** extension adds a PullDownButton to the ribbon.
+
+```csharp
+var button = panel.AddPullDownButton("Button text");
+```
+
+**AddSplitButton** extension adds a SplitButton to the ribbon.
+
+```csharp
+var button = panel.AddSplitButton("Button text");
+```
+
+**AddRadioButtonGroup** extension adds a RadioButtonGroup to the ribbon.
+
+```csharp
+var radioGroup = panel.AddRadioButtonGroup();
+```
+
+**AddComboBox** extension adds a ComboBox to the ribbon.
+
+```csharp
+var comboBox = panel.AddComboBox();
+```
+
+**AddTextBox** extension adds a TextBox to the ribbon.
+
+```csharp
+var textBox = panel.AddTextBox();
 ```
 
 **SetBackground** extension sets the panel background color.
@@ -323,55 +362,10 @@ panel.SetSlideOutBackground(new LinearGradientBrush(
 ], 45));
 ```
 
-**AddPushButton** extension adds a PushButton to the ribbon.
-
-```csharp
-var button = panel.AddPushButton<Command>("Button text");
-var button = pullDownButton.AddPushButton<Command>("Button text");
-```
-
-**AddPullDownButton** extension adds a PullDownButton to the ribbon.
-
-```csharp
-var button = panel.AddPullDownButton("Button text");
-```
-
-**AddSplitButton** extension adds a SplitButton to the ribbon.
-
-```csharp
-var button = panel.AddSplitButton("Button text");
-```
-
-**AddRadioButtonGroup** extension adds a RadioButtonGroup to the ribbon.
-
-```csharp
-var radioGroup = panel.AddRadioButtonGroup();
-```
-
-**AddComboBox** extension adds a ComboBox to the ribbon.
-
-```csharp
-var comboBox = panel.AddComboBox();
-```
-
-**AddTextBox** extension adds a TextBox to the ribbon.
-
-```csharp
-var textBox = panel.AddTextBox();
-```
-
-![regularControls](https://github.com/user-attachments/assets/c5d202e0-0c16-4c84-b183-b09582676b05)
-
 **AddStackPanel** extension adds a vertical stack panel to the Ribbon panel.
 
 ```csharp
 var stackPanel = panel.AddStackPanel();
-```
-
-**AddLabel** extension adds a label to the vertical stack panel. Usually uses as a caption for the combo box in Revit.
-
-```csharp
-stackPanel.AddLabel("Items:");
 ```
 
 By default, the StackPanel accommodates one to three elements vertically. 
