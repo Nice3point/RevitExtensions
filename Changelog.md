@@ -1,4 +1,4 @@
-# Release 2025.0.1-preview.5.2
+# Release 2025.0.1-preview.6.0
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
 
@@ -148,6 +148,9 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **AddTextBox:** Adds a TextBox to the vertical stack panel.
 - **AddLabel:** Adds a text label to the vertical stack panel.
 - **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
+- **SetBackground:** Sets the RibbonPanel background color.
+- **SetTitleBarBackground:** Sets the RibbonPanel title bar background color.
+- **SetSlideOutPanelBackground:** Sets the slide-out panel background color for the target RibbonPanel.
 - **SetToolTip:** Sets the tooltip text for the PushButton.
 - **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
 - **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage and other tabs.
