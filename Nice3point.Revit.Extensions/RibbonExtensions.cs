@@ -207,7 +207,7 @@ public static class RibbonExtensions
             cachedPanels.Remove(internalTab.Id);
         }
     }
-    
+
     /// <summary>
     ///     Sets the panel background color.
     /// </summary>
@@ -223,14 +223,14 @@ public static class RibbonExtensions
     /// </example>
     public static RibbonPanel SetBackground(this RibbonPanel panel, string color)
     {
-        var convertedColor = (Color) ColorConverter.ConvertFromString(color);
-        
+        var convertedColor = (Color)ColorConverter.ConvertFromString(color);
+
         var internalPanel = GetInternalPanel(panel);
         internalPanel.CustomPanelBackground = new SolidColorBrush(convertedColor);
 
         return panel;
     }
-    
+
     /// <summary>
     ///     Sets the panel background color.
     /// </summary>
@@ -250,7 +250,7 @@ public static class RibbonExtensions
 
         return panel;
     }
-    
+
     /// <summary>
     ///     Sets the panel background color.
     /// </summary>
@@ -259,20 +259,155 @@ public static class RibbonExtensions
     /// <returns>The Ribbon panel with the updated background.</returns>
     /// <example>
     ///     <code>
+    ///         panel.SetBackground(Brushes.Red);
     ///         panel.SetBackground(new SolidColorBrush(Colors.Red));
-    ///         
-    ///          panel.SetBackground(new LinearGradientBrush(
-    ///              new GradientStopCollection
-    ///              {
-    ///                  new GradientStop(Colors.Red, 0),
-    ///                  new GradientStop(Colors.Black, 1)
-    ///              }, 45));
+    ///         panel.SetBackground(new LinearGradientBrush(
+    ///         [
+    ///             new GradientStop(Colors.Red, 0),
+    ///             new GradientStop(Colors.Black, 1)
+    ///         ], 45));
     ///     </code>
     /// </example>
     public static RibbonPanel SetBackground(this RibbonPanel panel, Brush brush)
     {
         var internalPanel = GetInternalPanel(panel);
         internalPanel.CustomPanelBackground = brush;
+
+        return panel;
+    }
+    
+    /// <summary>
+    ///     Sets the panel title bar background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The color string representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated title bar background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetTitleBarBackground("Red");
+    ///         panel.SetTitleBarBackground("#FF6669");
+    ///         panel.SetTitleBarBackground("#FFFF6669");
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetTitleBarBackground(this RibbonPanel panel, string color)
+    {
+        var convertedColor = (Color)ColorConverter.ConvertFromString(color);
+
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelTitleBarBackground = new SolidColorBrush(convertedColor);
+
+        return panel;
+    }
+
+    /// <summary>
+    ///     Sets the panel title bar background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The Color object representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated title bar background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetTitleBarBackground(Colors.Red);
+    ///         panel.SetTitleBarBackground(Color.FromRgb(255, 0, 0));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetTitleBarBackground(this RibbonPanel panel, Color color)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelTitleBarBackground = new SolidColorBrush(color);
+
+        return panel;
+    }
+
+    /// <summary>
+    ///     Sets the panel title bar background color.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="brush">The Brush representing the background.</param>
+    /// <returns>The Ribbon panel with the updated title bar background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetTitleBarBackground(Brushes.Red);
+    ///         panel.SetTitleBarBackground(new SolidColorBrush(Colors.Red));
+    ///         panel.SetTitleBarBackground(new LinearGradientBrush(
+    ///         [
+    ///             new GradientStop(Colors.Red, 0),
+    ///             new GradientStop(Colors.Black, 1)
+    ///         ], 45));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetTitleBarBackground(this RibbonPanel panel, Brush brush)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomPanelTitleBarBackground = brush;
+
+        return panel;
+    }
+    
+    /// <summary>
+    ///     Sets the slide-out panel background color for the target panel.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The color string representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated slide-out panel background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetSlideOutPanelBackground("Red");
+    ///         panel.SetSlideOutPanelBackground("#FF6669");
+    ///         panel.SetSlideOutPanelBackground("#FFFF6669");
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetSlideOutPanelBackground(this RibbonPanel panel, string color)
+    {
+        var convertedColor = (Color)ColorConverter.ConvertFromString(color);
+
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomSlideOutPanelBackground = new SolidColorBrush(convertedColor);
+
+        return panel;
+    }
+
+    /// <summary>
+    ///     Sets the slide-out panel background color for the target panel.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="color">The Color object representing the background color.</param>
+    /// <returns>The Ribbon panel with the updated slide-out panel background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetSlideOutPanelBackground(Colors.Red);
+    ///         panel.SetSlideOutPanelBackground(Color.FromRgb(255, 0, 0));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetSlideOutPanelBackground(this RibbonPanel panel, Color color)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomSlideOutPanelBackground = new SolidColorBrush(color);
+
+        return panel;
+    }
+
+    /// <summary>
+    ///     Sets the slide-out panel background color for the target panel.
+    /// </summary>
+    /// <param name="panel">The target Ribbon panel</param>
+    /// <param name="brush">The Brush representing the background.</param>
+    /// <returns>The Ribbon panel with the updated slide-out panel background.</returns>
+    /// <example>
+    ///     <code>
+    ///         panel.SetSlideOutPanelBackground(Brushes.Red);
+    ///         panel.SetSlideOutPanelBackground(new SolidColorBrush(Colors.Red));
+    ///         panel.SetSlideOutPanelBackground(new LinearGradientBrush(
+    ///         [
+    ///             new GradientStop(Colors.Red, 0),
+    ///             new GradientStop(Colors.Black, 1)
+    ///         ], 45));
+    ///     </code>
+    /// </example>
+    public static RibbonPanel SetSlideOutPanelBackground(this RibbonPanel panel, Brush brush)
+    {
+        var internalPanel = GetInternalPanel(panel);
+        internalPanel.CustomSlideOutPanelBackground = brush;
 
         return panel;
     }
