@@ -7,7 +7,7 @@
     
     protected override void OnBuildInitialized()
     {
-        ReleaseVersion = GitRepository.Tags.SingleOrDefault();
+        ReleaseVersion ??= GitRepository.Tags.SingleOrDefault();
         
         Configurations =
         [
@@ -16,12 +16,13 @@
 
         PackageVersionsMap = new()
         {
-            { "Release R20", "2020.3.1-preview.6.0" },
-            { "Release R21", "2021.3.1-preview.6.0" },
-            { "Release R22", "2022.3.1-preview.6.0" },
-            { "Release R23", "2023.3.1-preview.6.0" },
-            { "Release R24", "2024.1.1-preview.6.0" },
-            { "Release R25", "2025.0.1-preview.6.0" },
+            { "Release R20", "2020.4.0-preview.1.250122" },
+            { "Release R21", "2021.4.0-preview.1.250122" },
+            { "Release R22", "2022.4.0-preview.1.250122" },
+            { "Release R23", "2023.4.0-preview.1.250122" },
+            { "Release R24", "2024.2.0-preview.1.250122" },
+            { "Release R25", "2025.1.0-preview.1.250122" },
+            { "Release R26", "2026.0.0-preview.1.250122" },
         };
     }
 }

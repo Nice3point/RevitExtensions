@@ -1,4 +1,4 @@
-# Release 2025.0.1-preview.6.0
+# Release 2026.0.0-preview.1.250122
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
 
