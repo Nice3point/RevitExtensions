@@ -40,6 +40,8 @@ public static class ElementIdExtensions
     [Pure]
     public static IList<Element> ToElements(this ICollection<ElementId> elementIds, Document document)
     {
+        if (elementIds.Count == 0) return [];
+        
         var elementTypes = new FilteredElementCollector(document, elementIds).WhereElementIsElementType();
         var elementInstances = new FilteredElementCollector(document, elementIds).WhereElementIsNotElementType();
         return elementTypes.UnionWith(elementInstances).ToElements();
@@ -55,6 +57,8 @@ public static class ElementIdExtensions
     [Pure]
     public static IList<T> ToElements<T>(this ICollection<ElementId> elementIds, Document document) where T : Element
     {
+        if (elementIds.Count == 0) return [];
+        
         var elementTypes = new FilteredElementCollector(document, elementIds).WhereElementIsElementType();
         var elementInstances = new FilteredElementCollector(document, elementIds).WhereElementIsNotElementType();
         return Enumerable.Cast<T>(elementTypes.UnionWith(elementInstances)).ToList();
@@ -69,6 +73,8 @@ public static class ElementIdExtensions
     [Pure]
     public static IList<Element> ToOrderedElements(this ICollection<ElementId> elementIds, Document document)
     {
+        if (elementIds.Count == 0) return [];
+        
         var elements = elementIds.ToElements(document);
         var elementDictionary = elements.ToDictionary(element => element.Id);
 
@@ -91,6 +97,8 @@ public static class ElementIdExtensions
     [Pure]
     public static IList<T> ToOrderedElements<T>(this ICollection<ElementId> elementIds, Document document) where T : Element
     {
+        if (elementIds.Count == 0) return [];
+        
         var elements = elementIds.ToElements<T>(document);
         var elementDictionary = elements.ToDictionary(element => element.Id);
 
