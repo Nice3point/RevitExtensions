@@ -4,6 +4,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.FamilyUtils"/> class.
 /// </summary>
+[PublicAPI]
 public static class FamilyUtilsExtensions
 {
     /// <summary>Indicates whether the family can be converted to face host based.</summary>

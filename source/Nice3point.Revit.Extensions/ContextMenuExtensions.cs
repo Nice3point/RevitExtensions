@@ -9,6 +9,7 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Revit Context Menu Extensions
 /// </summary>
+[PublicAPI]
 public static class ContextMenuExtensions
 {
     /// <summary>

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{CE054458-C119-4C03-BF1C-6D267460E960}") = "Build", "Build\Build.csproj", "{6A41E6AD-B176-4658-9474-C6D192CAE9AA}"
+Project("{CE054458-C119-4C03-BF1C-6D267460E960}") = "Build", "build\Build.csproj", "{6A41E6AD-B176-4658-9474-C6D192CAE9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions", "source\Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj", "{C0F3E300-CBBB-4682-93AA-B13636690E20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions.Tests", "tests\Nice3point.Revit.Extensions.Tests\Nice3point.Revit.Extensions.Tests.csproj", "{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9C7A67AC-A5FD-4133-8007-320A840ADBAC}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		Readme.md = Readme.md
 		Changelog.md = Changelog.md
-		Build\Build.Configuration.cs = Build\Build.Configuration.cs
+		build\Build.Configuration.cs = build\Build.Configuration.cs
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions", "Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj", "{C0F3E300-CBBB-4682-93AA-B13636690E20}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nice3point.Revit.Extensions.Tests", "Nice3point.Revit.Extensions.Tests\Nice3point.Revit.Extensions.Tests.csproj", "{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,15 +33,15 @@ Global
 		Release R24|Any CPU = Release R24|Any CPU
 		Release R25|Any CPU = Release R25|Any CPU
 		Release R26|Any CPU = Release R26|Any CPU
-		Debug Tests|Any CPU = Debug Tests|Any CPU
+		Release Tests|Any CPU = Release Tests|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R20|Any CPU.ActiveCfg = Debug|Any CPU
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R21|Any CPU.ActiveCfg = Debug|Any CPU
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R22|Any CPU.ActiveCfg = Debug|Any CPU
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R23|Any CPU.ActiveCfg = Debug|Any CPU
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R24|Any CPU.ActiveCfg = Debug|Any CPU
-								{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R25|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R20|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R21|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R22|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R23|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R24|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R25|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R20|Any CPU.ActiveCfg = Release|Any CPU
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R21|Any CPU.ActiveCfg = Release|Any CPU
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R22|Any CPU.ActiveCfg = Release|Any CPU
@@ -50,19 +50,19 @@ Global
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R25|Any CPU.ActiveCfg = Release|Any CPU
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug R26|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release R26|Any CPU.ActiveCfg = Release|Any CPU
-		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Debug Tests|Any CPU.ActiveCfg = Debug|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.ActiveCfg = Debug R20|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.Build.0 = Debug R20|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.ActiveCfg = Debug R21|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.Build.0 = Debug R21|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.ActiveCfg = Debug R22|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.Build.0 = Debug R22|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R23|Any CPU.ActiveCfg = Debug R23|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R23|Any CPU.Build.0 = Debug R23|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R24|Any CPU.ActiveCfg = Debug R24|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R24|Any CPU.Build.0 = Debug R24|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R25|Any CPU.ActiveCfg = Debug R25|Any CPU
-								{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R25|Any CPU.Build.0 = Debug R25|Any CPU
+		{6A41E6AD-B176-4658-9474-C6D192CAE9AA}.Release Tests|Any CPU.ActiveCfg = Release|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.ActiveCfg = Debug R20|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R20|Any CPU.Build.0 = Debug R20|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.ActiveCfg = Debug R21|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R21|Any CPU.Build.0 = Debug R21|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.ActiveCfg = Debug R22|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R22|Any CPU.Build.0 = Debug R22|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R23|Any CPU.ActiveCfg = Debug R23|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R23|Any CPU.Build.0 = Debug R23|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R24|Any CPU.ActiveCfg = Debug R24|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R24|Any CPU.Build.0 = Debug R24|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R25|Any CPU.ActiveCfg = Debug R25|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R25|Any CPU.Build.0 = Debug R25|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R20|Any CPU.ActiveCfg = Release R20|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R20|Any CPU.Build.0 = Release R20|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R21|Any CPU.ActiveCfg = Release R21|Any CPU
@@ -79,8 +79,8 @@ Global
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug R26|Any CPU.Build.0 = Debug R26|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R26|Any CPU.ActiveCfg = Release R26|Any CPU
 		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release R26|Any CPU.Build.0 = Release R26|Any CPU
-		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug Tests|Any CPU.ActiveCfg = Debug R26|Any CPU
-		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Debug Tests|Any CPU.Build.0 = Debug R26|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release Tests|Any CPU.ActiveCfg = Release R26|Any CPU
+		{C0F3E300-CBBB-4682-93AA-B13636690E20}.Release Tests|Any CPU.Build.0 = Release R26|Any CPU
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug R20|Any CPU.ActiveCfg = Debug|Any CPU
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug R21|Any CPU.ActiveCfg = Debug|Any CPU
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug R22|Any CPU.ActiveCfg = Debug|Any CPU
@@ -95,7 +95,7 @@ Global
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Release R25|Any CPU.ActiveCfg = Release|Any CPU
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug R26|Any CPU.ActiveCfg = Debug|Any CPU
 		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Release R26|Any CPU.ActiveCfg = Release|Any CPU
-		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug Tests|Any CPU.ActiveCfg = Debug|Any CPU
-		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Debug Tests|Any CPU.Build.0 = Debug|Any CPU
+		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Release Tests|Any CPU.ActiveCfg = Release|Any CPU
+		{15C9D243-223D-4B4F-BB2E-AB9BDE4AB4F9}.Release Tests|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

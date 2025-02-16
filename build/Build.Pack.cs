@@ -4,7 +4,7 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 partial class Build
 {
     Target Pack => _ => _
-        .DependsOn(Clean)
+        .DependsOn(Clean, Test)
         .Requires(() => ReleaseVersion)
         .Executes(() =>
         {
@@ -12,7 +12,10 @@ partial class Build
             try
             {
                 var changelog = CreateNugetChangelog();
-                foreach (var configuration in GlobBuildConfigurations())
+                var packConfigurations = GlobBuildConfigurations()
+                    .Where(configuration => configuration.Contains(" R", StringComparison.OrdinalIgnoreCase));
+                
+                foreach (var configuration in packConfigurations)
                 {
                     DotNetPack(settings => settings
                         .SetConfiguration(configuration)

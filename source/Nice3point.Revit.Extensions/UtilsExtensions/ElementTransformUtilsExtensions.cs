@@ -4,7 +4,8 @@ namespace Nice3point.Revit.Extensions;
 /// <summary>
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ElementTransformUtils"/> class.
 /// </summary>
-public static partial class ElementExtensions // partial for backwards compatibility
+[PublicAPI]
+public static class ElementTransformUtilsExtensions
 {
     /// <summary>Determines whether element can be mirrored</summary>
     /// <returns>True if the element can be mirrored</returns>
