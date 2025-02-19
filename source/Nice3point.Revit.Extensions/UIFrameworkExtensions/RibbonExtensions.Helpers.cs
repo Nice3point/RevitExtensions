@@ -32,14 +32,11 @@ public static partial class RibbonExtensions
     private static void AddButtonShortcuts(PushButton button, string representation)
     {
         var internalItem = GetInternalItem(button);
-        if (ShortcutsHelper.Commands.Count == 0)
-        {
-            ShortcutsHelper.LoadCommands();
-        }
+        ShortcutsHelper.LoadCommands(); // Update the command list after button creation
 
         var shortcutItem = ShortcutsHelper.Commands[internalItem.Id];
         if (shortcutItem.ShortcutsRep is not null) return;
-        
+
         shortcutItem.ShortcutsRep = representation;
 
         KeyboardShortcutService.applyShortcutChanges(ShortcutsHelper.Commands);
