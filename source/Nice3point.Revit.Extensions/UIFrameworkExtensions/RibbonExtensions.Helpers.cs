@@ -5,6 +5,12 @@ using UIFramework;
 using UIFrameworkServices;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
+#if REVIT2024_OR_GREATER
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Media.Imaging;
+using RibbonButton = Autodesk.Revit.UI.RibbonButton;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
