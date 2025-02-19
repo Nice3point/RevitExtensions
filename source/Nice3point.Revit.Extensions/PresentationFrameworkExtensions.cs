@@ -7,7 +7,7 @@ namespace Nice3point.Revit.Extensions;
 ///     System PresentationFramework Extensions
 /// </summary>
 [PublicAPI]
-public static class ApplicationExtensions
+public static class PresentationFrameworkExtensions
 {
     /// <summary>
     ///     Opens a window and returns without waiting for the newly opened window to close. Sets the owner of a child window

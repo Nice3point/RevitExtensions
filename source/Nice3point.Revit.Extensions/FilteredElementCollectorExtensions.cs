@@ -36,7 +36,7 @@
 ///     </p>
 /// </remarks>
 [PublicAPI]
-public static class CollectorExtensions
+public static class FilteredElementCollectorExtensions
 {
     /// <summary>
     ///     Searches for elements in a document

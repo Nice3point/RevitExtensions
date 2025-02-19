@@ -6,7 +6,7 @@ namespace Nice3point.Revit.Extensions;
 ///     System.String Extensions
 /// </summary>
 [PublicAPI]
-public static class StringExtensions
+public static class SystemExtensions
 {
     /// <summary>
     ///     Converts an object's type to <typeparamref name="T"/> type

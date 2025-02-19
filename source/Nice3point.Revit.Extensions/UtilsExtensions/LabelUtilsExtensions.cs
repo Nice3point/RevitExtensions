@@ -7,7 +7,7 @@ namespace Nice3point.Revit.Extensions;
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.LabelUtils"/> class.
 /// </summary>
 [PublicAPI]
-public static class LabelExtensions
+public static class LabelUtilsExtensions
 {
     /// <summary>
     ///     Gets the user-visible name for a BuiltInParameter

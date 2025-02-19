@@ -8,7 +8,11 @@ namespace Nice3point.Revit.Extensions;
 ///     Imperial Units Extensions
 /// </summary>
 [PublicAPI]
-public static partial class ImperialExtensions
+public static
+#if NETCOREAPP
+    partial
+#endif
+    class ImperialExtensions
 {
     private const string ImperialExpression =
         """

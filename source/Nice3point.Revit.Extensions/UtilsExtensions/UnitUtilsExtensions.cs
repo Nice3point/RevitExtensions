@@ -5,7 +5,7 @@ namespace Nice3point.Revit.Extensions;
 ///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitUtils"/> class.
 /// </summary>
 [PublicAPI]
-public static class UnitExtensions
+public static class UnitUtilsExtensions
 {
     /// <summary>
     ///     Converts the specified unit to internal Revit format
