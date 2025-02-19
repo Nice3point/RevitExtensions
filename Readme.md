@@ -403,7 +403,7 @@ button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
 
 Starting with Revit 2024 **SetImage** and **SetLargeImage** extensions support Light and Dark UI themes.
 
-When the provided URI contains "light" or "dark" (case-insensitive), the extensions automatically modify the URI to match the current UI theme. 
+When the provided image name contains "light" or "dark" (case-insensitive), the extensions automatically modify the URI to match the current UI theme. 
 For example:
 
 ```csharp
@@ -432,6 +432,18 @@ button.SetLongDescription("Description);
 ```csharp
 pushButton.SetAvailabilityController<CommandController>();
 ```
+
+**AddShortcuts** extension adds keyboard shortcuts to the PushButton.
+
+```csharp
+pushButton.AddShortcuts("RE");
+pushButton.AddShortcuts("RE#NP");
+pushButton.AddShortcuts("RE", "NP");
+pushButton.AddShortcuts(["RE", "NP"]);
+pushButton.AddShortcuts(new List<string>() {"RE", "NP"});
+```
+
+The method design is intended to add only the default shortcut assignment, and does not override the user's settings if they decide to change it.
 
 ### ContextMenu Extensions
 

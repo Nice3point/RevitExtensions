@@ -4,16 +4,28 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 ## New Extensions
 
-**Element Association Extensions**
+**Ribbon Extensions**
 
-- **IsAnalyticalElement:** Determines whether an element is an analytical element.
-- **IsPhysicalElement:** Checks if an element is a physical one.
+- **AddStackPanel:** Adds a vertical stack panel to the specified Ribbon panel.
+- **AddPushButton:** Adds a PushButton to the vertical stack panel.
+- **AddPullDownButton:** Adds a PullDownButton to the vertical stack panel.
+- **AddSplitButton:** Adds a SplitButton to the vertical stack panel.
+- **AddComboBox:** Adds a ComboBox to the vertical stack panel.
+- **AddTextBox:** Adds a TextBox to the vertical stack panel.
+- **AddLabel:** Adds a text label to the vertical stack panel.
 
-**Element Worksharing Extensions**
+![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
 
-- **GetCheckoutStatus:** Retrieves the ownership status of an element, with an optional parameter to return the owner's name.
-- **GetWorksharingTooltipInfo:** Provides worksharing information about an element for in-canvas tooltips.
-- **GetModelUpdatesStatus:** Gets the status of an element in the central model.
+- **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
+- **SetBackground:** Sets the RibbonPanel background color.
+- **SetTitleBarBackground:** Sets the RibbonPanel title bar background color.
+- **SetSlideOutPanelBackground:** Sets the slide-out panel background color for the target RibbonPanel.
+- **SetToolTip:** Sets the tooltip text for the PushButton.
+- **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
+- **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage and other tabs.
+- **SetImage:** Support for Light and Dark UI themes.
+- **SetLargeImage:** Support for Light and Dark UI themes.
+- **AddShortcuts:** Adds keyboard shortcuts to the RibbonButton.
 
 **ElementId Extensions**
 
@@ -29,17 +41,6 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **MoveElements:** Moves elements according to a specified transformation.
 - **RotateElements:** Rotates elements around a given axis by a specified angle.
 - **CopyElements:** Copies elements between views or within the same document, with options for translation and transformation.
-
-**Document Extensions**
-
-- **GetProfileSymbols:** Returns profile family symbols in the document.
-- **RelinquishOwnership:** Allows relinquishment of ownership based on specified options.
-
-**Document Managers Extensions**
-
-- **GetTemporaryGraphicsManager:** Fetches a reference to the document’s temporary graphics manager.
-- **GetAnalyticalToPhysicalAssociationManager:** Retrieves the manager for analytical-to-physical element associations.
-- **GetLightGroupManager:** Creates or retrieves the light group manager for the document.
 
 **Geometry Extensions**
 
@@ -65,6 +66,28 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **IsUniqueGlobalParameterName:** Checks if a global parameter name is unique.
 - **IsValidGlobalParameter:** Validates if an ElementId is a global parameter.
 - **AreGlobalParametersAllowed:** Checks if global parameters are permitted in the document.
+
+**Element Association Extensions**
+
+- **IsAnalyticalElement:** Determines whether an element is an analytical element.
+- **IsPhysicalElement:** Checks if an element is a physical one.
+
+**Element Worksharing Extensions**
+
+- **GetCheckoutStatus:** Retrieves the ownership status of an element, with an optional parameter to return the owner's name.
+- **GetWorksharingTooltipInfo:** Provides worksharing information about an element for in-canvas tooltips.
+- **GetModelUpdatesStatus:** Gets the status of an element in the central model.
+
+**Document Extensions**
+
+- **GetProfileSymbols:** Returns profile family symbols in the document.
+- **RelinquishOwnership:** Allows relinquishment of ownership based on specified options.
+
+**Document Managers Extensions**
+
+- **GetTemporaryGraphicsManager:** Fetches a reference to the document’s temporary graphics manager.
+- **GetAnalyticalToPhysicalAssociationManager:** Retrieves the manager for analytical-to-physical element associations.
+- **GetLightGroupManager:** Creates or retrieves the light group manager for the document.
 
 **ForgeTypeId Extensions**
 
@@ -137,27 +160,6 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 - **CreateSpatialFieldManager:** Creates a SpatialField manager for a given view.
 - **GetSpatialFieldManager:** Retrieves the SpatialField manager for a specific view.
-
-**Ribbon Extensions**
-
-- **AddStackPanel:** Adds a vertical stack panel to the specified Ribbon panel.
-- **AddPushButton:** Adds a PushButton to the vertical stack panel.
-- **AddPullDownButton:** Adds a PullDownButton to the vertical stack panel.
-- **AddSplitButton:** Adds a SplitButton to the vertical stack panel.
-- **AddComboBox:** Adds a ComboBox to the vertical stack panel.
-- **AddTextBox:** Adds a TextBox to the vertical stack panel.
-- **AddLabel:** Adds a text label to the vertical stack panel.
-- **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
-- **SetBackground:** Sets the RibbonPanel background color.
-- **SetTitleBarBackground:** Sets the RibbonPanel title bar background color.
-- **SetSlideOutPanelBackground:** Sets the slide-out panel background color for the target RibbonPanel.
-- **SetToolTip:** Sets the tooltip text for the PushButton.
-- **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
-- **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage and other tabs.
-- **SetImage** support for Light and Dark UI themes.
-- **SetLargeImage** support for Light and Dark UI themes.
-
-![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
 
 ## Breaking changes
 
