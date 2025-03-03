@@ -1155,19 +1155,19 @@ family.ConvertToFaceHostBased();
 **GetBottomFaces** extension returns the bottom faces for the host object.
 
 ```csharp
-floor.Cast<HostObject>().GetBottomFaces();
+floor.GetBottomFaces();
 ```
 
 **GetTopFaces** extension returns the top faces for the host object.
 
 ```csharp
-floor.Cast<HostObject>().GetTopFaces();
+floor.GetTopFaces();
 ```
 
 **GetSideFaces** extension returns the major side faces for the host object.
 
 ```csharp
-wall.Cast<HostObject>().GetSideFaces(ShellLayerType.Interior);
+wall.GetSideFaces(ShellLayerType.Interior);
 ```
 
 ## Plumbing extensions
