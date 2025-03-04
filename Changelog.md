@@ -14,7 +14,7 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **AddTextBox:** Adds a TextBox to the vertical stack panel.
 - **AddLabel:** Adds a text label to the vertical stack panel.
 
-![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
+    ![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
 
 - **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
 - **SetBackground:** Sets the RibbonPanel background color.
@@ -71,6 +71,10 @@ This update focuses on increased utility class coverage, new extensions for glob
 
 - **IsAnalyticalElement:** Determines whether an element is an analytical element.
 - **IsPhysicalElement:** Checks if an element is a physical one.
+
+**Element Validation Extensions**
+
+- **CanDeleteElement:** Indicates if an element can be deleted.
 
 **Element Worksharing Extensions**
 

@@ -45,6 +45,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
   * [Element extensions](#element-extensions)
     * [Element transform extensions](#element-transform-extensions)
     * [Element association extensions](#element-association-extensions)
+    * [Element validation extensions](#element-validation-extensions)
     * [Element worksharing extensions](#element-worksharing-extensions)
     * [Element schema extensions](#element-schema-extensions)
   * [ElementId extensions](#elementid-extensions)
@@ -72,7 +73,6 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
     * [View managers extensions](#view-managers-extensions)
   * [Imperial Extensions](#imperial-extensions)
   * [System Extensions](#system-extensions)
-<!-- TOC -->
 
 ## Element extensions
 
@@ -138,6 +138,14 @@ var isAnalytical = element.IsAnalyticalElement();
 
 ```csharp
 var isPhysical = element.IsPhysicalElement();
+```
+
+### Element validation extensions
+ 
+**CanDeleteElement** extension indicates if an element can be deleted.
+
+```csharp
+var canDelete = element.CanDeleteElement();
 ```
 
 ### Element worksharing extensions
