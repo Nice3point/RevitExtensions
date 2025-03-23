@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
+
     <PropertyGroup>
         <UseWpf>true</UseWpf>
         <Nullable>enable</Nullable>
@@ -11,7 +11,7 @@
         <Configurations>Debug R20;Debug R21;Debug R22;Debug R23;Debug R24;Debug R25;Debug R26</Configurations>
         <Configurations>$(Configurations);Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Release R26</Configurations>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <PackageType>Dependency</PackageType>
         <PackageId>Nice3point.Revit.Extensions</PackageId>
@@ -63,23 +63,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="3.0.0-preview.2.1" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*-*" PrivateAssets="all"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="Nice3point.Revit.Build.Tasks" Version="3.0.0"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*" PrivateAssets="all"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
         <PackageReference Include="PolySharp" Version="1.15.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="..\..\.nuget\PackageIcon.png" Link="Nuget\PackageIcon.png" PackagePath="images\" Pack="true" />
-        <None Include="..\..\License.md" Link="Nuget\License.md" PackagePath="" Pack="true" />
-        <None Include="..\..\Readme.md" Link="Nuget\Readme.md" PackagePath="" Pack="true" />
+        <None Include="..\..\.nuget\PackageIcon.png" PackagePath="images\" Pack="true" Visible="false"/>
+        <None Include="..\..\License.md" PackagePath="" Pack="true" Visible="false"/>
+        <None Include="..\..\Readme.md" PackagePath="" Pack="true" Visible="false"/>
     </ItemGroup>
 
 </Project>
