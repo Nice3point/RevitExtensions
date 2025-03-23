@@ -11,9 +11,9 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge)](https://github.com/Nice3point/RevitExtensions/commits/develop)
 
-Extensions bring a fresh, intuitive way to interact with the Revit API. By adding extension methods, they make your code more readable, maintainable, and concise.
+Extensions make working with the Revit API much easier and more intuitive. They add helpful methods that make your code cleaner, easier to understand, and simpler to maintain. Generics, nullable, everything here.
 
-Forget about complex utility methods — extensions provide a fluent syntax that lets you focus on what matters:
+Instead of writing complex utility functions, you can use these extensions to write code in a natural, fluent way that focuses on what you actually want to do:
 
 ```csharp
 new ElementId(123469)
@@ -25,15 +25,13 @@ new ElementId(123469)
     .Round()
 ```
 
-Seamless integration with modern .NET features like `Nullable` and `Generics` gives you greater flexibility and control over your code.
-
 ## Installation
 
-You can install Extensions as a [nuget package](https://www.nuget.org/packages/Nice3point.Revit.Extensions).
+You can install the Extensions as a [NuGet package](https://www.nuget.org/packages/Nice3point.Revit.Extensions).
 
-Packages are compiled for a specific version of Revit, to support different versions of libraries in one project, use RevitVersion property.
+The packages are compiled for specific versions of Revit. To support different versions of libraries in one project, use the `RevitVersion` property:
 
-```text
+```xml
 <PackageReference Include="Nice3point.Revit.Extensions" Version="$(RevitVersion).*"/>
 ```
 
@@ -114,16 +112,10 @@ element.Move(new XYZ(1, 1, 0));
 element.Rotate(axis, angle);
 ```
 
-**CanBeMirrored** extension determines whether element can be mirrored.
+**CanBeMirrored** extension determines whether an element can be mirrored.
 
 ```csharp
-var canRotate = element.CanBeMirrored();
-```
-
-**CanBeMirrored** extension determines whether element can be mirrored.
-
-```csharp
-var canRotate = element.CanBeMirrored();
+var canMirror = element.CanBeMirrored();
 ```
 
 ### Element association extensions
@@ -142,7 +134,7 @@ var isPhysical = element.IsPhysicalElement();
 
 ### Element validation extensions
  
-**CanDeleteElement** extension indicates if an element can be deleted.
+**CanDeleteElement** extension indicates whether an element can be deleted.
 
 ```csharp
 var canDelete = element.CanDeleteElement();
@@ -202,23 +194,23 @@ Wall wall = wallId.ToElement<Wall>(document);
 **ToElements** extension retrieves a collection of elements associated with the specified ElementIds.
 
 ```csharp
-IList<Element> element = wallIds.ToElements(document);
-IList<Wall> element = wallIds.ToElements<Wall>(document);
+IList<Element> elements = wallIds.ToElements(document);
+IList<Wall> walls = wallIds.ToElements<Wall>(document);
 ```
 
-To improve the database access performance, it is not guaranteed that the elements will be retrieved in the original order,
-if you need the same order, use the `ToOrderedElements` extension.
+To improve database access performance, it is not guaranteed that the elements will be retrieved in the original order.
+If you need the same order, use the `ToOrderedElements` extension.
 
 **ToOrderedElements** extension retrieves the elements associated with the specified ElementIds in their original order.
 
 ```csharp
-IList<Element> element = wallIds.ToOrderedElements(document);
-IList<Wall> element = wallIds.ToOrderedElements<Wall>(document);
+IList<Element> elements = wallIds.ToOrderedElements(document);
+IList<Wall> walls = wallIds.ToOrderedElements<Wall>(document);
 ```
 
 The elements will be retrieved in the same order as the original ElementIds collection.
 
-**AreEquals** extension checks if an ID matches BuiltInСategory or BuiltInParameter.
+**AreEquals** extension checks if an ID matches BuiltInCategory or BuiltInParameter.
 
 ```csharp
 categoryId.AreEquals(BuiltInCategory.OST_Walls);
@@ -552,7 +544,7 @@ var distance = line1.Distance(line2);
 
 ```csharp
 var point = new XYZ(1,1,1);
-var isContains = boundingBox.Contains(point);
+var contains = boundingBox.Contains(point);
 ```
 
 **Contains** extension determines whether the specified point is contained within this BoundingBox.
@@ -561,7 +553,7 @@ A point coinciding with the box border will be considered outside.
 
 ```csharp
 var point = new XYZ(1,1,1);
-var isContains = boundingBox.Contains(point, strict:true);
+var contains = boundingBox.Contains(point, strict:true);
 ```
 
 **Contains** extension determines whether one BoundingBoxXYZ contains another BoundingBoxXYZ.
@@ -1180,19 +1172,19 @@ wall.GetSideFaces(ShellLayerType.Interior);
 
 ## Plumbing extensions
 
-**ConnectPipePlaceholdersAtElbow** extension connects placeholders that looks like elbow connection.
+**ConnectPipePlaceholdersAtElbow** extension connects placeholders that look like an elbow connection.
 
 ```csharp
 var isConnected = connector1.ConnectPipePlaceholdersAtElbow(connector2);
 ```
 
-**ConnectPipePlaceholdersAtTee** extension connects three placeholders that looks like Tee connection.
+**ConnectPipePlaceholdersAtTee** extension connects three placeholders that look like a Tee connection.
 
 ```csharp
 var isConnected = connector1.ConnectPipePlaceholdersAtTee(connector2, connector3);
 ```
 
-**ConnectPipePlaceholdersAtCross** extension connects placeholders that looks like Cross connection.
+**ConnectPipePlaceholdersAtCross** extension connects placeholders that look like a Cross connection.
 
 ```csharp
 var isConnected = connector1.ConnectPipePlaceholdersAtCross(connector2, connector3, connector4);
