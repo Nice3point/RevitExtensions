@@ -762,7 +762,7 @@ Filter criteria are not applied to the method.
 
 ```csharp
 var elements = document.GetElements().WhereElementIsViewIndependent().ToElements();
-var elements = document.GetElements(elementIds).WhereElementIsViewIndependent.ToElements();
+var elements = document.GetElements(elementIds).WhereElementIsViewIndependent().ToElements();
 var elements = document.GetElements(viewId).ToElements();
 ```
 
