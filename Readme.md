@@ -317,74 +317,6 @@ var comboBox = panel.AddComboBox();
 var textBox = panel.AddTextBox();
 ```
 
-**SetBackground** extension sets the panel background color.
-
-```csharp
-panel.SetBackground("Red");
-panel.SetBackground("#FF0000");
-panel.SetBackground("#AAFF0000");
-panel.SetBackground(Colors.Red);
-panel.SetBackground(Brushes.Red);
-panel.SetBackground(new LinearGradientBrush(
-[
-    new GradientStop(Colors.White, 0),
-    new GradientStop(Colors.Red, 1)
-], 45));
-```
-
-**SetTitleBarBackground** extension sets the panel title bar background color.
-
-```csharp
-panel.SetTitleBarBackground("Blue");
-panel.SetTitleBarBackground("#0000FF");
-panel.SetTitleBarBackground("#AA0000FF");
-panel.SetTitleBarBackground(Colors.Blue);
-panel.SetTitleBarBackground(Brushes.Blue);
-panel.SetTitleBarBackground(new LinearGradientBrush(
-[
-    new GradientStop(Colors.White, 0),
-    new GradientStop(Colors.Blue, 1)
-], 45));
-```
-
-**SetSlideOutPanelBackground** extension sets the slide-out panel background color for the target panel.
-
-```csharp
-panel.SetSlideOutBackground("Green");
-panel.SetSlideOutBackground("#00FF00");
-panel.SetSlideOutBackground("#AA00FF00");
-panel.SetSlideOutBackground(Colors.Green);
-panel.SetSlideOutBackground(Brushes.Green);
-panel.SetSlideOutBackground(new LinearGradientBrush(
-[
-    new GradientStop(Colors.White, 0),
-    new GradientStop(Colors.Green, 1)
-], 45));
-```
-
-**AddStackPanel** extension adds a vertical stack panel to the Ribbon panel.
-
-```csharp
-var stackPanel = panel.AddStackPanel();
-```
-
-By default, the StackPanel accommodates one to three elements vertically. 
-If the added items exceed the maximum threshold, they will be automatically added to a new column.
-
-These 5 items will create 2 vertical panels, one will contain 3 items and the other 2 items:
-
-```csharp
-var stackPanel = panel.AddStackPanel();
-stackPanel.AddPushButton<StartupCommand>("Execute");
-stackPanel.AddPullDownButton("Execute");
-stackPanel.AddSplitButton("Execute");
-stackPanel.AddLabel("Items:");
-stackPanel.AddComboBox();
-stackPanel.AddTextBox();
-```
-
-![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
-
 **SetImage** extension adds an image to the RibbonButton.
 
 ```csharp
@@ -443,7 +375,75 @@ pushButton.AddShortcuts(["RE", "NP"]);
 pushButton.AddShortcuts(new List<string>() {"RE", "NP"});
 ```
 
+**AddStackPanel** extension adds a vertical stack panel to the Ribbon panel.
+
+```csharp
+var stackPanel = panel.AddStackPanel();
+```
+
+By default, the StackPanel accommodates one to three elements vertically.
+If the added items exceed the maximum threshold, they will be automatically added to a new column.
+
+These 5 items will create 2 vertical panels, one will contain 3 items and the other 2 items:
+
+```csharp
+var stackPanel = panel.AddStackPanel();
+stackPanel.AddPushButton<StartupCommand>("Execute");
+stackPanel.AddPullDownButton("Execute");
+stackPanel.AddSplitButton("Execute");
+stackPanel.AddLabel("Items:");
+stackPanel.AddComboBox();
+stackPanel.AddTextBox();
+```
+
+![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
+
 The method design is intended to add only the default shortcut assignment, and does not override the user's settings if they decide to change it.
+
+**SetBackground** extension sets the panel background color.
+
+```csharp
+panel.SetBackground("Red");
+panel.SetBackground("#FF0000");
+panel.SetBackground("#AAFF0000");
+panel.SetBackground(Colors.Red);
+panel.SetBackground(Brushes.Red);
+panel.SetBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Red, 1)
+], 45));
+```
+
+**SetTitleBarBackground** extension sets the panel title bar background color.
+
+```csharp
+panel.SetTitleBarBackground("Blue");
+panel.SetTitleBarBackground("#0000FF");
+panel.SetTitleBarBackground("#AA0000FF");
+panel.SetTitleBarBackground(Colors.Blue);
+panel.SetTitleBarBackground(Brushes.Blue);
+panel.SetTitleBarBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Blue, 1)
+], 45));
+```
+
+**SetSlideOutPanelBackground** extension sets the slide-out panel background color for the target panel.
+
+```csharp
+panel.SetSlideOutBackground("Green");
+panel.SetSlideOutBackground("#00FF00");
+panel.SetSlideOutBackground("#AA00FF00");
+panel.SetSlideOutBackground(Colors.Green);
+panel.SetSlideOutBackground(Brushes.Green);
+panel.SetSlideOutBackground(new LinearGradientBrush(
+[
+    new GradientStop(Colors.White, 0),
+    new GradientStop(Colors.Green, 1)
+], 45));
+```
 
 ### ContextMenu Extensions
 
