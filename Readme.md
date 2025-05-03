@@ -375,6 +375,8 @@ pushButton.AddShortcuts(["RE", "NP"]);
 pushButton.AddShortcuts(new List<string>() {"RE", "NP"});
 ```
 
+The method design is intended to add only the default shortcut assignment, and does not override the user's settings if they decide to change it.
+
 **AddStackPanel** extension adds a vertical stack panel to the Ribbon panel.
 
 ```csharp
@@ -397,8 +399,6 @@ stackPanel.AddTextBox();
 ```
 
 ![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
-
-The method design is intended to add only the default shortcut assignment, and does not override the user's settings if they decide to change it.
 
 **SetBackground** extension sets the panel background color.
 
