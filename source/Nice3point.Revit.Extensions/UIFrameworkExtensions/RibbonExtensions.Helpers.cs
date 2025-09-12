@@ -132,11 +132,16 @@ public static partial class RibbonExtensions
     }
 
     /// <summary>
-    ///     Converts a <see cref="System.Drawing.Bitmap"/> to a WPF <see cref="ImageSource"/> suitable for use in Revit Ribbon UI (e.g., button icons).
+    ///     Converts a <see cref="System.Drawing.Bitmap"/> into a WPF-compatible <see cref="BitmapSource"/>.
     /// </summary>
-    /// <param name="bitmap">The GDI+ bitmap to convert.</param>
-    /// <returns>An <see cref="ImageSource"/> created from the specified bitmap.</returns>
-    private static ImageSource ConvertToImageSource(System.Drawing.Bitmap bitmap)
+    /// <param name="bitmap">The GDI+ <see cref="System.Drawing.Bitmap"/> to convert.</param>
+    /// <returns>A <see cref="BitmapSource"/> that can be assigned to WPF image properties (e.g., Ribbon button images).</returns>
+    /// <remarks>
+    ///     The created <see cref="BitmapSource"/> holds a handle (HBITMAP) allocated by GDI. If the source bitmap is created at runtime
+    ///     and not needed afterwards, ensure it is properly disposed. The unmanaged HBITMAP returned by <c>GetHbitmap()</c> is released
+    ///     by the WPF imaging subsystem when the <see cref="BitmapSource"/> is garbage collected.
+    /// </remarks>
+    private static BitmapSource ConvertToImageSource(System.Drawing.Bitmap bitmap)
     {
         return Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
     }
