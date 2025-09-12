@@ -569,6 +569,29 @@ public static partial class RibbonExtensions
     }
 
     /// <summary>
+    ///     Sets a 16x16 pixel, 96dpi image for the given Ribbon button using an in-memory <see cref="System.Drawing.Bitmap"/>.
+    /// </summary>
+    /// <param name="button">The Ribbon button to which the image will be applied.</param>
+    /// <param name="bitmap">The bitmap representing the icon (ideally 16x16 at 96 dpi; larger images will be scaled by Revit/WPF).</param>
+    /// <returns>The Ribbon button with the applied image.</returns>
+    /// <remarks>
+    ///     Use this overload when the icon is produced at runtime or loaded from a stream/embedded resource, instead of referencing it via a pack or file URI. The bitmap is converted internally to a WPF ImageSource.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// using (var bmp = new System.Drawing.Bitmap(resourceStream))
+    /// {
+    ///     pushButton.SetImage(bmp);
+    /// }
+    /// </code>
+    /// </example>
+    public static RibbonButton SetImage(this RibbonButton button, System.Drawing.Bitmap bitmap)
+    {
+        button.Image = ConvertToImageSource(bitmap);
+        return button;
+    }
+
+    /// <summary>
     ///     Sets a 32x32 pixel, 96dpi image from the specified URI source to the given Ribbon button.
     /// </summary>
     /// <param name="button">The Ribbon button to which the large image will be added.</param>
@@ -589,6 +612,29 @@ public static partial class RibbonExtensions
 #endif
 
         button.LargeImage = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
+        return button;
+    }
+
+    /// <summary>
+    ///     Sets a 32x32 pixel, 96dpi image for the given Ribbon button using an in-memory <see cref="System.Drawing.Bitmap"/>.
+    /// </summary>
+    /// <param name="button">The Ribbon button to which the large image will be applied.</param>
+    /// <param name="bitmap">The bitmap representing the icon (ideally 32x32 at 96 dpi; larger images will be scaled by Revit/WPF).</param>
+    /// <returns>The Ribbon button with the applied large image.</returns>
+    /// <remarks>
+    ///     Use this overload when the large icon is produced at runtime or loaded from a stream/embedded resource, instead of referencing it via a pack or file URI. The bitmap is converted internally to a WPF ImageSource in a memory-efficient way.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// using (var bmp = new System.Drawing.Bitmap(resourceStream))
+    /// {
+    ///     pushButton.SetLargeImage(bmp);
+    /// }
+    /// </code>
+    /// </example>
+    public static RibbonButton SetLargeImage(this RibbonButton button, System.Drawing.Bitmap bitmap)
+    {
+        button.LargeImage = ConvertToImageSource(bitmap);
         return button;
     }
 
