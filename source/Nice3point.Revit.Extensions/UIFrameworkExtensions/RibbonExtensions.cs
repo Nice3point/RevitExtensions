@@ -681,4 +681,25 @@ public static partial class RibbonExtensions
         button.LongDescription = description;
         return button;
     }
+    
+    /// <summary>
+    ///     Sets contextual help for the specified <see cref="RibbonItem"/> using a URL.
+    /// </summary>
+    /// <param name="button">The <see cref="RibbonItem"/> to which contextual help will be assigned.</param>
+    /// <param name="helpPath">A URL pointing to online help content (e.g., documentation, knowledge base, or support page).</param>
+    /// <returns>The same <see cref="RibbonItem"/> instance with contextual help configured.</returns>
+    /// <remarks>
+    ///     Contextual help is displayed when the user clicks the help button (question mark) in the extended tooltip.
+    ///     Only URL-based help is supported by this helper method. If you need to use other help types (e.g., chm / context id), create a <see cref="ContextualHelp"/> instance manually and call Revit's native SetContextualHelp method.
+    /// </remarks>
+    /// <example>
+    ///     <code>
+    ///         button.SetContextualHelp("https://mydomain.com/docs/command-help");
+    ///     </code>
+    /// </example>
+    public static RibbonItem SetContextualHelp(this RibbonItem button, string helpPath)
+    {
+        button.SetContextualHelp(new ContextualHelp(ContextualHelpType.Url, helpPath));
+        return button;
+    }
 }
