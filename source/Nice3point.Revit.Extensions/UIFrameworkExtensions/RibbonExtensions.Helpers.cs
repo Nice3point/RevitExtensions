@@ -1,6 +1,10 @@
-﻿using System.Reflection;
-using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.UI;
 using Autodesk.Windows;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using UIFramework;
 using UIFrameworkServices;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
@@ -126,6 +130,16 @@ public static partial class RibbonExtensions
     {
         var internalField = panel.GetType().GetField("m_RibbonPanel", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
         return (Autodesk.Windows.RibbonPanel)internalField.GetValue(panel)!;
+    }
+
+    /// <summary>
+    ///     Converts a <see cref="System.Drawing.Bitmap"/> to a WPF <see cref="ImageSource"/> suitable for use in Revit Ribbon UI (e.g., button icons).
+    /// </summary>
+    /// <param name="bitmap">The GDI+ bitmap to convert.</param>
+    /// <returns>An <see cref="ImageSource"/> created from the specified bitmap.</returns>
+    private static ImageSource ConvertToImageSource(System.Drawing.Bitmap bitmap)
+    {
+        return Imaging.CreateBitmapSourceFromHBitmap(bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
     }
 
 #if REVIT2024_OR_GREATER
