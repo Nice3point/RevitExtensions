@@ -1,5 +1,6 @@
-<Solution>
+﻿<Solution>
   <Configurations>
+    <BuildType Name="Debug R19" />
     <BuildType Name="Debug R20" />
     <BuildType Name="Debug R21" />
     <BuildType Name="Debug R22" />
@@ -7,6 +8,7 @@
     <BuildType Name="Debug R24" />
     <BuildType Name="Debug R25" />
     <BuildType Name="Debug R26" />
+    <BuildType Name="Release R19" />
     <BuildType Name="Release R20" />
     <BuildType Name="Release R21" />
     <BuildType Name="Release R22" />
@@ -17,7 +19,7 @@
     <BuildType Name="Release Tests" />
   </Configurations>
   <Folder Name="/Automation/">
-    <Project Path="build/Build.csproj" Type="C#">
+    <Project Path="build/Build.csproj">
       <BuildType Project="Debug" />
     </Project>
   </Folder>
@@ -28,6 +30,7 @@
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="tests/Nice3point.Revit.Extensions.Tests/Nice3point.Revit.Extensions.Tests.csproj">
+      <BuildType Solution="Debug R19|*" Project="Debug" />
       <BuildType Solution="Debug R20|*" Project="Debug" />
       <BuildType Solution="Debug R21|*" Project="Debug" />
       <BuildType Solution="Debug R22|*" Project="Debug" />
@@ -43,6 +46,7 @@
       <BuildType Solution="Release R25|*" Project="Release" />
       <BuildType Solution="Release R26|*" Project="Release" />
       <BuildType Solution="Release Tests|*" Project="Release" />
+      <Build Solution="Debug R19|*" Project="false" />
       <Build Solution="Debug R20|*" Project="false" />
       <Build Solution="Debug R21|*" Project="false" />
       <Build Solution="Debug R22|*" Project="false" />
