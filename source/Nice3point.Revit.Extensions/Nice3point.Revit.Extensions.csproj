@@ -17,9 +17,10 @@
         <PackageId>Nice3point.Revit.Extensions</PackageId>
         <Authors>Nice3point</Authors>
         <Description>Extensions for Revit plugin development</Description>
-        <PackageTags>revit;extensions</PackageTags>
+        <PackageTags>autodesk;revit;extensions</PackageTags>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Nice3point/RevitExtensions</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/Nice3point/RevitExtensions</PackageProjectUrl>
         <PackageIcon>images\PackageIcon.png</PackageIcon>
         <PackageLicenseFile>License.md</PackageLicenseFile>
         <PackageReadmeFile>Readme.md</PackageReadmeFile>
@@ -31,11 +32,15 @@
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     </PropertyGroup>
-	<PropertyGroup Condition="$(Configuration.Contains('R19'))">
-		<RevitVersion>2019</RevitVersion>
-		<TargetFramework>net47</TargetFramework>
-	</PropertyGroup>
+
+    <PropertyGroup Condition="$(Configuration.Contains('R19'))">
+        <RevitVersion>2019</RevitVersion>
+        <TargetFramework>net47</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
         <RevitVersion>2020</RevitVersion>
         <TargetFramework>net47</TargetFramework>
