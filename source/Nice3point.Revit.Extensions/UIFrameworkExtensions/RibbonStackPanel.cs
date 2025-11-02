@@ -80,14 +80,14 @@ internal sealed class RibbonStackPanel : IRibbonStackPanel
         var pushButtonData = new TextBoxData(internalName);
         return (TextBox)AddStakedItem(pushButtonData);
     }
-    
+
     public void AddLabel(string labelText)
     {
         var ribbonLabel = new RibbonLabel
         {
             Text = labelText
         };
-        
+
         AddStakedItem(ribbonLabel);
     }
 
@@ -120,7 +120,7 @@ internal sealed class RibbonStackPanel : IRibbonStackPanel
 
         return (RibbonItem)item;
     }
-    
+
     private void AddStakedItem(Autodesk.Windows.RibbonItem itemData)
     {
         if (_currentPanel.Items.Count >= MaxStackPanelItemsCount)
@@ -134,7 +134,7 @@ internal sealed class RibbonStackPanel : IRibbonStackPanel
         }
 
         _currentPanel.Items.Add(itemData);
-        
+
         if (_currentPanel.Items.Count < 2)
         {
             _rawPanel.Source.Items.Add(_currentPanel);

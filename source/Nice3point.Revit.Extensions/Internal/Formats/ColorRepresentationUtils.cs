@@ -239,7 +239,7 @@ internal static class ColorRepresentationUtils
                + $"{color.G.ToString(hexFormat, CultureInfo.InvariantCulture)}"
                + $"{color.B.ToString(hexFormat, CultureInfo.InvariantCulture)}";
     }
-    
+
     [Pure]
     private static Color ConvertHexStringToColor(string hex)
     {

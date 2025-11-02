@@ -9,15 +9,18 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class LightGroupManagerExtensions
 {
-    /// <summary>Creates a light group manager object from the given document</summary>
     /// <param name="document">The document the manager is from</param>
-    /// <returns>The newly created Light group manager object</returns>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///    The document is not valid because it is not a project (rvt) document
-    /// </exception>
-    [Pure]
-    public static LightGroupManager GetLightGroupManager(this Document document)
+    extension(Document document)
     {
-        return LightGroupManager.GetLightGroupManager(document);
+        /// <summary>Creates a light group manager object from the given document</summary>
+        /// <returns>The newly created Light group manager object</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+        ///    The document is not valid because it is not a project (rvt) document
+        /// </exception>
+        [Pure]
+        public LightGroupManager GetLightGroupManager()
+        {
+            return LightGroupManager.GetLightGroupManager(document);
+        }
     }
 }

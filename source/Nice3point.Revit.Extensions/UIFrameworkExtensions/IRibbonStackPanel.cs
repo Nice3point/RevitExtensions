@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace Autodesk.Revit.UI;
 
 /// <summary>
@@ -42,7 +43,7 @@ public interface IRibbonStackPanel
     /// <param name="buttonText">The label text for the SplitButton.</param>
     /// <returns>The added SplitButton.</returns>
     SplitButton AddSplitButton(string buttonText);
-    
+
     /// <summary>
     ///     Adds a SplitButton to the vertical stack panel with a unique internal name.
     /// </summary>
@@ -53,13 +54,13 @@ public interface IRibbonStackPanel
     ///     Thrown if a SplitButton with the same internalName already exists in the panel.
     /// </exception>
     SplitButton AddSplitButton(string buttonText, string internalName);
-    
+
     /// <summary>
     ///     Adds a ComboBox to the vertical stack panel.
     /// </summary>
     /// <returns>The added ComboBox.</returns>
     ComboBox AddComboBox();
-    
+
     /// <summary>
     ///     Adds a ComboBox to the vertical stack panel with a unique internal name.
     /// </summary>
@@ -69,13 +70,13 @@ public interface IRibbonStackPanel
     ///     Thrown if a ComboBox with the same internalName already exists in the panel.
     /// </exception>
     ComboBox AddComboBox(string internalName);
-    
+
     /// <summary>
     ///     Adds a TextBox to the vertical stack panel.
     /// </summary>
     /// <returns>The added TextBox.</returns>
     TextBox AddTextBox();
-    
+
     /// <summary>
     ///     Adds a TextBox to the vertical stack panel with a unique internal name.
     /// </summary>
@@ -85,7 +86,7 @@ public interface IRibbonStackPanel
     ///     Thrown if a TextBox with the same internalName already exists in the panel.
     /// </exception>
     TextBox AddTextBox(string internalName);
-    
+
     /// <summary>
     ///     Adds a label to the vertical stack panel.
     /// </summary>

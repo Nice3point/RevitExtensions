@@ -11,7 +11,8 @@
 [![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
 [![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge)](https://github.com/Nice3point/RevitExtensions/commits/develop)
 
-Extensions make working with the Revit API much easier and more intuitive. They add helpful methods that make your code cleaner, easier to understand, and simpler to maintain. Generics, nullable, everything here.
+Extensions make working with the Revit API much easier and more intuitive.
+They add helpful methods that make your code cleaner, easier to understand, and simpler to maintain. Generics, nullable, everything here.
 
 Instead of writing complex utility functions, you can use these extensions to write code in a natural, fluent way that focuses on what you actually want to do:
 
@@ -40,37 +41,38 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 ## Table of contents
 
 <!-- TOC -->
-  * [Element extensions](#element-extensions)
+
+* [Element extensions](#element-extensions)
     * [Element transform extensions](#element-transform-extensions)
     * [Element association extensions](#element-association-extensions)
     * [Element validation extensions](#element-validation-extensions)
     * [Element worksharing extensions](#element-worksharing-extensions)
     * [Element schema extensions](#element-schema-extensions)
-  * [ElementId extensions](#elementid-extensions)
+* [ElementId extensions](#elementid-extensions)
     * [ElementId transform extensions](#elementid-transform-extensions)
-  * [Application extensions](#application-extensions)
+* [Application extensions](#application-extensions)
     * [Ribbon Extensions](#ribbon-extensions)
     * [ContextMenu Extensions](#contextmenu-extensions)
-  * [Document extensions](#document-extensions)
+* [Document extensions](#document-extensions)
     * [Document managers extensions](#document-managers-extensions)
-  * [Geometry extensions](#geometry-extensions)
+* [Geometry extensions](#geometry-extensions)
     * [Element geometry extensions](#element-geometry-extensions)
-  * [Parameters extensions](#parameters-extensions)
+* [Parameters extensions](#parameters-extensions)
     * [Document global parameters extensions](#document-global-parameters-extensions)
-  * [FilteredElementCollector extensions](#filteredelementcollector-extensions)
-  * [ForgeTypeId extensions](#forgetypeid-extensions)
-  * [Unit Extensions](#unit-extensions)
-  * [Label Extensions](#label-extensions)
-  * [Color extensions](#color-extensions)
-  * [Family extensions](#family-extensions)
-  * [HostObject extensions](#hostobject-extensions)
-  * [Plumbing extensions](#plumbing-extensions)
-  * [Solid extensions](#solid-extensions)
+* [FilteredElementCollector extensions](#filteredelementcollector-extensions)
+* [ForgeTypeId extensions](#forgetypeid-extensions)
+* [Unit Extensions](#unit-extensions)
+* [Label Extensions](#label-extensions)
+* [Color extensions](#color-extensions)
+* [Family extensions](#family-extensions)
+* [HostObject extensions](#hostobject-extensions)
+* [Plumbing extensions](#plumbing-extensions)
+* [Solid extensions](#solid-extensions)
     * [Element solid cut extensions](#element-solid-cut-extensions)
-  * [View extensions](#view-extensions)
+* [View extensions](#view-extensions)
     * [View managers extensions](#view-managers-extensions)
-  * [Imperial Extensions](#imperial-extensions)
-  * [System Extensions](#system-extensions)
+* [Imperial Extensions](#imperial-extensions)
+* [System Extensions](#system-extensions)
 
 ## Element extensions
 
@@ -119,7 +121,7 @@ var canMirror = element.CanBeMirrored();
 ```
 
 ### Element association extensions
- 
+
 **IsAnalyticalElement** extension returns true if the element is an analytical element.
 
 ```csharp
@@ -133,7 +135,7 @@ var isPhysical = element.IsPhysicalElement();
 ```
 
 ### Element validation extensions
- 
+
 **CanDeleteElement** extension indicates whether an element can be deleted.
 
 ```csharp
@@ -141,7 +143,7 @@ var canDelete = element.CanDeleteElement();
 ```
 
 ### Element worksharing extensions
- 
+
 **GetCheckoutStatus** extension gets the ownership status of an element.
 
 ```csharp
@@ -257,6 +259,7 @@ var copy = elementIds.CopyElements(document, new XYZ(1, 1, 1));
 ```
 
 ## Application extensions
+
 ### Ribbon Extensions
 
 [Revit API Ribbon controls Guidelines](https://help.autodesk.com/view/RVT/2025/ENU/?guid=Revit_API_Revit_API_Developers_Guide_Introduction_Add_In_Integration_Ribbon_Panels_and_Controls_html)
@@ -335,7 +338,7 @@ button.SetLargeImage("C:/Pictures/RibbonIcon32.png");
 
 Starting with Revit 2024 **SetImage** and **SetLargeImage** extensions support Light and Dark UI themes.
 
-When the provided image name contains "light" or "dark" (case-insensitive), the extensions automatically modify the URI to match the current UI theme. 
+When the provided image name contains "light" or "dark" (case-insensitive), the extensions automatically modify the URI to match the current UI theme.
 For example:
 
 ```csharp
@@ -548,7 +551,7 @@ var contains = boundingBox.Contains(point);
 ```
 
 **Contains** extension determines whether the specified point is contained within this BoundingBox.
-Set strict mode if the point needs to be fully on the inside of the source. 
+Set strict mode if the point needs to be fully on the inside of the source.
 A point coinciding with the box border will be considered outside.
 
 ```csharp
@@ -751,7 +754,6 @@ var isValid = document.IsValidGlobalParameter(parameterId);
 ```csharp
 var isAllowed = document.AreGlobalParametersAllowed();
 ```
-
 
 ## FilteredElementCollector extensions
 
@@ -1328,7 +1330,8 @@ var manager = view.GetSpatialFieldManager();
 
 ## Imperial Extensions
 
-**ToFraction** extension converts a double value representing a measurement in feet to its string representation in the Imperial system, expressed as feet, inches, and fractional inches.
+**ToFraction** extension converts a double value representing a measurement in feet to its string representation in the Imperial system, expressed as feet, inches, and fractional
+inches.
 
 ```csharp
 var imperial = 0.0123.ToFraction(); // 1/8"

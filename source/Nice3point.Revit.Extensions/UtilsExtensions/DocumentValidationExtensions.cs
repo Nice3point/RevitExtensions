@@ -1,4 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -7,12 +8,15 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class DocumentValidationExtensions
 {
-    /// <summary>Indicates if an element can be deleted.</summary>
     /// <param name="element">The element to check.</param>
-    /// <returns>True if the element can be deleted, false otherwise.</returns>
-    [Pure]
-    public static bool CanDeleteElement(this Element element)
+    extension(Element element)
     {
-        return DocumentValidation.CanDeleteElement(element.Document, element.Id);
+        /// <summary>Indicates if an element can be deleted.</summary>
+        /// <returns>True if the element can be deleted, false otherwise.</returns>
+        [Pure]
+        public bool CanDeleteElement()
+        {
+            return DocumentValidation.CanDeleteElement(element.Document, element.Id);
+        }
     }
 }

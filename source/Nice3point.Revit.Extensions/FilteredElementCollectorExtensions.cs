@@ -38,1629 +38,1522 @@
 [PublicAPI]
 public static class FilteredElementCollectorExtensions
 {
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
     /// <param name="document">The document</param>
-    /// <returns>A new FilteredElementCollector that will search and filter the set of elements in a document</returns>
-    /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">
-    ///     The collector does not have a filter applied. Extraction or iteration of elements is not permitted without a filter
-    /// </exception>
-    [Pure]
-    public static FilteredElementCollector GetElements(this Document document)
+    extension(Document document)
     {
-        return new FilteredElementCollector(document);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <returns>A new FilteredElementCollector that will search and filter the visible elements in a view</returns>
-    /// <remarks>
-    ///     <p>
-    ///         Elements that will be passed by the collector have graphics that may be visible in
-    ///         the input view. Some elements may still be hidden because they are obscured by other elements.
-    ///     </p>
-    ///     <p>
-    ///         For elements which are outside of a crop region, they may still be passed by the collector because
-    ///         Revit relies on later processing to eliminate the elements hidden by the crop.
-    ///         This effect may more easily occur for non-rectangular crop regions, but may also happen even for rectangular crops.
-    ///         You can compare the boundary of the region with the element's boundary if more precise results are required.
-    ///     </p>
-    ///     <p>
-    ///         Accessing these visible elements may require Revit to rebuild the geometry of the view.
-    ///         The first time your code constructs a collector for a given view, or the first time
-    ///         your code constructs a collector for a view whose display settings have just been changed,
-    ///         you may experience a significant performance degradation.
-    ///     </p>
-    /// </remarks>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     viewId is not valid for element iteration, because it has no way of representing drawn elements. Many view templates will fail this check.
-    /// </exception>
-    [Pure]
-    public static FilteredElementCollector GetElements(this Document document, ElementId viewId)
-    {
-        return new FilteredElementCollector(document, viewId);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document that owns the elements matching the element ids</param>
-    /// <returns>A new FilteredElementCollector that will search and filter a specified set of elements in a document</returns>
-    /// <param name="elementIds">The input set of element ids</param>
-    [Pure]
-    public static FilteredElementCollector GetElements(this Document document, ICollection<ElementId> elementIds)
-    {
-        return new FilteredElementCollector(document, elementIds);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, BuiltInCategory category)
-    {
-        return CollectInstances(document, category).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, category, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, category, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document)
-    {
-        return CollectInstances(document).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementFilter filter)
-    {
-        return CollectInstances(document, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, BuiltInCategory category)
-    {
-        return CollectInstances(document, category);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, category, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, category, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document)
-    {
-        return CollectInstances(document);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementFilter filter)
-    {
-        return CollectInstances(document, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectInstances(document, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>A new FilteredElementCollector that will search and filter the set of elements in a document</returns>
+        /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">
+        ///     The collector does not have a filter applied. Extraction or iteration of elements is not permitted without a filter
+        /// </exception>
+        [Pure]
+        public FilteredElementCollector GetElements()
         {
-            var instance = (T) element;
-            yield return instance;
+            return new FilteredElementCollector(document);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>A new FilteredElementCollector that will search and filter the visible elements in a view</returns>
+        /// <remarks>
+        ///     <p>
+        ///         Elements that will be passed by the collector have graphics that may be visible in
+        ///         the input view. Some elements may still be hidden because they are obscured by other elements.
+        ///     </p>
+        ///     <p>
+        ///         For elements which are outside of a crop region, they may still be passed by the collector because
+        ///         Revit relies on later processing to eliminate the elements hidden by the crop.
+        ///         This effect may more easily occur for non-rectangular crop regions, but may also happen even for rectangular crops.
+        ///         You can compare the boundary of the region with the element's boundary if more precise results are required.
+        ///     </p>
+        ///     <p>
+        ///         Accessing these visible elements may require Revit to rebuild the geometry of the view.
+        ///         The first time your code constructs a collector for a given view, or the first time
+        ///         your code constructs a collector for a view whose display settings have just been changed,
+        ///         you may experience a significant performance degradation.
+        ///     </p>
+        /// </remarks>
+        /// <param name="viewId">The view id</param>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+        ///     viewId is not valid for element iteration, because it has no way of representing drawn elements. Many view templates will fail this check.
+        /// </exception>
+        [Pure]
+        public FilteredElementCollector GetElements(ElementId viewId)
         {
-            var instance = (T) element;
-            yield return instance;
+            return new FilteredElementCollector(document, viewId);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>A new FilteredElementCollector that will search and filter a specified set of elements in a document</returns>
+        /// <param name="elementIds">The input set of element ids</param>
+        [Pure]
+        public FilteredElementCollector GetElements(ICollection<ElementId> elementIds)
         {
-            var instance = (T) element;
-            yield return instance;
+            return new FilteredElementCollector(document, elementIds);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document) where T : Element
-    {
-        var elements = CollectInstances(document).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(BuiltInCategory category)
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document, category).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(BuiltInCategory category, ElementFilter filter)
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document, category, filter).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(BuiltInCategory category, IEnumerable<ElementFilter> filters)
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document, category, filters).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, BuiltInCategory category)
-    {
-        return CollectInstances(document, category).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, category, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, category, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document)
-    {
-        return CollectInstances(document).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementFilter filter)
-    {
-        return CollectInstances(document, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, BuiltInCategory category)
-    {
-        foreach (var element in CollectInstances(document, category)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        foreach (var element in CollectInstances(document, category, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectInstances(document, category, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document)
-    {
-        foreach (var element in CollectInstances(document)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementFilter filter)
-    {
-        foreach (var element in CollectInstances(document, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectInstances(document, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectInstances(document, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances()
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementFilter filter)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, filter).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(IEnumerable<ElementFilter> filters)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, filters).ToElements();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document) where T : Element
-    {
-        var elements = CollectInstances(document).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(BuiltInCategory category)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(BuiltInCategory category, ElementFilter filter)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category, filter);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(BuiltInCategory category, IEnumerable<ElementFilter> filters)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category, filters);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId, BuiltInCategory category)
-    {
-        return CollectInstances(document, viewId, category).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, category, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, category, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId)
-    {
-        return CollectInstances(document, viewId).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetInstances(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId, BuiltInCategory category)
-    {
-        return CollectInstances(document, viewId, category);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, category, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, category, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId)
-    {
-        return CollectInstances(document, viewId);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateInstances(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances()
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementFilter filter)
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document, filter);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(IEnumerable<ElementFilter> filters)
         {
-            var instance = (T) element;
-            yield return instance;
+            return CollectInstances(document, filters);
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId) where T : Element
-    {
-        var elements = CollectInstances(document, viewId).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(BuiltInCategory category) where T : Element
         {
-            var instance = (T) element;
-            yield return instance;
+            var elements = CollectInstances(document, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(BuiltInCategory category, ElementFilter filter) where T : Element
         {
-            var instance = (T) element;
-            yield return instance;
+            var elements = CollectInstances(document, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateInstances<T>(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
         {
-            var instance = (T) element;
-            yield return instance;
+            var elements = CollectInstances(document, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId, BuiltInCategory category)
-    {
-        return CollectInstances(document, viewId, category).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, category, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, category, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId)
-    {
-        return CollectInstances(document, viewId).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId, ElementFilter filter)
-    {
-        return CollectInstances(document, viewId, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetInstanceIds(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters)
-    {
-        return CollectInstances(document, viewId, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId, BuiltInCategory category)
-    {
-        foreach (var element in CollectInstances(document, viewId, category)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter)
-    {
-        foreach (var element in CollectInstances(document, viewId, category, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectInstances(document, viewId, category, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId)
-    {
-        foreach (var element in CollectInstances(document, viewId)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId, ElementFilter filter)
-    {
-        foreach (var element in CollectInstances(document, viewId, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectInstances(document, viewId, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>() where T : Element
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            var elements = CollectInstances(document).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementFilter filter) where T : Element
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            var elements = CollectInstances(document, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-        where T : Element
-    {
-        var elements = CollectInstances(document, viewId, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(IEnumerable<ElementFilter> filters) where T : Element
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            var elements = CollectInstances(document, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId) where T : Element
-    {
-        var elements = CollectInstances(document, viewId).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(BuiltInCategory category)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, ElementFilter filter) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(BuiltInCategory category, ElementFilter filter)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category, filter).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document visible in view by class of type T
-    /// </summary>
-    /// <param name="document">The document that owns the view</param>
-    /// <param name="viewId">The view id</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateInstanceIds<T>(this Document document, ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectInstances(document, viewId, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(BuiltInCategory category, IEnumerable<ElementFilter> filters)
         {
-            var instance = (T) element;
-            yield return instance.Id;
+            return CollectInstances(document, category, filters).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document, BuiltInCategory category)
-    {
-        return CollectTypes(document, category).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectTypes(document, category, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, category, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document)
-    {
-        return CollectTypes(document).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document, ElementFilter filter)
-    {
-        return CollectTypes(document, filter).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IList<Element> GetTypes(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, filters).ToElements();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document, BuiltInCategory category)
-    {
-        return CollectTypes(document, category);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectTypes(document, category, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, category, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document)
-    {
-        return CollectTypes(document);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document, ElementFilter filter)
-    {
-        return CollectTypes(document, filter);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    [Pure]
-    public static IEnumerable<Element> EnumerateTypes(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, filters);
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectTypes(document, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds()
         {
-            var type = (T) element;
-            yield return type;
+            return CollectInstances(document).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectTypes(document, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementFilter filter)
         {
-            var type = (T) element;
-            yield return type;
+            return CollectInstances(document, filter).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectTypes(document, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(IEnumerable<ElementFilter> filters)
         {
-            var type = (T) element;
-            yield return type;
+            return CollectInstances(document, filters).ToElementIds();
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document) where T : Element
-    {
-        var elements = CollectTypes(document).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(BuiltInCategory category)
         {
-            var type = (T) element;
-            yield return type;
+            foreach (var element in CollectInstances(document, category)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document, ElementFilter filter) where T : Element
-    {
-        var elements = CollectTypes(document, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(BuiltInCategory category, ElementFilter filter)
         {
-            var type = (T) element;
-            yield return type;
+            foreach (var element in CollectInstances(document, category, filter)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of elements</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<T> EnumerateTypes<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectTypes(document, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(BuiltInCategory category, IEnumerable<ElementFilter> filters)
         {
-            var type = (T) element;
-            yield return type;
+            foreach (var element in CollectInstances(document, category, filters)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document, BuiltInCategory category)
-    {
-        return CollectTypes(document, category).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        return CollectTypes(document, category, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, category, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document)
-    {
-        return CollectTypes(document).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document, ElementFilter filter)
-    {
-        return CollectTypes(document, filter).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static ICollection<ElementId> GetTypeIds(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        return CollectTypes(document, filters).ToElementIds();
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document, BuiltInCategory category)
-    {
-        foreach (var element in CollectTypes(document, category)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document, BuiltInCategory category, ElementFilter filter)
-    {
-        foreach (var element in CollectTypes(document, category, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectTypes(document, category, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document)
-    {
-        foreach (var element in CollectTypes(document)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document, ElementFilter filter)
-    {
-        foreach (var element in CollectTypes(document, filter)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds(this Document document, IEnumerable<ElementFilter> filters)
-    {
-        foreach (var element in CollectTypes(document, filters)) yield return element.Id;
-    }
-
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category) where T : Element
-    {
-        var elements = CollectTypes(document, category).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds()
         {
-            var type = (T) element;
-            yield return type.Id;
+            foreach (var element in CollectInstances(document)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category, ElementFilter filter) where T : Element
-    {
-        var elements = CollectTypes(document, category, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementFilter filter)
         {
-            var type = (T) element;
-            yield return type.Id;
+            foreach (var element in CollectInstances(document, filter)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="category">The category</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectTypes(document, category, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(IEnumerable<ElementFilter> filters)
         {
-            var type = (T) element;
-            yield return type.Id;
+            foreach (var element in CollectInstances(document, filters)) yield return element.Id;
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document) where T : Element
-    {
-        var elements = CollectTypes(document).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(BuiltInCategory category) where T : Element
         {
-            var type = (T) element;
-            yield return type.Id;
+            var elements = CollectInstances(document, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, ElementFilter filter) where T : Element
-    {
-        var elements = CollectTypes(document, filter).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(BuiltInCategory category, ElementFilter filter) where T : Element
         {
-            var type = (T) element;
-            yield return type.Id;
+            var elements = CollectInstances(document, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
         }
-    }
 
-    /// <summary>
-    ///     Searches for elements in a document by class of type T
-    /// </summary>
-    /// <param name="document">The document</param>
-    /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
-    /// <returns>The complete set of element ids</returns>
-    /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
-    [Pure]
-    public static IEnumerable<ElementId> EnumerateTypeIds<T>(this Document document, IEnumerable<ElementFilter> filters) where T : Element
-    {
-        var elements = CollectTypes(document, filters).OfClass(typeof(T));
-        foreach (var element in elements)
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
         {
-            var type = (T) element;
-            yield return type.Id;
+            var elements = CollectInstances(document, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>() where T : Element
+        {
+            var elements = CollectInstances(document).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementFilter filter) where T : Element
+        {
+            var elements = CollectInstances(document, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectInstances(document, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId, BuiltInCategory category)
+        {
+            return CollectInstances(document, viewId, category).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId, BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, category, filter).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, category, filters).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId)
+        {
+            return CollectInstances(document, viewId).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, filter).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetInstances(ElementId viewId, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, filters).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId, BuiltInCategory category)
+        {
+            return CollectInstances(document, viewId, category);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId, BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, category, filter);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, category, filters);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId)
+        {
+            return CollectInstances(document, viewId);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, filter);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateInstances(ElementId viewId, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, filters);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId, BuiltInCategory category) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId) where T : Element
+        {
+            var elements = CollectInstances(document, viewId).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId, ElementFilter filter) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateInstances<T>(ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId, BuiltInCategory category)
+        {
+            return CollectInstances(document, viewId, category).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId, BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, category, filter).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, category, filters).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId)
+        {
+            return CollectInstances(document, viewId).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId, ElementFilter filter)
+        {
+            return CollectInstances(document, viewId, filter).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetInstanceIds(ElementId viewId, IEnumerable<ElementFilter> filters)
+        {
+            return CollectInstances(document, viewId, filters).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId, BuiltInCategory category)
+        {
+            foreach (var element in CollectInstances(document, viewId, category)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId, BuiltInCategory category, ElementFilter filter)
+        {
+            foreach (var element in CollectInstances(document, viewId, category, filter)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            foreach (var element in CollectInstances(document, viewId, category, filters)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId)
+        {
+            foreach (var element in CollectInstances(document, viewId)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId, ElementFilter filter)
+        {
+            foreach (var element in CollectInstances(document, viewId, filter)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds(ElementId viewId, IEnumerable<ElementFilter> filters)
+        {
+            foreach (var element in CollectInstances(document, viewId, filters)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId, BuiltInCategory category) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId, BuiltInCategory category, ElementFilter filter) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId, BuiltInCategory category, IEnumerable<ElementFilter> filters)
+            where T : Element
+        {
+            var elements = CollectInstances(document, viewId, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId) where T : Element
+        {
+            var elements = CollectInstances(document, viewId).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId, ElementFilter filter) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document visible in view by class of type T
+        /// </summary>
+        /// <param name="viewId">The view id</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateInstanceIds<T>(ElementId viewId, IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectInstances(document, viewId, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var instance = (T)element;
+                yield return instance.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes(BuiltInCategory category)
+        {
+            return CollectTypes(document, category).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes(BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectTypes(document, category, filter).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes(BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, category, filters).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes()
+        {
+            return CollectTypes(document).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes(ElementFilter filter)
+        {
+            return CollectTypes(document, filter).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IList<Element> GetTypes(IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, filters).ToElements();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes(BuiltInCategory category)
+        {
+            return CollectTypes(document, category);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes(BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectTypes(document, category, filter);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes(BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, category, filters);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes()
+        {
+            return CollectTypes(document);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes(ElementFilter filter)
+        {
+            return CollectTypes(document, filter);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        [Pure]
+        public IEnumerable<Element> EnumerateTypes(IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, filters);
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>(BuiltInCategory category) where T : Element
+        {
+            var elements = CollectTypes(document, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>(BuiltInCategory category, ElementFilter filter) where T : Element
+        {
+            var elements = CollectTypes(document, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>(BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectTypes(document, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>() where T : Element
+        {
+            var elements = CollectTypes(document).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>(ElementFilter filter) where T : Element
+        {
+            var elements = CollectTypes(document, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of elements</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<T> EnumerateTypes<T>(IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectTypes(document, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds(BuiltInCategory category)
+        {
+            return CollectTypes(document, category).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds(BuiltInCategory category, ElementFilter filter)
+        {
+            return CollectTypes(document, category, filter).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds(BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, category, filters).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds()
+        {
+            return CollectTypes(document).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds(ElementFilter filter)
+        {
+            return CollectTypes(document, filter).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public ICollection<ElementId> GetTypeIds(IEnumerable<ElementFilter> filters)
+        {
+            return CollectTypes(document, filters).ToElementIds();
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds(BuiltInCategory category)
+        {
+            foreach (var element in CollectTypes(document, category)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds(BuiltInCategory category, ElementFilter filter)
+        {
+            foreach (var element in CollectTypes(document, category, filter)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds(BuiltInCategory category, IEnumerable<ElementFilter> filters)
+        {
+            foreach (var element in CollectTypes(document, category, filters)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds()
+        {
+            foreach (var element in CollectTypes(document)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds(ElementFilter filter)
+        {
+            foreach (var element in CollectTypes(document, filter)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds(IEnumerable<ElementFilter> filters)
+        {
+            foreach (var element in CollectTypes(document, filters)) yield return element.Id;
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>(BuiltInCategory category) where T : Element
+        {
+            var elements = CollectTypes(document, category).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>(BuiltInCategory category, ElementFilter filter) where T : Element
+        {
+            var elements = CollectTypes(document, category, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="category">The category</param>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>(BuiltInCategory category, IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectTypes(document, category, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>() where T : Element
+        {
+            var elements = CollectTypes(document).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filter">Filter that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>(ElementFilter filter) where T : Element
+        {
+            var elements = CollectTypes(document, filter).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
+        }
+
+        /// <summary>
+        ///     Searches for elements in a document by class of type T
+        /// </summary>
+        /// <param name="filters">Filters that accepts or rejects elements based upon criteria</param>
+        /// <returns>The complete set of element ids</returns>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element"/></typeparam>
+        [Pure]
+        public IEnumerable<ElementId> EnumerateTypeIds<T>(IEnumerable<ElementFilter> filters) where T : Element
+        {
+            var elements = CollectTypes(document, filters).OfClass(typeof(T));
+            foreach (var element in elements)
+            {
+                var type = (T)element;
+                yield return type.Id;
+            }
         }
     }
 
