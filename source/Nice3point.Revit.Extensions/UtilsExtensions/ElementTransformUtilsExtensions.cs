@@ -8,15 +8,15 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class ElementTransformUtilsExtensions
 {
-    /// <param name="source">The source element</param>
-    extension(Element source)
+    /// <param name="element">The source element</param>
+    extension(Element element)
     {
         /// <summary>Determines whether element can be mirrored</summary>
         /// <returns>True if the element can be mirrored</returns>
         [Pure]
         public bool CanBeMirrored()
         {
-            return ElementTransformUtils.CanMirrorElement(source.Document, source.Id);
+            return ElementTransformUtils.CanMirrorElement(element.Document, element.Id);
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> Copy(XYZ vector)
         {
-            return ElementTransformUtils.CopyElement(source.Document, source.Id, vector);
+            return ElementTransformUtils.CopyElement(element.Document, element.Id, vector);
         }
 
         /// <summary>Creates a mirrored copy of an element about a given plane</summary>
@@ -39,8 +39,8 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public Element Mirror(Plane plane)
         {
-            ElementTransformUtils.MirrorElement(source.Document, source.Id, plane);
-            return source;
+            ElementTransformUtils.MirrorElement(element.Document, element.Id, plane);
+            return element;
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public Element Move(double deltaX = 0d, double deltaY = 0d, double deltaZ = 0d)
         {
-            ElementTransformUtils.MoveElement(source.Document, source.Id, new XYZ(deltaX, deltaY, deltaZ));
-            return source;
+            ElementTransformUtils.MoveElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
+            return element;
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public Element Move(XYZ vector)
         {
-            ElementTransformUtils.MoveElement(source.Document, source.Id, vector);
-            return source;
+            ElementTransformUtils.MoveElement(element.Document, element.Id, vector);
+            return element;
         }
 
         /// <summary>Rotates an element about the given axis and angle</summary>
@@ -76,8 +76,8 @@ public static class ElementTransformUtilsExtensions
         /// <param name="angle">The angle of rotation in radians</param>
         public Element Rotate(Line axis, double angle)
         {
-            ElementTransformUtils.RotateElement(source.Document, source.Id, axis, angle);
-            return source;
+            ElementTransformUtils.RotateElement(element.Document, element.Id, axis, angle);
+            return element;
         }
 
         /// <summary>
@@ -92,12 +92,12 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> Copy(double deltaX, double deltaY, double deltaZ)
         {
-            return ElementTransformUtils.CopyElement(source.Document, source.Id, new XYZ(deltaX, deltaY, deltaZ));
+            return ElementTransformUtils.CopyElement(element.Document, element.Id, new XYZ(deltaX, deltaY, deltaZ));
         }
     }
 
-    /// <param name="source">The source view</param>
-    extension(View source)
+    /// <param name="view">The source view</param>
+    extension(View view)
     {
         /// <summary>
         ///    Returns a transformation that is applied to elements when copying from one view to another view.
@@ -116,7 +116,7 @@ public static class ElementTransformUtilsExtensions
         [Pure]
         public Transform GetTransformFromViewToView(View destinationView)
         {
-            return ElementTransformUtils.GetTransformFromViewToView(source, destinationView);
+            return ElementTransformUtils.GetTransformFromViewToView(view, destinationView);
         }
     }
 

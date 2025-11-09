@@ -8,8 +8,8 @@ public static class GeometryExtensions
 {
     private const double Tolerance = 1e-9;
 
-    /// <param name="source">The source line</param>
-    extension(Line source)
+    /// <param name="line">The line</param>
+    extension(Line line)
     {
         /// <summary>
         ///     Returns the distance between Lines. The Lines are considered to be endless
@@ -20,8 +20,8 @@ public static class GeometryExtensions
         {
             double distance;
 
-            var v1 = source.Direction;
-            var p1 = source.GetEndPoint(0);
+            var v1 = line.Direction;
+            var p1 = line.GetEndPoint(0);
             var v2 = other.Direction;
             var p2 = other.GetEndPoint(0);
 
@@ -63,8 +63,8 @@ public static class GeometryExtensions
         [Pure]
         public Line SetCoordinateX(double x)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
+            var endPoint0 = line.GetEndPoint(0);
+            var endPoint1 = line.GetEndPoint(1);
             return Line.CreateBound(new XYZ(x, endPoint0.Y, endPoint0.Z), new XYZ(x, endPoint1.Y, endPoint1.Z));
         }
 
@@ -79,8 +79,8 @@ public static class GeometryExtensions
         [Pure]
         public Line SetCoordinateY(double y)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
+            var endPoint0 = line.GetEndPoint(0);
+            var endPoint1 = line.GetEndPoint(1);
             return Line.CreateBound(new XYZ(endPoint0.X, y, endPoint0.Z), new XYZ(endPoint1.X, y, endPoint1.Z));
         }
 
@@ -95,8 +95,8 @@ public static class GeometryExtensions
         [Pure]
         public Line SetCoordinateZ(double z)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
+            var endPoint0 = line.GetEndPoint(0);
+            var endPoint1 = line.GetEndPoint(1);
             return Line.CreateBound(new XYZ(endPoint0.X, endPoint0.Y, z), new XYZ(endPoint1.X, endPoint1.Y, z));
         }
     }
