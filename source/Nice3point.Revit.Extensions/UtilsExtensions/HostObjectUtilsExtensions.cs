@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class HostObjectUtilsExtensions
 {
-    /// <param name="host">The host object</param>
+    /// <param name="host">The host object.</param>
     extension(HostObject host)
     {
         /// <summary>Returns the bottom faces for this host object</summary>

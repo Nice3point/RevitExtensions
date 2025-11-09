@@ -16,7 +16,7 @@ namespace Build.Modules;
 [DependsOn<CreatePackageReadmeModule>]
 [DependsOn<CreatePackageChangelogModule>]
 [DependsOn<ParseSolutionConfigurationsModule>]
-public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions,IOptions<PackOptions> packOptions) : Module
+public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOptions<PackOptions> packOptions) : Module
 {
     protected override async Task<IDictionary<string, object>?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
     {
@@ -26,7 +26,7 @@ public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions,IOpti
 
         foreach (var configuration in configurations.Value!)
         {
-            await SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder, changelog.Value!, cancellationToken));
+            await SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder.Path, changelog.Value!, cancellationToken));
         }
 
         return await NothingAsync();

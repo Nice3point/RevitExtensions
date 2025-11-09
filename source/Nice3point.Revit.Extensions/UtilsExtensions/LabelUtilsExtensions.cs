@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.ApplicationServices;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
@@ -10,8 +10,8 @@ namespace Nice3point.Revit.Extensions;
 public static class LabelUtilsExtensions
 {
 #if REVIT2021_OR_GREATER
-    /// <param name="source">Unique identifier</param>
-    extension(ForgeTypeId source)
+    /// <param name="typeId">Unique identifier</param>
+    extension(ForgeTypeId typeId)
     {
         /// <summary>
         ///     Gets the user-visible name for a spec
@@ -26,7 +26,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToSpecLabel()
         {
-            return LabelUtils.GetLabelForSpec(source);
+            return LabelUtils.GetLabelForSpec(typeId);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToSymbolLabel()
         {
-            return LabelUtils.GetLabelForSymbol(source);
+            return LabelUtils.GetLabelForSymbol(typeId);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToUnitLabel()
         {
-            return LabelUtils.GetLabelForUnit(source);
+            return LabelUtils.GetLabelForUnit(typeId);
         }
 
 #if REVIT2022_OR_GREATER
@@ -66,7 +66,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToDisciplineLabel()
         {
-            return LabelUtils.GetLabelForDiscipline(source);
+            return LabelUtils.GetLabelForDiscipline(typeId);
         }
 
         /// <summary>
@@ -79,14 +79,14 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToLabel()
         {
-            if (source.Empty()) return string.Empty;
+            if (typeId.Empty()) return string.Empty;
 
-            if (ParameterUtils.IsBuiltInParameter(source)) return LabelUtils.GetLabelForBuiltInParameter(source);
-            if (ParameterUtils.IsBuiltInGroup(source)) return LabelUtils.GetLabelForGroup(source);
-            if (UnitUtils.IsUnit(source)) return LabelUtils.GetLabelForUnit(source);
-            if (UnitUtils.IsSymbol(source)) return LabelUtils.GetLabelForSymbol(source);
-            if (SpecUtils.IsSpec(source)) return LabelUtils.GetLabelForSpec(source);
-            return LabelUtils.GetLabelForDiscipline(source);
+            if (ParameterUtils.IsBuiltInParameter(typeId)) return LabelUtils.GetLabelForBuiltInParameter(typeId);
+            if (ParameterUtils.IsBuiltInGroup(typeId)) return LabelUtils.GetLabelForGroup(typeId);
+            if (UnitUtils.IsUnit(typeId)) return LabelUtils.GetLabelForUnit(typeId);
+            if (UnitUtils.IsSymbol(typeId)) return LabelUtils.GetLabelForSymbol(typeId);
+            if (SpecUtils.IsSpec(typeId)) return LabelUtils.GetLabelForSpec(typeId);
+            return LabelUtils.GetLabelForDiscipline(typeId);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToGroupLabel()
         {
-            return LabelUtils.GetLabelForGroup(source);
+            return LabelUtils.GetLabelForGroup(typeId);
         }
 
         /// <summary>
@@ -111,14 +111,14 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToParameterLabel()
         {
-            return LabelUtils.GetLabelForBuiltInParameter(source);
+            return LabelUtils.GetLabelForBuiltInParameter(typeId);
         }
 #endif
     }
 #endif
 
-    /// <param name="source">The builtin parameter</param>
-    extension(BuiltInParameter source)
+    /// <param name="parameter">The builtin parameter</param>
+    extension(BuiltInParameter parameter)
     {
         /// <summary>
         ///     Gets the user-visible name for a BuiltInParameter
@@ -130,7 +130,7 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToLabel()
         {
-            return LabelUtils.GetLabelFor(source);
+            return LabelUtils.GetLabelFor(parameter);
         }
 
         /// <summary>
@@ -147,12 +147,12 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToLabel(LanguageType language)
         {
-            return LabelUtils.GetLabelFor(source, language);
+            return LabelUtils.GetLabelFor(parameter, language);
         }
     }
 
-    /// <param name="source">The builtin category</param>
-    extension(BuiltInCategory source)
+    /// <param name="category">The builtin category</param>
+    extension(BuiltInCategory category)
     {
         /// <summary>
         ///     Gets the user-visible name for a BuiltInCategory
@@ -164,13 +164,13 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToLabel()
         {
-            return LabelUtils.GetLabelFor(source);
+            return LabelUtils.GetLabelFor(category);
         }
     }
 
 #if !REVIT2025_OR_GREATER
-    /// <param name="source">The builtin parameter group</param>
-    extension(BuiltInParameterGroup source)
+    /// <param name="parameterGroup">The builtin parameter group</param>
+    extension(BuiltInParameterGroup parameterGroup)
     {
         /// <summary>
         ///     Gets the user-visible name for a BuiltInParameterGroup
@@ -178,18 +178,18 @@ public static class LabelUtilsExtensions
         /// <remarks>The name is obtained in the current Revit language</remarks>
         [Pure]
 #if REVIT2024
-        [Obsolete("This method is deprecated in Revit 2024 and may be removed in a future version of Revit. Please use the `GetLabelForGroup(ForgeTypeId)` method instead.")]
+        [Obsolete("This method is deprecated in Revit 2024 and may be removed in a future version of Revit. Please use the `GetLabelForGroup(typeId)` method instead.")]
 #endif
         public string ToLabel()
         {
-            return LabelUtils.GetLabelFor(source);
+            return LabelUtils.GetLabelFor(parameterGroup);
         }
     }
 
 #endif
 #if !REVIT2022_OR_GREATER
-    /// <param name="source">The display unit type</param>
-    extension(DisplayUnitType source)
+    /// <param name="displayUnitType">The display unit type</param>
+    extension(DisplayUnitType displayUnitType)
     {
         /// <summary>
         ///     Gets the user-visible name for a DisplayUnitType
@@ -207,14 +207,14 @@ public static class LabelUtilsExtensions
 #endif
         public string ToLabel()
         {
-            return LabelUtils.GetLabelFor(source);
+            return LabelUtils.GetLabelFor(displayUnitType);
         }
     }
 
 #endif
 #if !REVIT2023_OR_GREATER
-    /// <param name="source">The parameter type</param>
-    extension(ParameterType source)
+    /// <param name="parameterType">The parameter type</param>
+    extension(ParameterType parameterType)
     {
         /// <summary>
         ///     Gets the user-visible name for a ParameterType
@@ -229,7 +229,7 @@ public static class LabelUtilsExtensions
 #endif
         public string ToLabel()
         {
-            return LabelUtils.GetLabelFor(source);
+            return LabelUtils.GetLabelFor(parameterType);
         }
     }
 #endif

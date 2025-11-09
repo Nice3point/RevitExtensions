@@ -631,44 +631,44 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="button">The RibbonItem to which the tooltip will be added.</param>
-    extension(RibbonItem button)
+    /// <param name="item">The RibbonItem to which the tooltip will be added.</param>
+    extension(RibbonItem item)
     {
         /// <summary>
         ///     Sets the tooltip text for the RibbonItem.
         /// </summary>
-        /// <param name="tooltip">The text to display as a tooltip when the mouse pointer hovers over the button.</param>
+        /// <param name="tooltip">The text to display as a tooltip when the mouse pointer hovers over the item.</param>
         /// <returns>The RibbonItem with the specified tooltip text.</returns>
         /// <remarks>
-        ///     The tooltip text appears when the mouse pointer hovers over the button in the Revit UI. 
+        ///     The tooltip text appears when the mouse pointer hovers over the item in the Revit UI. 
         ///     This method does not affect SplitButton or RadioButtonGroup controls. For SplitButton, the current PushButton's tooltip will always be displayed.
         ///     RadioButtonGroup controls do not support tooltips.
         /// </remarks>
         public RibbonItem SetToolTip(string tooltip)
         {
-            button.ToolTip = tooltip;
-            return button;
+            item.ToolTip = tooltip;
+            return item;
         }
 
         /// <summary>
         ///     Sets the extended tooltip description for the RibbonItem.
         /// </summary>
         /// <param name="description">
-        ///     The text to display as part of the button's extended tooltip. 
-        ///     This text is shown when the mouse hovers over the button for a prolonged period. 
+        ///     The text to display as part of the item's extended tooltip. 
+        ///     This text is shown when the mouse hovers over the item for a prolonged period. 
         ///     Use &lt;p&gt; tags to separate the text into multiple paragraphs if needed.
         /// </param>
         /// <returns>The RibbonItem with the specified extended tooltip description.</returns>
         /// <remarks>
         ///     The extended tooltip provides additional information about the command and is optional. 
-        ///     If neither this property nor the TooltipImage is set, the button will not have an extended tooltip. 
+        ///     If neither this property nor the TooltipImage is set, the item will not have an extended tooltip. 
         ///     SplitButton and RadioButtonGroup controls cannot display the extended tooltip set by this method. 
         ///     For SplitButton, the current PushButton's tooltip is always displayed, while RadioButtonGroup does not support extended tooltips.
         /// </remarks>
         public RibbonItem SetLongDescription(string description)
         {
-            button.LongDescription = description;
-            return button;
+            item.LongDescription = description;
+            return item;
         }
     }
 }

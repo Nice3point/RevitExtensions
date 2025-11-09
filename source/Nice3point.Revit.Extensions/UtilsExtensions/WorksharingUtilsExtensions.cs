@@ -87,8 +87,8 @@ public static class WorksharingUtilsExtensions
         }
     }
 
-    /// <param name="source">The path to the central model.</param>
-    extension(ModelPath source)
+    /// <param name="modelPath">The path to the central model.</param>
+    extension(ModelPath modelPath)
     {
         /// <summary>
         ///    Takes a path to a central model and copies the model into a new local file for the current user.
@@ -144,7 +144,7 @@ public static class WorksharingUtilsExtensions
         /// </exception>
         public ModelPath CreateNewLocal(ModelPath target)
         {
-            WorksharingUtils.CreateNewLocal(source, target);
+            WorksharingUtils.CreateNewLocal(modelPath, target);
             return target;
         }
 
@@ -201,7 +201,7 @@ public static class WorksharingUtilsExtensions
         [Pure]
         public IList<WorksetPreview> GetUserWorksetInfo()
         {
-            return WorksharingUtils.GetUserWorksetInfo(source);
+            return WorksharingUtils.GetUserWorksetInfo(modelPath);
         }
     }
 

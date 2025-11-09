@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 
 namespace Nice3point.Revit.Extensions;
 
@@ -159,8 +159,8 @@ public static class UnitUtilsExtensions
     }
 
 #if REVIT2021_OR_GREATER
-    /// <param name="forgeTypeId">The identifier to check.</param>
-    extension(ForgeTypeId forgeTypeId)
+    /// <param name="typeId">Unique identifier</param>
+    extension(ForgeTypeId typeId)
     {
         /// <summary>Checks whether a ForgeTypeId identifies a symbol.</summary>
         /// <remarks>The SymbolTypeId class offers symbol identifiers.</remarks>
@@ -168,7 +168,7 @@ public static class UnitUtilsExtensions
         [Pure]
         public bool IsSymbol()
         {
-            return UnitUtils.IsSymbol(forgeTypeId);
+            return UnitUtils.IsSymbol(typeId);
         }
 
         /// <summary>Checks whether a ForgeTypeId identifies a unit.</summary>
@@ -177,18 +177,18 @@ public static class UnitUtilsExtensions
         [Pure]
         public bool IsUnit()
         {
-            return UnitUtils.IsUnit(forgeTypeId);
+            return UnitUtils.IsUnit(typeId);
         }
 
         /// <summary>Gets the identifiers of all valid units for a given measurable spec.</summary>
         /// <returns>Identifiers of the valid units.</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
+        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
         /// </exception>
         [Pure]
         public IList<ForgeTypeId> GetValidUnits()
         {
-            return UnitUtils.GetValidUnits(forgeTypeId);
+            return UnitUtils.GetValidUnits(typeId);
         }
 
         /// <summary>Gets the string used in type catalogs to identify a given measurable spec.</summary>
@@ -196,24 +196,24 @@ public static class UnitUtilsExtensions
         ///    The type catalog string, or an empty string if the measurable spec cannot be used in type catalogs.
         /// </returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
+        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
         /// </exception>
         [Pure]
         public string GetTypeCatalogStringForSpec()
         {
-            return UnitUtils.GetTypeCatalogStringForSpec(forgeTypeId);
+            return UnitUtils.GetTypeCatalogStringForSpec(typeId);
         }
 
         /// <summary>Checks whether a unit is valid for a given measurable spec.</summary>
         /// <param name="unitTypeId">Identifier of the unit to check.</param>
         /// <returns>True if the unit is valid, false otherwise.</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
+        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
         /// </exception>
         [Pure]
         public bool IsValidUnit(ForgeTypeId unitTypeId)
         {
-            return UnitUtils.IsValidUnit(forgeTypeId, unitTypeId);
+            return UnitUtils.IsValidUnit(typeId, unitTypeId);
         }
 
         /// <summary>Gets the string used in type catalogs to identify a given unit.</summary>
@@ -221,12 +221,12 @@ public static class UnitUtilsExtensions
         ///    The type catalog string, or an empty string if the unit cannot be used in type catalogs.
         /// </returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    unitTypeId is not a unit identifier. See UnitUtils.IsUnit(ForgeTypeId) and UnitUtils.GetUnitTypeId(DisplayUnitType).
+        ///    unitTypeId is not a unit identifier. See UnitUtils.IsUnit(typeId) and UnitUtils.GetUnitTypeId(DisplayUnitType).
         /// </exception>
         [Pure]
         public string GetTypeCatalogStringForUnit()
         {
-            return UnitUtils.GetTypeCatalogStringForUnit(forgeTypeId);
+            return UnitUtils.GetTypeCatalogStringForUnit(typeId);
         }
 #if REVIT2022_OR_GREATER
         /// <summary>
@@ -236,18 +236,18 @@ public static class UnitUtilsExtensions
         [Pure]
         public bool IsMeasurableSpec()
         {
-            return UnitUtils.IsMeasurableSpec(forgeTypeId);
+            return UnitUtils.IsMeasurableSpec(typeId);
         }
 
         /// <summary>Gets the discipline for a given measurable spec.</summary>
         /// <returns>Identifier of the discipline.</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(ForgeTypeId).
+        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
         /// </exception>
         [Pure]
         public ForgeTypeId GetDiscipline()
         {
-            return UnitUtils.GetDiscipline(forgeTypeId);
+            return UnitUtils.GetDiscipline(typeId);
         }
 #endif
     }
