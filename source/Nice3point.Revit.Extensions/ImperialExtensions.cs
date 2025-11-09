@@ -10,7 +10,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 [Obsolete("Use UnitsNet package instead")]
 public static
-#if NETCOREAPP
+#if NET
     partial
 #endif
     class ImperialExtensions
@@ -20,7 +20,7 @@ public static
         ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
         """;
 
-#if NETCOREAPP
+#if NET
     private static readonly Regex ImperialRegex = InvokeImperialRegexGenerator();
     [GeneratedRegex(ImperialExpression, RegexOptions.Compiled)] private static partial Regex InvokeImperialRegexGenerator();
 #else

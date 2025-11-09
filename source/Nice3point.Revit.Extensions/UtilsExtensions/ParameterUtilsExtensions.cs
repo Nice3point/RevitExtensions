@@ -46,6 +46,7 @@ public static class ParameterUtilsExtensions
             return ParameterUtils.IsBuiltInGroup(typeId);
         }
 
+#if REVIT2024_OR_GREATER
         /// <summary>
         ///    Retrieves settings associated with the given parameter from the Parameters Service.
         /// </summary>
@@ -77,7 +78,6 @@ public static class ParameterUtilsExtensions
             return ParameterUtils.DownloadParameterOptions(typeId);
         }
 
-#if REVIT2024_OR_GREATER
         /// <summary>
         ///    Downloads the name of the given parameter's owning account and records it in the given document. If the owning
         ///    account's name is already recorded in the given document, this method returns the name without downloading it

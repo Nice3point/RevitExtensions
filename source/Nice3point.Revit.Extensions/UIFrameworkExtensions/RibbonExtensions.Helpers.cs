@@ -1,8 +1,4 @@
 ﻿using System.Reflection;
-using Autodesk.Revit.UI;
-using Autodesk.Windows;
-using UIFramework;
-using UIFrameworkServices;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 #if REVIT2024_OR_GREATER
@@ -51,7 +47,7 @@ public static partial class RibbonExtensions
     private static RibbonPanel CreatePanel(Autodesk.Windows.RibbonPanel panel, string tabId)
     {
         var type = typeof(RibbonPanel);
-#if NETCOREAPP
+#if NET
         var constructorInfo = type.GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.DeclaredOnly,
             [typeof(Autodesk.Windows.RibbonPanel), typeof(string)])!;
 #else
@@ -197,7 +193,7 @@ public static partial class RibbonExtensions
 
         static string UpdateThemeUri(string source, string currentTheme, string newTheme, int themeIndex)
         {
-#if NETCOREAPP
+#if NET
             var sourceSpan = source.AsSpan();
             var before = sourceSpan[..themeIndex];
             var after = sourceSpan[(themeIndex + currentTheme.Length)..];
