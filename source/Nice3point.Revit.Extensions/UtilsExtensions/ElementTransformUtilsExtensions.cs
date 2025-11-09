@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class ElementTransformUtilsExtensions
 {
-    /// <param name="element">The source element</param>
+    /// <param name="element">The element to transform.</param>
     extension(Element element)
     {
         /// <summary>Determines whether element can be mirrored</summary>
@@ -96,20 +96,20 @@ public static class ElementTransformUtilsExtensions
         }
     }
 
-    /// <param name="view">The source view</param>
+    /// <param name="view">The view to transform.</param>
     extension(View view)
     {
         /// <summary>
-        ///    Returns a transformation that is applied to elements when copying from one view to another view.
+        ///    Returns a transformation that is applied to elements when copying from this view to another view.
         /// </summary>
         /// <remarks>
-        ///    Both source and destination views must be 2D graphics views capable of drawing details and view-specific elements (floor and ceiling plans, elevations, sections, drafting views.)
-        ///    The result is a transformation needed to copy an element from drawing plane of the source view to the drawing plane of the destination view.
-        ///    The destination view can be in the same document as the source view.
-        ///    The destination view can be the same as the source view.
+        ///    Both this view and the destination view must be 2D graphics views capable of drawing details and view-specific elements (floor and ceiling plans, elevations, sections, drafting views.)
+        ///    The result is a transformation needed to copy an element from the drawing plane of this view to the drawing plane of the destination view.
+        ///    The destination view can be in the same document as this view.
+        ///    The destination view can be the same as this view.
         /// </remarks>
         /// <param name="destinationView">The destination view</param>
-        /// <returns>The transformation from source view to destination view.</returns>
+        /// <returns>The transformation from this view to the destination view.</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
         ///    The specified view cannot be used as a source or destination for copying elements between two views.
         /// </exception>
@@ -120,8 +120,8 @@ public static class ElementTransformUtilsExtensions
         }
     }
 
-    /// <param name="elementIds">The elements identified by id.</param>
-    extension(ICollection<ElementId> elementIds)
+    /// <param name="elements">The element ids to transform.</param>
+    extension(ICollection<ElementId> elements)
     {
         /// <summary>Determines whether elements can be mirrored.</summary>
         /// <param name="document">The document where the elements reside.</param>
@@ -129,7 +129,7 @@ public static class ElementTransformUtilsExtensions
         [Pure]
         public bool CanMirrorElements(Document document)
         {
-            return ElementTransformUtils.CanMirrorElements(document, elementIds);
+            return ElementTransformUtils.CanMirrorElements(document, elements);
         }
 
         /// <summary>
@@ -158,7 +158,7 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> CopyElements(Document document, XYZ translation)
         {
-            return ElementTransformUtils.CopyElements(document, elementIds, translation);
+            return ElementTransformUtils.CopyElements(document, elements, translation);
         }
 
         /// <summary>Copies a set of elements from source document to destination document.</summary>
@@ -201,7 +201,7 @@ public static class ElementTransformUtilsExtensions
             Transform transform,
             CopyPasteOptions options)
         {
-            return ElementTransformUtils.CopyElements(sourceDocument, elementIds, destinationDocument, transform, options);
+            return ElementTransformUtils.CopyElements(sourceDocument, elements, destinationDocument, transform, options);
         }
 
         /// <summary>Copies a set of elements from source document to destination document.</summary>
@@ -235,7 +235,7 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> CopyElements(Document sourceDocument, Document destinationDocument)
         {
-            return ElementTransformUtils.CopyElements(sourceDocument, elementIds, destinationDocument, null, null);
+            return ElementTransformUtils.CopyElements(sourceDocument, elements, destinationDocument, null, null);
         }
 
         /// <summary>Copies a set of elements from source view to destination view.</summary>
@@ -291,7 +291,7 @@ public static class ElementTransformUtilsExtensions
             Transform additionalTransform,
             CopyPasteOptions options)
         {
-            return ElementTransformUtils.CopyElements(sourceView, elementIds, destinationView, additionalTransform, options);
+            return ElementTransformUtils.CopyElements(sourceView, elements, destinationView, additionalTransform, options);
         }
 
         /// <summary>Copies a set of elements from source view to destination view.</summary>
@@ -335,7 +335,7 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> CopyElements(View sourceView, View destinationView)
         {
-            return ElementTransformUtils.CopyElements(sourceView, elementIds, destinationView, null, null);
+            return ElementTransformUtils.CopyElements(sourceView, elements, destinationView, null, null);
         }
 
         /// <summary>Mirrors a set of elements about a given plane.</summary>
@@ -367,7 +367,7 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> MirrorElements(Document document, Plane plane, bool mirrorCopies)
         {
-            return ElementTransformUtils.MirrorElements(document, elementIds, plane, mirrorCopies);
+            return ElementTransformUtils.MirrorElements(document, elements, plane, mirrorCopies);
         }
 
         /// <summary>Moves a set of elements by a given transformation.</summary>
@@ -385,8 +385,8 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> MoveElements(Document document, XYZ translation)
         {
-            ElementTransformUtils.MoveElements(document, elementIds, translation);
-            return elementIds;
+            ElementTransformUtils.MoveElements(document, elements, translation);
+            return elements;
         }
 
         /// <summary>Rotates a set of elements about the given axis and angle.</summary>
@@ -400,8 +400,8 @@ public static class ElementTransformUtilsExtensions
         /// </exception>
         public ICollection<ElementId> RotateElements(Document document, Line axis, double angle)
         {
-            ElementTransformUtils.RotateElements(document, elementIds, axis, angle);
-            return elementIds;
+            ElementTransformUtils.RotateElements(document, elements, axis, angle);
+            return elements;
         }
     }
 }

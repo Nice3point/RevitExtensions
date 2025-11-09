@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 
 namespace Nice3point.Revit.Extensions;
 
@@ -85,8 +85,8 @@ public static class SolidUtilsExtensions
     }
 
 #if REVIT2021_OR_GREATER
-    /// <param name="edgeEndPoint">The EdgeEndPoint</param>
-    extension(EdgeEndPoint edgeEndPoint)
+    /// <param name="endPoint">The EdgeEndPoint</param>
+    extension(EdgeEndPoint endPoint)
     {
         /// <summary>Find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint</summary>
         /// <returns>All EdgeEndPoints at the vertex. The input EdgeEndPoint is also included</returns>
@@ -96,7 +96,7 @@ public static class SolidUtilsExtensions
         [Pure]
         public IList<EdgeEndPoint> FindAllEdgeEndPointsAtVertex()
         {
-            return SolidUtils.FindAllEdgeEndPointsAtVertex(edgeEndPoint);
+            return SolidUtils.FindAllEdgeEndPointsAtVertex(endPoint);
         }
     }
 #endif

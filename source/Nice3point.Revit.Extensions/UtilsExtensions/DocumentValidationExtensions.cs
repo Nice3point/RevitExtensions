@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class DocumentValidationExtensions
 {
-    /// <param name="element">The element to check.</param>
+    /// <param name="element">The element to validate.</param>
     extension(Element element)
     {
         /// <summary>Indicates if an element can be deleted.</summary>

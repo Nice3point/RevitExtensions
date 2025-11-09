@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class JoinGeometryUtilsExtensions
 {
-    /// <param name="element">The source element</param>
+    /// <param name="element">The element.</param>
     extension(Element element)
     {
         /// <summary>
@@ -22,7 +22,7 @@ public static class JoinGeometryUtilsExtensions
         ///    The second element to be joined. This element must not be joined to the first element
         /// </param>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element secondElement was not found in the source document<br />
+        ///    The element secondElement was not found in the document<br />
         ///    The elements are already joined<br />
         ///    The elements cannot be joined<br />
         /// </exception>
@@ -42,7 +42,7 @@ public static class JoinGeometryUtilsExtensions
         ///    The second element to be unjoined. This element must be joined to the fist element
         /// </param>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element secondElement was not found in the source document<br />
+        ///    The element secondElement was not found in the document<br />
         ///    The elements are not joined<br />
         ///    The elements cannot be unjoined
         /// </exception>
@@ -61,7 +61,7 @@ public static class JoinGeometryUtilsExtensions
         /// <param name="secondElement">The second element</param>
         /// <returns>True if the two elements are joined</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element secondElement was not found in the source document
+        ///    The element secondElement was not found in the document
         /// </exception>
         [Pure]
         public bool AreElementsJoined(Element secondElement)
@@ -91,7 +91,7 @@ public static class JoinGeometryUtilsExtensions
         ///    The second element. This element must be joined to the first element
         /// </param>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element secondElement was not found in the source document<br />
+        ///    The element secondElement was not found in the document<br />
         ///    The elements are not joined<br />
         ///    The elements cannot be joined
         /// </exception>
@@ -104,15 +104,15 @@ public static class JoinGeometryUtilsExtensions
         }
 
         /// <summary>
-        ///    Determines whether the first of two joined elements is cutting the second element
+        ///    Determines whether this element is cutting the second element in a join
         /// </summary>
         /// <remarks>This functionality is not available for family documents</remarks>
         /// <param name="secondElement">The second element</param>
         /// <returns>
-        ///    True if the secondElement is cut by the element, false if the secondElement is cut by the element
+        ///    True if this element is cutting the secondElement, false if the secondElement is cutting this element
         /// </returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element secondElement was not found in the source document<br />
+        ///    The element secondElement was not found in the document<br />
         ///    The elements are not joined
         /// </exception>
         [Pure]

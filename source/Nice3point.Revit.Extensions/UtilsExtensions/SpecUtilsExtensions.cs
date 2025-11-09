@@ -1,4 +1,4 @@
-﻿#if REVIT2022_OR_GREATER
+#if REVIT2022_OR_GREATER
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
@@ -8,15 +8,15 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class SpecUtilsExtensions
 {
-    /// <param name="specTypeId">The identifier to check.</param>
-    extension(ForgeTypeId specTypeId)
+    /// <param name="typeId">Unique identifier</param>
+    extension(ForgeTypeId typeId)
     {
         /// <summary>Checks whether a ForgeTypeId identifies a spec.</summary>
         /// <returns>True if the ForgeTypeId identifies a spec, false otherwise.</returns>
         [Pure]
         public bool IsSpec()
         {
-            return SpecUtils.IsSpec(specTypeId);
+            return SpecUtils.IsSpec(typeId);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ public static class SpecUtilsExtensions
         [Pure]
         public bool IsValidDataType()
         {
-            return SpecUtils.IsValidDataType(specTypeId);
+            return SpecUtils.IsValidDataType(typeId);
         }
     }
 }

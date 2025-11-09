@@ -53,9 +53,9 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of a line with a new X coordinate
         /// </summary>
-        /// <param name="x">New coordinate</param>
+        /// <param name="x">New X coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
@@ -69,9 +69,9 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of a line with a new Y coordinate
         /// </summary>
-        /// <param name="y">New coordinate</param>
+        /// <param name="y">New Y coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
@@ -85,9 +85,9 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of a line with a new Z coordinate
         /// </summary>
-        /// <param name="z">New coordinate</param>
+        /// <param name="z">New Z coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
@@ -101,129 +101,129 @@ public static class GeometryExtensions
         }
     }
 
-    /// <param name="source">The source box</param>
-    extension(BoundingBoxXYZ source)
+    /// <param name="box">The bounding box</param>
+    extension(BoundingBoxXYZ box)
     {
         /// <summary>
-        ///     Determines whether the specified point is contained within this BoundingBox
+        ///     Determines whether the specified point is contained within this bounding box
         /// </summary>
-        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
-        /// <returns><c>true</c> if the specified point is within the bounds of the <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></returns>
+        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within this bounding box</param>
+        /// <returns><c>true</c> if the specified point is within the bounds of this bounding box</returns>
         [Pure]
         public bool Contains(XYZ point)
         {
-            return Contains(source, point, false);
+            return Contains(box, point, false);
         }
 
         /// <summary>
-        ///     Determines whether the specified point is contained within this BoundingBox
+        ///     Determines whether the specified point is contained within this bounding box
         /// </summary>
-        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></param>
-        /// <param name="strict"><c>true</c> if the point needs to be fully on the inside of the source. A point coinciding with the box border will be considered 'outside'.</param>
-        /// <returns><c>true</c> if the specified point is within the bounds of the <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/></returns>
+        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within this bounding box</param>
+        /// <param name="strict"><c>true</c> if the point needs to be fully on the inside of this bounding box. A point coinciding with the box border will be considered 'outside'.</param>
+        /// <returns><c>true</c> if the specified point is within the bounds of this bounding box</returns>
         [Pure]
         public bool Contains(XYZ point, bool strict)
         {
-            if (!source.Transform.IsIdentity)
+            if (!box.Transform.IsIdentity)
             {
-                point = source.Transform.Inverse.OfPoint(point);
+                point = box.Transform.Inverse.OfPoint(point);
             }
 
             var insideX = strict
-                ? point.X > source.Min.X + Tolerance && point.X < source.Max.X - Tolerance
-                : point.X >= source.Min.X - Tolerance && point.X <= source.Max.X + Tolerance;
+                ? point.X > box.Min.X + Tolerance && point.X < box.Max.X - Tolerance
+                : point.X >= box.Min.X - Tolerance && point.X <= box.Max.X + Tolerance;
 
             var insideY = strict
-                ? point.Y > source.Min.Y + Tolerance && point.Y < source.Max.Y - Tolerance
-                : point.Y >= source.Min.Y - Tolerance && point.Y <= source.Max.Y + Tolerance;
+                ? point.Y > box.Min.Y + Tolerance && point.Y < box.Max.Y - Tolerance
+                : point.Y >= box.Min.Y - Tolerance && point.Y <= box.Max.Y + Tolerance;
 
             var insideZ = strict
-                ? point.Z > source.Min.Z + Tolerance && point.Z < source.Max.Z - Tolerance
-                : point.Z >= source.Min.Z - Tolerance && point.Z <= source.Max.Z + Tolerance;
+                ? point.Z > box.Min.Z + Tolerance && point.Z < box.Max.Z - Tolerance
+                : point.Z >= box.Min.Z - Tolerance && point.Z <= box.Max.Z + Tolerance;
 
             return insideX && insideY && insideZ;
         }
 
         /// <summary>
-        /// Determines whether this <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains another <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/>
+        /// Determines whether this bounding box contains another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
-        /// <returns><c>true</c> if the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains the other <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</returns>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <returns><c>true</c> if this bounding box contains the other bounding box</returns>
         [Pure]
         public bool Contains(BoundingBoxXYZ other)
         {
-            return Contains(source, other, false);
+            return Contains(box, other, false);
         }
 
         /// <summary>
-        /// Determines whether this <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains another <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/>
+        /// Determines whether this bounding box contains another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
-        /// <param name="strict"><c>true</c> if the box needs to be fully on the inside of the source. Coincident boxes will be considered 'outside'.</param>
-        /// <returns><c>true</c> if the source <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> contains the other <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance</returns>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <param name="strict"><c>true</c> if the other box needs to be fully on the inside of this bounding box. Coincident boxes will be considered 'outside'.</param>
+        /// <returns><c>true</c> if this bounding box contains the other bounding box</returns>
         [Pure]
         public bool Contains(BoundingBoxXYZ other, bool strict)
         {
-            var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
-            var sourceMax = source.Transform.IsIdentity ? source.Max : source.Transform.OfPoint(source.Max);
+            var boxMin = box.Transform.IsIdentity ? box.Min : box.Transform.OfPoint(box.Min);
+            var boxMax = box.Transform.IsIdentity ? box.Max : box.Transform.OfPoint(box.Max);
             var otherMin = other.Transform.IsIdentity ? other.Min : other.Transform.OfPoint(other.Min);
             var otherMax = other.Transform.IsIdentity ? other.Max : other.Transform.OfPoint(other.Max);
 
             var insideX = strict
-                ? otherMin.X > sourceMin.X + Tolerance && otherMax.X < sourceMax.X - Tolerance
-                : otherMin.X >= sourceMin.X - Tolerance && otherMax.X <= sourceMax.X + Tolerance;
+                ? otherMin.X > boxMin.X + Tolerance && otherMax.X < boxMax.X - Tolerance
+                : otherMin.X >= boxMin.X - Tolerance && otherMax.X <= boxMax.X + Tolerance;
 
             var insideY = strict
-                ? otherMin.Y > sourceMin.Y + Tolerance && otherMax.Y < sourceMax.Y - Tolerance
-                : otherMin.Y >= sourceMin.Y - Tolerance && otherMax.Y <= sourceMax.Y + Tolerance;
+                ? otherMin.Y > boxMin.Y + Tolerance && otherMax.Y < boxMax.Y - Tolerance
+                : otherMin.Y >= boxMin.Y - Tolerance && otherMax.Y <= boxMax.Y + Tolerance;
 
             var insideZ = strict
-                ? otherMin.Z > sourceMin.Z + Tolerance && otherMax.Z < sourceMax.Z - Tolerance
-                : otherMin.Z >= sourceMin.Z - Tolerance && otherMax.Z <= sourceMax.Z + Tolerance;
+                ? otherMin.Z > boxMin.Z + Tolerance && otherMax.Z < boxMax.Z - Tolerance
+                : otherMin.Z >= boxMin.Z - Tolerance && otherMax.Z <= boxMax.Z + Tolerance;
 
             return insideX && insideY && insideZ;
         }
 
         /// <summary>
-        ///     Determines whether this BoundingBox overlaps with another BoundingBox
+        ///     Determines whether this bounding box overlaps with another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with the source</param>
-        /// <returns><c>true</c> if the two <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instances have at least one common point</returns>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <returns><c>true</c> if the two bounding boxes have at least one common point</returns>
         [Pure]
         public bool Overlaps(BoundingBoxXYZ other)
         {
-            var sourceMin = source.Transform.IsIdentity ? source.Min : source.Transform.OfPoint(source.Min);
-            var sourceMax = source.Transform.IsIdentity ? source.Max : source.Transform.OfPoint(source.Max);
+            var boxMin = box.Transform.IsIdentity ? box.Min : box.Transform.OfPoint(box.Min);
+            var boxMax = box.Transform.IsIdentity ? box.Max : box.Transform.OfPoint(box.Max);
             var otherMin = other.Transform.IsIdentity ? other.Min : other.Transform.OfPoint(other.Min);
             var otherMax = other.Transform.IsIdentity ? other.Max : other.Transform.OfPoint(other.Max);
 
-            var overlapX = !(sourceMax.X < otherMin.X - Tolerance || sourceMin.X > otherMax.X + Tolerance);
-            var overlapY = !(sourceMax.Y < otherMin.Y - Tolerance || sourceMin.Y > otherMax.Y + Tolerance);
-            var overlapZ = !(sourceMax.Z < otherMin.Z - Tolerance || sourceMin.Z > otherMax.Z + Tolerance);
+            var overlapX = !(boxMax.X < otherMin.X - Tolerance || boxMin.X > otherMax.X + Tolerance);
+            var overlapY = !(boxMax.Y < otherMin.Y - Tolerance || boxMin.Y > otherMax.Y + Tolerance);
+            var overlapZ = !(boxMax.Z < otherMin.Z - Tolerance || boxMin.Z > otherMax.Z + Tolerance);
 
             return overlapX && overlapY && overlapZ;
         }
     }
 
-    /// <param name="source">The source arc</param>
-    extension(Arc source)
+    /// <param name="arc">The arc</param>
+    extension(Arc arc)
     {
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of an arc with a new X coordinate
         /// </summary>
-        /// <param name="x">New coordinate</param>
-        /// <returns>The new bound line</returns>
+        /// <param name="x">New X coordinate</param>
+        /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateX(double x)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
-            var endParameter0 = source.GetEndParameter(0);
-            var endParameter1 = source.GetEndParameter(1);
-            var centerPoint = source.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var endPoint0 = arc.GetEndPoint(0);
+            var endPoint1 = arc.GetEndPoint(1);
+            var endParameter0 = arc.GetEndParameter(0);
+            var endParameter1 = arc.GetEndParameter(1);
+            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
             return Arc.Create(
                 new XYZ(x, endPoint0.Y, endPoint0.Z),
                 new XYZ(x, endPoint1.Y, endPoint1.Z),
@@ -231,21 +231,21 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of an arc with a new Y coordinate
         /// </summary>
-        /// <param name="y">New coordinate</param>
-        /// <returns>The new bound line</returns>
+        /// <param name="y">New Y coordinate</param>
+        /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateY(double y)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
-            var endParameter0 = source.GetEndParameter(0);
-            var endParameter1 = source.GetEndParameter(1);
-            var centerPoint = source.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var endPoint0 = arc.GetEndPoint(0);
+            var endPoint1 = arc.GetEndPoint(1);
+            var endParameter0 = arc.GetEndParameter(0);
+            var endParameter1 = arc.GetEndParameter(1);
+            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
             return Arc.Create(
                 new XYZ(endPoint0.X, y, endPoint0.Z),
                 new XYZ(endPoint1.X, y, endPoint1.Z),
@@ -253,21 +253,21 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        ///     Creates an instance of a curve with a new coordinate
+        ///     Creates an instance of an arc with a new Z coordinate
         /// </summary>
-        /// <param name="z">New coordinate</param>
-        /// <returns>The new bound line</returns>
+        /// <param name="z">New Z coordinate</param>
+        /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
         ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateZ(double z)
         {
-            var endPoint0 = source.GetEndPoint(0);
-            var endPoint1 = source.GetEndPoint(1);
-            var endParameter0 = source.GetEndParameter(0);
-            var endParameter1 = source.GetEndParameter(1);
-            var centerPoint = source.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var endPoint0 = arc.GetEndPoint(0);
+            var endPoint1 = arc.GetEndPoint(1);
+            var endParameter0 = arc.GetEndParameter(0);
+            var endParameter1 = arc.GetEndParameter(1);
+            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
             return Arc.Create(
                 new XYZ(endPoint0.X, endPoint0.Y, z),
                 new XYZ(endPoint1.X, endPoint1.Y, z),
@@ -275,37 +275,37 @@ public static class GeometryExtensions
         }
     }
 
-    /// <param name="source">The source point</param>
-    extension(XYZ source)
+    /// <param name="point">The point</param>
+    extension(XYZ point)
     {
         /// <summary>
-        ///     Creates an instance of a point with a new coordinate
+        ///     Creates an instance of a point with a new X coordinate
         /// </summary>
-        /// <param name="x">New coordinate</param>
+        /// <param name="x">New X coordinate</param>
         [Pure]
         public XYZ SetX(double x)
         {
-            return new XYZ(x, source.Y, source.Z);
+            return new XYZ(x, point.Y, point.Z);
         }
 
         /// <summary>
-        ///     Creates an instance of a point with a new coordinate
+        ///     Creates an instance of a point with a new Y coordinate
         /// </summary>
-        /// <param name="y">New coordinate</param>
+        /// <param name="y">New Y coordinate</param>
         [Pure]
         public XYZ SetY(double y)
         {
-            return new XYZ(source.X, y, source.Z);
+            return new XYZ(point.X, y, point.Z);
         }
 
         /// <summary>
-        ///     Creates an instance of a point with a new coordinate
+        ///     Creates an instance of a point with a new Z coordinate
         /// </summary>
-        /// <param name="z">New coordinate</param>
+        /// <param name="z">New Z coordinate</param>
         [Pure]
         public XYZ SetZ(double z)
         {
-            return new XYZ(source.X, source.Y, z);
+            return new XYZ(point.X, point.Y, z);
         }
     }
 }

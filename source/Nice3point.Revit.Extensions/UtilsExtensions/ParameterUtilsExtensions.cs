@@ -1,4 +1,4 @@
-﻿#if REVIT2022_OR_GREATER
+#if REVIT2022_OR_GREATER
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
@@ -8,8 +8,8 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class ParameterUtilsExtensions
 {
-    /// <param name="parameterTypeId">The parameter identifier.</param>
-    extension(ForgeTypeId parameterTypeId)
+    /// <param name="typeId">The parameter identifier.</param>
+    extension(ForgeTypeId typeId)
     {
         /// <summary>Checks whether a ForgeTypeId identifies a built-in parameter.</summary>
         /// <remarks>
@@ -19,18 +19,18 @@ public static class ParameterUtilsExtensions
         [Pure]
         public bool IsBuiltInParameter()
         {
-            return ParameterUtils.IsBuiltInParameter(parameterTypeId);
+            return ParameterUtils.IsBuiltInParameter(typeId);
         }
 
         /// <summary> Gets the BuiltInParameter value corresponding to built-in parameter identified by the given ForgeTypeId.</summary>
         /// <returns>The BuiltInParameter value corresponding to the given parameter identifier.</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    parameterTypeId is not a built-in parameter identifier. See IsBuiltInParameter(ForgeTypeId) and GetParameterTypeId(BuiltInParameter).
+        ///    parameterTypeId is not a built-in parameter identifier. See IsBuiltInParameter(ForgeTypeId) and GetParameterTypeId(parameter).
         /// </exception>
         [Pure]
         public BuiltInParameter GetBuiltInParameter()
         {
-            return ParameterUtils.GetBuiltInParameter(parameterTypeId);
+            return ParameterUtils.GetBuiltInParameter(typeId);
         }
 
         /// <summary>Checks whether a ForgeTypeId identifies a built-in parameter group.</summary>
@@ -43,7 +43,7 @@ public static class ParameterUtilsExtensions
         [Pure]
         public bool IsBuiltInGroup()
         {
-            return ParameterUtils.IsBuiltInGroup(parameterTypeId);
+            return ParameterUtils.IsBuiltInGroup(typeId);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ public static class ParameterUtilsExtensions
         /// </exception>
         public ParameterDownloadOptions DownloadParameterOptions()
         {
-            return ParameterUtils.DownloadParameterOptions(parameterTypeId);
+            return ParameterUtils.DownloadParameterOptions(typeId);
         }
 
 #if REVIT2024_OR_GREATER
@@ -108,7 +108,7 @@ public static class ParameterUtilsExtensions
         /// </exception>
         public string DownloadCompanyName(Document document)
         {
-            return ParameterUtils.DownloadCompanyName(document, parameterTypeId);
+            return ParameterUtils.DownloadCompanyName(document, typeId);
         }
 
         /// <summary>
@@ -173,20 +173,20 @@ public static class ParameterUtilsExtensions
         [Pure]
         public SharedParameterElement DownloadParameter(Document document, ParameterDownloadOptions options)
         {
-            return ParameterUtils.DownloadParameter(document, options, parameterTypeId);
+            return ParameterUtils.DownloadParameter(document, options, typeId);
         }
 #endif
     }
 
-    /// <param name="builtInParameter">The BuiltInParameter value.</param>
-    extension(BuiltInParameter builtInParameter)
+    /// <param name="parameter">The BuiltInParameter value.</param>
+    extension(BuiltInParameter parameter)
     {
         /// <summary> Gets the ForgeTypeId identifying the built-in parameter corresponding to the given BuiltInParameter value.</summary>
         /// <returns>Identifier of the parameter corresponding to the given BuiltInParameter value.</returns>
         [Pure]
         public ForgeTypeId GetParameterTypeId()
         {
-            return ParameterUtils.GetParameterTypeId(builtInParameter);
+            return ParameterUtils.GetParameterTypeId(parameter);
         }
     }
 
