@@ -29,6 +29,6 @@ public sealed class PublishNugetModule(IOptions<PackOptions> packOptions, IOptio
                     Source = nuGetOptions.Value.Source
                 }, cancellationToken),
                 cancellationToken)
-            .ProcessInParallel();
+            .ProcessOneAtATime();
     }
 }

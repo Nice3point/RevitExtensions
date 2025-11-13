@@ -47,7 +47,7 @@ public sealed class PublishGithubModule(IOptions<PublishOptions> publishOptions,
                 };
                 return await context.GitHub().Client.Repository.Release.UploadAsset(release, asset, cancellationToken);
             }, cancellationToken)
-            .ProcessInParallel();
+            .ProcessOneAtATime();
     }
 
     protected override async Task OnAfterExecute(IPipelineContext context)
