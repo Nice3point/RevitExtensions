@@ -1,3 +1,53 @@
+# Release 2026.0.2-preview.1.20251113
+
+This update focuses on improved API design through C# 14 extension methods syntax and .NET 10 support.
+
+## Breaking changes
+
+**Extension Methods**
+
+The following boolean methods have been converted to properties for improved syntax and consistency with modern C# conventions:
+
+- **IsAnalyticalElement:** Changed from method to property
+- **IsPhysicalElement:** Changed from method to property
+- **AreGlobalParametersAllowed:** Changed from method to property
+- **IsBuiltInParameter (ForgeTypeId):** Changed from method to property
+- **IsBuiltInParameter (Parameter):** Changed from method to property
+- **IsBuiltInGroup:** Changed from method to property
+- **HasOpenConnector:** Changed from method to property
+- **IsAllowedForSolidCut:** Changed from method to property
+- **IsElementFromAppropriateContext:** Changed from method to property
+- **IsValidForTessellation:** Changed from method to property
+- **IsSpec:** Changed from method to property
+- **IsValidDataType:** Changed from method to property
+- **IsSymbol:** Changed from method to property
+- **IsUnit:** Changed from method to property
+- **IsMeasurableSpec:** Changed from method to property
+- **CanDeleteElement:** Renamed to **CanBeDeleted** and kept as method
+
+**Migration example:**
+
+```csharp
+// Old syntax
+if (element.IsAnalyticalElement())
+{
+    // ...
+}
+
+// New syntax  
+if (element.IsAnalyticalElement)
+{
+    // ...
+}
+```
+
+## Improvements
+
+- **Revit 2019** support by @ZedMoster in https://github.com/Nice3point/RevitExtensions/pull/13
+- **SDK Update:** Updated to stable .NET 10 SDK
+- **Documentation:** Updated parameter descriptions and variable names to align with C# 14 syntax
+- **Build System:** Migration from Nuke to ModularPipilines
+
 # Release 2026.0.1
 
 This update focuses on increased utility class coverage, new extensions for global parameter management, for ForgeTypeId handling, advanced geometry extensions, and many-many more.
