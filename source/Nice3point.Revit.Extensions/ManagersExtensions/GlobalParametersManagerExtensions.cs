@@ -18,11 +18,7 @@ public static class GlobalParametersManagerExtensions
         ///    circumstances due to which global parameters may be disallowed in a particular
         ///    project, either temporarily or permanently.
         /// </remarks>
-        [Pure]
-        public bool AreGlobalParametersAllowed()
-        {
-            return GlobalParametersManager.AreGlobalParametersAllowed(document);
-        }
+        public bool AreGlobalParametersAllowed => GlobalParametersManager.AreGlobalParametersAllowed(document);
 
         /// <summary>Returns all global parameters available in the given document.</summary>
         /// <returns>A collection of GlobalParameters</returns>

@@ -14,18 +14,10 @@ public static class AnalyticalToPhysicalAssociationManagerExtensions
     extension(Element element)
     {
         /// <summary>Returns true if the element is an analytical element.</summary>
-        [Pure]
-        public bool IsAnalyticalElement()
-        {
-            return AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(element.Document, element.Id);
-        }
+        public bool IsAnalyticalElement => AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(element.Document, element.Id);
 
         /// <summary>Returns true if the element is a physical element.</summary>
-        [Pure]
-        public bool IsPhysicalElement()
-        {
-            return AnalyticalToPhysicalAssociationManager.IsPhysicalElement(element.Document, element.Id);
-        }
+        public bool IsPhysicalElement => AnalyticalToPhysicalAssociationManager.IsPhysicalElement(element.Document, element.Id);
     }
 
     /// <param name="document">The Revit document.</param>

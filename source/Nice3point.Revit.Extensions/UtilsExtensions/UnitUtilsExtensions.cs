@@ -165,20 +165,12 @@ public static class UnitUtilsExtensions
         /// <summary>Checks whether a ForgeTypeId identifies a symbol.</summary>
         /// <remarks>The SymbolTypeId class offers symbol identifiers.</remarks>
         /// <returns>True if the ForgeTypeId identifies a symbol, false otherwise.</returns>
-        [Pure]
-        public bool IsSymbol()
-        {
-            return UnitUtils.IsSymbol(typeId);
-        }
+        public bool IsSymbol => UnitUtils.IsSymbol(typeId);
 
         /// <summary>Checks whether a ForgeTypeId identifies a unit.</summary>
         /// <remarks>The UnitTypeId class offers unit identifiers.</remarks>
         /// <returns>True if the ForgeTypeId identifies a unit, false otherwise.</returns>
-        [Pure]
-        public bool IsUnit()
-        {
-            return UnitUtils.IsUnit(typeId);
-        }
+        public bool IsUnit => UnitUtils.IsUnit(typeId);
 
         /// <summary>Gets the identifiers of all valid units for a given measurable spec.</summary>
         /// <returns>Identifiers of the valid units.</returns>
@@ -233,11 +225,7 @@ public static class UnitUtilsExtensions
         ///    Checks whether a ForgeTypeId identifies a spec associated with units of measurement.
         /// </summary>
         /// <returns>True if the ForgeTypeId identifies a measurable spec, false otherwise.</returns>
-        [Pure]
-        public bool IsMeasurableSpec()
-        {
-            return UnitUtils.IsMeasurableSpec(typeId);
-        }
+        public bool IsMeasurableSpec => UnitUtils.IsMeasurableSpec(typeId);
 
         /// <summary>Gets the discipline for a given measurable spec.</summary>
         /// <returns>Identifier of the discipline.</returns>

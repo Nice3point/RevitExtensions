@@ -13,11 +13,7 @@ public static class SpecUtilsExtensions
     {
         /// <summary>Checks whether a ForgeTypeId identifies a spec.</summary>
         /// <returns>True if the ForgeTypeId identifies a spec, false otherwise.</returns>
-        [Pure]
-        public bool IsSpec()
-        {
-            return SpecUtils.IsSpec(typeId);
-        }
+        public bool IsSpec => SpecUtils.IsSpec(typeId);
 
         /// <summary>
         ///    Returns true if the given ForgeTypeId identifies a valid parameter data type.
@@ -31,11 +27,7 @@ public static class SpecUtilsExtensions
         /// <returns>
         ///    True if the ForgeTypeId identifies either a spec or a category, false otherwise.
         /// </returns>
-        [Pure]
-        public bool IsValidDataType()
-        {
-            return SpecUtils.IsValidDataType(typeId);
-        }
+        public bool IsValidDataType => SpecUtils.IsValidDataType(typeId);
     }
 }
 #endif

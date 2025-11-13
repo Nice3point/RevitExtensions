@@ -14,7 +14,7 @@ public static class DocumentValidationExtensions
         /// <summary>Indicates if an element can be deleted.</summary>
         /// <returns>True if the element can be deleted, false otherwise.</returns>
         [Pure]
-        public bool CanDeleteElement()
+        public bool CanBeDeleted()
         {
             return DocumentValidation.CanDeleteElement(element.Document, element.Id);
         }

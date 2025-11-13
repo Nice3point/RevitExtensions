@@ -34,11 +34,7 @@ public static class SolidSolidCutUtilsExtensions
         /// <returns>
         ///    True if the input element can participate in a solid-solid cut.  False otherwise.
         /// </returns>
-        [Pure]
-        public bool IsAllowedForSolidCut()
-        {
-            return SolidSolidCutUtils.IsAllowedForSolidCut(element);
-        }
+        public bool IsAllowedForSolidCut => SolidSolidCutUtils.IsAllowedForSolidCut(element);
 
         /// <summary>Validates that the element is from an appropriate document.</summary>
         /// <remarks>
@@ -48,11 +44,7 @@ public static class SolidSolidCutUtilsExtensions
         /// <returns>
         ///    True if the element is from an appropriate document for solid-solid cuts, false otherwise.
         /// </returns>
-        [Pure]
-        public bool IsElementFromAppropriateContext()
-        {
-            return SolidSolidCutUtils.IsElementFromAppropriateContext(element);
-        }
+        public bool IsElementFromAppropriateContext => SolidSolidCutUtils.IsElementFromAppropriateContext(element);
 
         /// <summary>Verifies if the cutting element can add a solid cut to the target element.</summary>
         /// <param name="cutElement">The element to be cut.</param>

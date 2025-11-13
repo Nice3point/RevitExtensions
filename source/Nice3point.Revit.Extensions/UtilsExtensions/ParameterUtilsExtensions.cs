@@ -16,11 +16,7 @@ public static class ParameterUtilsExtensions
         ///    A ForgeTypeId identifies a built-in parameter if it corresponds to a valid BuiltInParameter value.
         /// </remarks>
         /// <returns>True if the ForgeTypeId identifies a built-in parameter, false otherwise.</returns>
-        [Pure]
-        public bool IsBuiltInParameter()
-        {
-            return ParameterUtils.IsBuiltInParameter(typeId);
-        }
+        public bool IsBuiltInParameter => ParameterUtils.IsBuiltInParameter(typeId);
 
         /// <summary> Gets the BuiltInParameter value corresponding to built-in parameter identified by the given ForgeTypeId.</summary>
         /// <returns>The BuiltInParameter value corresponding to the given parameter identifier.</returns>
@@ -40,11 +36,7 @@ public static class ParameterUtilsExtensions
         /// <returns>
         ///    True if the ForgeTypeId identifies a built-in parameter group, false otherwise.
         /// </returns>
-        [Pure]
-        public bool IsBuiltInGroup()
-        {
-            return ParameterUtils.IsBuiltInGroup(typeId);
-        }
+        public bool IsBuiltInGroup => ParameterUtils.IsBuiltInGroup(typeId);
 
 #if REVIT2024_OR_GREATER
         /// <summary>
@@ -199,11 +191,7 @@ public static class ParameterUtilsExtensions
         ///    A Parameter identifies a built-in parameter if it corresponds to a valid BuiltInParameter value.
         /// </remarks>
         /// <returns>True if the Parameter identifies a built-in parameter, false otherwise.</returns>
-        [Pure]
-        public bool IsBuiltInParameter()
-        {
-            return ParameterUtils.IsBuiltInParameter(parameter.Id);
-        }
+        public bool IsBuiltInParameter => ParameterUtils.IsBuiltInParameter(parameter.Id);
     }
 #endif
 }

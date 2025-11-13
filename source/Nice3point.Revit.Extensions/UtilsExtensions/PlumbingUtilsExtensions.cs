@@ -139,11 +139,7 @@ public static class PlumbingUtilsExtensions
         ///    Checks if there is open piping connector for the given pipe curve.
         /// </summary>
         /// <returns>True if given pipe has open piping connector, false otherwise.</returns>
-        [Pure]
-        public bool HasOpenConnector()
-        {
-            return PlumbingUtils.HasOpenConnector(pipe.Document, pipe.Id);
-        }
+        public bool HasOpenConnector => PlumbingUtils.HasOpenConnector(pipe.Document, pipe.Id);
 
         /// <summary>Breaks the pipe curve into two parts at the given position.</summary>
         /// <remarks>This method is not applicable for breaking the flex pipe.</remarks>

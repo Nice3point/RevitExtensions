@@ -48,11 +48,7 @@ public static class SolidUtilsExtensions
 
         /// <summary>Tests if the input solid or shell is valid for tessellation</summary>
         /// <returns>True if the solid or shell is valid for tessellation, false otherwise</returns>
-        [Pure]
-        public bool IsValidForTessellation()
-        {
-            return SolidUtils.IsValidForTessellation(solid);
-        }
+        public bool IsValidForTessellation => SolidUtils.IsValidForTessellation(solid);
 
         /// <summary>
         ///    This function facets (i.e., triangulates) a solid or an open shell. Each boundary
