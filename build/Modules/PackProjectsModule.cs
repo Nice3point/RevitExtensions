@@ -14,25 +14,26 @@ namespace Build.Modules;
 
 [DependsOn<CleanProjectsModule>]
 [DependsOn<CreatePackageReadmeModule>]
-[DependsOn<CreatePackageChangelogModule>]
 [DependsOn<ParseSolutionConfigurationsModule>]
 public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOptions<PackOptions> packOptions) : Module
 {
     protected override async Task<IDictionary<string, object>?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
     {
         var configurations = await GetModule<ParseSolutionConfigurationsModule>();
-        var changelog = await GetModule<CreatePackageChangelogModule>();
+        var changelogModule = GetModuleIfRegistered<CreatePackageChangelogModule>();
+
+        var changelog = changelogModule is null ? null : await changelogModule;
         var outputFolder = context.Git().RootDirectory.GetFolder(packOptions.Value.OutputDirectory);
 
         foreach (var configuration in configurations.Value!)
         {
-            await SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder.Path, changelog.Value!, cancellationToken));
+            await SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder.Path, changelog?.Value, cancellationToken));
         }
 
         return await NothingAsync();
     }
 
-    private async Task<CommandResult> PackAsync(IPipelineContext context, string configuration, string output, string changelog, CancellationToken cancellationToken)
+    private async Task<CommandResult> PackAsync(IPipelineContext context, string configuration, string output, string? changelog, CancellationToken cancellationToken)
     {
         buildOptions.Value.Versions
             .TryGetValue(configuration, out var version)
@@ -46,7 +47,7 @@ public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOpt
             Properties = new List<KeyValue>
             {
                 ("Version", version.ToString()),
-                ("PackageReleaseNotes", changelog),
+                ("PackageReleaseNotes", changelog ?? string.Empty),
             },
             OutputDirectory = output
         }, cancellationToken);

@@ -17,7 +17,7 @@ namespace Build.Modules;
 [SkipIfNoGitHubToken]
 [DependsOn<PackProjectsModule>]
 [DependsOn<CreateGitHubChangelogModule>]
-public sealed class PublishGithubModule(IOptions<BuildOptions> buildOptions, IOptions<PackOptions> packOptions) : Module<ReleaseAsset[]?>
+public sealed class PublishGithubModule(IOptions<PublishOptions> publishOptions, IOptions<PackOptions> packOptions) : Module<ReleaseAsset[]?>
 {
     protected override async Task<ReleaseAsset[]?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
     {
@@ -27,12 +27,12 @@ public sealed class PublishGithubModule(IOptions<BuildOptions> buildOptions, IOp
         targetFiles.ShouldNotBeEmpty("No artifacts were found to create the Release");
 
         var repositoryInfo = context.GitHub().RepositoryInfo;
-        var newRelease = new NewRelease(buildOptions.Value.Version)
+        var newRelease = new NewRelease(publishOptions.Value.Version)
         {
-            Name = buildOptions.Value.Version,
+            Name = publishOptions.Value.Version,
             Body = changelog.Value,
             TargetCommitish = context.Git().Information.LastCommitSha,
-            Prerelease = buildOptions.Value.Version.Contains('-')
+            Prerelease = publishOptions.Value.Version.Contains('-')
         };
 
         var release = await context.GitHub().Client.Repository.Release.Create(repositoryInfo.Owner, repositoryInfo.RepositoryName, newRelease);
@@ -57,7 +57,7 @@ public sealed class PublishGithubModule(IOptions<BuildOptions> buildOptions, IOp
             await context.Git().Commands.Push(new GitPushOptions
             {
                 Delete = true,
-                Arguments = ["origin", buildOptions.Value.Version]
+                Arguments = ["origin", publishOptions.Value.Version]
             });
         }
     }

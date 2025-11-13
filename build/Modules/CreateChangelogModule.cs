@@ -9,20 +9,19 @@ using File = ModularPipelines.FileSystem.File;
 
 namespace Build.Modules;
 
-public sealed class CreateChangelogModule(IOptions<BuildOptions> buildOptions) : Module<StringBuilder>
+public sealed class CreateChangelogModule(IOptions<PublishOptions> publishOptions) : Module<StringBuilder>
 {
     protected override async Task<StringBuilder?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
     {
         var changelogFile = context.Git().RootDirectory.GetFile("Changelog.md");
-        var version = buildOptions.Value.Version;
-        
+        var version = publishOptions.Value.Version;
+
         var changelog = await BuildChangelog(changelogFile, version);
         changelog.Length.ShouldBePositive($"No version entry exists in the changelog: {version}");
-        
+
         return changelog;
     }
-    
-    
+
     private static async Task<StringBuilder> BuildChangelog(File changelogFile, string version)
     {
         const string separator = "# ";

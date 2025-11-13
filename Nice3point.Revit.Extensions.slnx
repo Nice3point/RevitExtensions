@@ -20,7 +20,23 @@
   </Configurations>
   <Folder Name="/Automation/">
     <Project Path="build/Build.csproj">
-      <BuildType Project="Debug" />
+        <BuildType Solution="Debug R19|*" Project="Debug"/>
+        <BuildType Solution="Debug R20|*" Project="Debug"/>
+        <BuildType Solution="Debug R21|*" Project="Debug"/>
+        <BuildType Solution="Debug R22|*" Project="Debug"/>
+        <BuildType Solution="Debug R23|*" Project="Debug"/>
+        <BuildType Solution="Debug R24|*" Project="Debug"/>
+        <BuildType Solution="Debug R25|*" Project="Debug"/>
+        <BuildType Solution="Debug R26|*" Project="Debug"/>
+        <BuildType Solution="Release R19|*" Project="Release"/>
+        <BuildType Solution="Release R20|*" Project="Release"/>
+        <BuildType Solution="Release R21|*" Project="Release"/>
+        <BuildType Solution="Release R22|*" Project="Release"/>
+        <BuildType Solution="Release R23|*" Project="Release"/>
+        <BuildType Solution="Release R24|*" Project="Release"/>
+        <BuildType Solution="Release R25|*" Project="Release"/>
+        <BuildType Solution="Release R26|*" Project="Release"/>
+        <BuildType Solution="Release Tests|*" Project="Release"/>
     </Project>
   </Folder>
   <Folder Name="/Solution Items/">
@@ -39,6 +55,7 @@
       <BuildType Solution="Debug R24|*" Project="Debug" />
       <BuildType Solution="Debug R25|*" Project="Debug" />
       <BuildType Solution="Debug R26|*" Project="Debug" />
+        <BuildType Solution="Release R19|*" Project="Release"/>
       <BuildType Solution="Release R20|*" Project="Release" />
       <BuildType Solution="Release R21|*" Project="Release" />
       <BuildType Solution="Release R22|*" Project="Release" />
@@ -55,6 +72,7 @@
       <Build Solution="Debug R24|*" Project="false" />
       <Build Solution="Debug R25|*" Project="false" />
       <Build Solution="Debug R26|*" Project="false" />
+        <Build Solution="Release R19|*" Project="false"/>
       <Build Solution="Release R20|*" Project="false" />
       <Build Solution="Release R21|*" Project="false" />
       <Build Solution="Release R22|*" Project="false" />

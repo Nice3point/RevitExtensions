@@ -23,6 +23,7 @@ await PipelineHostBuilder.Create()
             return;
         }
 
+        collection.AddOptions<BuildOptions>().Bind(context.Configuration.GetSection("Build")).ValidateDataAnnotations();
         collection.AddModule<ParseSolutionConfigurationsModule>();
 
         if (args.Length == 0)
@@ -36,8 +37,6 @@ await PipelineHostBuilder.Create()
             collection.AddOptions<PackOptions>().Bind(context.Configuration.GetSection("Pack")).ValidateDataAnnotations();
 
             collection.AddModule<CleanProjectsModule>();
-            collection.AddModule<CreateChangelogModule>();
-            collection.AddModule<CreatePackageChangelogModule>();
             collection.AddModule<CreatePackageReadmeModule>();
             collection.AddModule<PackProjectsModule>();
             collection.AddModule<RestoreReadmeModule>();
@@ -50,8 +49,11 @@ await PipelineHostBuilder.Create()
                 throw new InvalidOperationException("Publish can only be run in production");
             }
 
+            collection.AddOptions<PublishOptions>().Bind(context.Configuration.GetSection("Publish")).ValidateDataAnnotations();
             collection.AddOptions<NuGetOptions>().Bind(context.Configuration.GetSection("NuGet")).ValidateDataAnnotations();
 
+            collection.AddModule<CreateChangelogModule>();
+            collection.AddModule<CreatePackageChangelogModule>();
             collection.AddModule<CreateGitHubChangelogModule>();
             collection.AddModule<PublishNugetModule>();
             collection.AddModule<PublishGithubModule>();

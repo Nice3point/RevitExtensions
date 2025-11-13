@@ -9,7 +9,7 @@ using ModularPipelines.Modules;
 namespace Build.Modules;
 
 [DependsOn<CreateChangelogModule>]
-public sealed class CreateGitHubChangelogModule(IOptions<BuildOptions> buildOptions) : Module<string>
+public sealed class CreateGitHubChangelogModule(IOptions<PublishOptions> publishOptions) : Module<string>
 {
     protected override async Task<string?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
     {
@@ -27,7 +27,7 @@ public sealed class CreateGitHubChangelogModule(IOptions<BuildOptions> buildOpti
 
         if (changelog[^1] != '\r' || changelog[^1] != '\n') changelog.AppendLine(Environment.NewLine);
         changelog.Append("Full changelog: ");
-        changelog.Append($"https://github.com/{repositoryInfo.Identifier}/compare/{latestRelease.TagName}...{buildOptions.Value.Version}");
+        changelog.Append($"https://github.com/{repositoryInfo.Identifier}/compare/{latestRelease.TagName}...{publishOptions.Value.Version}");
 
         return changelog;
     }
