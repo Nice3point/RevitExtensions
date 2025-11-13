@@ -125,21 +125,21 @@ var canMirror = element.CanBeMirrored();
 **IsAnalyticalElement** extension returns true if the element is an analytical element.
 
 ```csharp
-var isAnalytical = element.IsAnalyticalElement();
+var isAnalytical = element.IsAnalyticalElement;
 ```
 
 **IsPhysicalElement** extension returns true if the element is a physical element.
 
 ```csharp
-var isPhysical = element.IsPhysicalElement();
+var isPhysical = element.IsPhysicalElement;
 ```
 
 ### Element validation extensions
 
-**CanDeleteElement** extension indicates whether an element can be deleted.
+**CanBeDeleted** extension indicates whether an element can be deleted.
 
 ```csharp
-var canDelete = element.CanDeleteElement();
+var canDelete = element.CanBeDeleted();
 ```
 
 ### Element worksharing extensions
@@ -696,7 +696,7 @@ parameter.Set(new Color(66, 69, 96);
 **IsBuiltInParameter** extension checks whether a Parameter identifies a built-in parameter.
 
 ```csharp
-var isBuiltIn = parameter.IsBuiltInParameter();
+var isBuiltIn = parameter.IsBuiltInParameter;
 ```
 
 ### Document global parameters extensions
@@ -752,7 +752,7 @@ var isValid = document.IsValidGlobalParameter(parameterId);
 **AreGlobalParametersAllowed** extension tests whether global parameters are allowed in the given document.
 
 ```csharp
-var isAllowed = document.AreGlobalParametersAllowed();
+var isAllowed = document.AreGlobalParametersAllowed;
 ```
 
 ## FilteredElementCollector extensions
@@ -817,37 +817,37 @@ Don't try to call `GetInstances().Select().Tolist()` instead of `EnumerateInstan
 **IsSpec** extension Checks whether a ForgeTypeId identifies a spec.
 
 ```csharp
-var isSpec = forgeId.IsSpec();
+var isSpec = forgeId.IsSpec;
 ```
 
 **IsBuiltInGroup** extension checks whether a ForgeTypeId identifies a built-in parameter group.
 
 ```csharp
-var isGroup = forgeId.IsBuiltInGroup();
+var isGroup = forgeId.IsBuiltInGroup;
 ```
 
 **IsBuiltInParameter** extension checks whether a ForgeTypeId identifies a built-in parameter.
 
 ```csharp
-var isBuiltInParameter = forgeId.IsBuiltInParameter();
+var isBuiltInParameter = forgeId.IsBuiltInParameter;
 ```
 
 **IsSymbol** extension checks whether a ForgeTypeId identifies a symbol.
 
 ```csharp
-var isSymbol = symbolTypeId.IsSymbol();
+var isSymbol = symbolTypeId.IsSymbol;
 ```
 
 **IsUnit** extension checks whether a ForgeTypeId identifies a unit.
 
 ```csharp
-var isUnit = unitTypeId.IsUnit();
+var isUnit = unitTypeId.IsUnit;
 ```
 
 **IsValidDataType** extension returns true if the given ForgeTypeId identifies a valid parameter data type.
 
 ```csharp
-var isValid = forgeId.IsValidDataType();
+var isValid = forgeId.IsValidDataType;
 ```
 
 **IsValidUnit** extension checks whether a unit is valid for a given measurable spec.
@@ -859,7 +859,7 @@ var isValid = specTypeId.IsValidUnit(unitTypeId);
 **IsMeasurableSpec** extension checks whether a ForgeTypeId identifies a spec associated with units of measurement.
 
 ```csharp
-var isMeasurable = specTypeId.IsMeasurableSpec(unitTypeId);
+var isMeasurable = specTypeId.IsMeasurableSpec;
 ```
 
 **GetBuiltInParameter** extension gets the BuiltInParameter value corresponding to built-in parameter identified by the given ForgeTypeId.
@@ -1202,7 +1202,7 @@ pipe.PlaceCapOnOpenEnds(typeId);
 **HasOpenConnector** extension checks if there is open piping connector for the given pipe curve.
 
 ```csharp
-var hasOpenConnector = pipe.HasOpenConnector();
+var hasOpenConnector = pipe.HasOpenConnector;
 ```
 
 **BreakCurve** extension breaks the pipe curve into two parts at the given position.
@@ -1235,7 +1235,7 @@ var solids = solid.SplitVolumes();
 **IsValidForTessellation** extension tests if the input solid or shell is valid for tessellation.
 
 ```csharp
-var isValid = solid.IsValidForTessellation();
+var isValid = solid.IsValidForTessellation;
 ```
 
 **TessellateSolidOrShell** extension facets (i.e., triangulates) a solid or an open shell.
@@ -1267,13 +1267,13 @@ var solids = element.GetSolidsBeingCut();
 **IsAllowedForSolidCut** extension validates that the element is eligible for a solid-solid cut.
 
 ```csharp
-var isAllowed = element.IsAllowedForSolidCut();
+var isAllowed = element.IsAllowedForSolidCut;
 ```
 
 **IsElementFromAppropriateContext** extension validates that the element is from an appropriate document.
 
 ```csharp
-var fromContext = element.IsElementFromAppropriateContext();
+var fromContext = element.IsElementFromAppropriateContext;
 ```
 
 **CanElementCutElement** extension verifies if the cutting element can add a solid cut to the target element.
