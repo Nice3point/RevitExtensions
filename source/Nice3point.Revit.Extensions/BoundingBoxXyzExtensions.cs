@@ -6,7 +6,7 @@
 [PublicAPI]
 public static class BoundingBoxXyzExtensions
 {
-    /// <param name="boundingBox">The bounding box from which the centroid is calculated.</param>
+    /// <param name="boundingBox">The source bounding box.</param>
     extension(BoundingBoxXYZ boundingBox)
     {
         /// <summary>

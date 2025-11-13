@@ -46,6 +46,7 @@ public static
         ///     The method will convert these values into a total feet measurement, returning the result as a double.
         /// </remarks>
         [Pure]
+        [Obsolete("Use UnitsNet package instead")]
         public double FromFraction()
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
@@ -75,6 +76,7 @@ public static
         ///     </list>
         /// </remarks>
         [Pure]
+        [Obsolete("Use UnitsNet package instead")]
         public bool TryFromFraction(out double value)
         {
             value = 0;
@@ -119,6 +121,7 @@ public static
         ///     </list>
         /// </returns>
         [Pure]
+        [Obsolete("Use UnitsNet package instead")]
         public string ToFraction(int denominator)
         {
             if (denominator < 1) throw new ArgumentException("Denominator must be greater than or equal to 1", nameof(denominator));
@@ -188,6 +191,7 @@ public static
         ///     </list>
         /// </returns>
         [Pure]
+        [Obsolete("Use UnitsNet package instead")]
         public string ToFraction()
         {
             return ToFraction(source, 8);

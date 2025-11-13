@@ -12,7 +12,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class ContextMenuExtensions
 {
-    /// <param name="application">The Revit application</param>
+    /// <param name="application">The Revit UI application</param>
     extension(UIControlledApplication application)
     {
         /// <summary>

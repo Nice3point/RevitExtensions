@@ -4,7 +4,7 @@ using Autodesk.Windows;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 
-namespace Nice3point.Revit.Extensions.UIFrameworkExtensions;
+namespace Nice3point.Revit.Extensions.Internal;
 
 internal sealed class RibbonStackPanel : IRibbonStackPanel
 {

@@ -9,7 +9,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class SpatialFieldManagerExtensions
 {
-    /// <param name="view">View for which manager object is created or retrieved</param>
+    /// <param name="view">The source view.</param>
     extension(View view)
     {
         /// <summary>Factory method - creates manager object for the given view</summary>

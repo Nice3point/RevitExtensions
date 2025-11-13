@@ -6,7 +6,7 @@
 [PublicAPI]
 public static class ElementExtensions
 {
-    /// <param name="element">The element</param>
+    /// <param name="element">The source element</param>
     extension(Element element)
     {
 #if REVIT2022_OR_GREATER

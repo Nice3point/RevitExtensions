@@ -10,7 +10,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class AnalyticalToPhysicalAssociationManagerExtensions
 {
-    /// <param name="element">The element to be checked.</param>
+    /// <param name="element">The source element.</param>
     extension(Element element)
     {
         /// <summary>Returns true if the element is an analytical element.</summary>
@@ -28,7 +28,7 @@ public static class AnalyticalToPhysicalAssociationManagerExtensions
         }
     }
 
-    /// <param name="document">Revit document.</param>
+    /// <param name="document">The Revit document.</param>
     extension(Document document)
     {
         /// <summary>Returns the AnalyticalToPhysicalAssociationManager for this document.</summary>

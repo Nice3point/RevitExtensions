@@ -6,7 +6,7 @@
 [PublicAPI]
 public static class ParameterExtensions
 {
-    /// <param name="parameter">The parameter</param>
+    /// <param name="parameter">The source parameter</param>
     extension(Parameter parameter)
     {
         /// <summary>Provides access to the boolean value within the parameter</summary>

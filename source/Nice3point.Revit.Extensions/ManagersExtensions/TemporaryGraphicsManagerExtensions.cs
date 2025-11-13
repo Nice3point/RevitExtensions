@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class TemporaryGraphicsManagerExtensions
 {
-    /// <param name="document">The document.</param>
+    /// <param name="document">The source document.</param>
     extension(Document document)
     {
         /// <summary>Gets a TemporaryGraphicsManager reference of the document.</summary>

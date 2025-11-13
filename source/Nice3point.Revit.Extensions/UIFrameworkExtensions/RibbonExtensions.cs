@@ -3,7 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
-using Nice3point.Revit.Extensions.UIFrameworkExtensions;
+using Nice3point.Revit.Extensions.Internal;
 using UIFramework;
 using Color = System.Windows.Media.Color;
 using ComboBox = Autodesk.Revit.UI.ComboBox;
@@ -109,7 +109,7 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="panel">The <see cref="Autodesk.Revit.UI.RibbonPanel"/> to remove.</param>
+    /// <param name="panel">The source panel.</param>
     extension(RibbonPanel panel)
     {
         /// <summary>
@@ -494,7 +494,7 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="button">The Ribbon button to which the image will be added.</param>
+    /// <param name="button">The source ribbon button.</param>
     extension(RibbonButton button)
     {
         /// <summary>
@@ -544,7 +544,7 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="pullDownButton">The PullDownButton to which the PushButton will be added.</param>
+    /// <param name="pullDownButton">The source PullDown button.</param>
     extension(PulldownButton pullDownButton)
     {
         /// <summary>
@@ -579,7 +579,7 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="button">The PushButton to which the availability controller will be set.</param>
+    /// <param name="button">The source push button.</param>
     extension(PushButton button)
     {
         /// <summary>
@@ -631,7 +631,7 @@ public static partial class RibbonExtensions
         }
     }
 
-    /// <param name="item">The RibbonItem to which the tooltip will be added.</param>
+    /// <param name="item">The source ribbon item.</param>
     extension(RibbonItem item)
     {
         /// <summary>

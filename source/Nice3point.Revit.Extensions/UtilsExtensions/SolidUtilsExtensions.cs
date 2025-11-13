@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class SolidUtilsExtensions
 {
-    /// <param name="solid">The input solid to be copied</param>
+    /// <param name="solid">The source solid.</param>
     extension(Solid solid)
     {
         /// <summary>Creates a new Solid which is a copy of the input Solid</summary>
@@ -85,7 +85,7 @@ public static class SolidUtilsExtensions
     }
 
 #if REVIT2021_OR_GREATER
-    /// <param name="endPoint">The EdgeEndPoint</param>
+    /// <param name="endPoint">The source EdgeEndPoint.</param>
     extension(EdgeEndPoint endPoint)
     {
         /// <summary>Find all EdgeEndPoints at a vertex identified by the input EdgeEndPoint</summary>

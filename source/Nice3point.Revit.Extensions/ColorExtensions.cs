@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class ColorExtensions
 {
-    /// <param name="color">The <see cref="Color"/> for the hexadecimal presentation</param>
+    /// <param name="color">The source Color</param>
     extension(Color color)
     {
         /// <summary>

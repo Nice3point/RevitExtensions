@@ -96,7 +96,7 @@ public static class ElementTransformUtilsExtensions
         }
     }
 
-    /// <param name="view">The view to transform.</param>
+    /// <param name="view">The source view.</param>
     extension(View view)
     {
         /// <summary>
@@ -120,7 +120,7 @@ public static class ElementTransformUtilsExtensions
         }
     }
 
-    /// <param name="elements">The element ids to transform.</param>
+    /// <param name="elements">The source elements collection.</param>
     extension(ICollection<ElementId> elements)
     {
         /// <summary>Determines whether elements can be mirrored.</summary>

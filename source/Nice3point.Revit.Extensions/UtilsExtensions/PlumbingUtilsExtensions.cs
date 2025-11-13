@@ -93,7 +93,7 @@ public static class PlumbingUtilsExtensions
         }
     }
 
-    /// <param name="pipe">Pipe curve.</param>
+    /// <param name="pipe">The source pipe curve.</param>
     extension(Pipe pipe)
     {
         /// <summary>

@@ -68,7 +68,7 @@ public static class SystemExtensions
         }
     }
 
-    /// <param name="source">The string to test</param>
+    /// <param name="source">The source string</param>
     extension(string? source)
     {
         /// <summary>

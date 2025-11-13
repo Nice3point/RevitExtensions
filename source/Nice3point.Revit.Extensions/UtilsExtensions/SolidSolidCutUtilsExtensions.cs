@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class SolidSolidCutUtilsExtensions
 {
-    /// <param name="element">The input element.</param>
+    /// <param name="element">The source element.</param>
     extension(Element element)
     {
         /// <summary>Gets all the solids which cut the input element.</summary>

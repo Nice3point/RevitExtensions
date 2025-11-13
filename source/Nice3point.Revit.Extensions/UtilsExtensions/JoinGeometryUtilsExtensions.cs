@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class JoinGeometryUtilsExtensions
 {
-    /// <param name="element">The element.</param>
+    /// <param name="element">The source element.</param>
     extension(Element element)
     {
         /// <summary>

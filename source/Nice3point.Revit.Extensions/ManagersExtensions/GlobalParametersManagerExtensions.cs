@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class GlobalParametersManagerExtensions
 {
-    /// <param name="document">A revit document of interest.</param>
+    /// <param name="document">The Revit document.</param>
     extension(Document document)
     {
         /// <summary>Tests whether global parameters are allowed in the given document.</summary>
@@ -119,7 +119,7 @@ public static class GlobalParametersManagerExtensions
         }
     }
 
-    /// <param name="parameter">The parameter to move up</param>
+    /// <param name="parameter">The source parameter.</param>
     extension(GlobalParameter parameter)
     {
         /// <summary>Moves given global parameter Up in the current order.</summary>

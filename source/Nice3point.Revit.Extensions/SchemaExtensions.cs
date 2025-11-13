@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class SchemaExtensions
 {
-    /// <param name="element">The element that will store the data</param>
+    /// <param name="element">The element that stores the data.</param>
     extension(Element element)
     {
         /// <summary>

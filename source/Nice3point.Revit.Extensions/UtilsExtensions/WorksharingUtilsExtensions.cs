@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class WorksharingUtilsExtensions
 {
-    /// <param name="element">The element.</param>
+    /// <param name="element">The source element.</param>
     extension(Element element)
     {
         /// <summary>Gets the ownership status of an element.</summary>
@@ -273,8 +273,8 @@ public static class WorksharingUtilsExtensions
         }
     }
 
-    /// <param name="worksetsToCheckout">The ids of the worksets to attempt to check out.</param>
-    extension(ISet<WorksetId> worksetsToCheckout)
+    /// <param name="worksets">The source worksets ids.</param>
+    extension(ISet<WorksetId> worksets)
     {
         /// <summary>
         ///    Obtains ownership for the current user of as many specified worksets as possible.
@@ -337,7 +337,7 @@ public static class WorksharingUtilsExtensions
         /// </exception>
         public ICollection<WorksetId> CheckoutWorksets(Document document)
         {
-            return WorksharingUtils.CheckoutWorksets(document, worksetsToCheckout);
+            return WorksharingUtils.CheckoutWorksets(document, worksets);
         }
 
         /// <summary>
@@ -403,7 +403,7 @@ public static class WorksharingUtilsExtensions
         /// </exception>
         public ICollection<WorksetId> CheckoutWorksets(Document document, TransactWithCentralOptions? options)
         {
-            return WorksharingUtils.CheckoutWorksets(document, worksetsToCheckout, options);
+            return WorksharingUtils.CheckoutWorksets(document, worksets, options);
         }
     }
 

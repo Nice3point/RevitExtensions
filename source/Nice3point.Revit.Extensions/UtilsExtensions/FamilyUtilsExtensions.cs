@@ -8,7 +8,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class FamilyUtilsExtensions
 {
-    /// <param name="family">The family.</param>
+    /// <param name="family">The source family.</param>
     extension(Family family)
     {
         /// <summary>Indicates whether the family can be converted to face host based.</summary>
@@ -42,7 +42,7 @@ public static class FamilyUtilsExtensions
         }
     }
 
-    /// <param name="document">The document.</param>
+    /// <param name="document">The source document.</param>
     extension(Document document)
     {
         /// <summary>Gets the profile Family Symbols of the document.</summary>

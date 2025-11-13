@@ -9,7 +9,7 @@ namespace Nice3point.Revit.Extensions;
 [PublicAPI]
 public static class LightGroupManagerExtensions
 {
-    /// <param name="document">The document the manager is from</param>
+    /// <param name="document">The document.</param>
     extension(Document document)
     {
         /// <summary>Creates a light group manager object from the given document</summary>

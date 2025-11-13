@@ -90,7 +90,7 @@ public static class ElementIdExtensions
 
             var elementTypes = new FilteredElementCollector(document, elementIds).WhereElementIsElementType();
             var elementInstances = new FilteredElementCollector(document, elementIds).WhereElementIsNotElementType();
-            return Enumerable.Cast<T>(elementTypes.UnionWith(elementInstances)).ToList();
+            return elementTypes.UnionWith(elementInstances).Cast<T>().ToList();
         }
 
         /// <summary>
