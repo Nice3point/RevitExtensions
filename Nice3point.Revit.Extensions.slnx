@@ -25,6 +25,7 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".gitignore" />
+      <File Path="build/appsettings.json"/>
     <File Path="Changelog.md" />
     <File Path="Readme.md" />
   </Folder>
