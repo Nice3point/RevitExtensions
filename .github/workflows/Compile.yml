@@ -8,7 +8,7 @@ on:
 
 jobs:
   windows:
-    name: windows
+    name: windows-2025
     runs-on: windows-2025
     steps:
 
