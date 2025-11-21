@@ -74,7 +74,7 @@
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Polyfill" Version="9.1.0" PrivateAssets="all"/>
+        <PackageReference Include="Polyfill" Version="9.2.0" PrivateAssets="all"/>
         <PackageReference Include="JetBrains.Annotations" Version="2025.2.2"/>
     </ItemGroup>
 
