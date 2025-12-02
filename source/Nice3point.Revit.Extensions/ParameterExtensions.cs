@@ -1,4 +1,7 @@
-﻿namespace Nice3point.Revit.Extensions;
+﻿using System.Reflection;
+using System.Runtime.InteropServices;
+
+namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Revit Parameter Extensions
@@ -67,6 +70,42 @@ public static class ParameterExtensions
         public bool Set(Color value)
         {
             return parameter.Set((value.Red << 0) | (value.Green << 8) | (value.Blue << 16));
+        }
+    }
+
+    /// <param name="builtInParameter">The source parameter</param>
+    extension(BuiltInParameter builtInParameter)
+    {
+        /// <summary>
+        /// Converts a BuiltInParameter into a Revit Parameter object.
+        /// </summary>
+        /// <param name="document">The Revit Document associated with the parameter conversion.</param>
+        /// <returns>A Parameter object corresponding to the specified BuiltInParameter.</returns>
+        /// <remarks>This method performs low-level operation to instantiate a Parameter object.</remarks>
+        public Parameter ToParameter(Document document)
+        {
+            const BindingFlags bindingFlags = BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly;
+
+            var documentType = typeof(Document);
+            var parameterType = typeof(Parameter);
+            var assembly = Assembly.GetAssembly(parameterType)!;
+            var aDocumentType = assembly.GetType("ADocument")!;
+            var elementIdType = assembly.GetType("ElementId")!;
+            var elementIdIdType = elementIdType.GetField("<alignment member>", bindingFlags)!;
+            var getADocumentType = documentType.GetMethod("getADocument", bindingFlags)!;
+            var parameterCtorType = parameterType.GetConstructor(bindingFlags, null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], null)!;
+
+            var elementId = Activator.CreateInstance(elementIdType)!;
+            elementIdIdType.SetValue(elementId, builtInParameter);
+
+            var handle = GCHandle.Alloc(elementId);
+            var elementIdPointer = GCHandle.ToIntPtr(handle);
+            Marshal.StructureToPtr(elementId, elementIdPointer, true);
+
+            var parameter = (Parameter)parameterCtorType.Invoke([getADocumentType.Invoke(document, null), elementIdPointer]);
+            handle.Free();
+
+            return parameter;
         }
     }
 }
