@@ -46,7 +46,7 @@ public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOpt
             Verbosity = Verbosity.Minimal,
             Properties = new List<KeyValue>
             {
-                ("Version", version.ToString()),
+                ("Version", version),
                 ("PackageReleaseNotes", changelog ?? string.Empty),
             },
             OutputDirectory = output
