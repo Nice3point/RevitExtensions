@@ -23,7 +23,6 @@ await PipelineHostBuilder.Create()
             return;
         }
 
-        collection.AddOptions<BuildOptions>().Bind(context.Configuration.GetSection("Build")).ValidateDataAnnotations();
         collection.AddModule<ParseSolutionConfigurationsModule>();
 
         if (args.Length == 0)
