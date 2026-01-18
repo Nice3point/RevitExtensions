@@ -1,4 +1,4 @@
-# Release 2026.0.2-preview.1.20251113
+# Release 2026.0.2-preview.2.20260118
 
 This update focuses on improved API design through C# 14 extension methods syntax, .NET 10 support, and extensive ElementId overloads.
 

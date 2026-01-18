@@ -16,7 +16,6 @@
       <BuildType Name="Release.R24"/>
       <BuildType Name="Release.R25"/>
       <BuildType Name="Release.R26"/>
-    <BuildType Name="Release Tests" />
   </Configurations>
   <Folder Name="/Automation/">
     <Project Path="build/Build.csproj">
@@ -36,7 +35,6 @@
         <BuildType Solution="Release.R24|*" Project="Release"/>
         <BuildType Solution="Release.R25|*" Project="Release"/>
         <BuildType Solution="Release.R26|*" Project="Release"/>
-        <BuildType Solution="Release Tests|*" Project="Release"/>
     </Project>
   </Folder>
   <Folder Name="/Solution Items/">
@@ -44,6 +42,7 @@
       <File Path="build/appsettings.json"/>
     <File Path="Changelog.md" />
       <File Path="Directory.Build.props"/>
+      <File Path="Directory.Packages.props"/>
     <File Path="Readme.md" />
   </Folder>
   <Folder Name="/Tests/">
@@ -64,26 +63,8 @@
         <BuildType Solution="Release.R24|*" Project="Release"/>
         <BuildType Solution="Release.R25|*" Project="Release"/>
         <BuildType Solution="Release.R26|*" Project="Release"/>
-      <BuildType Solution="Release Tests|*" Project="Release" />
-        <Build Solution="Debug.R19|*" Project="false"/>
-        <Build Solution="Debug.R20|*" Project="false"/>
-        <Build Solution="Debug.R21|*" Project="false"/>
-        <Build Solution="Debug.R22|*" Project="false"/>
-        <Build Solution="Debug.R23|*" Project="false"/>
-        <Build Solution="Debug.R24|*" Project="false"/>
-        <Build Solution="Debug.R25|*" Project="false"/>
-        <Build Solution="Debug.R26|*" Project="false"/>
-        <Build Solution="Release.R19|*" Project="false"/>
-        <Build Solution="Release.R20|*" Project="false"/>
-        <Build Solution="Release.R21|*" Project="false"/>
-        <Build Solution="Release.R22|*" Project="false"/>
-        <Build Solution="Release.R23|*" Project="false"/>
-        <Build Solution="Release.R24|*" Project="false"/>
-        <Build Solution="Release.R25|*" Project="false"/>
-        <Build Solution="Release.R26|*" Project="false"/>
+        <Build Project="false"/>
     </Project>
   </Folder>
-  <Project Path="source/Nice3point.Revit.Extensions/Nice3point.Revit.Extensions.csproj">
-      <BuildType Solution="Release Tests|*" Project="Release.R26"/>
-  </Project>
+    <Project Path="source/Nice3point.Revit.Extensions/Nice3point.Revit.Extensions.csproj"/>
 </Solution>

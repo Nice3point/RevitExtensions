@@ -8,28 +8,26 @@ using Sourcy.DotNet;
 
 namespace Build.Modules;
 
-[DependsOn<ParseSolutionConfigurationsModule>]
+[DependsOn<ResolveConfigurationsModule>]
 public sealed class CompileProjectsModule : Module
 {
-    protected override async Task<IDictionary<string, object>?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
+    protected override async Task ExecuteModuleAsync(IModuleContext context, CancellationToken cancellationToken)
     {
-        var configurations = await GetModule<ParseSolutionConfigurationsModule>();
-        
-        foreach (var configuration in configurations.Value!)
-        {
-            await SubModule(configuration, async () => await CompileAsync(context, configuration, cancellationToken));
-        }
+        var configurationsResult = await context.GetModule<ResolveConfigurationsModule>();
+        var configurations = configurationsResult.ValueOrDefault!;
 
-        return await NothingAsync();
+        foreach (var configuration in configurations)
+        {
+            await context.SubModule(configuration, async () => await CompileAsync(context, configuration, cancellationToken));
+        }
     }
 
-    private async Task<CommandResult> CompileAsync(IPipelineContext context, string configuration, CancellationToken cancellationToken)
+    private static async Task<CommandResult> CompileAsync(IPipelineContext context, string configuration, CancellationToken cancellationToken)
     {
         return await context.DotNet().Build(new DotNetBuildOptions
         {
             ProjectSolution = Projects.Nice3point_Revit_Extensions.FullName,
             Configuration = configuration,
-            Verbosity = Verbosity.Minimal,
-        }, cancellationToken);
+        }, cancellationToken: cancellationToken);
     }
 }

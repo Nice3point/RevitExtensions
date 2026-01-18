@@ -1,9 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Build.Options;
+﻿namespace Build.Options;
 
 [Serializable]
 public sealed record PublishOptions
 {
-    [Required] public string Version { get; init; } = null!;
+    public string Version { get; init; } = string.Empty;
 }
