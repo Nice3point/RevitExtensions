@@ -1,6 +1,4 @@
-﻿
-
-// ReSharper disable once CheckNamespace
+﻿// ReSharper disable once CheckNamespace
 
 namespace Nice3point.Revit.Extensions;
 
@@ -51,9 +49,10 @@ public static class FamilyUtilsExtensions
         ///    -or-
         ///    The family is already unhosted.
         /// </exception>
-        public void ConvertToFaceHostBased()
+        public Family ConvertToFaceHostBased()
         {
             FamilyUtils.ConvertFamilyToFaceHostBased(family.Document, family.Id);
+            return family;
         }
     }
 
@@ -87,9 +86,10 @@ public static class FamilyUtilsExtensions
         ///    -or-
         ///    The family is already unhosted.
         /// </exception>
-        public void ConvertToFaceHostBased(Document document)
+        public ElementId ConvertToFaceHostBased(Document document)
         {
             FamilyUtils.ConvertFamilyToFaceHostBased(document, elementId);
+            return elementId;
         }
     }
 

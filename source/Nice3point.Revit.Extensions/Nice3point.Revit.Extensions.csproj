@@ -32,13 +32,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.UIFramework" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" Version="$(RevitVersion).*" PrivateAssets="all"/>
-        <PackageReference Include="Polyfill" Version="9.7.3" PrivateAssets="all"/>
-        <PackageReference Include="JetBrains.Annotations" Version="2025.2.4"/>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFramework" PrivateAssets="all"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" PrivateAssets="all"/>
+        <PackageReference Include="JetBrains.Annotations"/>
     </ItemGroup>
 
     <ItemGroup>

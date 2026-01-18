@@ -109,9 +109,10 @@ public static class GlobalParametersManagerExtensions
         ///    A possible cause is that it is not a project document,
         ///    for global parameters are not supported in Revit families.
         /// </exception>
-        public void SortGlobalParameters(ParametersOrder order)
+        public Document SortGlobalParameters(ParametersOrder order)
         {
             GlobalParametersManager.SortParameters(document, order);
+            return document;
         }
     }
 

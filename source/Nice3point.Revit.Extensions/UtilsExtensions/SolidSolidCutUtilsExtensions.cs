@@ -86,9 +86,10 @@ public static class SolidSolidCutUtilsExtensions
         /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
         ///    Failed to add solid-solid cut for the two elements.
         /// </exception>
-        public void AddCutBetweenSolids(Element cuttingSolid)
+        public Element AddCutBetweenSolids(Element cuttingSolid)
         {
             SolidSolidCutUtils.AddCutBetweenSolids(element.Document, element, cuttingSolid);
+            return element;
         }
 
         /// <summary>
@@ -106,16 +107,18 @@ public static class SolidSolidCutUtilsExtensions
         /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
         ///    Failed to add solid-solid cut for the two elements.
         /// </exception>
-        public void AddCutBetweenSolids(Element cuttingSolid, bool splitFacesOfCuttingSolid)
+        public Element AddCutBetweenSolids(Element cuttingSolid, bool splitFacesOfCuttingSolid)
         {
             SolidSolidCutUtils.AddCutBetweenSolids(element.Document, element, cuttingSolid, splitFacesOfCuttingSolid);
+            return element;
         }
 
         /// <summary>Removes the solid-solid cut between the two elements if it exists.</summary>
         /// <param name="second">The solid being cut or the cutting solid.</param>
-        public void RemoveCutBetweenSolids(Element second)
+        public Element RemoveCutBetweenSolids(Element second)
         {
             SolidSolidCutUtils.RemoveCutBetweenSolids(element.Document, element, second);
+            return element;
         }
 
         /// <summary>
@@ -130,9 +133,10 @@ public static class SolidSolidCutUtilsExtensions
         /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
         ///    Unable to split or unsplit faces of cutting solid
         /// </exception>
-        public void SplitFacesOfCuttingSolid(Element second, bool split)
+        public Element SplitFacesOfCuttingSolid(Element second, bool split)
         {
             SolidSolidCutUtils.SplitFacesOfCuttingSolid(element, second, split);
+            return element;
         }
     }
 }
