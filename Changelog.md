@@ -1,6 +1,6 @@
 # Release 2026.0.2-preview.1.20251113
 
-This update focuses on improved API design through C# 14 extension methods syntax and .NET 10 support.
+This update focuses on improved API design through C# 14 extension methods syntax, .NET 10 support, and extensive ElementId overloads.
 
 ## Breaking changes
 
@@ -23,22 +23,114 @@ The following boolean methods have been converted to properties for improved syn
 - **IsSymbol:** Changed from method to property
 - **IsUnit:** Changed from method to property
 - **IsMeasurableSpec:** Changed from method to property
-- **CanDeleteElement:** Renamed to **CanBeDeleted** and kept as method
 
-**Migration example:**
+**Renamed Methods (Revit API naming consistency):**
+
+- **CanDeleteElement:** Renamed to **CanBeDeleted** (passive voice pattern)
+- **CanMirrorElement:** Renamed to **CanBeMirrored** (passive voice pattern)
+- **CanMirrorElements:** Renamed to **CanBeMirrored** (passive voice pattern)
+- **CanConvertToFaceHostBased:** Renamed to **CanBeConvertedToFaceHostBased** (passive voice pattern)
+
+**Obsolete methods with auto-conversion:**
+
+Old method names are marked as `[Obsolete]` with `[CodeTemplate]` attributes for automatic IDE conversion to new names.
+
+**Migration examples:**
 
 ```csharp
-// Old syntax
-if (element.IsAnalyticalElement())
+// Properties (old → new, auto-conversion is not available because of the same name)
+if (element.IsAnalyticalElement())  // Old
+if (element.IsAnalyticalElement)    // New
+
+// Renamed methods (old → new, auto-conversion available)
+element.CanDeleteElement();              // Old, IDE suggests: element.CanBeDeleted()
+element.CanMirrorElement();              // Old, IDE suggests: element.CanBeMirrored()
+family.CanConvertToFaceHostBased();      // Old, IDE suggests: family.CanBeConvertedToFaceHostBased()
+```
+
+## New Features
+
+**ElementId Extension Overloads**
+
+Added comprehensive ElementId overloads for all extension methods that work with `element.Document` and `element.Id`.
+This allows working directly with ElementId when you don't have the Element instance.
+
+**Utils Extensions:**
+
+- **DocumentValidationExtensions**
+    - `elementId.CanBeDeleted(Document document)`
+
+- **ElementTransformUtilsExtensions**
+    - `elementId.CanBeMirrored(Document document)`
+    - `elementId.Copy(Document document, XYZ vector)`
+    - `elementId.Copy(Document document, double deltaX, double deltaY, double deltaZ)`
+    - `elementId.Mirror(Document document, Plane plane)`
+    - `elementId.Move(Document document, double deltaX, double deltaY, double deltaZ)`
+    - `elementId.Move(Document document, XYZ vector)`
+    - `elementId.Rotate(Document document, Line axis, double angle)`
+
+- **FamilyUtilsExtensions**
+    - `elementId.CanBeConvertedToFaceHostBased(Document document)`
+    - `elementId.ConvertToFaceHostBased(Document document)`
+
+- **WorksharingUtilsExtensions**
+    - `elementId.GetCheckoutStatus(Document document)`
+    - `elementId.GetCheckoutStatus(Document document, out string owner)`
+    - `elementId.GetWorksharingTooltipInfo(Document document)`
+    - `elementId.GetModelUpdatesStatus(Document document)`
+
+**Manager Extensions:**
+
+- **AnalyticalToPhysicalAssociationManagerExtensions**
+    - `elementId.IsAnalyticalElement(Document document)`
+    - `elementId.IsPhysicalElement(Document document)`
+
+- **GlobalParametersManagerExtensions**
+    - `elementId.MoveGlobalParameterUpOrder(Document document)`
+    - `elementId.MoveGlobalParameterDownOrder(Document document)`
+
+**Other Extensions:**
+
+- **CategoryExtensions**
+    - `builtInCategory.ToCategory(Document document)`
+
+- **ParameterExtensions**
+    - `builtInParameter.ToParameter(Document document)`
+
+**Usage examples:**
+
+```csharp
+// Work with ElementId directly without Element instance
+ElementId elementId = /* ... */;
+
+// Validation
+if (elementId.CanBeDeleted(document))
 {
-    // ...
+    document.Delete(elementId);
 }
 
-// New syntax  
-if (element.IsAnalyticalElement)
+// Transformations
+elementId.Copy(document, new XYZ(10, 0, 0));
+elementId.Move(document, 5, 5, 0);
+elementId.Mirror(document, plane);
+elementId.Rotate(document, axis, angle);
+
+// Worksharing
+var status = elementId.GetCheckoutStatus(document);
+var tooltipInfo = elementId.GetWorksharingTooltipInfo(document);
+
+// Family operations
+if (familyId.CanBeConvertedToFaceHostBased(document))
 {
-    // ...
+    familyId.ConvertToFaceHostBased(document);
 }
+
+// Global parameters
+globalParamId.MoveGlobalParameterUpOrder(document);
+
+// Built-in conversions
+Category category = BuiltInCategory.OST_Walls.ToCategory(document);
+Parameter parameter = BuiltInParameter.WALL_ATTR_ROOM_BOUNDING.ToParameter(document);
 ```
 
 ## Improvements
@@ -47,6 +139,7 @@ if (element.IsAnalyticalElement)
 - **SDK Update:** Updated to stable .NET 10 SDK
 - **Documentation:** Updated parameter descriptions and variable names to align with C# 14 syntax
 - **Build System:** Migration from Nuke to ModularPipilines
+- **API Consistency:** Renamed Can* methods to follow Revit API passive voice pattern (CanBe*)
 
 # Release 2026.0.1
 
