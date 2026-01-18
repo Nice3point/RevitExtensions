@@ -110,28 +110,5 @@ public static class SystemExtensions
 
             return Path.Combine(source, path);
         }
-
-        /// <summary>
-        ///     Combines strings into a path
-        /// </summary>
-        /// <returns>The combined paths</returns>
-        /// <exception cref="System.ArgumentException">
-        ///     NET Framework and .NET Core versions older than 2.1: path1 or path2 contains one or more of the invalid characters defined in <see cref="Path.GetInvalidPathChars" />
-        /// </exception>
-        /// <exception cref="System.ArgumentNullException">source or path is null</exception>
-        [Pure]
-        public string AppendPath(params string[] paths)
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-
-            var strings = new string[paths.Length + 1];
-            strings[0] = source;
-            for (var i = 1; i < strings.Length; i++)
-            {
-                strings[i] = paths[i - 1];
-            }
-
-            return Path.Combine(strings);
-        }
     }
 }
