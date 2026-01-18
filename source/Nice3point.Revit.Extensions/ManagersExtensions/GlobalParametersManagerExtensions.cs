@@ -152,4 +152,44 @@ public static class GlobalParametersManagerExtensions
             return GlobalParametersManager.MoveParameterDownOrder(parameter.Document, parameter.Id);
         }
     }
+
+    /// <param name="elementId">The global parameter element id.</param>
+    extension(ElementId elementId)
+    {
+        /// <summary>Moves given global parameter Up in the current order.</summary>
+        /// <remarks>
+        ///      <p>A parameter can only be moved within its parameter group, meaning that
+        /// repeated moving a parameter will not push the parameter out of and into
+        /// the next (in order) parameter group. When a parameter can no longer move
+        /// because it is at the boundary of its group, this method returns False.</p>
+        ///      <p>This operation has no effect on the global parameters themselves.
+        /// The rearranged order is only visible in the standard Global Parameters
+        /// dialog. However, the order of parameters is serialized in the document,
+        /// thus available on the DB level as well.</p>
+        ///    </remarks>
+        /// <param name="document">The document containing the parameter.</param>
+        /// <returns>Indicates whether the parameter could be moved Up in order or not.</returns>
+        public bool MoveGlobalParameterUpOrder(Document document)
+        {
+            return GlobalParametersManager.MoveParameterUpOrder(document, elementId);
+        }
+
+        /// <summary>Moves given global parameter Down in the current order.</summary>
+        /// <remarks>
+        ///      <p>A parameter can only be moved within its parameter group, meaning that
+        /// repeated moving a parameter will not push the parameter out of and into
+        /// the next (in order) parameter group. When a parameter can no longer move
+        /// because it is at the boundary of its group, this method returns False.</p>
+        ///      <p>This operation has no effect on the global parameters themselves.
+        /// The rearranged order is only visible in the standard Global Parameters
+        /// dialog. However, the order of parameters is serialized in the document,
+        /// thus available on the DB level as well.</p>
+        ///    </remarks>
+        /// <param name="document">The document containing the parameter.</param>
+        /// <returns>Indicates whether the parameter could be moved Down in order or not.</returns>
+        public bool MoveGlobalParameterDownOrder(Document document)
+        {
+            return GlobalParametersManager.MoveParameterDownOrder(document, elementId);
+        }
+    }
 }

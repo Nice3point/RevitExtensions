@@ -87,6 +87,89 @@ public static class WorksharingUtilsExtensions
         }
     }
 
+    /// <param name="elementId">The element id.</param>
+    extension(ElementId elementId)
+    {
+        /// <summary>Gets the ownership status of an element.</summary>
+        /// <remarks>
+        ///      <p> This method returns a locally cached value which may not be up to date with the current state
+        /// of the element in the central.  Because of this, the return value is suitable for reporting to an
+        /// interactive user (e.g. via a mechanism similar to Worksharing display mode), but cannot be considered
+        /// a reliable indication of whether the element can be immediately edited by the application.  Also, the return value
+        /// may not be dependable in the middle of a local transaction.  See the remarks
+        /// on <see cref="T:Autodesk.Revit.DB.WorksharingUtils" /> for more details. </p>
+        ///      <p> For performance reasons, the model is not validated to be workshared,
+        /// and the element id is also not validated; the element will not be expanded. </p>
+        ///    </remarks>
+        /// <param name="document">The document containing the element.</param>
+        /// <returns>
+        ///    A summary of whether the element is unowned, owned by the current user, or owned by another user.
+        /// </returns>
+        [Pure]
+        public CheckoutStatus GetCheckoutStatus(Document document)
+        {
+            return WorksharingUtils.GetCheckoutStatus(document, elementId);
+        }
+
+        /// <summary>Gets the ownership status and outputs the owner of an element.</summary>
+        /// <remarks>
+        ///      <p> This method returns a locally cached value which may not be up to date with the current state
+        /// of the element in the central.  Because of this, the return value is suitable for reporting to an
+        /// interactive user (e.g. via a mechanism similar to Worksharing display mode), but cannot be considered
+        /// a reliable indication of whether the element can be immediately edited by the application.  Also, the return value
+        /// may not be dependable in the middle of a local transaction.  See the remarks
+        /// on <see cref="T:Autodesk.Revit.DB.WorksharingUtils" /> for more details. </p>
+        ///      <p> For performance reasons, the model is not validated to be workshared,
+        /// and the element id is also not validated; the element will not be expanded. </p>
+        ///    </remarks>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="owner">The owner of the element, or an empty string if no one owns it.</param>
+        /// <returns>
+        ///    An indication of whether the element is unowned, owned by the current user, or owned by another user.
+        /// </returns>
+        [Pure]
+        public CheckoutStatus GetCheckoutStatus(Document document, out string owner)
+        {
+            return WorksharingUtils.GetCheckoutStatus(document, elementId, out owner);
+        }
+
+        /// <summary>
+        ///    Gets worksharing information about an element to display in an in-canvas tooltip.
+        /// </summary>
+        /// <remarks>
+        ///      <p> If there is no element corresponding to the given id,
+        /// then all the strings returned in WorksharingTooltipInfo are empty. </p>
+        ///      <p> The return value may not be dependable in the middle of a transaction.
+        /// See the remarks on <see cref="T:Autodesk.Revit.DB.WorksharingUtils" /> for more details. </p>
+        ///    </remarks>
+        /// <param name="document">The document containing the element.</param>
+        /// <returns>Worksharing information about the specified element.</returns>
+        [Pure]
+        public WorksharingTooltipInfo GetWorksharingTooltipInfo(Document document)
+        {
+            return WorksharingUtils.GetWorksharingTooltipInfo(document, elementId);
+        }
+
+        /// <summary>Gets the status of a single element in the central model.</summary>
+        /// <remarks>
+        ///      <p> This method returns a locally cached value which may not be up to date with the current state
+        /// of the element in the central.  Because of this, the return value is suitable for reporting to an
+        /// interactive user (e.g. via a mechanism similar to Worksharing display mode), but cannot be considered
+        /// a reliable indication of whether the element can be immediately edited by the application.  Also, the return value
+        /// may not be dependable in the middle of a local transaction.  See the remarks
+        /// on <see cref="T:Autodesk.Revit.DB.WorksharingUtils" /> for more details. </p>
+        ///      <p> For performance reasons, the model is not validated to be workshared,
+        /// and the element id is also not validated; the element will not be expanded.</p>
+        ///    </remarks>
+        /// <param name="document">The document containing the element.</param>
+        /// <returns>The status of the element in the local session versus the central model.</returns>
+        [Pure]
+        public ModelUpdatesStatus GetModelUpdatesStatus(Document document)
+        {
+            return WorksharingUtils.GetModelUpdatesStatus(document, elementId);
+        }
+    }
+
     /// <param name="modelPath">The path to the central model.</param>
     extension(ModelPath modelPath)
     {
