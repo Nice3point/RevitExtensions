@@ -23,6 +23,7 @@
 
     <PropertyGroup>
         <IsPackable>true</IsPackable>
+        <DebugType>portable</DebugType>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>

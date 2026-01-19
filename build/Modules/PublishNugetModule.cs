@@ -27,7 +27,8 @@ public sealed class PublishNugetModule(IOptions<BuildOptions> buildOptions, IOpt
                 {
                     Path = file,
                     ApiKey = nuGetOptions.Value.ApiKey,
-                    Source = nuGetOptions.Value.Source
+                    Source = nuGetOptions.Value.Source,
+                    SkipDuplicate = true
                 }, cancellationToken: cancellationToken),
                 cancellationToken)
             .ProcessOneAtATime();

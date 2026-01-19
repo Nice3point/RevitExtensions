@@ -32,6 +32,7 @@ if (args.Contains("test"))
 
 if (args.Contains("pack"))
 {
+    builder.Services.AddModule<CleanProjectsModule>();
     builder.Services.AddModule<PackProjectsModule>();
     builder.Services.AddModule<UpdateReadmeModule>();
     builder.Services.AddModule<RestoreReadmeModule>();
