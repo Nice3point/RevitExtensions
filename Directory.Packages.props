@@ -17,7 +17,7 @@
         <PackageVersion Include="Nice3point.TUnit.Revit" Version="$(RevitVersion).*" Condition="$(RevitVersion) != ''"/>
 
         <!-- Build Automation -->
-        <PackageVersion Include="Sourcy.DotNet" Version="1.0.3"/>
+        <PackageVersion Include="Sourcy.DotNet" Version="1.1.1"/>
         <PackageVersion Include="ModularPipelines" Version="3.0.124"/>
         <PackageVersion Include="ModularPipelines.Git" Version="3.0.124"/>
         <PackageVersion Include="ModularPipelines.GitHub" Version="3.0.124"/>
