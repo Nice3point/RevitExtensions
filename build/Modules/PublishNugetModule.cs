@@ -13,7 +13,7 @@ using Shouldly;
 
 namespace Build.Modules;
 
-[DependsOn<PackProjectsModule>]
+[DependsOn<PackProjectsModule>(Optional = true)]
 public sealed class PublishNugetModule(IOptions<BuildOptions> buildOptions, IOptions<NuGetOptions> nuGetOptions) : Module<CommandResult[]?>
 {
     protected override async Task<CommandResult[]?> ExecuteAsync(IModuleContext context, CancellationToken cancellationToken)

@@ -12,9 +12,9 @@ using Sourcy.DotNet;
 
 namespace Build.Modules;
 
-[DependsOn<CleanProjectsModule>]
-[DependsOn<UpdateReadmeModule>]
 [DependsOn<ResolveConfigurationsModule>]
+[DependsOn<UpdateReadmeModule>(Optional = true)]
+[DependsOn<CleanProjectsModule>(Optional = true)]
 [DependsOn<GenerateNugetChangelogModule>(Optional = true)]
 [DependsOn<TestProjectsModule>(Optional = true)]
 public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions) : Module

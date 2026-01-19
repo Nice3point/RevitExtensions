@@ -15,9 +15,9 @@ using Shouldly;
 namespace Build.Modules;
 
 [SkipIfNoGitHubToken]
-[DependsOn<PackProjectsModule>]
 [DependsOn<ResolveVersioningModule>]
 [DependsOn<GenerateGitHubChangelogModule>]
+[DependsOn<PackProjectsModule>(Optional = true)]
 public sealed class PublishGithubModule(IOptions<BuildOptions> buildOptions) : Module<ReleaseAsset[]?>
 {
     protected override async Task<ReleaseAsset[]?> ExecuteAsync(IModuleContext context, CancellationToken cancellationToken)
