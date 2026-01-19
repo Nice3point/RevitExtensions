@@ -25,6 +25,11 @@ if (args.Contains("clean-nuget"))
     builder.Services.AddModule<DeleteNugetModule>();
 }
 
+if (args.Contains("test"))
+{
+    builder.Services.AddModule<TestProjectsModule>();
+}
+
 if (args.Contains("pack"))
 {
     builder.Services.AddModule<PackProjectsModule>();

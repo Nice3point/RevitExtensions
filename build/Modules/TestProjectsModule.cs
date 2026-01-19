@@ -1,0 +1,45 @@
+﻿using ModularPipelines.Attributes;
+using ModularPipelines.Conditions;
+using ModularPipelines.Context;
+using ModularPipelines.DotNet.Extensions;
+using ModularPipelines.DotNet.Options;
+using ModularPipelines.Models;
+using ModularPipelines.Modules;
+using Sourcy.DotNet;
+
+namespace Build.Modules;
+
+/// <summary>
+///     Test the add-in for each supported Revit configuration.
+/// </summary>
+[SkipIf<IsCI>]
+[DependsOn<ResolveConfigurationsModule>]
+[DependsOn<CompileProjectsModule>(Optional = true)]
+public sealed class TestProjectsModule : Module
+{
+    protected override async Task ExecuteModuleAsync(IModuleContext context, CancellationToken cancellationToken)
+    {
+        var configurationsResult = await context.GetModule<ResolveConfigurationsModule>();
+        var configurations = configurationsResult.ValueOrDefault!;
+
+        foreach (var configuration in configurations)
+        {
+            await context.SubModule(configuration, async () => await CompileAsync(context, configuration, cancellationToken));
+        }
+    }
+
+    /// <summary>
+    ///     Test the add-in project for the specified configuration.
+    /// </summary>
+    private static async Task<CommandResult> CompileAsync(IPipelineContext context, string configuration, CancellationToken cancellationToken)
+    {
+        return await context.DotNet().Test(new DotNetTestOptions
+        {
+            Configuration = configuration,
+            Arguments =
+            [
+                "--solution", Solutions.Nice3point_Revit_Extensions.FullName
+            ]
+        }, cancellationToken: cancellationToken);
+    }
+}

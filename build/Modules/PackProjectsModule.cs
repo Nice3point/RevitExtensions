@@ -16,6 +16,7 @@ namespace Build.Modules;
 [DependsOn<UpdateReadmeModule>]
 [DependsOn<ResolveConfigurationsModule>]
 [DependsOn<GenerateNugetChangelogModule>(Optional = true)]
+[DependsOn<TestProjectsModule>(Optional = true)]
 public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions) : Module
 {
     protected override async Task ExecuteModuleAsync(IModuleContext context, CancellationToken cancellationToken)
