@@ -11,6 +11,19 @@ public static class ElementTransformUtilsExtensions
     /// <param name="element">The element to transform.</param>
     extension(Element element)
     {
+        /// <summary></summary>
+        [Pure]
+        [Obsolete("Use CanBeMirrored() instead")]
+        [CodeTemplate(
+            searchTemplate: "$expr$.CanMirrorElement()",
+            Message = "CanMirrorElement is obsolete, use CanBeMirrored instead",
+            ReplaceTemplate = "$expr$.CanBeMirrored()",
+            ReplaceMessage = "Replace with CanBeMirrored()")]
+        public bool CanMirrorElement()
+        {
+            return ElementTransformUtils.CanMirrorElement(element.Document, element.Id);
+        }
+
         /// <summary>Determines whether element can be mirrored</summary>
         /// <returns>True if the element can be mirrored</returns>
         [Pure]
@@ -96,6 +109,97 @@ public static class ElementTransformUtilsExtensions
         }
     }
 
+    /// <param name="elementId">The element id to transform.</param>
+    extension(ElementId elementId)
+    {
+        /// <summary>Determines whether element can be mirrored</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <returns>True if the element can be mirrored</returns>
+        [Pure]
+        public bool CanBeMirrored(Document document)
+        {
+            return ElementTransformUtils.CanMirrorElement(document, elementId);
+        }
+
+        /// <summary>Copies an element and places the copy at a location indicated by a given transformation</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="vector">The translation vector for the new element</param>
+        /// <returns>The ids of the newly created copied elements. More than one element may be created due to dependencies</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+        ///     If we are not able to copy the element
+        /// </exception>
+        public ICollection<ElementId> Copy(Document document, XYZ vector)
+        {
+            return ElementTransformUtils.CopyElement(document, elementId, vector);
+        }
+
+        /// <summary>Copies an element and places the copy at a location indicated by a given transformation</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="deltaX">Offset along the X axis</param>
+        /// <param name="deltaY">Offset along the Y axis</param>
+        /// <param name="deltaZ">Offset along the Z axis</param>
+        /// <returns>The ids of the newly created copied elements. More than one element may be created due to dependencies</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+        ///     If we are not able to copy the element
+        /// </exception>
+        public ICollection<ElementId> Copy(Document document, double deltaX, double deltaY, double deltaZ)
+        {
+            return ElementTransformUtils.CopyElement(document, elementId, new XYZ(deltaX, deltaY, deltaZ));
+        }
+
+        /// <summary>Creates a mirrored copy of an element about a given plane</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="plane">The mirror plane</param>
+        /// <returns>The element id after mirroring</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
+        ///     Element cannot be mirrored
+        /// </exception>
+        public ElementId Mirror(Document document, Plane plane)
+        {
+            ElementTransformUtils.MirrorElement(document, elementId, plane);
+            return elementId;
+        }
+
+        /// <summary>Moves the element by the specified offset</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="deltaX">Offset along the X axis</param>
+        /// <param name="deltaY">Offset along the Y axis</param>
+        /// <param name="deltaZ">Offset along the Z axis</param>
+        /// <returns>The element id after moving</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+        ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
+        /// </exception>
+        public ElementId Move(Document document, double deltaX = 0d, double deltaY = 0d, double deltaZ = 0d)
+        {
+            ElementTransformUtils.MoveElement(document, elementId, new XYZ(deltaX, deltaY, deltaZ));
+            return elementId;
+        }
+
+        /// <summary>Moves the element by the specified vector</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="vector">The translation vector for the elements</param>
+        /// <returns>The element id after moving</returns>
+        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
+        ///     If we are not able to move the element (for example, if it is pinned) or move operation failed
+        /// </exception>
+        public ElementId Move(Document document, XYZ vector)
+        {
+            ElementTransformUtils.MoveElement(document, elementId, vector);
+            return elementId;
+        }
+
+        /// <summary>Rotates an element about the given axis and angle</summary>
+        /// <param name="document">The document containing the element.</param>
+        /// <param name="axis">The axis of rotation</param>
+        /// <param name="angle">The angle of rotation in radians</param>
+        /// <returns>The element id after rotation</returns>
+        public ElementId Rotate(Document document, Line axis, double angle)
+        {
+            ElementTransformUtils.RotateElement(document, elementId, axis, angle);
+            return elementId;
+        }
+    }
+
     /// <param name="view">The source view.</param>
     extension(View view)
     {
@@ -123,11 +227,24 @@ public static class ElementTransformUtilsExtensions
     /// <param name="elements">The source elements collection.</param>
     extension(ICollection<ElementId> elements)
     {
+        /// <summary></summary>
+        [Pure]
+        [Obsolete("Use CanBeMirrored() instead")]
+        [CodeTemplate(
+            searchTemplate: "$expr$.CanMirrorElements($document$)",
+            Message = "CanMirrorElements is obsolete, use CanBeMirrored instead",
+            ReplaceTemplate = "$expr$.CanBeMirrored($document$)",
+            ReplaceMessage = "Replace with CanBeMirrored()")]
+        public bool CanMirrorElements(Document document)
+        {
+            return ElementTransformUtils.CanMirrorElements(document, elements);
+        }
+
         /// <summary>Determines whether elements can be mirrored.</summary>
         /// <param name="document">The document where the elements reside.</param>
         /// <returns>True if the elements can be mirrored.</returns>
         [Pure]
-        public bool CanMirrorElements(Document document)
+        public bool CanBeMirrored(Document document)
         {
             return ElementTransformUtils.CanMirrorElements(document, elements);
         }

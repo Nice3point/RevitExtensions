@@ -93,12 +93,15 @@ var parameter = element.FindParameter("URL");
 ```csharp
 element.Copy(1, 1, 0);
 element.Copy(new XYZ(1, 1, 0));
+elementId.Copy(document, 1, 1, 0);
+elementId.Copy(document, new XYZ(1, 1, 0));
 ```
 
 **Mirror** extension creates a mirrored copy of an element about a given plane.
 
 ```csharp
 element.Mirror(plane);
+elementId.Mirror(document, plane);
 ```
 
 **Move** extension moves the element by the specified vector.
@@ -106,18 +109,22 @@ element.Mirror(plane);
 ```csharp
 element.Move(1, 1, 0);
 element.Move(new XYZ(1, 1, 0));
+elementId.Move(document, 1, 1, 0);
+elementId.Move(document, new XYZ(1, 1, 0));
 ```
 
 **Rotate** extension rotates an element about the given axis and angle.
 
 ```csharp
 element.Rotate(axis, angle);
+elementId.Rotate(document, axis, angle);
 ```
 
 **CanBeMirrored** extension determines whether an element can be mirrored.
 
 ```csharp
 var canMirror = element.CanBeMirrored();
+var canMirror = elementId.CanBeMirrored(document);
 ```
 
 ### Element association extensions
@@ -126,12 +133,14 @@ var canMirror = element.CanBeMirrored();
 
 ```csharp
 var isAnalytical = element.IsAnalyticalElement;
+var isAnalytical = elementId.IsAnalyticalElement(document);
 ```
 
 **IsPhysicalElement** extension returns true if the element is a physical element.
 
 ```csharp
 var isPhysical = element.IsPhysicalElement;
+var isPhysical = elementId.IsPhysicalElement(document);
 ```
 
 ### Element validation extensions
@@ -140,6 +149,7 @@ var isPhysical = element.IsPhysicalElement;
 
 ```csharp
 var canDelete = element.CanBeDeleted();
+var canDelete = elementId.CanBeDeleted(document);
 ```
 
 ### Element worksharing extensions
@@ -148,24 +158,28 @@ var canDelete = element.CanBeDeleted();
 
 ```csharp
 var status = element.GetCheckoutStatus();
+var status = elementId.GetCheckoutStatus(document);
 ```
 
 **GetCheckoutStatus** extension gets the ownership status and outputs the owner of an element.
 
 ```csharp
 var status = element.GetCheckoutStatus(out var owner);
+var status = elementId.GetCheckoutStatus(document, out var owner);
 ```
 
-**GetCheckoutStatus** extension gets worksharing information about an element to display in an in-canvas tooltip.
+**GetWorksharingTooltipInfo** extension gets worksharing information about an element to display in an in-canvas tooltip.
 
 ```csharp
 var info = element.GetWorksharingTooltipInfo();
+var info = elementId.GetWorksharingTooltipInfo(document);
 ```
 
 **GetModelUpdatesStatus** extension gets the status of a single element in the central model.
 
 ```csharp
 var status = element.GetModelUpdatesStatus();
+var status = elementId.GetModelUpdatesStatus(document);
 ```
 
 ### Element schema extensions
@@ -729,12 +743,14 @@ document.SortGlobalParameters(ParametersOrder.Ascending);
 
 ```csharp
 var isMoved = globalParameter.MoveUpOrder();
+var isMoved = globalParameterId.MoveGlobalParameterUpOrder(document);
 ```
 
 **MoveGlobalParameterDownOrder** extension moves given global parameter Down in the current order.
 
 ```csharp
 var isMoved = globalParameter.MoveDownOrder();
+var isMoved = globalParameterId.MoveGlobalParameterDownOrder(document);
 ```
 
 **IsUniqueGlobalParameterName** extension tests whether a name is unique among existing global parameters of a given document.
@@ -1140,16 +1156,18 @@ var decimal = color.ToDecimal();
 
 ## Family extensions
 
-**CanConvertToFaceHostBased** extension indicates whether the family can be converted to face host based.
+**CanBeConvertedToFaceHostBased** extension indicates whether the family can be converted to face host based.
 
 ```csharp
-var canConvert = family.CanConvertToFaceHostBased();
+var canConvert = family.CanBeConvertedToFaceHostBased();
+var canConvert = familyId.CanBeConvertedToFaceHostBased(document);
 ```
 
 **ConvertToFaceHostBased** extension converts a family to be face host based.
 
 ```csharp
 family.ConvertToFaceHostBased();
+familyId.ConvertToFaceHostBased(document);
 ```
 
 ## HostObject extensions

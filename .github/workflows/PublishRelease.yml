@@ -1,4 +1,4 @@
-name: Publish Release
+name: Publish release
 
 on:
   push:
@@ -12,25 +12,22 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Setup .NET 10.0.x SDK
-        uses: actions/setup-dotnet@v5
+        uses: actions/checkout@v6
         with:
-          dotnet-version: 10.0.x
+          fetch-depth: 0
 
-      - name: Cache NuGet
-        uses: actions/cache@v4
+      - name: Cache packages
+        uses: actions/cache@v5
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', 'Directory.Build.props', 'Directory.Packages.props') }}
           restore-keys: ${{ runner.os }}-nuget-
 
-      - name: Publish packages
+      - name: Publish release
         run: dotnet run -c Release -- pack publish
         working-directory: "build"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOTNET_ENVIRONMENT: "Production"
+          DOTNET_ENVIRONMENT: ${{ (github.ref_name == 'main' || github.ref_type == 'tag') && 'Production' || 'Development' }}
           Publish__Version: ${{ github.ref_name }}
           NuGet__ApiKey: ${{ secrets.NUGET_API_KEY }}

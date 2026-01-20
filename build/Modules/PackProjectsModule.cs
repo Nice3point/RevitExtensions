@@ -12,28 +12,30 @@ using Sourcy.DotNet;
 
 namespace Build.Modules;
 
-[DependsOn<CleanProjectsModule>]
-[DependsOn<CreatePackageReadmeModule>]
-[DependsOn<ParseSolutionConfigurationsModule>]
-public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOptions<PackOptions> packOptions) : Module
+[DependsOn<ResolveConfigurationsModule>]
+[DependsOn<UpdateReadmeModule>(Optional = true)]
+[DependsOn<CleanProjectsModule>(Optional = true)]
+[DependsOn<GenerateNugetChangelogModule>(Optional = true)]
+[DependsOn<TestProjectsModule>(Optional = true)]
+public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions) : Module
 {
-    protected override async Task<IDictionary<string, object>?> ExecuteAsync(IPipelineContext context, CancellationToken cancellationToken)
+    protected override async Task ExecuteModuleAsync(IModuleContext context, CancellationToken cancellationToken)
     {
-        var configurations = await GetModule<ParseSolutionConfigurationsModule>();
-        var changelogModule = GetModuleIfRegistered<CreatePackageChangelogModule>();
+        var configurationsResult = await context.GetModule<ResolveConfigurationsModule>();
+        var changelogModule = context.GetModuleIfRegistered<GenerateNugetChangelogModule>();
 
-        var changelog = changelogModule is null ? null : await changelogModule;
-        var outputFolder = context.Git().RootDirectory.GetFolder(packOptions.Value.OutputDirectory);
+        var configurations = configurationsResult.ValueOrDefault!;
+        var changelogResult = changelogModule is null ? null : await changelogModule;
+        var changelog = changelogResult?.ValueOrDefault;
+        var outputFolder = context.Git().RootDirectory.GetFolder(buildOptions.Value.OutputDirectory);
 
-        foreach (var configuration in configurations.Value!)
+        foreach (var configuration in configurations)
         {
-            await SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder.Path, changelog?.Value, cancellationToken));
+            await context.SubModule(configuration, async () => await PackAsync(context, configuration, outputFolder.Path, changelog, cancellationToken));
         }
-
-        return await NothingAsync();
     }
 
-    private async Task<CommandResult> PackAsync(IPipelineContext context, string configuration, string output, string? changelog, CancellationToken cancellationToken)
+    private async Task<CommandResult> PackAsync(IModuleContext context, string configuration, string output, string? changelog, CancellationToken cancellationToken)
     {
         buildOptions.Value.Versions
             .TryGetValue(configuration, out var version)
@@ -43,13 +45,12 @@ public sealed class PackProjectsModule(IOptions<BuildOptions> buildOptions, IOpt
         {
             ProjectSolution = Projects.Nice3point_Revit_Extensions.FullName,
             Configuration = configuration,
-            Verbosity = Verbosity.Minimal,
             Properties = new List<KeyValue>
             {
-                ("Version", version.ToString()),
+                ("Version", version),
                 ("PackageReleaseNotes", changelog ?? string.Empty),
             },
-            OutputDirectory = output
-        }, cancellationToken);
+            Output = output
+        }, cancellationToken: cancellationToken);
     }
 }

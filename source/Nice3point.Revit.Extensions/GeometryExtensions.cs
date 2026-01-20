@@ -221,9 +221,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var endParameter0 = arc.GetEndParameter(0);
-            var endParameter1 = arc.GetEndParameter(1);
-            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var centerPoint = arc.Evaluate(0.5, true);
             return Arc.Create(
                 new XYZ(x, endPoint0.Y, endPoint0.Z),
                 new XYZ(x, endPoint1.Y, endPoint1.Z),
@@ -243,9 +241,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var endParameter0 = arc.GetEndParameter(0);
-            var endParameter1 = arc.GetEndParameter(1);
-            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var centerPoint = arc.Evaluate(0.5, true);
             return Arc.Create(
                 new XYZ(endPoint0.X, y, endPoint0.Z),
                 new XYZ(endPoint1.X, y, endPoint1.Z),
@@ -265,9 +261,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var endParameter0 = arc.GetEndParameter(0);
-            var endParameter1 = arc.GetEndParameter(1);
-            var centerPoint = arc.Evaluate((endParameter0 + endParameter1) / 2, true);
+            var centerPoint = arc.Evaluate(0.5, true);
             return Arc.Create(
                 new XYZ(endPoint0.X, endPoint0.Y, z),
                 new XYZ(endPoint1.X, endPoint1.Y, z),
