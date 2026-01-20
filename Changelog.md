@@ -1,6 +1,6 @@
-# Release 2026.0.2-preview.2.20260118
+# Release 2027.0.0-preview.1.20260120
 
-This update focuses on improved API design through C# 14 extension methods syntax, .NET 10 support, and extensive ElementId overloads.
+This update focuses on improved API design through C# 14 extension methods syntax, .NET 10 support, Revit 2027 support, and extensive ElementId overloads.
 
 ## Breaking changes
 
@@ -165,7 +165,7 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **SetSlideOutPanelBackground:** Sets the slide-out panel background color for the target RibbonPanel.
 - **SetToolTip:** Sets the tooltip text for the PushButton.
 - **SetLongDescription:** Sets the extended tooltip description for the RibbonItem.
-- **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage and other tabs.
+- **CreatePanel:** Now works with internal panels. Panel can be added to the Modify, View, Manage, and other tabs.
 - **SetImage:** Support for Light and Dark UI themes.
 - **SetLargeImage:** Support for Light and Dark UI themes.
 - **AddShortcuts:** Adds keyboard shortcuts to the RibbonButton.
