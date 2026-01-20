@@ -18,9 +18,8 @@ Instead of writing complex utility functions, you can use these extensions to wr
 
 ```csharp
 new ElementId(123469)
-    .ToElement<Door>()
-    .Mirror()
-    .FindParameter("Height")
+    .ToElement<Wall>()
+    .FindParameter(ParameterTypeId.WallBaseOffset)
     .AsDouble()
     .ToMillimeters()
     .Round()
