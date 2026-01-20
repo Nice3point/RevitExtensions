@@ -53,7 +53,7 @@ public static class ParameterUtilsExtensions
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
         ///    Thrown when the given parameter identifier is empty.
         /// </exception>
-        /// <exception cref="!:Autodesk::Revit::Exceptions::NetworkCommunicationError">
+        /// <exception cref="T:Autodesk.Revit.Exceptions.NetworkCommunicationException">
         ///    Thrown when communication with the Parameters Service is unsuccessful.
         /// </exception>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ResourceNotFoundException">
@@ -66,7 +66,13 @@ public static class ParameterUtilsExtensions
         ///    Thrown when the user is not signed in.
         /// </exception>
 #if REVIT2027_OR_GREATER
+        [Pure]
         [Obsolete("This method is deprecated in Revit 2027 and may be removed in a later version of Revit. We suggest you use the overload which accepts a region input instead.")]
+        [CodeTemplate(
+            searchTemplate: "$expr$.DownloadParameterOptions()",
+            Message = "DownloadParameterOptions() is obsolete, use overload with region parameter",
+            ReplaceTemplate = "$expr$.DownloadParameterOptions($arg$)",
+            ReplaceMessage = "Replace with DownloadParameterOptions(region)")]
 #endif
         public ParameterDownloadOptions DownloadParameterOptions()
         {
@@ -89,7 +95,7 @@ public static class ParameterUtilsExtensions
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
         ///    Thrown when the parameter identifier does not include an account identifier.
         /// </exception>
-        /// <exception cref="!:Autodesk::Revit::Exceptions::NetworkCommunicationError">
+        /// <exception cref="T:Autodesk.Revit.Exceptions.NetworkCommunicationException">
         ///    Thrown when communication with the remote service is unsuccessful.
         /// </exception>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ResourceNotFoundException">
@@ -102,7 +108,13 @@ public static class ParameterUtilsExtensions
         ///    Thrown when the user is not signed in.
         /// </exception>
 #if REVIT2027_OR_GREATER
+        [Pure]
         [Obsolete("This method is deprecated in Revit 2027 and may be removed in a later version of Revit. We suggest you use the overload which accepts a region input instead.")]
+        [CodeTemplate(
+            searchTemplate: "$expr$.DownloadCompanyName($document$)",
+            Message = "DownloadCompanyName(Document) is obsolete, use overload with region parameter",
+            ReplaceTemplate = "$expr$.DownloadCompanyName($document$, $arg$)",
+            ReplaceMessage = "Replace with DownloadCompanyName(document, region)")]
 #endif
         public string DownloadCompanyName(Document document)
         {
@@ -171,6 +183,11 @@ public static class ParameterUtilsExtensions
         [Pure]
 #if REVIT2027_OR_GREATER
         [Obsolete("This method is deprecated in Revit 2027 and may be removed in a later version of Revit. We suggest you use the overload which accepts a region input instead.")]
+        [CodeTemplate(
+            searchTemplate: "$expr$.DownloadParameter($document$, $options$)",
+            Message = "DownloadParameter(Document, ParameterDownloadOptions) is obsolete, use overload with region parameter",
+            ReplaceTemplate = "$expr$.DownloadParameter($document$, $options$, $arg$)",
+            ReplaceMessage = "Replace with DownloadParameter(document, options, region)")]
 #endif
         public SharedParameterElement DownloadParameter(Document document, ParameterDownloadOptions options)
         {
@@ -178,7 +195,6 @@ public static class ParameterUtilsExtensions
         }
 #endif
 #if REVIT2027_OR_GREATER
-
         /// <summary>
         ///    Retrieves settings associated with the given parameter from the Parameters Service.
         /// </summary>
