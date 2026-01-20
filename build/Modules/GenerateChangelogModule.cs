@@ -24,7 +24,6 @@ public sealed class GenerateChangelogModule : Module<string>
         return changelog.ToString();
     }
 
-
     /// <summary>
     ///     Parse the changelog file to extract the entries for a specific version.
     /// </summary>

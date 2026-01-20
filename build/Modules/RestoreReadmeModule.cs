@@ -12,10 +12,10 @@ public sealed class RestoreReadmeModule : Module
 {
     protected override ModuleConfiguration Configure() => ModuleConfiguration.Create()
         .WithAlwaysRun()
-        .WithIgnoreFailuresWhen(async (context, _) =>
+        .WithSkipWhen(async context =>
         {
             var nugetReadmeModule = await context.GetModule<UpdateReadmeModule>();
-            return nugetReadmeModule.IsSuccess;
+            return !nugetReadmeModule.IsSuccess;
         })
         .Build();
 

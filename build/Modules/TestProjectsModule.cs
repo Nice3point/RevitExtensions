@@ -35,11 +35,8 @@ public sealed class TestProjectsModule : Module
     {
         return await context.DotNet().Test(new DotNetTestOptions
         {
-            Configuration = configuration,
-            Arguments =
-            [
-                "--solution", Solutions.Nice3point_Revit_Extensions.FullName
-            ]
+            Solution = Solutions.Nice3point_Revit_Extensions.FullName,
+            Configuration = configuration
         }, cancellationToken: cancellationToken);
     }
 }
