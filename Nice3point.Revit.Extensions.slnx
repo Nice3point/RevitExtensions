@@ -42,7 +42,6 @@
         </Project>
     </Folder>
     <Folder Name="/Solution Items/">
-        <File Path=".gitignore"/>
         <File Path="build/appsettings.json"/>
         <File Path="Changelog.md"/>
         <File Path="Directory.Build.props"/>

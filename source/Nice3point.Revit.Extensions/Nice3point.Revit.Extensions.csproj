@@ -12,7 +12,7 @@
         <PackageId>Nice3point.Revit.Extensions</PackageId>
         <Authors>Nice3point</Authors>
         <Description>Extensions for Revit plugin development</Description>
-        <PackageTags>autodesk;revit;extensions</PackageTags>
+        <PackageTags>autodesk;revit;api;extensions</PackageTags>
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>https://github.com/Nice3point/RevitExtensions</RepositoryUrl>
         <PackageProjectUrl>https://github.com/Nice3point/RevitExtensions</PackageProjectUrl>
@@ -38,6 +38,7 @@
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFramework" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
         <PackageReference Include="JetBrains.Annotations"/>
     </ItemGroup>
 
