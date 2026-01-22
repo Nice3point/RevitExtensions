@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
+using JetBrains.Annotations;
 using UIFramework;
 using UIFrameworkServices;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
@@ -31,7 +32,7 @@ public static partial class RibbonExtensions
     /// <param name="representation">A string representation of the shortcuts, where each shortcut is separated by the '#' character.</param>
     private static void AddButtonShortcuts(PushButton button, string representation)
     {
-        var internalItem = GetInternalItem(button);
+        var internalItem = button.GetInternalItem();
         ShortcutsHelper.LoadCommands(); // Update the command list after button creation
 
         var shortcutItem = ShortcutsHelper.Commands[internalItem.Id];

@@ -38,8 +38,8 @@
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFramework" PrivateAssets="all"/>
         <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices" PrivateAssets="all"/>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
-        <PackageReference Include="JetBrains.Annotations"/>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="all"/>
+        <PackageReference Include="JetBrains.Annotations.Sources" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>

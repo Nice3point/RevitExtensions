@@ -3,6 +3,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
+using JetBrains.Annotations;
 using Nice3point.Revit.Extensions.Internal;
 using UIFramework;
 using Color = System.Windows.Media.Color;

@@ -1,4 +1,5 @@
-﻿using Nice3point.Revit.Extensions.Internal.Formats;
+﻿using JetBrains.Annotations;
+using Nice3point.Revit.Extensions.Internal.Formats;
 
 namespace Nice3point.Revit.Extensions;
 
