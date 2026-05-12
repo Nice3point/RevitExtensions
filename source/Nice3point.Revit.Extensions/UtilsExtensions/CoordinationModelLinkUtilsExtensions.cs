@@ -166,10 +166,6 @@ public static class CoordinationModelLinkUtilsExtensions
         /// <returns>True if the element is Coordination Model instance; false otherwise.</returns>
         public bool IsCoordinationModelInstance => CoordinationModelLinkUtils.IsCoordinationModelInstance(element.Document, element);
 
-        /// <summary>Checks whether an element is a Coordination Model type.</summary>
-        /// <returns>True if the element is Coordination Model type; false otherwise.</returns>
-        public bool IsCoordinationModelType => CoordinationModelLinkUtils.IsCoordinationModelType(element.Document, element);
-
         /// <summary>
         ///    Gets all the properties for the provided Coordination Model instance reference.
         /// </summary>
@@ -394,6 +390,10 @@ public static class CoordinationModelLinkUtilsExtensions
     /// <param name="elementType">The source coordination model type.</param>
     extension(ElementType elementType)
     {
+        /// <summary>Checks whether an element is a Coordination Model type.</summary>
+        /// <returns>True if the element is Coordination Model type; false otherwise.</returns>
+        public bool IsCoordinationModelType => CoordinationModelLinkUtils.IsCoordinationModelType(elementType.Document, elementType);
+
         /// <summary>Gets link data for the provided Coordination Model type.</summary>
         /// <returns>
         ///    Returns Coordination Model type data defining the link to the Autodesk Docs 3D view or the .nwc or .nwd file.
