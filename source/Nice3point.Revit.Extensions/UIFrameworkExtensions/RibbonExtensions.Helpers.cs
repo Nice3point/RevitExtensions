@@ -1,6 +1,6 @@
-﻿using Autodesk.Revit.UI;
+﻿using System.Windows.Threading;
+using Autodesk.Revit.UI;
 using Autodesk.Windows;
-using JetBrains.Annotations;
 using UIFramework;
 using UIFrameworkServices;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;
@@ -31,6 +31,21 @@ public static partial class RibbonExtensions
 #endif
 
     /// <summary>
+    ///     List of pending keyboard shortcut changes.
+    /// </summary>
+    private static readonly List<(string ItemId, string Representation, bool CheckConflicts)> PendingShortcuts = [];
+
+    /// <summary>
+    ///     Shortcuts reserved by the current batch update.
+    /// </summary>
+    private static HashSet<string>? _reservedShortcuts;
+
+    /// <summary>
+    ///     Indicates whether a deferred shortcut flush is already scheduled.
+    /// </summary>
+    private static bool _shortcutsFlushScheduled;
+
+    /// <summary>
     ///     Adds keyboard shortcuts for the specified <see cref="PushButton"/> using the provided string representation.
     /// </summary>
     /// <param name="button">The <see cref="PushButton"/> to which the shortcuts will be applied.</param>
@@ -38,18 +53,7 @@ public static partial class RibbonExtensions
     private static void AddButtonShortcuts(PushButton button, string representation)
     {
         var internalItem = button.GetInternalItem();
-        ShortcutsHelper.LoadCommands(); // Update the command list after button creation
-
-        if (!ShortcutsHelper.Commands.TryGetValue(internalItem.Id, out var shortcutItem))
-        {
-            throw new InvalidOperationException("The specified button does not exist in the command list.");
-        }
-
-        if (shortcutItem.ShortcutsRep is not null) return;
-
-        shortcutItem.ShortcutsRep = representation;
-
-        KeyboardShortcutService.applyShortcutChanges(ShortcutsHelper.Commands);
+        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: false);
     }
 
     /// <summary>
@@ -61,42 +65,108 @@ public static partial class RibbonExtensions
     /// <returns><see langword="true"/> if at least one shortcut was successfully added; otherwise, <see langword="false"/>.</returns>
     private static bool TryAddButtonShortcuts(PushButton button, string representation)
     {
-        var internalItem = button.GetInternalItem();
-        ShortcutsHelper.LoadCommands(); // Update the command list after button creation
-
-        if (!ShortcutsHelper.Commands.TryGetValue(internalItem.Id, out var shortcutItem))
-        {
-            throw new InvalidOperationException("The specified button does not exist in the command list.");
-        }
-
         var newShortcuts = representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries);
         if (newShortcuts.Length == 0) return false;
 
-        var allShortcuts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        _reservedShortcuts ??= LoadUsedShortcuts();
+
+        var shortcutAdded = false;
+        foreach (var newShortcut in newShortcuts)
+        {
+            shortcutAdded |= _reservedShortcuts.Add(newShortcut);
+        }
+
+        if (!shortcutAdded) return false;
+
+        var internalItem = button.GetInternalItem();
+        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: true);
+        return true;
+    }
+
+    /// <summary>
+    ///     Schedule shortcuts update on the Ribbon dispatcher.
+    /// </summary>
+    /// <param name="itemId">The ID of the internal Ribbon item to which the shortcuts will be applied.</param>
+    /// <param name="representation">A string representation of the shortcuts, where each shortcut is separated by the '#' character.</param>
+    /// <param name="checkUsage">Whether the shortcuts must be re-validated against existing commands before applying.</param>
+    private static void ScheduleShortcutsUpdate(string itemId, string representation, bool checkUsage)
+    {
+        PendingShortcuts.Add((itemId, representation, checkUsage));
+
+        if (_shortcutsFlushScheduled) return;
+        _shortcutsFlushScheduled = true;
+
+        var dispatcher = ComponentManager.Ribbon.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        dispatcher.InvokeAsync(FlushShortcuts, DispatcherPriority.ApplicationIdle);
+    }
+
+    /// <summary>
+    ///     Applies all pending shortcut changes in a single batch.
+    /// </summary>
+    private static void FlushShortcuts()
+    {
+        _reservedShortcuts = null;
+        _shortcutsFlushScheduled = false;
+        if (PendingShortcuts.Count == 0) return;
+
+        var hasChanges = false;
+        var usedShortcuts = LoadUsedShortcuts();
+
+        foreach (var (itemId, representation, checkUsage) in PendingShortcuts)
+        {
+            if (!ShortcutsHelper.Commands.TryGetValue(itemId, out var shortcutItem)) continue;
+
+            if (checkUsage)
+            {
+                foreach (var newShortcut in representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (!usedShortcuts.Add(newShortcut)) continue;
+
+                    shortcutItem.Shortcuts.Add(newShortcut);
+                    hasChanges = true;
+                }
+            }
+            else
+            {
+                if (shortcutItem.ShortcutsRep is not null) continue;
+
+                shortcutItem.ShortcutsRep = representation;
+                foreach (var shortcut in shortcutItem.Shortcuts)
+                {
+                    usedShortcuts.Add(shortcut);
+                }
+
+                hasChanges = true;
+            }
+        }
+
+        PendingShortcuts.Clear();
+
+        if (hasChanges)
+        {
+            KeyboardShortcutService.applyShortcutChanges(ShortcutsHelper.Commands);
+        }
+    }
+
+    /// <summary>
+    ///     Reloads the command list and collects all shortcuts currently assigned to commands.
+    /// </summary>
+    /// <returns>A set of the shortcuts currently in use.</returns>
+    private static HashSet<string> LoadUsedShortcuts()
+    {
+        ShortcutsHelper.LoadCommands();
+
+        var shortcuts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var command in ShortcutsHelper.Commands.Values)
         {
             if (command.Shortcuts is null) continue;
             foreach (var shortcut in command.Shortcuts)
             {
-                allShortcuts.Add(shortcut);
+                shortcuts.Add(shortcut);
             }
         }
 
-        var added = false;
-        foreach (var newShortcut in newShortcuts)
-        {
-            if (!allShortcuts.Add(newShortcut)) continue;
-
-            shortcutItem.Shortcuts.Add(newShortcut);
-            added = true;
-        }
-
-        if (added)
-        {
-            KeyboardShortcutService.applyShortcutChanges(ShortcutsHelper.Commands);
-        }
-
-        return added;
+        return shortcuts;
     }
 
     /// <summary>
