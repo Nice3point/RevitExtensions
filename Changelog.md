@@ -1,3 +1,7 @@
+# 2027.0.1
+
+- Fixed AddShortcuts memory leak https://github.com/Nice3point/RevitExtensions/issues/74
+
 # 2027.0.0
 
 This update focuses on improved API design through C# 14 extension methods syntax, .NET 10 support, Revit 2027 support, and covers all known Utils classes.
