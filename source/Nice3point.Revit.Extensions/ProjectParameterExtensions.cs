@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 
+
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
@@ -34,10 +35,22 @@ public static class ProjectParameterExtensions
         /// <param name="bindingKind">The binding kinds to include. Defaults to <see cref="ParameterBindingKind.Any"/>.</param>
         /// <returns>A sorted, read-only list of project parameter names.</returns>
         [Pure]
-        public IReadOnlyList<string> GetProjectParameterNames(
-            ParameterBindingKind bindingKind = ParameterBindingKind.Any)
-            => CollectNames(document,
-                (_, binding) => MatchesBindingKind(binding, bindingKind));
+        public IReadOnlyList<string> GetProjectParameterNames(ParameterBindingKind bindingKind = ParameterBindingKind.Any)
+        {
+            var result = new List<string>();
+            var iterator = document.ParameterBindings.ForwardIterator();
+            while (iterator.MoveNext())
+            {
+                if (iterator.Key is not { } definition) continue;
+                if (iterator.Current is not ElementBinding binding) continue;
+                if (!MatchesBindingKind(binding, bindingKind)) continue;
+
+                result.Add(definition.Name);
+            }
+
+            result.Sort();
+            return result;
+        }
 
         /// <summary>
         ///     Retrieves the names of project parameters bound to the specified category.
@@ -46,14 +59,25 @@ public static class ProjectParameterExtensions
         /// <param name="bindingKind">The binding kinds to include. Defaults to <see cref="ParameterBindingKind.Any"/>.</param>
         /// <returns>A sorted, read-only list of project parameter names.</returns>
         [Pure]
-        public IReadOnlyList<string> GetProjectParameterNames(
-            BuiltInCategory category,
-            ParameterBindingKind bindingKind = ParameterBindingKind.Any)
-            => CollectNames(document,
-                (_, binding) => MatchesBindingKind(binding, bindingKind)
-                                && HasCategory(binding, category));
+        public IReadOnlyList<string> GetProjectParameterNames(BuiltInCategory category, ParameterBindingKind bindingKind = ParameterBindingKind.Any)
+        {
+            var result = new List<string>();
+            var iterator = document.ParameterBindings.ForwardIterator();
+            while (iterator.MoveNext())
+            {
+                if (iterator.Key is not { } definition) continue;
+                if (iterator.Current is not ElementBinding binding) continue;
+                if (!MatchesBindingKind(binding, bindingKind)) continue;
+                if (!HasCategory(binding, category)) continue;
 
-#if REVIT2021_OR_GREATER
+                result.Add(definition.Name);
+            }
+
+            result.Sort();
+            return result;
+        }
+
+#if REVIT2022_OR_GREATER
         /// <summary>
         ///     Retrieves the names of project parameters of the specified data type.
         /// </summary>
@@ -61,12 +85,23 @@ public static class ProjectParameterExtensions
         /// <param name="bindingKind">The binding kinds to include. Defaults to <see cref="ParameterBindingKind.Any"/>.</param>
         /// <returns>A sorted, read-only list of project parameter names.</returns>
         [Pure]
-        public IReadOnlyList<string> GetProjectParameterNames(
-            ForgeTypeId dataType,
-            ParameterBindingKind bindingKind = ParameterBindingKind.Any)
-            => CollectNames(document,
-                (definition, binding) => MatchesBindingKind(binding, bindingKind)
-                                         && MatchesDataType(definition, dataType));
+        public IReadOnlyList<string> GetProjectParameterNames(ForgeTypeId dataType, ParameterBindingKind bindingKind = ParameterBindingKind.Any)
+        {
+            var result = new List<string>();
+            var iterator = document.ParameterBindings.ForwardIterator();
+            while (iterator.MoveNext())
+            {
+                if (iterator.Key is not { } definition) continue;
+                if (iterator.Current is not ElementBinding binding) continue;
+                if (!MatchesBindingKind(binding, bindingKind)) continue;
+                if (definition.GetDataType() != dataType) continue;
+
+                result.Add(definition.Name);
+            }
+
+            result.Sort();
+            return result;
+        }
 #else
         /// <summary>
         ///     Retrieves the names of project parameters of the specified data type.
@@ -75,12 +110,23 @@ public static class ProjectParameterExtensions
         /// <param name="bindingKind">The binding kinds to include. Defaults to <see cref="ParameterBindingKind.Any"/>.</param>
         /// <returns>A sorted, read-only list of project parameter names.</returns>
         [Pure]
-        public IReadOnlyList<string> GetProjectParameterNames(
-            ParameterType dataType,
-            ParameterBindingKind bindingKind = ParameterBindingKind.Any)
-            => CollectNames(document,
-                (definition, binding) => MatchesBindingKind(binding, bindingKind)
-                                         && MatchesDataType(definition, dataType));
+        public IReadOnlyList<string> GetProjectParameterNames(ParameterType dataType, ParameterBindingKind bindingKind = ParameterBindingKind.Any)
+        {
+            var result = new List<string>();
+            var iterator = document.ParameterBindings.ForwardIterator();
+            while (iterator.MoveNext())
+            {
+                if (iterator.Key is not { } definition) continue;
+                if (iterator.Current is not ElementBinding binding) continue;
+                if (!MatchesBindingKind(binding, bindingKind)) continue;
+                if (definition.ParameterType != dataType) continue;
+
+                result.Add(definition.Name);
+            }
+
+            result.Sort();
+            return result;
+        }
 #endif
 
         /// <summary>
@@ -94,64 +140,40 @@ public static class ProjectParameterExtensions
             var iterator = document.ParameterBindings.ForwardIterator();
             while (iterator.MoveNext())
             {
-                if (iterator.Key is { } definition
-                    && definition.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return definition;
-                }
+                if (iterator.Key is not { } definition) continue;
+                if (!definition.Name.Equals(parameterName, StringComparison.OrdinalIgnoreCase)) continue;
+
+                return definition;
             }
 
             return null;
         }
     }
 
-    private static IReadOnlyList<string> CollectNames(
-        Document document,
-        Func<Definition, ElementBinding, bool> predicate)
-    {
-        var result = new List<string>();
-        var iterator = document.ParameterBindings.ForwardIterator();
-
-        while (iterator.MoveNext())
-        {
-            if (iterator.Key is not { } definition) continue;
-            if (iterator.Current is not ElementBinding binding) continue;
-            if (!predicate(definition, binding)) continue;
-
-            result.Add(definition.Name);
-        }
-
-        result.Sort();
-        return result;
-    }
-
     private static bool MatchesBindingKind(ElementBinding binding, ParameterBindingKind kind)
-        => binding switch
+    {
+        return binding switch
         {
             InstanceBinding => kind.HasFlag(ParameterBindingKind.Instance),
             TypeBinding => kind.HasFlag(ParameterBindingKind.Type),
             _ => false
         };
+    }
 
     private static bool HasCategory(ElementBinding binding, BuiltInCategory target)
     {
         var categories = binding.Categories;
         if (categories is null) return false;
 
-        return categories.Cast<Category>().Any(category =>
+        foreach (Category category in categories)
+        {
 #if REVIT2023_OR_GREATER
-            category.BuiltInCategory == target
+            if (category.BuiltInCategory == target) return true;
 #else
-            (BuiltInCategory)category.Id.IntegerValue == target
+            if ((BuiltInCategory)category.Id.IntegerValue == target) return true;
 #endif
-        );
-    }
+        }
 
-#if REVIT2021_OR_GREATER
-    private static bool MatchesDataType(Definition definition, ForgeTypeId dataType)
-        => definition.GetDataType() == dataType;
-#else
-    private static bool MatchesDataType(Definition definition, ParameterType dataType)
-        => definition.ParameterType == dataType;
-#endif
+        return false;
+    }
 }
