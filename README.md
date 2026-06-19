@@ -696,6 +696,22 @@ var manager = document.GetAnalyticalToPhysicalAssociationManager();
 var manager = document.GetLightGroupManager();
 ```
 
+### Project parameters
+
+**GetProjectParameterNames** retrieves the names of project parameters bound in the document, optionally filtered by binding kind, category, or data type.
+```csharp
+var allNames = document.GetProjectParameterNames();
+var instanceNames = document.GetProjectParameterNames(ParameterBindingKind.Instance);
+var wallNames = document.GetProjectParameterNames(BuiltInCategory.OST_Walls);
+var lengthNames = document.GetProjectParameterNames(SpecTypeId.Length);
+```
+
+**GetProjectParameterDefinition** finds the definition of a project parameter by name.
+
+```csharp
+var definition = document.GetProjectParameterDefinition("MyParameter");
+```
+
 ## Parameters
 
 **AsBool** provides access to the boolean value within the parameter.

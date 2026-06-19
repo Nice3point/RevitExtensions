@@ -1,3 +1,14 @@
+# 2027.0.3
+
+## New Extensions
+
+### Document
+
+- `document.GetProjectParameterNames(ParameterBindingKind)`
+- `document.GetProjectParameterNames(BuiltInCategory, ParameterBindingKind)`
+- `document.GetProjectParameterNames(ForgeTypeId, ParameterBindingKind)`
+- `document.GetProjectParameterDefinition(string)`
+- 
 # 2027.0.2
 
 - Optimize shortcuts performance and cases when it cleans up in memory
