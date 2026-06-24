@@ -1,4 +1,4 @@
-<p align="center">
+﻿<p align="center">
     <picture>
         <source media="(prefers-color-scheme: dark)" width="750" srcset="https://github.com/Nice3point/RevitExtensions/assets/20504884/d605eb83-74a7-4a47-9db8-cb0daced374e">
         <img alt="Nice3point.Revit.Extensions" width="750" src="https://github.com/Nice3point/RevitExtensions/assets/20504884/a1772d7d-38d4-4a9b-9985-1d83b8cbea8d">
@@ -7,9 +7,9 @@
 
 ## Improve your experience with Revit API
 
-[![Nuget](https://img.shields.io/nuget/vpre/Nice3point.Revit.Extensions?style=for-the-badge&color=black&labelColor=crimson)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
-[![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge&color=black&labelColor=crimson)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
-[![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge&color=black&labelColor=crimson)](https://github.com/Nice3point/RevitExtensions/commits/develop)
+[![Nuget](https://img.shields.io/nuget/vpre/Nice3point.Revit.Extensions?style=for-the-badge&color=1A1A1A&labelColor=C42A2A)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
+[![Downloads](https://img.shields.io/nuget/dt/Nice3point.Revit.Extensions?style=for-the-badge&color=1A1A1A&labelColor=C42A2A)](https://www.nuget.org/packages/Nice3point.Revit.Extensions)
+[![Last Commit](https://img.shields.io/github/last-commit/Nice3point/RevitExtensions/develop?style=for-the-badge&color=1A1A1A&labelColor=C42A2A)](https://github.com/Nice3point/RevitExtensions/commits/develop)
 
 Extensions make working with the Revit API much easier and more intuitive.
 They add helpful methods that make your code cleaner, easier to understand, and simpler to maintain. Generics, nullable, everything here.
@@ -3476,3 +3476,4 @@ var path = "C:/Folder".AppendPath("AddIn"); // C:/Folder/AddIn
 ```csharp
 new RevitAddinView().Show(uiApplication.MainWindowHandle);
 ```
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
