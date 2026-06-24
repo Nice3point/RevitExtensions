@@ -1,37 +1,37 @@
-# Documentation Requirements
+# Documentation
 
-Documentation ships with the package. Every change to the public surface updates the Readme, the Changelog, and the XML docs in the same commit.
+These rules govern every piece of prose the package ships: XML doc comments, `README.md`, and `CHANGELOG.md`. Each format adds its own rules on top of the shared set.
 
-## Readme.md
+A public-surface change updates the README, the CHANGELOG, and the affected XML docs in the same commit. Documentation that lags the code is a defect.
 
-* **Usage examples:** every new extension category must have a usage example.
-* **ElementId overloads go in the existing section.** When adding an `ElementId` overload for a method that already has an `Element` example, add it to the same section — do not create a new one.
+## Shared Prose Rules
 
-  ```csharp
-  // Element extension
-  element.Copy(new XYZ(1, 1, 0));
+* **State what, not how.** Describe observable behavior and contract, never the implementation. A summary survives an implementation rewrite unchanged.
+* **Plain technical English.** No corporate jargon, no marketing tone.
+* **No filler.** Omit obvious statements. State only what a reader cannot infer from the signature.
+* **Third-person present indicative.** Write "Retrieves the element", not "Retrieving the element". No `-ing` verb form for what a member does.
+* **One sentence per line.** Break at sentence boundaries, never at a fixed character width.
+* **No dashes or semicolons.** Use separate sentences or commas.
 
-  // ElementId extension (added to the same section)
-  elementId.Copy(document, new XYZ(1, 1, 0));
-  ```
-* **No new sections for variants.** Overloads and `ElementId` siblings belong with their primary method.
+## XML Doc Comments
 
-## Changelog.md
+* Document every public member with a `<summary>` that states what it does.
+* **`<summary>` describes the member, not its parameters.** Parameters belong in `<param>`, the return value in `<returns>`, and thrown exceptions in `<exception>`. Do not restate the signature in prose.
+* For a wrapper over the Revit API, mirror the corresponding Revit API summary and document the Revit `<exception>`s the member can throw.
+* Reference another type or member with `<see cref="..."/>` so renames stay tracked.
 
-* Update the current preview/release version section.
-* Categorize every change:
-    * **New Features:** new extension methods, new `ElementId` overloads.
-    * **Breaking Changes:** renamed methods, changed behavior.
-    * **Improvements:** performance, refactoring.
-    * **Bug Fixes:** corrections to existing functionality.
-* Provide migration examples at the end of the section for any breaking change or deprecation.
-* **Document all changes,** not only major ones.
+## README
 
-## XML Documentation
+The README is an API catalog organized by Revit type. Each top-level section covers one type or area, with subsections for the families of operations on it.
 
-* **Summary:** describe what the method does. For Revit API wrappers, copy the summary from the Revit API documentation.
-* **Parameters:** document each parameter with context.
-* **Returns:** describe the meaning of the return value.
-* **Exceptions:** document every Revit API exception the method can throw.
+* Every new extension has a copy-pasteable usage example with C# syntax highlighting, under the section for the type it extends.
+* An `ElementId` overload, a new overload, or any other variant belongs with its primary method, in the existing section. Do not open a new section for a variant.
+* Add a Table of Contents entry when a new section appears.
 
-See [Code Style](./code-style.md) for the in-code XML doc conventions and [Backward Compatibility](./backward-compatibility.md) for deprecation messaging.
+## CHANGELOG
+
+The CHANGELOG is versioned by release. Add the change to the current preview or release version section, grouped by the same Revit type categories the README uses.
+
+* List a new method by its call-site signature under its type category, with the `ElementId` sibling alongside it.
+* Categorize every change, not only the major ones: new extensions, breaking changes, improvements, and bug fixes.
+* Provide a migration example at the end of the section for any breaking change or deprecation. See [Backward Compatibility](./backward-compatibility.md) for the deprecation pattern.

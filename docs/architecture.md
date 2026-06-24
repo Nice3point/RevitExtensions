@@ -1,20 +1,21 @@
 # Architecture & Design Principles
 
-Nice3point.Revit.Extensions exists to make the Revit API pleasant to consume from C#. 
-Every public member is an extension method that wraps a Revit API call behind a fluent, type-safe, discoverable surface. 
+Nice3point.Revit.Extensions exists to make the Revit API pleasant to consume from C#.
+Every public member is an extension method that wraps a Revit API call behind a fluent, type-safe, discoverable surface.
 
 ## Core Design Goals
 
-* **Type safety:** use generics and nullable reference types to push errors to compile time.
-* **Performance:** minimize allocations and follow optimized Revit API access patterns; this is a hot-path library consumed inside Revit.
-* **Discoverability:** group extensions by the Revit type they extend so they surface naturally in IntelliSense on that type.
-* **Backward compatibility:** never break an existing public API. See [Backward Compatibility](./backward-compatibility.md).
+* **Type safety.** Generics and nullable reference types push errors to compile time.
+* **Discoverability.** Extensions group by the Revit type they extend, so they surface in IntelliSense on that type.
+* **Fluency.** A mutation method returns the source object, so calls chain into a readable pipeline.
+* **Performance.** The library runs on Revit hot paths, so it minimizes allocations and follows optimized API access patterns. See [Revit Best Practices](./revit-best-practices.md).
+* **Backward compatibility.** An existing public API never breaks. See [Backward Compatibility](./backward-compatibility.md).
 
 ## Extension Method Model
 
-* Use C# 14 `extension(Type type) { }` blocks instead of legacy `static` methods with `this` parameters.
-* Group related members under a single `extension(Type)` / `extension<T>(Type<T>)` block.
-* Generic forms (`extension<T>(...)`) and static-context forms (`extension(Type)`) are available where the wrapped API is generic or static.
+Author every new extension as a C# `extension(Type) { }` member rather than a legacy static method with a `this` parameter.
+Group members that extend the same type under a single block.
+A generic block (`extension<T>(...)`) wraps a generic API, and a static-context block wraps a static API.
 
 ```csharp
 extension(Element element)
@@ -22,18 +23,20 @@ extension(Element element)
     public Element JoinGeometry(Element secondElement)
     {
         JoinGeometryUtils.JoinGeometry(element.Document, element, secondElement);
-        return element; // enable chaining
+        return element; // enables chaining
     }
 }
 ```
 
-## Method Chaining
+## Chained Calls
 
-All mutation methods return the source object so calls can be chained. A method that would naturally return `void` returns the element it operated on instead.
+A mutation method returns the source object, so calls chain.
+A method that would naturally return `void` returns the object it operated on instead.
 
 ## ElementId Overload Pattern
 
-When a method operates through `element.Document` and `element.Id`, provide a sibling overload on `ElementId` that takes an explicit `Document`. Keep names descriptive when the bare name would be ambiguous on `ElementId`.
+When a method operates through `element.Document` and `element.Id`, provide a sibling overload on `ElementId` that takes an explicit `Document`.
+Keep the name descriptive so the `ElementId` context never reads as ambiguous.
 
 ```csharp
 extension(Element element)
@@ -47,12 +50,12 @@ extension(ElementId elementId)
 }
 ```
 
-* Use descriptive names so the `ElementId` context is never ambiguous: `elementId.MoveGlobalParameterUpOrder(document)`, not `elementId.MoveUpOrder(document)`.
+A specific name keeps the `ElementId` overload clear, such as `elementId.MoveGlobalParameterUpOrder(document)` rather than `elementId.MoveUpOrder(document)`.
 
 ## Design Rules
 
-* Wrap the Revit API; do not reimplement it. A wrapper must call the underlying Revit API directly.
-* Read-only operations are marked `[Pure]`.
-* Keep the public surface in `[PublicAPI]`-marked classes; keep implementation detail in `Internal`.
-* Do not leak `Internal` helpers (unsafe accessors, format utilities) into the public API.
-* Version-specific Revit API differences are isolated behind compilation directives, not duplicated types. See [Revit Best Practices](./revit-best-practices.md).
+* Wrap the Revit API, never reimplement it. A wrapper calls the underlying Revit API directly and adds only ergonomics.
+* Mark read-only operations `[Pure]`.
+* Keep the public surface in `[PublicAPI]`-marked classes and keep implementation detail in the internal folder.
+* Do not leak internal helpers, such as reflection accessors and format utilities, into the public surface.
+* Isolate version-specific Revit API differences behind compilation directives, not duplicated types. See [Revit Best Practices](./revit-best-practices.md).

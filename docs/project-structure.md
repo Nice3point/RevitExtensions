@@ -1,37 +1,35 @@
 # Project Structure
 
-Nice3point.Revit.Extensions is a single-purpose library of fluent extension methods over the Revit API. The solution separates the shipped library from tests and benchmarks. Keep code in the project that owns the runtime responsibility.
+Nice3point.Revit.Extensions is a single-purpose library of fluent extension methods over the Revit API.
+The solution separates the shipped library from its tests and benchmarks.
+Keep each piece of code in the project that owns its runtime responsibility.
 
 ## Solution Groups
 
 * **`/source`**: the shipped NuGet package.
-    * `source/Nice3point.Revit.Extensions`: all public extension methods over Revit API types. This is the only packable project.
-* **`/tests`**: Revit-aware verification projects.
-    * `tests/Nice3point.Revit.Extensions.Tests`: TUnit and Nice3point.TUnit.Revit tests that execute inside the Revit process.
-    * `tests/Nice3point.Revit.Extensions.Benchmarks`: BenchmarkDotNet projects (Nice3point.BenchmarkDotNet.Revit) for measuring extension performance.
-* **`/build`**: ModularPipelines build system, packaging, changelog, and NuGet publishing tasks.
-* **Root level**:
-    * Configuration: `Directory.Build.props`, `Directory.Packages.props`, `global.json`, `renovate.json`.
-    * Documentation: `Readme.md`, `Changelog.md`, `Contributing.md`.
-    * Agent guidelines: `CLAUDE.md`, `AGENTS.md`, `.junie/AGENTS.md`, `docs/`.
-    * CI/CD: `.github/workflows`.
+    * The extensions project holds every public extension method over the Revit API. It is the only package-producing project.
+* **`/tests`**: the verification projects.
+    * The unit-test project runs custom logic inside a real Revit process with TUnit on the Revit thread.
+    * The benchmark project measures extension performance with BenchmarkDotNet.
+* **`/build`**: the ModularPipelines build that compiles, packages, and publishes.
+* **Root**: build and package configuration, the README and CHANGELOG, the agent guidelines, and the CI workflows.
 
 ## Source Layout
 
-Extension classes are grouped by the Revit API surface they wrap. One file per Revit type or utility class, named `<Type>Extensions.cs`.
+Extension classes are grouped by the Revit API surface they wrap, so members surface in IntelliSense on the type they extend.
+One file holds the extensions for a single Revit type or utility class, named `<Type>Extensions.cs`.
 
-* `source/Nice3point.Revit.Extensions/*.cs`: extensions over core Revit API types (`Element`, `ElementId`, `Document`, `Parameter`, `Category`, `Color`, geometry, etc.).
-* `source/Nice3point.Revit.Extensions/UtilsExtensions`: fluent wrappers over Revit `*Utils` static classes (e.g. `JoinGeometryUtils`, `ElementTransformUtils`, `SolidUtils`). One file per Utils class.
-* `source/Nice3point.Revit.Extensions/ManagersExtensions`:  fluent wrappers over Revit `*Manager` types (e.g. `GlobalParametersManager`, `SpatialFieldManager`).
-* `source/Nice3point.Revit.Extensions/UIFrameworkExtensions`: Ribbon and UI Framework helpers (UI-only, not unit-tested).
-* `source/Nice3point.Revit.Extensions/Internal`: non-public helpers (unsafe accessors, ribbon panel infrastructure, context menu creation, color format utilities). Not part of the public API.
+* The root of the extensions project holds extensions over core Revit API types such as elements, identifiers, documents, parameters, categories, colors, and geometry.
+* A dedicated folder holds fluent wrappers over the Revit static `*Utils` classes, one file per utility class.
+* A dedicated folder holds fluent wrappers over the Revit `*Manager` types.
+* A dedicated folder holds Ribbon and UI Framework helpers, which are UI-only and not unit-tested.
+* A non-public folder holds implementation detail such as reflection accessors, format helpers, and ribbon infrastructure. It never appears in the public surface.
 
 ## Change Placement
 
-* Put extensions over a core Revit type in the matching root-level `<Type>Extensions.cs`, or create one if it does not exist.
-* Put wrappers over a Revit `*Utils` class in `UtilsExtensions/<UtilsClass>Extensions.cs`.
-* Put wrappers over a Revit `*Manager` class in `ManagersExtensions/<Manager>Extensions.cs`.
-* Put Ribbon/UI helpers in `UIFrameworkExtensions`.
-* Put private implementation details, reflection accessors, and format helpers in `Internal`; never expose them publicly.
-* Put unit coverage for custom logic in `tests/Nice3point.Revit.Extensions.Tests`.
-* Put performance measurements in `tests/Nice3point.Revit.Extensions.Benchmarks`.
+* An extension over a core Revit type goes in the matching `<Type>Extensions.cs` at the project root, or a new file when none exists.
+* A wrapper over a Revit `*Utils` class goes in the utilities folder, one file per utility class.
+* A wrapper over a Revit `*Manager` type goes in the managers folder.
+* A Ribbon or UI Framework helper goes in the UI Framework folder.
+* A private implementation detail, reflection accessor, or format helper goes in the internal folder and stays non-public.
+* Unit coverage for custom logic goes in the unit-test project. A performance measurement goes in the benchmark project.

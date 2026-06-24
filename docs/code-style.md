@@ -1,32 +1,55 @@
-# Strict C# Production Style
+# Code Style
 
-All code must meet production-quality standards. "It works" is not enough; code must be clean, readable, and self-explanatory. This is a public library — its style is part of its API.
+Production C# only. This is a public library, so its style is part of its contract.
 
 ## General Principles
 
-* **Modern C#:** target the latest language version. Use C# 14 `extension(Type) { }` blocks for all new extensions.
-* **Explicit over implicit:** code should be self-explanatory; avoid hidden behavior and unclear defaults.
-* **Pure functions:** mark read-only operations with `[Pure]`.
-* **Nullable safety:** nullable reference types are enabled; treat nullability warnings as defects.
-* **JetBrains Annotations:** use JetBrains annotations (`[PublicAPI]`, `[Pure]`, `CodeTemplate`) where they improve analysis and intent.
+* **SOLID and DRY.** One responsibility per type. Extract shared logic rather than duplicate it.
+* **Explicit over implicit.** Code is self-explanatory. Avoid hidden behavior and unclear defaults.
+* **Nullable safety.** Nullable reference types are enabled solution-wide. Treat every nullability warning as a defect.
+* **Follow StyleCop conventions** for layout, member ordering, and spacing.
+
+## Modern C#
+
+`LangVersion` is `latest`. Reach for the newest feature that expresses the intent directly, and do not hand-roll what the language already provides.
+
+* `extension(Type) { }` blocks for all new extensions, never legacy static methods with a `this` parameter.
+* Primary constructors when a type captures state.
+* Collection expressions for literals and spans.
+* Pattern matching and switch expressions over branching chains.
+* Range and index operators for slicing.
+* Expression-bodied members for simple wrappers.
+* File-scoped namespaces.
+
+## Comments
+
+Public members carry XML doc comments, covered in [Documentation](./documentation.md). Inside the code, comments are the exception.
+
+* Names and structure carry the meaning. Default to no comment.
+* Add one only when the reason cannot be read from the code and a reader could break it without that reason, such as a non-obvious invariant.
+* A comment explains why, never what. Do not restate the code.
+
+## Attributes
+
+Decorate members with every JetBrains and .NET attribute that carries meaning, so analyzers, the debugger, and callers read the full contract.
+
+* `[PublicAPI]` on every public extension class.
+* `[Pure]` on a read-only method.
+* `[CodeTemplate]` on a deprecated method so Rider can auto-convert call sites. See [Backward Compatibility](./backward-compatibility.md).
 
 ## Naming
 
-* **Clarity is king.** Names must be descriptive and never abbreviated.
-    * Bad: `elem`, `doc`, `param`, `ctx`.
-    * Good: `element`, `document`, `parameter`, `context`.
-* **Follow Revit API naming conventions:**
-    * Passive voice for an operation tested on an object: `CanBeDeleted`, `CanBeMirrored`, `CanBeConvertedToFaceHostBased`.
-    * Active voice when the object performs the action: `CanElementCutElement`.
-* **Disambiguate `ElementId` overloads.** When a name would be too generic on `ElementId`, keep it specific: `elementId.MoveGlobalParameterUpOrder(document)`, not `elementId.MoveUpOrder(document)`.
-* Avoid single-letter variables except in very short loops or lambdas.
+* **Clarity first.** Names are descriptive and never abbreviated: `element` not `elem`, `document` not `doc`, `parameter` not `param`, `context` not `ctx`.
+* **Follow Revit API naming conventions.** Passive voice for an operation tested on an object (`CanBeDeleted`, `CanBeMirrored`), active voice when the object performs the action (`CanElementCutElement`).
+* **Disambiguate `ElementId` overloads.** When the bare name reads as too generic on `ElementId`, keep it specific: `elementId.MoveGlobalParameterUpOrder(document)`, not `elementId.MoveUpOrder(document)`.
+* No single-letter variables except in a short loop or lambda.
 
-## File & Class Structure
+## File and Class Structure
 
-* **File-scoped namespaces.** All extension classes use `namespace Nice3point.Revit.Extensions;` or RevitAPIUI.dll related use `namespace Nice3point.Revit.Extensions.UI;` with `// ReSharper disable once CheckNamespace` above it (the file lives in a subfolder but the namespace stays flat for discoverability).
 * **One type group per file**, named `<Type>Extensions.cs`.
+* **File-scoped namespaces.** Use `namespace Nice3point.Revit.Extensions;`, or the UI sub-namespace for RevitAPIUI-related extensions. When a file lives in a subfolder but keeps the flatter namespace for discoverability, add `// ReSharper disable once CheckNamespace` above the declaration.
 * **`[PublicAPI]`** on every public extension class.
-* **`extension(Type) { }` blocks** group all members that extend the same type.
+* **`extension(Type) { }` blocks** group every member that extends the same type.
 
 ```csharp
 // ReSharper disable once CheckNamespace
@@ -46,22 +69,14 @@ public static class ElementExtensions
 }
 ```
 
-## XML Documentation
-
-* Document every public method with a `<summary>`.
-* For wrappers over the Revit API, copy the summary from the corresponding Revit API documentation.
-* Document each parameter with `<param>` and the return value with `<returns>`.
-* Document the Revit API exceptions a method can throw with `<exception>`.
-* Keep comments concise and update them in the same change as the behavior.
-
 ## Error Handling
 
-* **Let Revit exceptions propagate.** Never swallow Revit API exceptions; document them instead.
-* **Validate only custom logic.** Validate inputs for behavior the library itself adds, not for thin wrappers where Revit already validates.
-* Prefer semantic exceptions over generic `Exception` for any custom logic.
+* **Let Revit exceptions propagate.** Never swallow a Revit API exception. Document it with `<exception>`.
+* **Validate custom logic only.** Validate inputs for behavior the library itself adds, not for a thin wrapper where Revit already validates.
+* Prefer a semantic exception over a generic `Exception` for any custom logic.
 
 ## Compilation Directives
 
-* Use `#if REVIT2024_OR_GREATER` (and similar) for version-specific Revit APIs.
-* Apply directives consistently across related methods so a type's surface is coherent per version.
-* See [Revit Best Practices](./revit-best-practices.md) for the version matrix.
+* `#if REVIT2024_OR_GREATER` and similar for version-specific Revit APIs.
+* `#if NET` or `#if NET8_0_OR_GREATER` for runtime-specific features.
+* Apply directives consistently across related members so a type's surface stays coherent per version. See [Revit Best Practices](./revit-best-practices.md).
