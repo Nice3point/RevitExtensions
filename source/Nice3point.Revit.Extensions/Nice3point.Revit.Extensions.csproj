@@ -18,8 +18,8 @@
         <RepositoryUrl>https://github.com/Nice3point/RevitExtensions</RepositoryUrl>
         <PackageProjectUrl>https://github.com/Nice3point/RevitExtensions</PackageProjectUrl>
         <PackageIcon>images\PackageIcon.png</PackageIcon>
-        <PackageLicenseFile>License.md</PackageLicenseFile>
-        <PackageReadmeFile>Readme.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -42,8 +42,8 @@
 
     <ItemGroup>
         <None Include="..\..\.nuget\PackageIcon.png" PackagePath="images\" Pack="true" Visible="false"/>
-        <None Include="..\..\License.md" PackagePath="" Pack="true" Visible="false"/>
-        <None Include="..\..\Readme.md" PackagePath="" Pack="true" Visible="false"/>
+        <None Include="..\..\LICENSE.md" PackagePath="" Pack="true" Visible="false"/>
+        <None Include="..\..\README.md" PackagePath="" Pack="true" Visible="false"/>
     </ItemGroup>
 
 </Project>
