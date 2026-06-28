@@ -698,18 +698,15 @@ var manager = document.GetLightGroupManager();
 
 ### Project parameters
 
-**GetProjectParameterNames** retrieves the names of project parameters bound in the document, optionally filtered by binding kind, category, or data type.
+**AsEnumerable** enumerates the project parameter bindings of the document as `(Definition, Binding)` pairs, making them easy to query with LINQ.
 ```csharp
-var allNames = document.GetProjectParameterNames();
-var instanceNames = document.GetProjectParameterNames(ParameterBindingKind.Instance);
-var wallNames = document.GetProjectParameterNames(BuiltInCategory.OST_Walls);
-var lengthNames = document.GetProjectParameterNames(SpecTypeId.Length);
-```
+var bindings = document.ParameterBindings.AsEnumerable();
 
-**GetProjectParameterDefinition** finds the definition of a project parameter by name.
+var names = document.ParameterBindings.AsEnumerable()
+    .Select(pair => pair.Definition.Name);
 
-```csharp
-var definition = document.GetProjectParameterDefinition("MyParameter");
+var instanceParameters = document.ParameterBindings.AsEnumerable()
+    .Where(pair => pair.Binding is InstanceBinding);
 ```
 
 ## Parameters

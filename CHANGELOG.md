@@ -2,12 +2,9 @@
 
 ## New Extensions
 
-### Document
+### DefinitionBindingMap
 
-- `document.GetProjectParameterNames(ParameterBindingKind)`
-- `document.GetProjectParameterNames(BuiltInCategory, ParameterBindingKind)`
-- `document.GetProjectParameterNames(ForgeTypeId, ParameterBindingKind)`
-- `document.GetProjectParameterDefinition(string)`
+- `map.AsEnumerable()`
 - 
 # 2027.0.2
 
