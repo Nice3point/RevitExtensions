@@ -1,15 +1,14 @@
-﻿
+﻿using JetBrains.Annotations;
+
 namespace Nice3point.Revit.Extensions;
 
-/// <summary>
-///     Specifies which parameter bindings to include when querying project parameters.
-/// </summary>
 /// <summary>
 ///     Revit DefinitionBindingMap Extensions
 /// </summary>
 [PublicAPI]
 public static class DefinitionBindingMapExtensions
 {
+    /// <param name="map">The source map.</param>
     extension(DefinitionBindingMap map)
     {
         /// <summary>
