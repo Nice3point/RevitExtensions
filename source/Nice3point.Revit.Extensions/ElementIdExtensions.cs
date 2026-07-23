@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace Nice3point.Revit.Extensions;
+﻿namespace Nice3point.Revit.Extensions;
 
 /// <summary>
 ///     Revit Element Extensions

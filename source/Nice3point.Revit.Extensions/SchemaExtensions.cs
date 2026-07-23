@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB.ExtensibleStorage;
-using JetBrains.Annotations;
 
 namespace Nice3point.Revit.Extensions;
 

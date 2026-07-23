@@ -3,7 +3,6 @@ using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.DB.Mechanical;
 using Autodesk.Revit.DB.Structure;
-using JetBrains.Annotations;
 
 namespace Nice3point.Revit.Extensions;
 
