@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using JetBrains.Annotations;
 using Color = System.Drawing.Color;
 
 namespace Nice3point.Revit.Extensions.Internal.Formats;

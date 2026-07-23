@@ -1,5 +1,4 @@
 using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 #if NET8_0_OR_GREATER
 using Nice3point.Revit.Extensions.Internal;
 

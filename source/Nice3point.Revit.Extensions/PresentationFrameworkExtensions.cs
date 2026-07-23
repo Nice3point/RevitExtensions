@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Interop;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.UI;

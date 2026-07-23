@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB.DirectContext3D;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.DirectContext3D;
