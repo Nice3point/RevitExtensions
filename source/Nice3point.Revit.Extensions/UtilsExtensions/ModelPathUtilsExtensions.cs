@@ -1,4 +1,6 @@
-﻿
+﻿#if REVIT2026_OR_GREATER
+using Autodesk.Revit.ApplicationServices;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
