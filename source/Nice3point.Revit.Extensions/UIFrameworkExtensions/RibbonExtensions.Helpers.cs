@@ -7,8 +7,8 @@ using RibbonItem = Autodesk.Revit.UI.RibbonItem;
 using RibbonPanel = Autodesk.Revit.UI.RibbonPanel;
 #if REVIT2024_OR_GREATER
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Media.Imaging;
+using Nice3point.Revit.Extensions.Internal.Formats;
 using RibbonButton = Autodesk.Revit.UI.RibbonButton;
 #endif
 #if NET8_0_OR_GREATER
@@ -342,40 +342,7 @@ public static partial class RibbonExtensions
     /// <returns><see langword="true"/> if the URI was modified to match the current UI theme; otherwise, <see langword="false"/>.</returns>
     private static bool TryGetThemedUri(string uri, out string result)
     {
-        var theme = UITheme.Light;
-        var themeIndex = uri.LastIndexOf("light", StringComparison.OrdinalIgnoreCase);
-        if (themeIndex == -1)
-        {
-            theme = UITheme.Dark;
-            themeIndex = uri.LastIndexOf("dark", StringComparison.OrdinalIgnoreCase);
-            if (themeIndex == -1)
-            {
-                result = uri;
-                return false;
-            }
-        }
-
-        result = UIThemeManager.CurrentTheme switch
-        {
-            UITheme.Light when theme == UITheme.Dark => UpdateThemeUri(uri, "dark", "light", themeIndex),
-            UITheme.Dark when theme == UITheme.Light => UpdateThemeUri(uri, "light", "dark", themeIndex),
-            _ => uri
-        };
-
-        return true;
-
-        static string UpdateThemeUri(string source, string currentTheme, string newTheme, int themeIndex)
-        {
-#if NET
-            var sourceSpan = source.AsSpan();
-            var before = sourceSpan[..themeIndex];
-            var after = sourceSpan[(themeIndex + currentTheme.Length)..];
-#else
-            var before = source[..themeIndex];
-            var after = source[(themeIndex + currentTheme.Length)..];
-#endif
-            return after.IndexOf(Path.AltDirectorySeparatorChar) >= 0 || after.IndexOf(Path.DirectorySeparatorChar) >= 0 ? source : string.Concat(before, newTheme, after);
-        }
+        return ThemeUriUtils.TryGetThemedUri(uri, UIThemeManager.CurrentTheme == UITheme.Dark, out result);
     }
 #endif
 }

@@ -41,6 +41,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="Nice3point.Revit.Extensions.Tests"/>
+    </ItemGroup>
+
+    <ItemGroup>
         <None Include="..\..\.nuget\PackageIcon.png" PackagePath="images\" Pack="true" Visible="false"/>
         <None Include="..\..\LICENSE.md" PackagePath="" Pack="true" Visible="false"/>
         <None Include="..\..\README.md" PackagePath="" Pack="true" Visible="false"/>
