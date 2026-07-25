@@ -696,6 +696,19 @@ var manager = document.GetAnalyticalToPhysicalAssociationManager();
 var manager = document.GetLightGroupManager();
 ```
 
+### Project parameters
+
+**AsEnumerable** enumerates the project parameter bindings of the document as `(Definition, Binding)` pairs, making them easy to query with LINQ.
+```csharp
+var bindings = document.ParameterBindings.AsEnumerable();
+
+var names = document.ParameterBindings.AsEnumerable()
+    .Select(pair => pair.Definition.Name);
+
+var instanceParameters = document.ParameterBindings.AsEnumerable()
+    .Where(pair => pair.Binding is InstanceBinding);
+```
+
 ## Parameters
 
 **AsBool** provides access to the boolean value within the parameter.
