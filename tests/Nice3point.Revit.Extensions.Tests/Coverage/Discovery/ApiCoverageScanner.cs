@@ -19,6 +19,7 @@ internal static class ApiCoverageScanner
     /// </summary>
     /// <param name="assembly">The assembly to scan.</param>
     /// <param name="sourceFileIndex">The index resolving which library source files wrap each method.</param>
+    [Pure]
     public static IReadOnlyList<ApiMethodRow> ScanUtilityMethods(Assembly assembly, SourceFileIndex sourceFileIndex)
     {
         return GetLoadableTypes(assembly)
