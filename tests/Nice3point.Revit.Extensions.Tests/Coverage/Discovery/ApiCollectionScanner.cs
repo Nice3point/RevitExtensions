@@ -16,9 +16,6 @@ internal static class ApiCollectionScanner
     private const BindingFlags PublicInstance = BindingFlags.Public | BindingFlags.Instance;
 
     private const string KeyPropertyName = nameof(IDictionaryEnumerator.Key);
-    private const string CountPropertyName = nameof(ICollection.Count);
-    private const string AddMethodName = nameof(IList.Add);
-    private const string RemoveMethodName = nameof(IList.Remove);
     private const string TryGetValueMethodName = nameof(IReadOnlyDictionary<,>.TryGetValue);
 
     /// <summary>
@@ -30,11 +27,6 @@ internal static class ApiCollectionScanner
     ///     The iteration entry point of the native C++ API, kept in the managed wrapper next to <c>GetEnumerator</c>.
     /// </summary>
     private const string IteratorFactoryName = "ForwardIterator";
-
-    /// <summary>
-    ///     The element count of the native C++ API, kept in the managed wrapper in place of <c>Count</c>.
-    /// </summary>
-    private const string SizePropertyName = "Size";
 
     /// <summary>
     ///     The removal method of the native C++ API, kept in the managed wrapper in place of <c>Remove</c>.
@@ -261,21 +253,6 @@ internal static class ApiCollectionScanner
             issues.Add(ApiCollectionIssues.KeyOutsideEnumeration);
         }
 
-        if (HasProperty(shape.CollectionType, SizePropertyName) && !HasProperty(shape.CollectionType, CountPropertyName))
-        {
-            issues.Add(ApiCollectionIssues.NoCount);
-        }
-
-        if (HasAnyMethod(shape.CollectionType, InsertionMethodNames) && !HasAnyMethod(shape.CollectionType, [AddMethodName]))
-        {
-            issues.Add(ApiCollectionIssues.NoAdd);
-        }
-
-        if (HasAnyMethod(shape.CollectionType, [EraseMethodName]) && !HasAnyMethod(shape.CollectionType, [RemoveMethodName]))
-        {
-            issues.Add(ApiCollectionIssues.NoRemove);
-        }
-
         if (shape.Kind is ApiCollectionKind.Map && !HasTryGetValue(shape.CollectionType, shape.KeyType!))
         {
             issues.Add(ApiCollectionIssues.NoTryGetValue);
@@ -320,18 +297,6 @@ internal static class ApiCollectionScanner
             .GetMethods(PublicInstance)
             .Where(method => method.Name == TryGetValueMethodName)
             .Any(method => method.GetParameters() is [var key, { IsOut: true }] && key.ParameterType == keyType);
-    }
-
-    private static bool HasAnyMethod(Type type, string[] methodNames)
-    {
-        return type
-            .GetMethods(PublicInstance)
-            .Any(method => methodNames.Contains(method.Name));
-    }
-
-    private static bool HasProperty(Type type, string propertyName)
-    {
-        return FindProperty(type, propertyName) is not null;
     }
 
     private static PropertyInfo? FindIndexer(Type type, Type indexType)
@@ -396,7 +361,7 @@ internal static class ApiCollectionScanner
             IteratorType = FormatTypeName(shape.IteratorType),
             EnumeratedType = FormatTypeName(shape.EnumeratedType),
             Issues = FindIssues(shape),
-            ImplementationFiles = sourceFileIndex.FindExtendingFiles(shape.CollectionType.Name)
+            ImplementationFiles = FindExtendingFiles(shape.CollectionType, sourceFileIndex)
         };
     }
 
@@ -413,8 +378,37 @@ internal static class ApiCollectionScanner
             IteratorType = FormatTypeName(shape.IteratorType),
             EnumeratedType = FormatTypeName(shape.EnumeratedType),
             Issues = FindIssues(shape),
-            ImplementationFiles = sourceFileIndex.FindExtendingFiles(shape.CollectionType.Name)
+            ImplementationFiles = FindExtendingFiles(shape.CollectionType, sourceFileIndex)
         };
+    }
+
+    /// <summary>
+    ///     Reads the files extending the collection or any collection it derives from.
+    /// </summary>
+    /// <remarks>
+    ///     An extension declared over a base collection applies to every collection deriving from it. <c>BindingMap</c> reaches
+    ///     its members through <c>DefinitionBindingMap</c>.
+    ///     The walk stops at the first base type that enumerates nothing. A collection deriving from <see cref="Element"/>
+    ///     inherits the members of an element, never the members of a collection.
+    /// </remarks>
+    private static IReadOnlyList<string> FindExtendingFiles(Type collectionType, SourceFileIndex sourceFileIndex)
+    {
+        var fileNames = new List<string>();
+
+        for (var type = collectionType; type is not null && typeof(IEnumerable).IsAssignableFrom(type); type = type.BaseType)
+        {
+            foreach (var fileName in sourceFileIndex.FindExtendingFiles(type.Name))
+            {
+                if (fileNames.Contains(fileName))
+                {
+                    continue;
+                }
+
+                fileNames.Add(fileName);
+            }
+        }
+
+        return fileNames;
     }
 
     /// <summary>

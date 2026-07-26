@@ -4,8 +4,9 @@ namespace Nice3point.Revit.Extensions.Tests.Coverage.Models;
 ///     The members a Revit API collection leaves to an extension.
 /// </summary>
 /// <remarks>
-///     Every issue names a member an extension can add. A missing interface is absent from the set: an extension method
-///     adds no interface to a type.
+///     Every issue names a capability the raw API reaches through no single call, never a member the API already provides
+///     under another name: <c>Size</c>, <c>Insert</c>, <c>Erase</c>, and <c>Contains</c> need no extension.
+///     <see cref="NoGenericEnumerable"/> is the exception, reported although no extension adds an interface to a type.
 /// </remarks>
 public static class ApiCollectionIssues
 {
@@ -23,21 +24,6 @@ public static class ApiCollectionIssues
     ///     The enumeration walks the values alone. The key of the current entry stays on the concrete iterator.
     /// </summary>
     public const string KeyOutsideEnumeration = "key outside the enumeration";
-
-    /// <summary>
-    ///     The collection counts through <c>Size</c>. LINQ <c>Count</c> walks the whole collection.
-    /// </summary>
-    public const string NoCount = "no Count";
-
-    /// <summary>
-    ///     The collection inserts through <c>Insert</c> or <c>Append</c>.
-    /// </summary>
-    public const string NoAdd = "no Add";
-
-    /// <summary>
-    ///     The collection removes through <c>Erase</c>.
-    /// </summary>
-    public const string NoRemove = "no Remove";
 
     /// <summary>
     ///     A safe lookup costs a <c>Contains</c> call plus an indexer call.
