@@ -52,14 +52,14 @@
 
         <!-- Testing -->
         <PackageVersion Include="BenchmarkDotNet" Version="0.15.8"/>
-        <PackageVersion Include="TUnit" Version="1.50.0"/>
+        <PackageVersion Include="TUnit" Version="1.61.38"/>
         <PackageVersion Include="Shouldly" Version="4.3.0"/>
     </ItemGroup>
 
     <!-- Development Dependencies -->
     <ItemGroup>
-        <GlobalPackageReference Include="Polyfill" Version="10.8.1"/>
-        <GlobalPackageReference Include="JetBrains.Annotations.Sources" Version="2025.2.4"/>
+        <GlobalPackageReference Include="Polyfill" Version="11.0.1"/>
+        <GlobalPackageReference Include="JetBrains.Annotations.Sources" Version="2026.2.0"/>
     </ItemGroup>
 
 </Project>

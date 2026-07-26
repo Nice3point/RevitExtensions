@@ -1,6 +1,5 @@
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB.Structure.StructuralSections;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;

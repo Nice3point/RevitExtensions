@@ -8,4 +8,9 @@
         <EnableWindowsTargeting>true</EnableWindowsTargeting>
     </PropertyGroup>
 
+    <!-- Polyfill configuration -->
+    <PropertyGroup>
+        <PolyUseEmbeddedAttribute>true</PolyUseEmbeddedAttribute>
+    </PropertyGroup>
+
 </Project>

@@ -1,3 +1,119 @@
+# 2027.0.3
+
+This update focuses on making Revit collections and maps enumerable the way the rest of .NET is.
+
+The Revit API mirrors the native C++ containers. A collection stops its contract at the non-generic `IEnumerable`. 
+A `foreach` over it yields `object` and every LINQ query opens with a cast. 
+A map goes further and keeps the key of the current entry on the concrete iterator instead of in the enumeration, so a `foreach` never sees the key at all.
+Reading the keys means a hand-written loop over `ForwardIterator()`, and that iterator holds a native handle until it is disposed.
+
+Iterating a map used to take a loop:
+
+```c#
+var iterator = document.ParameterBindings.ForwardIterator();
+while (iterator.MoveNext())
+{
+    var definition = iterator.Key;
+    var binding = (Binding)iterator.Current;
+}
+```
+
+Now the key travels with the value, and the iterator is disposed for you:
+
+```c#
+foreach (var (definition, binding) in document.ParameterBindings.EnumerateEntries())
+{
+}
+```
+
+Looking up a value used to take two calls, and the indexer is reachable only through `get_Item`:
+
+```c#
+if (element.ParametersMap.Contains("Comments"))
+{
+    var parameter = element.ParametersMap.get_Item("Comments");
+}
+```
+
+Now it takes one:
+
+```c#
+if (element.ParametersMap.TryGetValue("Comments", out var parameter))
+{
+}
+```
+
+Collections used to name their element type at every call site:
+
+```c#
+foreach (Face face in solid.Faces)
+{
+}
+
+var areas = solid.Faces.Cast<Face>().Select(face => face.Area);
+
+var names = categorySet.Cast<Category>().Select(category => category.Name);
+```
+
+Now the element type comes from the collection:
+
+```c#
+foreach (var face in solid.Faces.EnumerateValues())
+{
+}
+
+var areas = solid.Faces.EnumerateValues().Select(face => face.Area);
+
+var names = categorySet.EnumerateValues().Select(category => category.Name);
+```
+
+## New Extensions
+
+### Maps
+
+Available on `DefinitionBindingMap` and `BindingMap`, `ParameterMap`, `CategoryNameMap`, and `Categories`:
+
+- `map.EnumerateEntries()`
+- `map.EnumerateKeys()`
+- `map.EnumerateValues()`
+- `map.TryGetValue(key, out value)`
+
+### Collections
+
+Available on every array and every set holding elements of a single type, 51 of them:
+
+- `curveArray.EnumerateValues()`
+- `faceArray.EnumerateValues()`
+- `elementArray.EnumerateValues()`
+- `categorySet.EnumerateValues()`
+- `parameterSet.EnumerateValues()`
+- `viewSet.EnumerateValues()`
+
+## Performance
+
+Reading a collection the short way is also the fast way.
+`EnumerateValues()` is not a wrapper over `Cast<T>()`.
+
+An array exposes its size and an indexed accessor, the enumeration reads every element by its index and spends one interop call per element.
+A `Cast<T>()` over the same array walks a native iterator and spends two.
+A set exposes no index, the enumeration walks the enumerator itself and drops the LINQ layer above it.
+
+A map keeps the key of the current entry on its iterator and the value on `Current`, so building a pair costs two interop calls.
+`EnumerateKeys()` and `EnumerateValues()` read only the side you ask for and pay for one.
+
+Measured on Revit 2027 over an array of 1000 curves, a set of 600 categories, and the parameter map of a level:
+
+| Enumeration               | Replaces                | Faster | Allocates less |
+|---------------------------|-------------------------|-------:|---------------:|
+| `array.EnumerateValues()` | `array.Cast<Curve>()`   |    10% |              — |
+| `set.EnumerateValues()`   | `set.Cast<Category>()`  |     5% |              — |
+| `map.EnumerateKeys()`     | enumerating the pairs   |    30% |            35% |
+| `map.EnumerateValues()`   | enumerating the pairs   |    23% |            35% |
+
+The worst case is a set, **5%** faster for the same allocation.
+The best case is a map key enumeration, **30%** faster and **35%** fewer bytes.
+The benchmark and its results in [EnumerationBenchmark](https://github.com/Nice3point/RevitExtensions/tree/main/tests/Nice3point.Revit.Extensions.Benchmarks/Benchmarks/EnumerationBenchmark.cs).
+
 # 2027.0.2
 
 - Optimize shortcuts performance and cases when it cleans up in memory

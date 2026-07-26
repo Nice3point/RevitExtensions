@@ -5,12 +5,21 @@ using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests.Abstractions;
 
+/// <summary>
+///     Supplies tests with an isolated copy of the smallest project sample installed with Revit.
+/// </summary>
 public class RevitModelSampleTest : RevitApiTest
 {
     private static readonly string SamplesPath = $@"C:\Program Files\Autodesk\Revit {RevitEnvironment.MajorVersion}\Samples";
 
+    /// <summary>
+    ///     The opened documents, keyed by the path of the sample they copy.
+    /// </summary>
     private protected Dictionary<string, Document> ModelDocuments { get; } = [];
 
+    /// <summary>
+    ///     The path of the smallest installed project sample. The array is empty when Revit ships no samples directory.
+    /// </summary>
     public static string[] RevitModels { get; } = Directory.Exists(SamplesPath)
         ? Directory.EnumerateFiles(SamplesPath, "*.rvt")
             .Select(path => new FileInfo(path))
@@ -20,6 +29,9 @@ public class RevitModelSampleTest : RevitApiTest
             .ToArray()
         : [];
 
+    /// <summary>
+    ///     Copies every project sample to a temporary file and opens it with failure suppression.
+    /// </summary>
     [Before(Test)]
     [HookExecutor<RevitThreadExecutor>]
     public void OpenDocuments()
@@ -36,6 +48,9 @@ public class RevitModelSampleTest : RevitApiTest
         }
     }
 
+    /// <summary>
+    ///     Closes every opened document and deletes its temporary copy.
+    /// </summary>
     [After(Test)]
     [HookExecutor<RevitThreadExecutor>]
     public void CloseDocuments()
