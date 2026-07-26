@@ -1,10 +1,3 @@
-# 2027.0.3
-
-## New Extensions
-
-### DefinitionBindingMap
-
-- `map.AsEnumerable()`
 # 2027.0.2
 
 - Optimize shortcuts performance and cases when it cleans up in memory
