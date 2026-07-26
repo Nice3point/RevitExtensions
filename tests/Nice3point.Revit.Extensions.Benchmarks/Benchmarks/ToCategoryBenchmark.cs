@@ -8,13 +8,23 @@ using System.Runtime.CompilerServices;
 
 namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 
-/// <summary>
-///     Provides test values for benchmarks, avoiding early JIT resolution of Revit API structs.
-/// </summary>
-file static class Arguments
-{
-    public const BuiltInCategory Category = BuiltInCategory.OST_Walls;
-}
+// ```
+//
+// BenchmarkDotNet v0.15.8, Windows 11 (10.0.28000.2269/26H1/2026Update)
+// AMD Ryzen 9 9950X3D 4.30GHz, 1 CPU, 32 logical and 16 physical cores
+// .NET SDK 10.0.302
+// [Host]     : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
+// Job-AAUCHH : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
+//
+// BuildConfiguration=Release.R27  
+//
+// ```
+// | Method           | Mean     | Error   | StdDev  | Ratio | RatioSD | Gen0   | Gen1   | Allocated | Alloc Ratio |
+// |----------------- |---------:|--------:|--------:|------:|--------:|-------:|-------:|----------:|------------:|
+// | ReflectionPinned | 590.2 ns | 9.30 ns | 8.70 ns |  2.20 |    0.03 | 0.0124 | 0.0114 |     632 B |        3.04 |
+// | CachedPinned     | 294.4 ns | 2.69 ns | 2.52 ns |  1.10 |    0.01 | 0.0043 | 0.0038 |     232 B |        1.12 |
+// | ReflectionUnsafe | 556.5 ns | 7.24 ns | 6.77 ns |  2.07 |    0.03 | 0.0114 | 0.0105 |     608 B |        2.92 |
+// | CachedUnsafe     | 268.3 ns | 1.90 ns | 1.78 ns |  1.00 |    0.01 | 0.0038 | 0.0033 |     208 B |        1.00 |
 
 public class ToCategoryBenchmark : RevitDocumentBenchmark
 {
@@ -91,4 +101,12 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
         return category;
     }
 #endif
+}
+
+/// <summary>
+///     Provides test values for benchmarks, avoiding early JIT resolution of Revit API structs.
+/// </summary>
+file static class Arguments
+{
+    public const BuiltInCategory Category = BuiltInCategory.OST_Walls;
 }
