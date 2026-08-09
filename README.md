@@ -308,6 +308,16 @@ var data = document.ProjectInformation.LoadEntity<string>(schema, "schemaField")
 var color = door.LoadEntity<string>(schema, "doorColorField");
 ```
 
+A field of type `double`, `float`, `XYZ`, or `UV` is built with a spec, and its value is stored and retrieved in an explicit unit.
+Pass that unit to **SaveEntity** and **LoadEntity**. It must be compatible with the field spec.
+
+```csharp
+wall.SaveEntity(schema, 0.5, "thicknessField", UnitTypeId.Meters);
+wall.SaveEntity(schema, 0.5, "thicknessField", DisplayUnitType.DUT_METERS); // Revit 2020 and lower
+
+var thickness = wall.LoadEntity<double>(schema, "thicknessField", UnitTypeId.Meters);
+```
+
 ## Application extensions
 
 **AsControlledApplication** creates a `ControlledApplication` from the current `Application` instance.
