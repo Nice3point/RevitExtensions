@@ -12,11 +12,7 @@ public static class LightGroupManagerExtensions
     /// <param name="document">The document.</param>
     extension(Document document)
     {
-        /// <summary>Creates a light group manager object from the given document</summary>
-        /// <returns>The newly created Light group manager object</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The document is not valid because it is not a project (rvt) document
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Lighting.LightGroupManager.GetLightGroupManager(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public LightGroupManager GetLightGroupManager()
         {

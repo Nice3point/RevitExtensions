@@ -11,8 +11,7 @@ public static class TemporaryGraphicsManagerExtensions
     /// <param name="document">The source document.</param>
     extension(Document document)
     {
-        /// <summary>Gets a TemporaryGraphicsManager reference of the document.</summary>
-        /// <returns>Instance of TemporaryGraphicsManager.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.TemporaryGraphicsManager.GetTemporaryGraphicsManager(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public TemporaryGraphicsManager GetTemporaryGraphicsManager()
         {

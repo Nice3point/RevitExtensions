@@ -12,22 +12,10 @@ public static class GlobalParametersManagerExtensions
     /// <param name="document">The Revit document.</param>
     extension(Document document)
     {
-        /// <summary>Tests whether global parameters are allowed in the given document.</summary>
-        /// <remarks>
-        ///    First of all, global parameters can be had in main project documents only;
-        ///    they are not supported in family documents. However, there may also be other
-        ///    circumstances due to which global parameters may be disallowed in a particular
-        ///    project, either temporarily or permanently.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.AreGlobalParametersAllowed(Autodesk.Revit.DB.Document)"/>
         public bool AreGlobalParametersAllowed => GlobalParametersManager.AreGlobalParametersAllowed(document);
 
-        /// <summary>Returns all global parameters available in the given document.</summary>
-        /// <returns>A collection of GlobalParameters</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    Global parameters are not supported in the given document.
-        ///    A possible cause is that it is not a project document,
-        ///    for global parameters are not supported in Revit families.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.GetAllGlobalParameters(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public ISet<ElementId> GetAllGlobalParameters()
         {
@@ -50,57 +38,21 @@ public static class GlobalParametersManagerExtensions
             return parameterId.ToElement<GlobalParameter>(document);
         }
 
-        /// <summary>
-        ///    Tests whether a name is unique among existing global parameters of a given document.
-        /// </summary>
-        /// <remarks>
-        ///    Typically, this method is used before a new global parameters is created, for
-        ///    all global parameters must have their names unique in the scope of a document.
-        /// </remarks>
-        /// <param name="name">A name of a parameter being added.</param>
-        /// <returns>
-        ///    True if the given %name% does not exist yet among existing global parameters nof the document; False otherwise.
-        /// </returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.IsUniqueName(Autodesk.Revit.DB.Document,System.String)"/>
         [Pure]
         public bool IsUniqueGlobalParameterName(string name)
         {
             return GlobalParametersManager.IsUniqueName(document, name);
         }
 
-        /// <summary>Returns all global parameters in an ordered array.</summary>
-        /// <remarks>
-        ///      <p>The order of the items corresponds to the order at which global parameters
-        /// appear in Revit UI when shown in the standard Global Parameters dialog.
-        /// However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <returns>A list of Global Parameters in the document.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    Global parameters are not supported in the given document.
-        ///    A possible cause is that it is not a project document,
-        ///    for global parameters are not supported in Revit families.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.GetGlobalParametersOrdered(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public IList<ElementId> GetGlobalParametersOrdered()
         {
             return GlobalParametersManager.GetGlobalParametersOrdered(document);
         }
 
-        /// <summary>Sorts global parameters in the desired order.</summary>
-        /// <remarks>
-        ///      <p>All global parameters are sorted, but only within the range
-        /// of their respective parameter group.</p>
-        ///      <p>This operation has no effect on the global parameters themselves.
-        /// The sorted order is only visible in the standard Global Parameters
-        /// dialog. However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <param name="order">Desired sorting order</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    Global parameters are not supported in the given document.
-        ///    A possible cause is that it is not a project document,
-        ///    for global parameters are not supported in Revit families.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.SortParameters(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ParametersOrder)"/>
         public void SortGlobalParameters(ParametersOrder order)
         {
             GlobalParametersManager.SortParameters(document, order);
@@ -110,35 +62,13 @@ public static class GlobalParametersManagerExtensions
     /// <param name="parameter">The source parameter.</param>
     extension(GlobalParameter parameter)
     {
-        /// <summary>Moves given global parameter Up in the current order.</summary>
-        /// <remarks>
-        ///      <p>A parameter can only be moved within its parameter group, meaning that
-        /// repeated moving a parameter will not push the parameter out of and into
-        /// the next (in order) parameter group. When a parameter can no longer move
-        /// because it is at the boundary of its group, this method returns False.</p>
-        ///      <p>This operation has no effect on the global parameters themselves.
-        /// The rearranged order is only visible in the standard Global Parameters
-        /// dialog. However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <returns>Indicates whether the parameter could be moved Up in order or not.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.MoveParameterUpOrder(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool MoveUpOrder()
         {
             return GlobalParametersManager.MoveParameterUpOrder(parameter.Document, parameter.Id);
         }
 
-        /// <summary>Moves given global parameter Down in the current order.</summary>
-        /// <remarks>
-        ///      <p>A parameter can only be moved within its parameter group, meaning that
-        /// repeated moving a parameter will not push the parameter out of and into
-        /// the next (in order) parameter group. When a parameter can no longer move
-        /// because it is at the boundary of its group, this method returns False.</p>
-        ///      <p>This operation has no effect on the global parameters themselves.
-        /// The rearranged order is only visible in the standard Global Parameters
-        /// dialog. However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <returns>Indicates whether the parameter could be moved Down in order or not.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.MoveParameterDownOrder(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool MoveDownOrder()
         {
             return GlobalParametersManager.MoveParameterDownOrder(parameter.Document, parameter.Id);
@@ -148,46 +78,20 @@ public static class GlobalParametersManagerExtensions
     /// <param name="parameterId">The global parameter element id.</param>
     extension(ElementId parameterId)
     {
-        /// <summary>Tests whether an ElementId is of a global parameter in the given document.</summary>
-        /// <param name="document">The document containing the parameter.</param>
-        /// <returns>Returns True if the Id is of a valid global parameter; False otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.IsValidGlobalParameter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public bool IsValidGlobalParameter(Document document)
         {
             return GlobalParametersManager.IsValidGlobalParameter(document, parameterId);
         }
 
-        /// <summary>Moves given global parameter Up in the current order.</summary>
-        /// <remarks>
-        ///      <p>A parameter can only be moved within its parameter group, meaning that
-        /// repeated moving a parameter will not push the parameter out of and into
-        /// the next (in order) parameter group. When a parameter can no longer move
-        /// because it is at the boundary of its group, this method returns False.</p>
-        ///      <p>This operation has no effect on the global parameters themselves.
-        /// The rearranged order is only visible in the standard Global Parameters
-        /// dialog. However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <param name="document">The document containing the parameter.</param>
-        /// <returns>Indicates whether the parameter could be moved Up in order or not.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.MoveParameterUpOrder(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool MoveGlobalParameterUpOrder(Document document)
         {
             return GlobalParametersManager.MoveParameterUpOrder(document, parameterId);
         }
 
-        /// <summary>Moves given global parameter Down in the current order.</summary>
-        /// <remarks>
-        ///      <p>A parameter can only be moved within its parameter group, meaning that
-        /// repeated moving a parameter will not push the parameter out of and into
-        /// the next (in order) parameter group. When a parameter can no longer move
-        /// because it is at the boundary of its group, this method returns False.</p>
-        ///      <p>This operation has no effect on the global parameters themselves.
-        /// The rearranged order is only visible in the standard Global Parameters
-        /// dialog. However, the order of parameters is serialized in the document,
-        /// thus available on the DB level as well.</p>
-        ///    </remarks>
-        /// <param name="document">The document containing the parameter.</param>
-        /// <returns>Indicates whether the parameter could be moved Down in order or not.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.GlobalParametersManager.MoveParameterDownOrder(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool MoveGlobalParameterDownOrder(Document document)
         {
             return GlobalParametersManager.MoveParameterDownOrder(document, parameterId);
