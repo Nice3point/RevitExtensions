@@ -142,9 +142,9 @@ public static class ColorExtensions
         }
 
         /// <summary>
-        /// Return a <see cref="string"/> representation decimal color value
+        /// Return a decimal <see cref="int"/> representation of a RGB color
         /// </summary>
-        /// <returns>a string value number</returns>
+        /// <returns>a decimal color value</returns>
         [Pure]
         public int ToDecimal()
         {
