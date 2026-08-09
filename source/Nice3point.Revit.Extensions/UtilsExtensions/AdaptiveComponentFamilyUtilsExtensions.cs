@@ -12,59 +12,24 @@ public static class AdaptiveComponentFamilyUtilsExtensions
     /// <param name="family">The source family.</param>
     extension(Family family)
     {
-        /// <summary>Verifies if the Family is an Adaptive Component Family.</summary>
-        /// <returns>True if the Family is an Adaptive Component Family.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.IsAdaptiveComponentFamily(Autodesk.Revit.DB.Family)"/>
         public bool IsAdaptiveComponentFamily => AdaptiveComponentFamilyUtils.IsAdaptiveComponentFamily(family);
 
-        /// <summary>Gets number of Adaptive Point Elements in Adaptive Component Family.</summary>
-        /// <returns>Number of Adaptive Point Element References in Adaptive Component Family.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Family family is not an Adaptive Component Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetNumberOfAdaptivePoints(Autodesk.Revit.DB.Family)"/>
         [Pure]
         public int GetNumberOfAdaptivePoints()
         {
             return AdaptiveComponentFamilyUtils.GetNumberOfAdaptivePoints(family);
         }
 
-        /// <summary>Gets number of Placement Point Elements in Adaptive Component Family.</summary>
-        /// <returns>
-        ///    Number of Adaptive Placement Point Element References in Adaptive Component Family.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Family family is not an Adaptive Component Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetNumberOfPlacementPoints(Autodesk.Revit.DB.Family)"/>
         [Pure]
         public int GetNumberOfAdaptivePlacementPoints()
         {
             return AdaptiveComponentFamilyUtils.GetNumberOfPlacementPoints(family);
         }
 
-        /// <summary>Gets number of Shape Handle Point Elements in Adaptive Component Family.</summary>
-        /// <returns>
-        ///    Number of Adaptive Shape Handle Point Element References in the Adaptive Component Family.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Family family is not an Adaptive Component Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetNumberOfShapeHandlePoints(Autodesk.Revit.DB.Family)"/>
         [Pure]
         public int GetNumberOfAdaptiveShapeHandlePoints()
         {
@@ -75,135 +40,55 @@ public static class AdaptiveComponentFamilyUtilsExtensions
     /// <param name="referencePoint">The source reference point.</param>
     extension(ReferencePoint referencePoint)
     {
-        /// <summary>Verifies if the Reference Point is an Adaptive Placement Point.</summary>
-        /// <returns>True if the Point is an Adaptive Placement Point.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.IsAdaptivePlacementPoint(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsAdaptivePlacementPoint => AdaptiveComponentFamilyUtils.IsAdaptivePlacementPoint(referencePoint.Document, referencePoint.Id);
 
-        /// <summary>Verifies if the Reference Point is an Adaptive Point.</summary>
-        /// <returns>
-        ///    True if the Point is an Adaptive Point (Placement Point or Shape Handle Point).
-        /// </returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.IsAdaptivePoint(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsAdaptivePoint => AdaptiveComponentFamilyUtils.IsAdaptivePoint(referencePoint.Document, referencePoint.Id);
 
-        /// <summary>Verifies if the Reference Point is an Adaptive Shape Handle Point.</summary>
-        /// <returns>True if the Point is an Adaptive Shape Handle Point.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.IsAdaptiveShapeHandlePoint(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsAdaptiveShapeHandlePoint => AdaptiveComponentFamilyUtils.IsAdaptiveShapeHandlePoint(referencePoint.Document, referencePoint.Id);
 
-        /// <summary>Gets Placement number of an Adaptive Placement Point.</summary>
-        /// <returns>Placement number of the Adaptive Placement Point.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetPlacementNumber(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public int GetAdaptivePlacementNumber()
         {
             return AdaptiveComponentFamilyUtils.GetPlacementNumber(referencePoint.Document, referencePoint.Id);
         }
 
-        /// <summary>Gets constrain type of an Adaptive Shape Handle Point.</summary>
-        /// <returns>Constraint type of the Adaptive Shape Handle Point.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetPointConstraintType(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public AdaptivePointConstraintType GetAdaptivePointConstraintType()
         {
             return AdaptiveComponentFamilyUtils.GetPointConstraintType(referencePoint.Document, referencePoint.Id);
         }
 
-        /// <summary>Gets orientation type of an Adaptive Placement Point.</summary>
-        /// <returns>Orientation type of Adaptive Placement Point.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.GetPointOrientationType(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public AdaptivePointOrientationType GetAdaptivePointOrientationType()
         {
             return AdaptiveComponentFamilyUtils.GetPointOrientationType(referencePoint.Document, referencePoint.Id);
         }
 
-        /// <summary>
-        ///    Makes Reference Point an Adaptive Point or makes an Adaptive Point a Reference Point.
-        /// </summary>
-        /// <param name="type">The Adaptive Point Type</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///    A value passed for an enumeration argument is not a member of that enumeration
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.MakeAdaptivePoint(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.AdaptivePointType)"/>
         public void MakeAdaptivePoint(AdaptivePointType type)
         {
             AdaptiveComponentFamilyUtils.MakeAdaptivePoint(referencePoint.Document, referencePoint.Id, type);
         }
 
-        /// <summary>Sets Placement Number of an Adaptive Placement Point.</summary>
-        /// <param name="placementNumber">Placement number of the Adaptive Placement Point.</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        ///    -or-
-        ///    The number placementNumber is out of range.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.SetPlacementNumber(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Int32)"/>
         public void SetAdaptivePlacementNumber(int placementNumber)
         {
             AdaptiveComponentFamilyUtils.SetPlacementNumber(referencePoint.Document, referencePoint.Id, placementNumber);
         }
 
-        /// <summary>Sets constrain type of an Adaptive Shape Handle Point.</summary>
-        /// <param name="constraintType">Constraint type of the Adaptive Shape Handle Point.</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        ///    -or-
-        ///    The ElementId refPointId does not correspond to a Shape Handle Point.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///    A value passed for an enumeration argument is not a member of that enumeration
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.InvalidOperationException">
-        ///    This operation failed.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.SetPointConstraintType(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.AdaptivePointConstraintType)"/>
         public void SetAdaptivePointConstraintType(AdaptivePointConstraintType constraintType)
         {
             AdaptiveComponentFamilyUtils.SetPointConstraintType(referencePoint.Document, referencePoint.Id, constraintType);
         }
 
-        /// <summary>Sets orientation type of an Adaptive Placement Point.</summary>
-        /// <param name="orientationType">Orientation type of the Adaptive Placement Point.</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The Element corresponding to ElementId refPointId does not belong to an Adaptive Family.
-        ///    -or-
-        ///    The ElementId refPointId does not correspond to an Adaptive Placement Point.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///    A value passed for an enumeration argument is not a member of that enumeration
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AdaptiveComponentFamilyUtils.SetPointOrientationType(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.AdaptivePointOrientationType)"/>
         public void SetAdaptivePointOrientationType(AdaptivePointOrientationType orientationType)
         {
             AdaptiveComponentFamilyUtils.SetPointOrientationType(referencePoint.Document, referencePoint.Id, orientationType);

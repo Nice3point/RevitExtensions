@@ -12,52 +12,21 @@ public static class HostObjectUtilsExtensions
     /// <param name="host">The source host object.</param>
     extension(HostObject host)
     {
-        /// <summary>Returns the bottom faces for this host object</summary>
-        /// <remarks>
-        ///     This utility supports host objects whose bottom faces represent one of the boundaries of CompoundStructure (such as roofs, floors or ceilings)
-        /// </remarks>
-        /// <returns>
-        ///     An array of references to the faces which are at the bottom of this element
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///     This host object does not support access to top or bottom faces
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.HostObjectUtils.GetBottomFaces(Autodesk.Revit.DB.HostObject)"/>
         [Pure]
         public IList<Reference> GetBottomFaces()
         {
             return HostObjectUtils.GetBottomFaces(host);
         }
 
-        /// <summary>
-        ///     Returns the major side faces for this host object
-        /// </summary>
-        /// <remarks>
-        ///     This utility supports host objects whose CompoundStructure is nominally oriented vertically.
-        ///     It outputs faces which are at the boundary of the CompoundStructure (such as Walls and FaceWalls)
-        /// </remarks>
-        /// <param name="side">The side of the host object</param>
-        /// <returns>
-        ///     An array of references to the faces which are on the given side of this element
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///     This host object does not support access to side faces
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.HostObjectUtils.GetSideFaces(Autodesk.Revit.DB.HostObject,Autodesk.Revit.DB.ShellLayerType)"/>
         [Pure]
         public IList<Reference> GetSideFaces(ShellLayerType side)
         {
             return HostObjectUtils.GetSideFaces(host, side);
         }
 
-        /// <summary>
-        ///     Returns the top faces for this host object
-        /// </summary>
-        /// <remarks>
-        ///     This utility supports host objects whose top faces represent one of the boundaries of CompoundStructure (such as roofs, floors or ceilings)
-        /// </remarks>
-        /// <returns>An array of references to the faces which are at the top of this element</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///     This host object does not support access to top or bottom faces
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.HostObjectUtils.GetTopFaces(Autodesk.Revit.DB.HostObject)"/>
         [Pure]
         public IList<Reference> GetTopFaces()
         {

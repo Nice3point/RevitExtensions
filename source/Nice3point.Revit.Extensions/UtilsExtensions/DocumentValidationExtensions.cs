@@ -25,17 +25,14 @@ public static class DocumentValidationExtensions
             return DocumentValidation.CanDeleteElement(element.Document, element.Id);
         }
 
-        /// <summary>Indicates if an element can be deleted.</summary>
-        /// <returns>True if the element can be deleted, false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.DocumentValidation.CanDeleteElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool CanBeDeleted => DocumentValidation.CanDeleteElement(element.Document, element.Id);
     }
 
     /// <param name="elementId">The element id to check.</param>
     extension(ElementId elementId)
     {
-        /// <summary>Indicates if an element can be deleted.</summary>
-        /// <param name="document">The document containing the element.</param>
-        /// <returns>True if the element can be deleted, false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.DocumentValidation.CanDeleteElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public bool CanBeDeleted(Document document)
         {

@@ -12,15 +12,7 @@ public static class ExternalFileUtilsExtensions
     /// <param name="document">The source document.</param>
     extension(Document document)
     {
-        /// <summary>Gets the ids of all elements which are external file references.</summary>
-        /// <remarks>
-        ///    This function will not return the ids of nested Revit links;
-        ///    it only returns top-level references.
-        /// </remarks>
-        /// <returns>The ids of all elements which are external file references.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalFileUtils.GetAllExternalFileReferences(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public ICollection<ElementId> GetAllExternalFileReferences()
         {
@@ -31,26 +23,10 @@ public static class ExternalFileUtilsExtensions
     /// <param name="element">The source element.</param>
     extension(Element element)
     {
-        /// <summary>Determines whether the given element represents an external file.</summary>
-        /// <remarks>
-        ///      <p>CAD imports are not external file references, as their
-        /// data is brought fully into Revit. No connection is maintained
-        /// to the original file.</p>
-        ///      <p>A link may be an external resource without being an external file.</p>
-        ///    </remarks>
-        /// <returns>True if the given element represents an external file; false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalFileUtils.IsExternalFileReference(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsExternalFileReference => ExternalFileUtils.IsExternalFileReference(element.Document, element.Id);
 
-        /// <summary>Gets the external file referencing data for the given element.</summary>
-        /// <returns>
-        ///    An object containing path and type information for the given element's external file.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    elemId does not represent an external file reference.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalFileUtils.GetExternalFileReference(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public ExternalFileReference GetExternalFileReference()
         {
@@ -61,40 +37,14 @@ public static class ExternalFileUtilsExtensions
     /// <param name="elementId">The element id.</param>
     extension(ElementId elementId)
     {
-        /// <summary>Determines whether the given element represents an external file.</summary>
-        /// <remarks>
-        ///      <p>CAD imports are not external file references, as their
-        /// data is brought fully into Revit. No connection is maintained
-        /// to the original file.</p>
-        ///      <p>A link may be an external resource without being an external file.</p>
-        ///    </remarks>
-        /// <param name="document">A Revit Document.</param>
-        /// <returns>True if the given element represents an external file; false otherwise.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element elemId does not exist in the document
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalFileUtils.IsExternalFileReference(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public bool IsExternalFileReference(Document document)
         {
             return ExternalFileUtils.IsExternalFileReference(document, elementId);
         }
 
-        /// <summary>Gets the external file referencing data for the given element.</summary>
-        /// <param name="document">A Revit Document.</param>
-        /// <returns>
-        ///    An object containing path and type information for the given element's external file.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    The element elemId does not exist in the document
-        ///    -or-
-        ///    elemId does not represent an external file reference.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalFileUtils.GetExternalFileReference(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public ExternalFileReference GetExternalFileReference(Document document)
         {

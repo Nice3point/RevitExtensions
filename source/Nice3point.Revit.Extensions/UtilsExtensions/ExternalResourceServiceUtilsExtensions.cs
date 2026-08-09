@@ -12,10 +12,7 @@ public static class ExternalResourceServiceUtilsExtensions
     /// <param name="resourceType">The source external resource type.</param>
     extension(ExternalResourceType resourceType)
     {
-        /// <summary>
-        ///    Gets registered external resource servers which support the external resource type.
-        /// </summary>
-        /// <returns>A list of matched external resource servers</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExternalResourceServiceUtils.GetServersByType(Autodesk.Revit.DB.ExternalResourceType)"/>
         [Pure]
         public IList<IExternalResourceServer> GetServers()
         {

@@ -163,100 +163,65 @@ public static class UnitUtilsExtensions
     /// <param name="typeId">Unique identifier</param>
     extension(ForgeTypeId typeId)
     {
-        /// <summary>Checks whether a ForgeTypeId identifies a symbol.</summary>
-        /// <remarks>The SymbolTypeId class offers symbol identifiers.</remarks>
-        /// <returns>True if the ForgeTypeId identifies a symbol, false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsSymbol(Autodesk.Revit.DB.ForgeTypeId)"/>
         public bool IsSymbol => UnitUtils.IsSymbol(typeId);
 
-        /// <summary>Checks whether a ForgeTypeId identifies a unit.</summary>
-        /// <remarks>The UnitTypeId class offers unit identifiers.</remarks>
-        /// <returns>True if the ForgeTypeId identifies a unit, false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsUnit(Autodesk.Revit.DB.ForgeTypeId)"/>
         public bool IsUnit => UnitUtils.IsUnit(typeId);
 
-        /// <summary>Gets the identifiers of all valid units for a given measurable spec.</summary>
-        /// <returns>Identifiers of the valid units.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetValidUnits(Autodesk.Revit.DB.ForgeTypeId)"/>
         [Pure]
         public IList<ForgeTypeId> GetValidUnits()
         {
             return UnitUtils.GetValidUnits(typeId);
         }
 
-        /// <summary>Gets the string used in type catalogs to identify a given measurable spec.</summary>
-        /// <returns>
-        ///    The type catalog string, or an empty string if the measurable spec cannot be used in type catalogs.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForSpec(Autodesk.Revit.DB.ForgeTypeId)"/>
         [Pure]
         public string GetTypeCatalogStringForSpec()
         {
             return UnitUtils.GetTypeCatalogStringForSpec(typeId);
         }
 
-        /// <summary>Checks whether a unit is valid for a given measurable spec.</summary>
-        /// <param name="unitTypeId">Identifier of the unit to check.</param>
-        /// <returns>True if the unit is valid, false otherwise.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsValidUnit(Autodesk.Revit.DB.ForgeTypeId,Autodesk.Revit.DB.ForgeTypeId)"/>
         [Pure]
         public bool IsValidUnit(ForgeTypeId unitTypeId)
         {
             return UnitUtils.IsValidUnit(typeId, unitTypeId);
         }
 
-        /// <summary>Gets the string used in type catalogs to identify a given unit.</summary>
-        /// <returns>
-        ///    The type catalog string, or an empty string if the unit cannot be used in type catalogs.
-        /// </returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    unitTypeId is not a unit identifier. See UnitUtils.IsUnit(typeId) and UnitUtils.GetUnitTypeId(DisplayUnitType).
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForUnit(Autodesk.Revit.DB.ForgeTypeId)"/>
         [Pure]
         public string GetTypeCatalogStringForUnit()
         {
             return UnitUtils.GetTypeCatalogStringForUnit(typeId);
         }
 
-        /// <summary>Gets the identifiers of all available units.</summary>
-        /// <returns>The unit identifiers.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllUnits"/>
         public static IList<ForgeTypeId> GetAllUnits()
         {
             return UnitUtils.GetAllUnits();
         }
 #if REVIT2022_OR_GREATER
 
-        /// <summary>
-        ///    Checks whether a ForgeTypeId identifies a spec associated with units of measurement.
-        /// </summary>
-        /// <returns>True if the ForgeTypeId identifies a measurable spec, false otherwise.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsMeasurableSpec(Autodesk.Revit.DB.ForgeTypeId)"/>
         public bool IsMeasurableSpec => UnitUtils.IsMeasurableSpec(typeId);
 
-        /// <summary>Gets the discipline for a given measurable spec.</summary>
-        /// <returns>Identifier of the discipline.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    specTypeId is not a measurable spec identifier. See UnitUtils.IsMeasurableSpec(typeId).
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetDiscipline(Autodesk.Revit.DB.ForgeTypeId)"/>
         [Pure]
         public ForgeTypeId GetDiscipline()
         {
             return UnitUtils.GetDiscipline(typeId);
         }
 
-        /// <summary>Gets the identifiers of all available disciplines.</summary>
-        /// <returns>The discipline identifiers.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllDisciplines"/>
         [Pure]
         public static IList<ForgeTypeId> GetAllDisciplines()
         {
             return UnitUtils.GetAllDisciplines();
         }
 
-        /// <summary>Gets the identifiers of all available measurable specs.</summary>
-        /// <returns>The spec identifiers.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllMeasurableSpecs"/>
         [Pure]
         public static IList<ForgeTypeId> GetAllMeasurableSpecs()
         {

@@ -12,17 +12,7 @@ public static class FabricationUtilsExtensions
     /// <param name="document">The source document.</param>
     extension(Document document)
     {
-        /// <summary>Exports a list of fabrication parts into PCF format.</summary>
-        /// <param name="ids">
-        ///    An array of FabricationPart element identifiers. Non-fabrication parts are ignored.
-        /// </param>
-        /// <param name="filename">The name given to the output file.</param>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-        ///    Fabrication configuration is missing.
-        /// </exception>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Fabrication.FabricationUtils.ExportToPCF(Autodesk.Revit.DB.Document,System.Collections.Generic.IList{Autodesk.Revit.DB.ElementId},System.String)"/>
         public void ExportToPcf(string filename, IList<ElementId> ids)
         {
             FabricationUtils.ExportToPCF(document, ids, filename);
@@ -32,12 +22,7 @@ public static class FabricationUtilsExtensions
     /// <param name="connector">The first connector.</param>
     extension(Connector connector)
     {
-        /// <summary>Check if two connectors are valid to connect directly without couplings.</summary>
-        /// <param name="other">Second connector to check against.</param>
-        /// <returns>True if connection is valid otherwise false.</returns>
-        /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///    A non-optional argument was null
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Fabrication.FabricationUtils.ValidateConnectivity(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.Connector,Autodesk.Revit.DB.Connector)"/>
         [Pure]
         public bool ValidateFabricationConnectivity(Connector other)
         {
