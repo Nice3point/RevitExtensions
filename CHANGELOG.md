@@ -1,3 +1,76 @@
+# 2027.0.4
+
+## Extensible storage units
+
+A schema field of type `double`, `float`, `XYZ`, or `UV` declares a spec, and every read and write of such a field names the unit the value is expressed in.
+`SaveEntity` and `LoadEntity` passed no unit.
+They served string, integer, boolean, `ElementId`, and `Guid` fields, and threw on everything measured.
+
+Storing a wall thickness used to drop out of the extensions:
+
+```c#
+var field = schema.GetField("Thickness");
+var entity = wall.GetEntity(schema);
+entity.Set(field, 0.5, UnitTypeId.Meters);
+wall.SetEntity(entity);
+```
+
+Now the unit travels with the value:
+
+```c#
+wall.SaveEntity(schema, 0.5, "Thickness", UnitTypeId.Meters);
+wall.SaveEntity(schema, 0.5, "Thickness", DisplayUnitType.DUT_METERS); // Revit 2020 and lower
+
+var thickness = wall.LoadEntity<double>(schema, "Thickness", UnitTypeId.Meters);
+```
+
+- `element.SaveEntity(schema, data, fieldName, unitTypeId)`
+- `element.LoadEntity<T>(schema, fieldName, unitTypeId)`
+
+The unit must be compatible with the spec the field was built with, otherwise Revit rejects the call.
+
+`LoadEntity` also stops allocating an entity for an element that holds no data, and returns the default value directly.
+
+Agents can now use this directly using a skill: https://github.com/Nice3point/revit-skills
+
+## Identifier values
+
+Revit 2024 widened `ElementId` from 32 to 64 bits.
+`Value` replaced `IntegerValue`, the constructor started taking an `Int64`, and the underlying type of the `BuiltInCategory` and `BuiltInParameter` enumerations grew with it.
+A constant now converts into an identifier without losing anything.
+
+A cast carries the same split.
+`(int)category` compiles on either side of that boundary and names a different type on each, and an assembly built against the older API meets cast exceptions on the newer one.
+
+Reading the number behind an `ElementId` used to take a conditional:
+
+```c#
+#if REVIT2024_OR_GREATER
+    var value = elementId.Value;
+#else
+    var value = elementId.IntegerValue;
+#endif
+```
+
+Now it is one call, and the value converts back:
+
+```c#
+var value = elementId.ToLong();
+var elementId = value.ToElementId();
+```
+
+`BuiltInCategory` and `BuiltInParameter` uses the same convention:
+
+```c#
+var categoryValue = BuiltInCategory.OST_Walls.ToLong();
+var parameterValue = BuiltInParameter.WALL_TOP_OFFSET.ToLong();
+```
+
+- `elementId.ToLong()`
+- `builtInCategory.ToLong()`
+- `builtInParameter.ToLong()`
+- `value.ToElementId()`
+
 # 2027.0.3
 
 This update focuses on making Revit collections and maps enumerable the way the rest of .NET is.

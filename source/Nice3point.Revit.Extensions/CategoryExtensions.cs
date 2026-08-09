@@ -64,6 +64,16 @@ public static class CategoryExtensions
         {
             return new ElementId(builtInCategory);
         }
+
+        /// <summary>
+        ///     Retrieves the numeric value of the BuiltInCategory.
+        /// </summary>
+        /// <returns>The value the category constant holds.</returns>
+        [Pure]
+        public long ToLong()
+        {
+            return (long)builtInCategory;
+        }
     }
 
     /// <param name="elementId">The unique identification for an element.</param>

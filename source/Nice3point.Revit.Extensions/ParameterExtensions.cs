@@ -128,6 +128,16 @@ public static class ParameterExtensions
         {
             return new ElementId(builtInParameter);
         }
+
+        /// <summary>
+        ///     Retrieves the numeric value of the BuiltInParameter.
+        /// </summary>
+        /// <returns>The value the parameter constant holds.</returns>
+        [Pure]
+        public long ToLong()
+        {
+            return (long)builtInParameter;
+        }
     }
 
     /// <param name="elementId">The unique identification for an element.</param>

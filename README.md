@@ -134,6 +134,13 @@ IList<Element> elements = wallIds.ToOrderedElements(document);
 IList<Wall> walls = wallIds.ToOrderedElements<Wall>(document);
 ```
 
+**ToLong** returns the numeric value of an ElementId, and **ToElementId** creates an ElementId from that value.
+
+```csharp
+long value = wallId.ToLong();
+ElementId wallId = value.ToElementId();
+```
+
 **CanBeDeleted** indicates whether an element can be deleted.
 
 ```csharp
@@ -764,6 +771,12 @@ var parameter = BuiltInParameter.WALL_TOP_OFFSET.ToParameter(document);
 var elementId = BuiltInParameter.WALL_TOP_OFFSET.ToElementId();
 ```
 
+**ToLong** returns the numeric value of a BuiltInParameter.
+
+```csharp
+var value = BuiltInParameter.WALL_TOP_OFFSET.ToLong();
+```
+
 **IsParameter** checks if an ElementId matches a BuiltInParameter.
 
 ```csharp
@@ -817,6 +830,12 @@ var category = BuiltInCategory.OST_Walls.ToCategory(document);
 
 ```csharp
 var elementId = BuiltInCategory.OST_Walls.ToElementId();
+```
+
+**ToLong** returns the numeric value of a BuiltInCategory.
+
+```csharp
+var value = BuiltInCategory.OST_Walls.ToLong();
 ```
 
 **IsCategory** checks if an ElementId matches a BuiltInCategory.

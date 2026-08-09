@@ -31,6 +31,38 @@ public static class ElementIdExtensions
         {
             return (T?)document.GetElement(elementId);
         }
+
+        /// <summary>
+        ///     Retrieves the numeric value of the ElementId.
+        /// </summary>
+        /// <returns>The value the identifier holds.</returns>
+        [Pure]
+        public long ToLong()
+        {
+#if REVIT2024_OR_GREATER
+            return elementId.Value;
+#else
+            return elementId.IntegerValue;
+#endif
+        }
+    }
+
+    /// <param name="value">The numeric value of an element identifier.</param>
+    extension(long value)
+    {
+        /// <summary>
+        ///     Creates an ElementId handle with the given numeric value.
+        /// </summary>
+        /// <returns>The identifier holding the value.</returns>
+        [Pure]
+        public ElementId ToElementId()
+        {
+#if REVIT2024_OR_GREATER
+            return new ElementId(value);
+#else
+            return new ElementId((int)value);
+#endif
+        }
     }
 
     /// <param name="elementIds">The collection of unique identifications for elements.</param>
