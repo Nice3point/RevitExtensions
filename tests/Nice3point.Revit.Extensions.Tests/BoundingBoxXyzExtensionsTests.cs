@@ -7,6 +7,7 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
     [Test]
     public async Task Contains_PointInsideBox_ReturnsTrue()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -15,12 +16,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
 
         var pointInside = new XYZ(5, 5, 5);
 
-        await Assert.That(boundingBox.Contains(pointInside)).IsTrue();
+        // Act
+        var contains = boundingBox.Contains(pointInside);
+
+        // Assert
+        await Assert.That(contains).IsTrue();
     }
 
     [Test]
     public async Task Contains_PointOutsideBox_ReturnsFalse()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -29,12 +35,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
 
         var pointOutside = new XYZ(15, 15, 15);
 
-        await Assert.That(boundingBox.Contains(pointOutside)).IsFalse();
+        // Act
+        var contains = boundingBox.Contains(pointOutside);
+
+        // Assert
+        await Assert.That(contains).IsFalse();
     }
 
     [Test]
     public async Task Contains_PointOnBorder_ReturnsTrue()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -43,12 +54,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
 
         var pointOnBorder = new XYZ(10, 10, 10);
 
-        await Assert.That(boundingBox.Contains(pointOnBorder)).IsTrue();
+        // Act
+        var contains = boundingBox.Contains(pointOnBorder);
+
+        // Assert
+        await Assert.That(contains).IsTrue();
     }
 
     [Test]
     public async Task Contains_PointOnBorderStrictMode_ReturnsFalse()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -57,12 +73,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
 
         var pointOnBorder = new XYZ(10, 10, 10);
 
-        await Assert.That(boundingBox.Contains(pointOnBorder, strict: true)).IsFalse();
+        // Act
+        var contains = boundingBox.Contains(pointOnBorder, strict: true);
+
+        // Assert
+        await Assert.That(contains).IsFalse();
     }
 
     [Test]
     public async Task Contains_BoxInsideBox_ReturnsTrue()
     {
+        // Arrange
         var outerBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -75,12 +96,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
             Max = new XYZ(8, 8, 8)
         };
 
-        await Assert.That(outerBox.Contains(innerBox)).IsTrue();
+        // Act
+        var contains = outerBox.Contains(innerBox);
+
+        // Assert
+        await Assert.That(contains).IsTrue();
     }
 
     [Test]
     public async Task Contains_BoxOutsideBox_ReturnsFalse()
     {
+        // Arrange
         var box1 = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -93,12 +119,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
             Max = new XYZ(20, 20, 20)
         };
 
-        await Assert.That(box1.Contains(box2)).IsFalse();
+        // Act
+        var contains = box1.Contains(box2);
+
+        // Assert
+        await Assert.That(contains).IsFalse();
     }
 
     [Test]
     public async Task Overlaps_OverlappingBoxes_ReturnsTrue()
     {
+        // Arrange
         var box1 = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -111,12 +142,17 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
             Max = new XYZ(15, 15, 15)
         };
 
-        await Assert.That(box1.Overlaps(box2)).IsTrue();
+        // Act
+        var overlaps = box1.Overlaps(box2);
+
+        // Assert
+        await Assert.That(overlaps).IsTrue();
     }
 
     [Test]
     public async Task Overlaps_NonOverlappingBoxes_ReturnsFalse()
     {
+        // Arrange
         var box1 = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
@@ -129,20 +165,27 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
             Max = new XYZ(20, 20, 20)
         };
 
-        await Assert.That(box1.Overlaps(box2)).IsFalse();
+        // Act
+        var overlaps = box1.Overlaps(box2);
+
+        // Assert
+        await Assert.That(overlaps).IsFalse();
     }
 
     [Test]
     public async Task ComputeCentroid_ValidBox_ReturnsCenter()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
             Max = new XYZ(10, 10, 10)
         };
 
+        // Act
         var centroid = boundingBox.ComputeCentroid();
 
+        // Assert
         using (Assert.Multiple())
         {
             await Assert.That(centroid.X).IsEqualTo(5).Within(1e-9);
@@ -154,57 +197,68 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
     [Test]
     public async Task ComputeVolume_ValidBox_ReturnsCorrectVolume()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
             Max = new XYZ(10, 10, 10)
         };
 
+        // Act
         var volume = boundingBox.ComputeVolume();
 
+        // Assert
         await Assert.That(volume).IsEqualTo(1000).Within(1e-9);
     }
 
     [Test]
     public async Task ComputeSurfaceArea_ValidBox_ReturnsCorrectArea()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
             Max = new XYZ(10, 10, 10)
         };
 
+        // Act
         var surfaceArea = boundingBox.ComputeSurfaceArea();
 
-        // Surface area of cube: 6 * side^2 = 6 * 100 = 600
+        // Assert
         await Assert.That(surfaceArea).IsEqualTo(600).Within(1e-9);
     }
 
     [Test]
     public async Task ComputeVertices_ValidBox_ReturnsEightVertices()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
             Max = new XYZ(10, 10, 10)
         };
 
+        // Act
         var vertices = boundingBox.ComputeVertices();
 
+        // Assert
         await Assert.That(vertices.Count).IsEqualTo(8);
     }
 
     [Test]
     public async Task ComputeVertices_ValidBox_ContainsMinAndMax()
     {
+        // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
             Min = new XYZ(0, 0, 0),
             Max = new XYZ(10, 10, 10)
         };
 
+        // Act
         var vertices = boundingBox.ComputeVertices();
 
+        // Assert
         using (Assert.Multiple())
         {
             await Assert.That(vertices.Any(v => v.IsAlmostEqualTo(boundingBox.Min))).IsTrue();

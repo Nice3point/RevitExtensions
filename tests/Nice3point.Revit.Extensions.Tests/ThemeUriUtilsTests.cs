@@ -11,8 +11,10 @@ public sealed class ThemeUriUtilsTests
     [Arguments(@"C:\Program Files\RevitAddIn\Resources\Icons\RibbonIcon16.png")]
     public async Task TryGetThemedUri_UriWithoutThemeToken_ReturnsFalse(string uri)
     {
+        // Act
         var themed = ThemeUriUtils.TryGetThemedUri(uri, darkTheme: true, out var result);
 
+        // Assert
         using (Assert.Multiple())
         {
             await Assert.That(themed).IsFalse();
@@ -28,8 +30,10 @@ public sealed class ThemeUriUtilsTests
     [Arguments(@"C:\Program Files\RevitAddIn\Resources\Dark\RibbonIcon16.png", RequestedTheme.Dark)]
     public async Task TryGetThemedUri_ThemeTokenMatchesRequestedTheme_KeepsUri(string uri, RequestedTheme requestedTheme)
     {
+        // Act
         var themed = ThemeUriUtils.TryGetThemedUri(uri, requestedTheme is RequestedTheme.Dark, out var result);
 
+        // Assert
         using (Assert.Multiple())
         {
             await Assert.That(themed).IsTrue();
@@ -48,8 +52,10 @@ public sealed class ThemeUriUtilsTests
     [Arguments(@"C:\Program Files\RevitAddIn\Resources\Dark\RibbonIcon16.png", RequestedTheme.Light, @"C:\Program Files\RevitAddIn\Resources\Dark\RibbonIcon16.png")]
     public async Task TryGetThemedUri_ThemeTokenDiffersFromRequestedTheme_ReplacesFileNameTokenOnly(string uri, RequestedTheme requestedTheme, string expected)
     {
+        // Act
         var themed = ThemeUriUtils.TryGetThemedUri(uri, requestedTheme is RequestedTheme.Dark, out var result);
 
+        // Assert
         using (Assert.Multiple())
         {
             await Assert.That(themed).IsTrue();

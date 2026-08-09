@@ -15,10 +15,13 @@ public sealed class RevitApiCollectionsCoverageTests : ApiCoverageTest
     [Test]
     public async Task CoversEveryCollection()
     {
+        // Arrange
         var assembly = typeof(Document).Assembly;
 
+        // Act
         var rows = GetCollectionRows(assembly);
 
+        // Assert
         await Assert.That(rows).IsNotEmpty();
 
         await rows
