@@ -52,6 +52,6 @@ public abstract class RevitDocumentBenchmark : RevitApiBenchmark
 
     protected override void OnGlobalCleanup()
     {
-        Document?.Close(false);
+        Document.Close(false);
     }
 }

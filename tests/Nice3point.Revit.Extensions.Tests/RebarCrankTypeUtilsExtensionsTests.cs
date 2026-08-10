@@ -10,16 +10,22 @@ public sealed class RebarCrankTypeUtilsExtensionsTests : RevitModelSampleTest
     [MethodDataSource(nameof(RevitModels))]
     public async Task NewRebarCrankType_ValidName_ReturnsCreatedType(string path)
     {
+        // Arrange
         const string typeName = "Rebar type";
         var document = ModelDocuments[path];
 
+        // Act
         using var transaction = new Transaction(document);
         transaction.Start("Create rebar type");
         var elementType = document.Create.NewRebarCrankType(typeName);
         transaction.Commit();
 
-        await Assert.That(elementType).IsNotNull();
-        await Assert.That(elementType.Name).IsEqualTo(typeName);
+        // Assert
+        using (Assert.Multiple())
+        {
+            await Assert.That(elementType).IsNotNull();
+            await Assert.That(elementType.Name).IsEqualTo(typeName);
+        }
     }
 }
 #endif

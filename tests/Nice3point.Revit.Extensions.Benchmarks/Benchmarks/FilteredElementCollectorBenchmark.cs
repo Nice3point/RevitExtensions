@@ -87,7 +87,7 @@ public class FilteredElementCollectorBenchmark : RevitApiBenchmark
 
     protected override void OnGlobalCleanup()
     {
-        _document?.Close(false);
+        _document.Close(false);
     }
 
     [Benchmark(Description = "FirstElement()")]

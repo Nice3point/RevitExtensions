@@ -15,10 +15,13 @@ public sealed class RevitApiMapsCoverageTests : ApiCoverageTest
     [Test]
     public async Task CoversEveryMap()
     {
+        // Arrange
         var assembly = typeof(Document).Assembly;
 
+        // Act
         var rows = GetMapRows(assembly);
 
+        // Assert
         await Assert.That(rows).IsNotEmpty();
 
         await rows

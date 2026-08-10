@@ -44,7 +44,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 public class EnumerationBenchmark : RevitApiBenchmark
 {
     private readonly Consumer _consumer = new();
-    
+
     private const int CurveCount = 1000;
 
     private Document _document = null!;
@@ -77,7 +77,7 @@ public class EnumerationBenchmark : RevitApiBenchmark
 
     protected override void OnGlobalCleanup()
     {
-        _document?.Close(false);
+        _document.Close(false);
     }
 
     [Benchmark(Description = "Iterator over the LINQ")]

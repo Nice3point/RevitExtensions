@@ -14,26 +14,24 @@ public static class AnalyticalToPhysicalAssociationManagerExtensions
     /// <param name="element">The source element.</param>
     extension(Element element)
     {
-        /// <summary>Returns true if the element is an analytical element.</summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsAnalyticalElement => AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(element.Document, element.Id);
 
-        /// <summary>Returns true if the element is a physical element.</summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager.IsPhysicalElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         public bool IsPhysicalElement => AnalyticalToPhysicalAssociationManager.IsPhysicalElement(element.Document, element.Id);
     }
 
     /// <param name="elementId">The element id.</param>
     extension(ElementId elementId)
     {
-        /// <summary>Returns true if the element is an analytical element.</summary>
-        /// <param name="document">The document containing the element.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public bool IsAnalyticalElement(Document document)
         {
             return AnalyticalToPhysicalAssociationManager.IsAnalyticalElement(document, elementId);
         }
 
-        /// <summary>Returns true if the element is a physical element.</summary>
-        /// <param name="document">The document containing the element.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager.IsPhysicalElement(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public bool IsPhysicalElement(Document document)
         {
@@ -44,7 +42,7 @@ public static class AnalyticalToPhysicalAssociationManagerExtensions
     /// <param name="document">The Revit document.</param>
     extension(Document document)
     {
-        /// <summary>Returns the AnalyticalToPhysicalAssociationManager for this document.</summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.AnalyticalToPhysicalAssociationManager.GetAnalyticalToPhysicalAssociationManager(Autodesk.Revit.DB.Document)"/>
         [Pure]
         public AnalyticalToPhysicalAssociationManager GetAnalyticalToPhysicalAssociationManager()
         {

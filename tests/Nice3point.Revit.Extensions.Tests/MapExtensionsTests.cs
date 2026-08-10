@@ -8,8 +8,10 @@ public sealed class MapExtensionsTests : RevitApiTest
 {
     private const string SharedParameterName = "MapExtensionsTestParameter";
 
+#pragma warning disable TUnit0023
     private Document _document = null!;
     private Level _level = null!;
+#pragma warning restore TUnit0023
     private string _sharedParametersPath = null!;
     private string _originalSharedParametersPath = null!;
 
@@ -54,8 +56,7 @@ public sealed class MapExtensionsTests : RevitApiTest
     [HookExecutor<RevitThreadExecutor>]
     public void RestoreSharedParameterFile()
     {
-        _level.Dispose();
-        _document.Dispose();
+        _document.Close(false);
         Application.SharedParametersFilename = _originalSharedParametersPath;
         File.Delete(_sharedParametersPath);
     }

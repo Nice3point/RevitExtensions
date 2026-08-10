@@ -73,184 +73,84 @@ public static partial class FilteredElementCollectorExtensions
 
     extension(FilteredElementCollector collector)
     {
-        /// <summary>
-        ///     Applies an <see cref="ElementClassFilter" /> to the collector.
-        /// </summary>
-        /// <remarks>
-        ///     Only elements whose class is an exact match to <typeparamref name="T" />,
-        ///     or elements whose type is derived from <typeparamref name="T" /> will pass the collector.
-        ///     <p>
-        ///         There is a small subset of <see cref="Autodesk.Revit.DB.Element" /> subclasses in the API that are not supported
-        ///         by this filter. These classes exist in the API, but not in Revit's native object model,
-        ///         which means that this filter doesn't support them. In order to use a class filter to
-        ///         find elements of these types, it is necessary to use a higher level class and then
-        ///         process the results further to find elements matching only the subclass.
-        ///         For a list of subclasses affected by this restriction, consult the documentation for
-        ///         <see cref="ElementClassFilter" />.
-        ///     </p>
-        ///     <p>If you have an active iterator to this collector it will be stopped by this call.</p>
-        /// </remarks>
-        /// <typeparam name="T">The element type.</typeparam>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The input type is of an element type that exists in the API, but not in Revit's native object model.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.OfClass(System.Type)"/>
         [Pure]
         public FilteredElementCollector OfClass<T>() where T : Element
         {
             return collector.OfClass(typeof(T));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementMulticlassFilter" /> to the collector to match elements whose class
-        ///     matches any of the given types.
-        /// </summary>
-        /// <param name="types">The list of <see cref="Autodesk.Revit.DB.Element" /> subclass types to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     One or more input types are not valid subclasses of <see cref="Autodesk.Revit.DB.Element" /> for this filter,
-        ///     or do not exist in Revit's native object model.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type})"/>
         [Pure]
         public FilteredElementCollector OfClasses(IList<Type> types)
         {
             return collector.WherePasses(new ElementMulticlassFilter(types));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementMulticlassFilter" /> to the collector to match elements whose class
-        ///     matches any of the given types.
-        /// </summary>
-        /// <param name="types">The list of <see cref="Autodesk.Revit.DB.Element" /> subclass types to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     One or more input types are not valid subclasses of <see cref="Autodesk.Revit.DB.Element" /> for this filter,
-        ///     or do not exist in Revit's native object model.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type})"/>
         [Pure]
         public FilteredElementCollector OfClasses(params Type[] types)
         {
             return collector.WherePasses(new ElementMulticlassFilter(types));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementClassFilter" /> to the collector to match all elements
-        ///     that are not of type <typeparamref name="T" />.
-        /// </summary>
-        /// <typeparam name="T">The type to exclude.</typeparam>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The input type is of an element class that exists in the API, but not in Revit's native object model.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementClassFilter(System.Type,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingClass<T>() where T : Element
         {
             return collector.WherePasses(new ElementClassFilter(typeof(T), inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementMulticlassFilter" /> to the collector to match all elements
-        ///     whose class does not match any of the given types.
-        /// </summary>
-        /// <param name="types">The list of <see cref="Autodesk.Revit.DB.Element" /> subclass types to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     One or more input types are not valid subclasses of <see cref="Autodesk.Revit.DB.Element" /> for this filter,
-        ///     or do not exist in Revit's native object model.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingClasses(IList<Type> types)
         {
             return collector.WherePasses(new ElementMulticlassFilter(types, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementMulticlassFilter" /> to the collector to match all elements
-        ///     whose class does not match any of the given types.
-        /// </summary>
-        /// <param name="types">The list of <see cref="Autodesk.Revit.DB.Element" /> subclass types to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     One or more input types are not valid subclasses of <see cref="Autodesk.Revit.DB.Element" /> for this filter,
-        ///     or do not exist in Revit's native object model.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingClasses(params Type[] types)
         {
             return collector.WherePasses(new ElementMulticlassFilter(types, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementMulticategoryFilter" /> to the collector to match elements
-        ///     belonging to any of the given categories.
-        /// </summary>
-        /// <param name="categories">The built-in categories to match.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory})"/>
         [Pure]
         public FilteredElementCollector OfCategories(ICollection<BuiltInCategory> categories)
         {
             return collector.WherePasses(new ElementMulticategoryFilter(categories));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementMulticategoryFilter" /> to the collector to match elements
-        ///     belonging to any of the given categories.
-        /// </summary>
-        /// <param name="categories">The built-in categories to match.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory})"/>
         [Pure]
         public FilteredElementCollector OfCategories(params BuiltInCategory[] categories)
         {
             return collector.WherePasses(new ElementMulticategoryFilter(categories));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementCategoryFilter" /> to the collector to match all elements
-        ///     not belonging to the given category.
-        /// </summary>
-        /// <param name="category">The category to exclude.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementCategoryFilter(Autodesk.Revit.DB.BuiltInCategory,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingCategory(BuiltInCategory category)
         {
             return collector.WherePasses(new ElementCategoryFilter(category, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementMulticategoryFilter" /> to the collector to match all elements
-        ///     not belonging to any of the given categories.
-        /// </summary>
-        /// <param name="categories">The built-in categories to exclude.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingCategories(ICollection<BuiltInCategory> categories)
         {
             return collector.WherePasses(new ElementMulticategoryFilter(categories, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementMulticategoryFilter" /> to the collector to match all elements
-        ///     not belonging to any of the given categories.
-        /// </summary>
-        /// <param name="categories">The built-in categories to exclude.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingCategories(params BuiltInCategory[] categories)
         {
             return collector.WherePasses(new ElementMulticategoryFilter(categories, inverted: true));
         }
 #if REVIT2021_OR_GREATER
-        /// <summary>
-        ///     Applies an <see cref="ElementIdSetFilter" /> to the collector to match only elements with the given ids.
-        /// </summary>
-        /// <param name="ids">The ids to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The input collection of ids was empty, or its contents were not valid for iteration.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIdSetFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId})"/>
         [Pure]
         public FilteredElementCollector OfElements(ICollection<ElementId> ids)
         {
@@ -258,391 +158,196 @@ public static partial class FilteredElementCollectorExtensions
         }
 #endif
 
-        /// <summary>
-        ///     Applies a <see cref="CurveElementFilter" /> to the collector to match curve elements of the given type.
-        /// </summary>
-        /// <param name="curveElementType">The curve element type to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.CurveElementFilter(Autodesk.Revit.DB.CurveElementType)"/>
         [Pure]
         public FilteredElementCollector OfCurveElementType(CurveElementType curveElementType)
         {
             return collector.WherePasses(new CurveElementFilter(curveElementType));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="CurveElementFilter" /> to the collector to match all curve elements
-        ///     not of the given type.
-        /// </summary>
-        /// <param name="curveElementType">The curve element type to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.CurveElementFilter(Autodesk.Revit.DB.CurveElementType,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingCurveElementType(CurveElementType curveElementType)
         {
             return collector.WherePasses(new CurveElementFilter(curveElementType, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementStructuralTypeFilter" /> to the collector to match elements
-        ///     of the given structural type.
-        /// </summary>
-        /// <param name="structuralType">The structural type to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType)"/>
         [Pure]
         public FilteredElementCollector OfStructuralType(StructuralType structuralType)
         {
             return collector.WherePasses(new ElementStructuralTypeFilter(structuralType));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementStructuralTypeFilter" /> to the collector to match all elements
-        ///     not of the given structural type.
-        /// </summary>
-        /// <param name="structuralType">The structural type to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector ExcludingStructuralType(StructuralType structuralType)
         {
             return collector.WherePasses(new ElementStructuralTypeFilter(structuralType, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementIsElementTypeFilter" /> to the collector.
-        ///     Only element types will pass the collector.
-        /// </summary>
-        /// <remarks>If you have an active iterator to this collector it will be stopped by this call.</remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.WhereElementIsElementType"/>
         [Pure]
         public FilteredElementCollector Types()
         {
             return collector.WhereElementIsElementType();
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementIsElementTypeFilter" /> to the collector.
-        ///     Only element instances will pass the collector.
-        /// </summary>
-        /// <remarks>If you have an active iterator to this collector it will be stopped by this call.</remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.WhereElementIsNotElementType"/>
         [Pure]
         public FilteredElementCollector Instances()
         {
             return collector.WhereElementIsNotElementType();
         }
 
-        /// <summary>
-        ///     Applies a <see cref="RoomFilter" /> to the collector to match room elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Architecture.RoomFilter"/>
         [Pure]
         public FilteredElementCollector Rooms()
         {
             return collector.WherePasses(new RoomFilter());
         }
 
-        /// <summary>
-        ///     Applies a <see cref="RoomTagFilter" /> to the collector to match room tag elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Architecture.RoomTagFilter"/>
         [Pure]
         public FilteredElementCollector RoomTags()
         {
             return collector.WherePasses(new RoomTagFilter());
         }
 
-        /// <summary>
-        ///     Applies an <see cref="AreaFilter" /> to the collector to match area elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AreaFilter"/>
         [Pure]
         public FilteredElementCollector Areas()
         {
             return collector.WherePasses(new AreaFilter());
         }
 
-        /// <summary>
-        ///     Applies an <see cref="AreaTagFilter" /> to the collector to match area tag elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.AreaTagFilter"/>
         [Pure]
         public FilteredElementCollector AreaTags()
         {
             return collector.WherePasses(new AreaTagFilter());
         }
 
-        /// <summary>
-        ///     Applies a <see cref="SpaceFilter" /> to the collector to match space elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Mechanical.SpaceFilter"/>
         [Pure]
         public FilteredElementCollector Spaces()
         {
             return collector.WherePasses(new SpaceFilter());
         }
 
-        /// <summary>
-        ///     Applies a <see cref="SpaceTagFilter" /> to the collector to match space tag elements.
-        /// </summary>
-        /// <remarks>
-        ///     Although this is a slow filter, it uses an internal quick filter to eliminate non-candidate elements
-        ///     before expansion. It does not need to be paired with an additional quick filter.
-        /// </remarks>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Mechanical.SpaceTagFilter"/>
         [Pure]
         public FilteredElementCollector SpaceTags()
         {
             return collector.WherePasses(new SpaceTagFilter());
         }
 
-        /// <summary>
-        ///     Applies a <see cref="FamilySymbolFilter" /> to the collector to match all family symbols
-        ///     belonging to the given family.
-        /// </summary>
-        /// <param name="familyId">The id of the family.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The familyId is invalid.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FamilySymbolFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector FamilySymbols(ElementId familyId)
         {
             return collector.WherePasses(new FamilySymbolFilter(familyId));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="FamilySymbolFilter" /> to the collector to match all family symbols
-        ///     belonging to the given family.
-        /// </summary>
-        /// <param name="family">The family.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FamilySymbolFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector FamilySymbols(Family family)
         {
             return collector.WherePasses(new FamilySymbolFilter(family.Id));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="FamilyInstanceFilter" /> to the collector to match family instances
-        ///     of the given family symbol.
-        /// </summary>
-        /// <param name="document">
-        ///     The document. Required to validate that the symbol id is valid and to ensure maximum filter performance.
-        /// </param>
-        /// <param name="symbolId">The family symbol id.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The symbolId does not represent a valid <see cref="Autodesk.Revit.DB.FamilySymbol" /> record in the document.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FamilyInstanceFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector FamilyInstances(Document document, ElementId symbolId)
         {
             return collector.WherePasses(new FamilyInstanceFilter(document, symbolId));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="FamilyInstanceFilter" /> to the collector to match family instances
-        ///     of the given family symbol.
-        /// </summary>
-        /// <param name="symbol">The family symbol.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The symbol does not represent a valid <see cref="Autodesk.Revit.DB.FamilySymbol" /> record in the document.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FamilyInstanceFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector FamilyInstances(FamilySymbol symbol)
         {
             return collector.WherePasses(new FamilyInstanceFilter(symbol.Document, symbol.Id));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementIsCurveDrivenFilter" /> to the collector to match elements that are curve-driven.
-        /// </summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.WhereElementIsCurveDriven"/>
         [Pure]
         public FilteredElementCollector IsCurveDriven()
         {
             return collector.WhereElementIsCurveDriven();
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementIsCurveDrivenFilter" /> to the collector to match elements that are view-independent.
-        /// </summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.WhereElementIsViewIndependent"/>
         [Pure]
         public FilteredElementCollector IsViewIndependent()
         {
             return collector.WhereElementIsViewIndependent();
         }
 
-        /// <summary>
-        ///     Applies a <see cref="PrimaryDesignOptionMemberFilter" /> to the collector to match elements
-        ///     contained in any primary design option of any design option set.
-        /// </summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.PrimaryDesignOptionMemberFilter()"/>
         [Pure]
         public FilteredElementCollector IsPrimaryDesignOptionMember()
         {
             return collector.WherePasses(new PrimaryDesignOptionMemberFilter());
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="PrimaryDesignOptionMemberFilter" /> to the collector to match all elements
-        ///     not contained in any primary design option of any design option set.
-        /// </summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.PrimaryDesignOptionMemberFilter(System.Boolean)"/>
         [Pure]
         public FilteredElementCollector IsNotPrimaryDesignOptionMember()
         {
             return collector.WherePasses(new PrimaryDesignOptionMemberFilter(inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementOwnerViewFilter" /> to the collector to match elements owned by the given view.
-        /// </summary>
-        /// <param name="viewId">
-        ///     The view id to match. Pass an invalid element id to match non-view-specific elements.
-        /// </param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementOwnerViewFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector OwnedByView(ElementId viewId)
         {
             return collector.WherePasses(new ElementOwnerViewFilter(viewId));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementOwnerViewFilter" /> to the collector to match elements owned by the given view.
-        /// </summary>
-        /// <param name="view">The view to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementOwnerViewFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector OwnedByView(View view)
         {
             return collector.WherePasses(new ElementOwnerViewFilter(view.Id));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementOwnerViewFilter" /> to the collector to match all elements
-        ///     not owned by the given view.
-        /// </summary>
-        /// <param name="viewId">
-        ///     The view id to exclude. Pass an invalid element id to exclude non-view-specific elements.
-        /// </param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementOwnerViewFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotOwnedByView(ElementId viewId)
         {
             return collector.WherePasses(new ElementOwnerViewFilter(viewId, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementOwnerViewFilter" /> to the collector to match all elements
-        ///     not owned by the given view.
-        /// </summary>
-        /// <param name="view">The view to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementOwnerViewFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotOwnedByView(View view)
         {
             return collector.WherePasses(new ElementOwnerViewFilter(view.Id, inverted: true));
         }
 #if REVIT2021_OR_GREATER
-        /// <summary>
-        ///     Applies a <see cref="VisibleInViewFilter" /> to the collector to match elements visible in the given view.
-        /// </summary>
-        /// <param name="document">The document that owns the view.</param>
-        /// <param name="viewId">The view id.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     viewId is not a view, or is not valid for element iteration because it has no way of representing drawn elements.
-        ///     Many view templates will fail this check.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector VisibleInView(Document document, ElementId viewId)
         {
             return collector.WherePasses(new VisibleInViewFilter(document, viewId));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="VisibleInViewFilter" /> to the collector to match elements visible in the given view.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The view is not valid for element iteration because it has no way of representing drawn elements.
-        ///     Many view templates will fail this check.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector VisibleInView(View view)
         {
             return collector.WherePasses(new VisibleInViewFilter(view.Document, view.Id));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="VisibleInViewFilter" /> to the collector to match all elements
-        ///     not visible in the given view.
-        /// </summary>
-        /// <param name="document">The document that owns the view.</param>
-        /// <param name="viewId">The view id.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     viewId is not a view, or is not valid for element iteration because it has no way of representing drawn elements.
-        ///     Many view templates will fail this check.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotVisibleInView(Document document, ElementId viewId)
         {
             return collector.WherePasses(new VisibleInViewFilter(document, viewId, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="VisibleInViewFilter" /> to the collector to match all elements
-        ///     not visible in the given view.
-        /// </summary>
-        /// <param name="view">The view.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The view is not valid for element iteration because it has no way of representing drawn elements.
-        ///     Many view templates will fail this check.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotVisibleInView(View view)
         {
@@ -650,673 +355,315 @@ public static partial class FilteredElementCollectorExtensions
         }
 #endif
 
-        /// <summary>
-        ///     Applies an <see cref="ElementLevelFilter" /> to the collector to match elements associated with the given level.
-        /// </summary>
-        /// <param name="levelId">The id of the level to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector OnLevel(ElementId levelId)
         {
             return collector.WherePasses(new ElementLevelFilter(levelId));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementLevelFilter" /> to the collector to match elements associated with the given level.
-        /// </summary>
-        /// <param name="level">The level to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector OnLevel(Level level)
         {
             return collector.WherePasses(new ElementLevelFilter(level.Id));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementLevelFilter" /> to the collector to match all elements
-        ///     not associated with the given level.
-        /// </summary>
-        /// <param name="levelId">The id of the level to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotOnLevel(ElementId levelId)
         {
             return collector.WherePasses(new ElementLevelFilter(levelId, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementLevelFilter" /> to the collector to match all elements
-        ///     not associated with the given level.
-        /// </summary>
-        /// <param name="level">The level to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotOnLevel(Level level)
         {
             return collector.WherePasses(new ElementLevelFilter(level.Id, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementDesignOptionFilter" /> to the collector to match elements
-        ///     contained within the given design option.
-        /// </summary>
-        /// <param name="designOptionId">The design option id to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector InDesignOption(ElementId designOptionId)
         {
             return collector.WherePasses(new ElementDesignOptionFilter(designOptionId));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementDesignOptionFilter" /> to the collector to match elements
-        ///     contained within the given design option.
-        /// </summary>
-        /// <param name="designOption">The design option to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public FilteredElementCollector InDesignOption(DesignOption designOption)
         {
             return collector.WherePasses(new ElementDesignOptionFilter(designOption.Id));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementDesignOptionFilter" /> to the collector to match all elements
-        ///     not contained within the given design option.
-        /// </summary>
-        /// <param name="designOptionId">The design option id to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotInDesignOption(ElementId designOptionId)
         {
             return collector.WherePasses(new ElementDesignOptionFilter(designOptionId, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementDesignOptionFilter" /> to the collector to match all elements
-        ///     not contained within the given design option.
-        /// </summary>
-        /// <param name="designOption">The design option to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotInDesignOption(DesignOption designOption)
         {
             return collector.WherePasses(new ElementDesignOptionFilter(designOption.Id, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementWorksetFilter" /> to the collector to match elements in the given workset.
-        /// </summary>
-        /// <param name="worksetId">The workset id to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementWorksetFilter(Autodesk.Revit.DB.WorksetId)"/>
         [Pure]
         public FilteredElementCollector InWorkset(WorksetId worksetId)
         {
             return collector.WherePasses(new ElementWorksetFilter(worksetId));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementWorksetFilter" /> to the collector to match all elements
-        ///     not in the given workset.
-        /// </summary>
-        /// <param name="worksetId">The workset id to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementWorksetFilter(Autodesk.Revit.DB.WorksetId,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotInWorkset(WorksetId worksetId)
         {
             return collector.WherePasses(new ElementWorksetFilter(worksetId, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="StructuralInstanceUsageFilter" /> to the collector to match structural family instances
-        ///     (typically columns, beams, or braces) with the given structural usage.
-        /// </summary>
-        /// <param name="usage">The structural usage to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralInstanceUsageFilter(Autodesk.Revit.DB.Structure.StructuralInstanceUsage)"/>
         [Pure]
         public FilteredElementCollector WithStructuralUsage(StructuralInstanceUsage usage)
         {
             return collector.WherePasses(new StructuralInstanceUsageFilter(usage));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="StructuralInstanceUsageFilter" /> to the collector to match all family instances
-        ///     not of the given structural usage.
-        /// </summary>
-        /// <param name="usage">The structural usage to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralInstanceUsageFilter(Autodesk.Revit.DB.Structure.StructuralInstanceUsage,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutStructuralUsage(StructuralInstanceUsage usage)
         {
             return collector.WherePasses(new StructuralInstanceUsageFilter(usage, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="StructuralWallUsageFilter" /> to the collector to match walls
-        ///     with the given structural wall usage.
-        /// </summary>
-        /// <param name="usage">The structural wall usage to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralWallUsageFilter(Autodesk.Revit.DB.Structure.StructuralWallUsage)"/>
         [Pure]
         public FilteredElementCollector WithStructuralWallUsage(StructuralWallUsage usage)
         {
             return collector.WherePasses(new StructuralWallUsageFilter(usage));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="StructuralWallUsageFilter" /> to the collector to match all walls
-        ///     not of the given structural wall usage.
-        /// </summary>
-        /// <param name="usage">The structural wall usage to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralWallUsageFilter(Autodesk.Revit.DB.Structure.StructuralWallUsage,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutStructuralWallUsage(StructuralWallUsage usage)
         {
             return collector.WherePasses(new StructuralWallUsageFilter(usage, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="StructuralMaterialTypeFilter" /> to the collector to match family instances
-        ///     that have the given structural material type.
-        /// </summary>
-        /// <param name="type">The structural material type to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType)"/>
         [Pure]
         public FilteredElementCollector WithStructuralMaterial(StructuralMaterialType type)
         {
             return collector.WherePasses(new StructuralMaterialTypeFilter(type));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="StructuralMaterialTypeFilter" /> to the collector to match all family instances
-        ///     not of the given structural material type.
-        /// </summary>
-        /// <param name="type">The structural material type to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutStructuralMaterial(StructuralMaterialType type)
         {
             return collector.WherePasses(new StructuralMaterialTypeFilter(type, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="FamilyStructuralMaterialTypeFilter" /> to the collector to match families
-        ///     that have the given structural material type.
-        /// </summary>
-        /// <param name="type">The structural material type to match.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.FamilyStructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType)"/>
         [Pure]
         public FilteredElementCollector WithFamilyStructuralMaterial(StructuralMaterialType type)
         {
             return collector.WherePasses(new FamilyStructuralMaterialTypeFilter(type));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="FamilyStructuralMaterialTypeFilter" /> to the collector to match all families
-        ///     not of the given structural material type.
-        /// </summary>
-        /// <param name="type">The structural material type to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentOutOfRangeException">
-        ///     A value passed for an enumeration argument is not a member of that enumeration.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Structure.FamilyStructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutFamilyStructuralMaterial(StructuralMaterialType type)
         {
             return collector.WherePasses(new FamilyStructuralMaterialTypeFilter(type, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementPhaseStatusFilter" /> to the collector to match elements
-        ///     that have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phaseId">Id of the phase.</param>
-        /// <param name="statuses">Target statuses.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus})"/>
         [Pure]
         public FilteredElementCollector WithPhaseStatus(ElementId phaseId, ICollection<ElementOnPhaseStatus> statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementPhaseStatusFilter" /> to the collector to match elements
-        ///     that have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phaseId">Id of the phase.</param>
-        /// <param name="statuses">Target statuses.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus})"/>
         [Pure]
         public FilteredElementCollector WithPhaseStatus(ElementId phaseId, params ElementOnPhaseStatus[] statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementPhaseStatusFilter" /> to the collector to match elements
-        ///     that have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phase">The phase.</param>
-        /// <param name="statuses">Target statuses.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus})"/>
         [Pure]
         public FilteredElementCollector WithPhaseStatus(Phase phase, ICollection<ElementOnPhaseStatus> statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementPhaseStatusFilter" /> to the collector to match elements
-        ///     that have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phase">The phase.</param>
-        /// <param name="statuses">Target statuses.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus})"/>
         [Pure]
         public FilteredElementCollector WithPhaseStatus(Phase phase, params ElementOnPhaseStatus[] statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementPhaseStatusFilter" /> to the collector to match all elements
-        ///     that do not have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phaseId">Id of the phase.</param>
-        /// <param name="statuses">Statuses to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(ElementId phaseId, ICollection<ElementOnPhaseStatus> statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementPhaseStatusFilter" /> to the collector to match all elements
-        ///     that do not have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phaseId">Id of the phase.</param>
-        /// <param name="statuses">Statuses to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(ElementId phaseId, params ElementOnPhaseStatus[] statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementPhaseStatusFilter" /> to the collector to match all elements
-        ///     that do not have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phase">The phase.</param>
-        /// <param name="statuses">Statuses to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(Phase phase, ICollection<ElementOnPhaseStatus> statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementPhaseStatusFilter" /> to the collector to match all elements
-        ///     that do not have any of the given phase statuses on the given phase.
-        /// </summary>
-        /// <param name="phase">The phase.</param>
-        /// <param name="statuses">Statuses to exclude.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)"/>
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(Phase phase, params ElementOnPhaseStatus[] statuses)
         {
             return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ExtensibleStorageFilter" /> to the collector to match elements
-        ///     that have extensible storage data for the given schema.
-        /// </summary>
-        /// <param name="schemaGuid">The schema GUID to match.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExtensibleStorage.ExtensibleStorageFilter(System.Guid)"/>
         [Pure]
         public FilteredElementCollector WithExtensibleStorage(Guid schemaGuid)
         {
             return collector.WherePasses(new ExtensibleStorageFilter(schemaGuid));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ExtensibleStorageFilter" /> to the collector to match elements
-        ///     that have extensible storage data for the given schema.
-        /// </summary>
-        /// <param name="schema">The schema to match.</param>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExtensibleStorage.ExtensibleStorageFilter(System.Guid)"/>
         [Pure]
         public FilteredElementCollector WithExtensibleStorage(Schema schema)
         {
             return collector.WherePasses(new ExtensibleStorageFilter(schema.GUID));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="SharedParameterApplicableRule" /> filter to the collector to match elements
-        ///     that support a shared parameter with the given name.
-        /// </summary>
-        /// <param name="parameterName">
-        ///     The name of the shared parameter that an element must support to pass this filter.
-        /// </param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.SharedParameterApplicableRule(System.String)"/>
         [Pure]
         public FilteredElementCollector HasSharedParameter(string parameterName)
         {
             return collector.WherePasses(new ElementParameterFilter(new SharedParameterApplicableRule(parameterName)));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxIntersectsFilter" /> to the collector to match elements
-        ///     whose bounding box intersects the given outline.
-        /// </summary>
-        /// <param name="outline">The outline to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIntersectsFilter(Autodesk.Revit.DB.Outline)"/>
         [Pure]
         public FilteredElementCollector IntersectingBoundingBox(Outline outline)
         {
             return collector.WherePasses(new BoundingBoxIntersectsFilter(outline));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxIntersectsFilter" /> to the collector to match elements
-        ///     whose bounding box intersects the given outline within the given tolerance.
-        /// </summary>
-        /// <param name="outline">The outline to check intersection against.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline, or the tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIntersectsFilter(Autodesk.Revit.DB.Outline,System.Double)"/>
         [Pure]
         public FilteredElementCollector IntersectingBoundingBox(Outline outline, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, tolerance));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxIntersectsFilter" /> to the collector to match all elements
-        ///     whose bounding box does not intersect the given outline.
-        /// </summary>
-        /// <param name="outline">The outline to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIntersectsFilter(Autodesk.Revit.DB.Outline,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotIntersectingBoundingBox(Outline outline)
         {
             return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxIntersectsFilter" /> to the collector to match all elements
-        ///     whose bounding box does not intersect the given outline within the given tolerance.
-        /// </summary>
-        /// <param name="outline">The outline to check intersection against.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline, or the tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIntersectsFilter(Autodesk.Revit.DB.Outline,System.Double,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotIntersectingBoundingBox(Outline outline, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, tolerance, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxIsInsideFilter" /> to the collector to match elements
-        ///     whose bounding box is fully contained by the given outline.
-        /// </summary>
-        /// <param name="outline">The outline to check containment against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline)"/>
         [Pure]
         public FilteredElementCollector InsideBoundingBox(Outline outline)
         {
             return collector.WherePasses(new BoundingBoxIsInsideFilter(outline));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxIsInsideFilter" /> to the collector to match elements
-        ///     whose bounding box is fully contained by the given outline within the given tolerance.
-        /// </summary>
-        /// <param name="outline">The outline to check containment against.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline, or the tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline,System.Double)"/>
         [Pure]
         public FilteredElementCollector InsideBoundingBox(Outline outline, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, tolerance));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxIsInsideFilter" /> to the collector to match all elements
-        ///     whose bounding box is not fully contained by the given outline.
-        /// </summary>
-        /// <param name="outline">The outline to check containment against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotInsideBoundingBox(Outline outline)
         {
             return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxIsInsideFilter" /> to the collector to match all elements
-        ///     whose bounding box is not fully contained by the given outline within the given tolerance.
-        /// </summary>
-        /// <param name="outline">The outline to check containment against.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     outline is an empty Outline, or the tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline,System.Double,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotInsideBoundingBox(Outline outline, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, tolerance, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxContainsPointFilter" /> to the collector to match elements
-        ///     whose bounding box contains the given point.
-        /// </summary>
-        /// <param name="point">The point to check containment for.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ)"/>
         [Pure]
         public FilteredElementCollector ContainingPoint(XYZ point)
         {
             return collector.WherePasses(new BoundingBoxContainsPointFilter(point));
         }
 
-        /// <summary>
-        ///     Applies a <see cref="BoundingBoxContainsPointFilter" /> to the collector to match elements
-        ///     whose bounding box contains the given point within the given tolerance.
-        /// </summary>
-        /// <param name="point">The point to check containment for.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ,System.Double)"/>
         [Pure]
         public FilteredElementCollector ContainingPoint(XYZ point, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxContainsPointFilter(point, tolerance));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxContainsPointFilter" /> to the collector to match all elements
-        ///     whose bounding box does not contain the given point.
-        /// </summary>
-        /// <param name="point">The point to check containment for.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotContainingPoint(XYZ point)
         {
             return collector.WherePasses(new BoundingBoxContainsPointFilter(point, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="BoundingBoxContainsPointFilter" /> to the collector to match all elements
-        ///     whose bounding box does not contain the given point within the given tolerance.
-        /// </summary>
-        /// <param name="point">The point to check containment for.</param>
-        /// <param name="tolerance">The tolerance value to use instead of zero.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The tolerance value is not finite or not a number.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ,System.Double,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotContainingPoint(XYZ point, double tolerance)
         {
             return collector.WherePasses(new BoundingBoxContainsPointFilter(point, tolerance, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementIntersectsElementFilter" /> to the collector to match elements
-        ///     whose geometry intersects the given element.
-        /// </summary>
-        /// <param name="element">The element to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The category or type of the element is not supported for element intersection filters.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsElementFilter(Autodesk.Revit.DB.Element)"/>
         [Pure]
         public FilteredElementCollector IntersectingElement(Element element)
         {
             return collector.WherePasses(new ElementIntersectsElementFilter(element));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementIntersectsElementFilter" /> to the collector to match all elements
-        ///     whose geometry does not intersect the given element.
-        /// </summary>
-        /// <param name="element">The element to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
-        ///     The category or type of the element is not supported for element intersection filters.
-        /// </exception>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsElementFilter(Autodesk.Revit.DB.Element,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotIntersectingElement(Element element)
         {
             return collector.WherePasses(new ElementIntersectsElementFilter(element, inverted: true));
         }
 
-        /// <summary>
-        ///     Applies an <see cref="ElementIntersectsSolidFilter" /> to the collector to match elements
-        ///     whose geometry intersects the given solid.
-        /// </summary>
-        /// <param name="solid">The solid geometry to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsSolidFilter(Autodesk.Revit.DB.Solid)"/>
         [Pure]
         public FilteredElementCollector IntersectingSolid(Solid solid)
         {
             return collector.WherePasses(new ElementIntersectsSolidFilter(solid));
         }
 
-        /// <summary>
-        ///     Applies an inverted <see cref="ElementIntersectsSolidFilter" /> to the collector to match all elements
-        ///     whose geometry does not intersect the given solid.
-        /// </summary>
-        /// <param name="solid">The solid geometry to check intersection against.</param>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentNullException">
-        ///     A non-optional argument was null.
-        /// </exception>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsSolidFilter(Autodesk.Revit.DB.Solid,System.Boolean)"/>
         [Pure]
         public FilteredElementCollector NotIntersectingSolid(Solid solid)
         {
@@ -1405,14 +752,8 @@ public sealed class ParameterFilterBuilder
         _parameterId = parameterId;
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     equals the given string.
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector Equals(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1422,57 +763,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     equals the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector Equals(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateEqualsRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     equals the given double within the specified tolerance.
-    /// </summary>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector Equals(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateEqualsRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     equals the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector Equals(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateEqualsRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     does not equal the given string.
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotEquals(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1482,57 +795,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     does not equal the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotEquals(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateNotEqualsRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     does not equal the given double within the specified tolerance.
-    /// </summary>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotEquals(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateNotEqualsRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     does not equal the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotEquals(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateNotEqualsRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     is greater than the given string (lexicographic comparison).
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThan(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1542,78 +827,37 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThan(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than the given double.
-    /// </summary>
-    /// <remarks>
-    ///     Values greater than <paramref name="value" /> but within 1e-9
-    ///     are considered equal, not greater.
-    /// </remarks>
-    /// <param name="value">The double value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+    /// <remarks>Values greater than <paramref name="value" /> but within 1e-9 are considered equal, not greater.</remarks>
     public FilteredElementCollector IsGreaterThan(double value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value, 1e-9));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than the given double.
-    /// </summary>
-    /// <remarks>
-    ///     Values greater than <paramref name="value" /> but within <paramref name="epsilon" />
-    ///     are considered equal, not greater.
-    /// </remarks>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThan(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThan(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     is greater than or equal to the given string (lexicographic comparison).
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThanOrEqualTo(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1623,61 +867,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than or equal to the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThanOrEqualTo(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterOrEqualRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than or equal to the given double.
-    /// </summary>
-    /// <remarks>
-    ///     Values less than <paramref name="value" /> but within <paramref name="epsilon" />
-    ///     are considered equal; therefore, such values satisfy the condition.
-    /// </remarks>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThanOrEqualTo(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterOrEqualRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is greater than or equal to the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsGreaterThanOrEqualTo(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterOrEqualRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     is less than the given string (lexicographic comparison).
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThan(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1687,61 +899,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThan(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than the given double.
-    /// </summary>
-    /// <remarks>
-    ///     Values less than <paramref name="value" /> but within <paramref name="epsilon" />
-    ///     are considered equal, not less.
-    /// </remarks>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThan(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThan(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     is less than or equal to the given string (lexicographic comparison).
-    /// </summary>
-    /// <param name="value">The string value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThanOrEqualTo(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1751,61 +931,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than or equal to the given integer.
-    /// </summary>
-    /// <param name="value">The integer value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.Int32)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThanOrEqualTo(int value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessOrEqualRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than or equal to the given double.
-    /// </summary>
-    /// <remarks>
-    ///     Values greater than <paramref name="value" /> but within <paramref name="epsilon" />
-    ///     are considered equal; therefore, such values satisfy the condition.
-    /// </remarks>
-    /// <param name="value">The double value to compare against.</param>
-    /// <param name="epsilon">The tolerance within which two values are considered equal.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentException">
-    ///     <paramref name="value" /> or <paramref name="epsilon" /> is not finite or not a number.
-    /// </exception>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThanOrEqualTo(double value, double epsilon)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessOrEqualRule(_parameterId, value, epsilon));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter value
-    ///     is less than or equal to the given <see cref="Autodesk.Revit.DB.ElementId" />.
-    /// </summary>
-    /// <param name="value">The <see cref="Autodesk.Revit.DB.ElementId" /> value to compare against.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsLessThanOrEqualTo(ElementId value)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessOrEqualRule(_parameterId, value));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     contains the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector Contains(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1815,14 +963,8 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     does not contain the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotContains(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1832,14 +974,8 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     begins with the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector StartsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1849,14 +985,8 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     does not begin with the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotStartsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1866,14 +996,8 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     ends with the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector EndsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1883,14 +1007,8 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the string parameter value
-    ///     does not end with the given string.
-    /// </summary>
-    /// <param name="value">The string value to search for.</param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector NotEndsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1900,53 +1018,29 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter has a value.
-    /// </summary>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateHasValueParameterRule(Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector HasValue()
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateHasValueParameterRule(_parameterId));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter does not have a value.
-    /// </summary>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateHasNoValueParameterRule(Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector HasNoValue()
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateHasNoValueParameterRule(_parameterId));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter is associated
-    ///     with the given global parameter.
-    /// </summary>
-    /// <param name="globalParameterId">
-    ///     The <see cref="Autodesk.Revit.DB.ElementId" /> of the global parameter to test the association against.
-    /// </param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateIsAssociatedWithGlobalParameterRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsAssociatedWithGlobalParameter(ElementId globalParameterId)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateIsAssociatedWithGlobalParameterRule(_parameterId, globalParameterId));
     }
 
-    /// <summary>
-    ///     Applies a filter rule that matches elements where the parameter is not associated
-    ///     with the given global parameter.
-    /// </summary>
-    /// <param name="globalParameterId">
-    ///     The <see cref="Autodesk.Revit.DB.ElementId" /> of the global parameter to test the association against.
-    /// </param>
-    /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
-    ///     A non-optional argument was null.
-    /// </exception>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateIsNotAssociatedWithGlobalParameterRule(Autodesk.Revit.DB.ElementId,Autodesk.Revit.DB.ElementId)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
     public FilteredElementCollector IsNotAssociatedWithGlobalParameter(ElementId globalParameterId)
     {
         return ApplyFilter(ParameterFilterRuleFactory.CreateIsNotAssociatedWithGlobalParameterRule(_parameterId, globalParameterId));
