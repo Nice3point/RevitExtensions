@@ -9,23 +9,15 @@ public static class ElementIdExtensions
     /// <param name="elementId">The unique identification for an element.</param>
     extension(ElementId elementId)
     {
-        /// <summary>
-        ///     Retrieves the Element associated with the specified ElementId.
-        /// </summary>
-        /// <param name="document">The document containing the element.</param>
-        /// <returns>The element associated with the specified ElementId, or <see langword="null"/> if the ElementId is invalid.</returns>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)"/>
         [Pure]
         public Element? ToElement(Document document)
         {
             return document.GetElement(elementId);
         }
 
-        /// <summary>
-        ///     Retrieves the Element associated with the specified ElementId as the specified type T.
-        /// </summary>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)"/>
         /// <typeparam name="T">The expected type of the element.</typeparam>
-        /// <param name="document">The document containing the element.</param>
-        /// <returns>The element of type T associated with the specified ElementId, or <see langword="null"/> if the ElementId is invalid.</returns>
         [Pure]
         public T? ToElement<T>(Document document) where T : Element
         {
@@ -50,10 +42,11 @@ public static class ElementIdExtensions
     /// <param name="value">The numeric value of an element identifier.</param>
     extension(long value)
     {
-        /// <summary>
-        ///     Creates an ElementId handle with the given numeric value.
-        /// </summary>
-        /// <returns>The identifier holding the value.</returns>
+#if REVIT2024_OR_GREATER
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int64)"/>
+#else
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int32)"/>
+#endif
         [Pure]
         public ElementId ToElementId()
         {

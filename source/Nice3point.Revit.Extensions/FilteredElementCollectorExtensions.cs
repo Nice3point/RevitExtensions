@@ -752,8 +752,13 @@ public sealed class ParameterFilterBuilder
         _parameterId = parameterId;
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector Equals(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -784,8 +789,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateEqualsRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector NotEquals(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -816,8 +826,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateNotEqualsRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector IsGreaterThan(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -856,8 +871,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector IsGreaterThanOrEqualTo(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -888,8 +908,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterOrEqualRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector IsLessThan(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -920,8 +945,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector IsLessThanOrEqualTo(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -952,8 +982,13 @@ public sealed class ParameterFilterBuilder
         return ApplyFilter(ParameterFilterRuleFactory.CreateLessOrEqualRule(_parameterId, value));
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector Contains(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -963,8 +998,13 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector NotContains(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -974,8 +1014,13 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector StartsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -985,8 +1030,13 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector NotStartsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -996,8 +1046,13 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector EndsWith(string value)
     {
 #if REVIT2023_OR_GREATER
@@ -1007,8 +1062,13 @@ public sealed class ParameterFilterBuilder
 #endif
     }
 
+#if REVIT2023_OR_GREATER
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#else
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)"/>
+    /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
+#endif
     public FilteredElementCollector NotEndsWith(string value)
     {
 #if REVIT2023_OR_GREATER

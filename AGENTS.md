@@ -5,6 +5,7 @@ Nice3point.Revit.Extensions is a public NuGet library of fluent extension method
 ## Non-negotiables
 
 * Wrap the Revit API directly: call the underlying API and return its result. Add ergonomics, never new behavior, and never a reimplementation.
+* When a member's body is a direct call into one Revit API member, document it with `<inheritdoc cref="Fully.Qualified.Member(ParamTypes)"/>` instead of a hand-written `<summary>`. Add a supplemental `<example>` or `<remarks>` alongside `<inheritdoc/>` only when the extension needs context the wrapped member's docs don't cover.
 * Author each member as an extension method with a full method body.
 * A method that would return `void` returns its source object if it makes sense and is consistent with the method's name..
 * Never break the public surface. Deprecate a renamed member with `[Obsolete]` with a JetBrains `CodeTemplate` auto-conversion and keep the member functional; the obsolete member calls the original Revit API and never recurses into the new extension. And never change a signature or return type.
