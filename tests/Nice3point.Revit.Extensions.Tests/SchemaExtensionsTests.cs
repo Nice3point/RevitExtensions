@@ -147,10 +147,10 @@ public sealed class SchemaExtensionsTests : RevitApiTest
             transaction.Commit();
         }
 
-        var internalValue = _wall.LoadEntity<double>(_schema, "Thickness");
+        var internalValue = _wall.LoadEntity<double>(_schema, "Thickness", UnitTypeId.Meters);
 
         // Assert
-        await Assert.That(internalValue).IsEqualTo(UnitUtils.ConvertToInternalUnits(1, UnitTypeId.Meters)).Within(1e-9);
+        await Assert.That(internalValue).IsEqualTo(1d).Within(1e-9);
     }
 
     [Test]
