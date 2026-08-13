@@ -46,9 +46,9 @@ public static partial class RibbonExtensions
     private static bool _shortcutsUpdateScheduled;
 
     /// <summary>
-    ///     Adds keyboard shortcuts for the specified <see cref="PushButton"/> using the provided string representation.
+    ///     Adds keyboard shortcuts for the specified <see cref="PushButton" /> using the provided string representation.
     /// </summary>
-    /// <param name="button">The <see cref="PushButton"/> to which the shortcuts will be applied.</param>
+    /// <param name="button">The <see cref="PushButton" /> to which the shortcuts will be applied.</param>
     /// <param name="representation">A string representation of the shortcuts, where each shortcut is separated by the '#' character.</param>
     private static void AddButtonShortcuts(PushButton button, string representation)
     {
@@ -61,20 +61,23 @@ public static partial class RibbonExtensions
             }
         }
 
-        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: false);
+        ScheduleShortcutsUpdate(internalItem.Id, representation, false);
     }
 
     /// <summary>
-    ///     Attempts to add keyboard shortcuts for the specified <see cref="PushButton"/> using the provided string representation.
+    ///     Attempts to add keyboard shortcuts for the specified <see cref="PushButton" /> using the provided string representation.
     ///     Shortcuts are added only if they do not conflict with existing commands.
     /// </summary>
-    /// <param name="button">The <see cref="PushButton"/> to which the shortcuts will be applied.</param>
+    /// <param name="button">The <see cref="PushButton" /> to which the shortcuts will be applied.</param>
     /// <param name="representation">A string representation of the shortcuts, where each shortcut is separated by the '#' character.</param>
-    /// <returns><see langword="true"/> if at least one shortcut was successfully added; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true" /> if at least one shortcut was successfully added; otherwise, <see langword="false" />.</returns>
     private static bool TryAddButtonShortcuts(PushButton button, string representation)
     {
         var newShortcuts = representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries);
-        if (newShortcuts.Length == 0) return false;
+        if (newShortcuts.Length == 0)
+        {
+            return false;
+        }
 
         _reservedShortcuts ??= LoadReservedShortcuts();
 
@@ -84,10 +87,13 @@ public static partial class RibbonExtensions
             shortcutAdded |= _reservedShortcuts.Add(newShortcut);
         }
 
-        if (!shortcutAdded) return false;
+        if (!shortcutAdded)
+        {
+            return false;
+        }
 
         var internalItem = button.GetInternalItem();
-        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: true);
+        ScheduleShortcutsUpdate(internalItem.Id, representation, true);
         return true;
     }
 
@@ -101,7 +107,11 @@ public static partial class RibbonExtensions
     {
         ShortcutUpdateQueue.Add((itemId, representation, checkUsage));
 
-        if (_shortcutsUpdateScheduled) return;
+        if (_shortcutsUpdateScheduled)
+        {
+            return;
+        }
+
         _shortcutsUpdateScheduled = true;
 
         var dispatcher = ComponentManager.Ribbon.Dispatcher ?? Dispatcher.CurrentDispatcher;
@@ -115,20 +125,29 @@ public static partial class RibbonExtensions
     {
         _reservedShortcuts = null;
         _shortcutsUpdateScheduled = false;
-        if (ShortcutUpdateQueue.Count == 0) return;
+        if (ShortcutUpdateQueue.Count == 0)
+        {
+            return;
+        }
 
         var changedCommands = new Dictionary<string, ShortcutItem>();
         var usedShortcuts = LoadUsedShortcuts();
 
         foreach (var (itemId, representation, checkUsage) in ShortcutUpdateQueue)
         {
-            if (!ShortcutsHelper.Commands.TryGetValue(itemId, out var shortcutItem)) continue;
+            if (!ShortcutsHelper.Commands.TryGetValue(itemId, out var shortcutItem))
+            {
+                continue;
+            }
 
             if (checkUsage)
             {
                 foreach (var newShortcut in representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries))
                 {
-                    if (!usedShortcuts.Add(newShortcut)) continue;
+                    if (!usedShortcuts.Add(newShortcut))
+                    {
+                        continue;
+                    }
 
                     shortcutItem.Shortcuts.Add(newShortcut);
                     changedCommands[itemId] = shortcutItem;
@@ -136,7 +155,10 @@ public static partial class RibbonExtensions
             }
             else
             {
-                if (shortcutItem.ShortcutsRep is not null) continue;
+                if (shortcutItem.ShortcutsRep is not null)
+                {
+                    continue;
+                }
 
                 shortcutItem.ShortcutsRep = representation;
                 foreach (var shortcut in shortcutItem.Shortcuts)
@@ -164,11 +186,9 @@ public static partial class RibbonExtensions
     {
         var reserved = LoadUsedShortcuts();
         foreach (var update in ShortcutUpdateQueue)
+        foreach (var shortcut in update.Representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries))
         {
-            foreach (var shortcut in update.Representation.Split(['#'], StringSplitOptions.RemoveEmptyEntries))
-            {
-                reserved.Add(shortcut);
-            }
+            reserved.Add(shortcut);
         }
 
         return reserved;
@@ -180,12 +200,19 @@ public static partial class RibbonExtensions
     /// <returns>A set of the shortcuts currently in use.</returns>
     private static HashSet<string> LoadUsedShortcuts()
     {
-        if (ShortcutsHelper.Commands.Count == 0) ShortcutsHelper.LoadCommands();
+        if (ShortcutsHelper.Commands.Count == 0)
+        {
+            ShortcutsHelper.LoadCommands();
+        }
 
         var shortcuts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (var command in ShortcutsHelper.Commands.Values)
         {
-            if (command.Shortcuts is null) continue;
+            if (command.Shortcuts is null)
+            {
+                continue;
+            }
+
             foreach (var shortcut in command.Shortcuts)
             {
                 shortcuts.Add(shortcut);
@@ -196,11 +223,11 @@ public static partial class RibbonExtensions
     }
 
     /// <summary>
-    ///     Creates a new <see cref="Autodesk.Revit.UI.RibbonPanel"/> using the specified internal <see cref="Autodesk.Windows.RibbonPanel"/>.
+    ///     Creates a new <see cref="Autodesk.Revit.UI.RibbonPanel" /> using the specified internal <see cref="Autodesk.Windows.RibbonPanel" />.
     /// </summary>
-    /// <param name="panel">The internal <see cref="Autodesk.Windows.RibbonPanel"/> instance.</param>
+    /// <param name="panel">The internal <see cref="Autodesk.Windows.RibbonPanel" /> instance.</param>
     /// <param name="tabId">The ID of the tab where the panel should be added.</param>
-    /// <returns>The created <see cref="Autodesk.Revit.UI.RibbonPanel"/>.</returns>
+    /// <returns>The created <see cref="Autodesk.Revit.UI.RibbonPanel" />.</returns>
     private static RibbonPanel CreatePanel(Autodesk.Windows.RibbonPanel panel, string tabId)
     {
 #if NET8_0_OR_GREATER
@@ -221,11 +248,11 @@ public static partial class RibbonExtensions
     }
 
     /// <summary>
-    ///     Creates a new internal <see cref="Autodesk.Windows.RibbonPanel"/> and its corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/> for the specified tab and panel name.
+    ///     Creates a new internal <see cref="Autodesk.Windows.RibbonPanel" /> and its corresponding <see cref="Autodesk.Revit.UI.RibbonPanel" /> for the specified tab and panel name.
     /// </summary>
     /// <param name="tabId">The ID of the tab where the panel should be added.</param>
     /// <param name="panelName">The name of the panel to create.</param>
-    /// <returns>A tuple containing the internal <see cref="Autodesk.Windows.RibbonPanel"/> and the corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/>.</returns>
+    /// <returns>A tuple containing the internal <see cref="Autodesk.Windows.RibbonPanel" /> and the corresponding <see cref="Autodesk.Revit.UI.RibbonPanel" />.</returns>
     private static (Autodesk.Windows.RibbonPanel internalPanel, RibbonPanel panel) CreateInternalPanel(string tabId, string panelName)
     {
         var internalPanel = new Autodesk.Windows.RibbonPanel
@@ -252,7 +279,7 @@ public static partial class RibbonExtensions
     /// <summary>
     ///     Retrieves the cached dictionary of tabs and panels within the Revit application.
     /// </summary>
-    /// <returns>A dictionary where keys are tab IDs and values are dictionaries of tab names and their corresponding <see cref="Autodesk.Revit.UI.RibbonPanel"/> instances.</returns>
+    /// <returns>A dictionary where keys are tab IDs and values are dictionaries of tab names and their corresponding <see cref="Autodesk.Revit.UI.RibbonPanel" /> instances.</returns>
     [Pure]
     private static Dictionary<string, Dictionary<string, RibbonPanel>> GetCachedTabs()
     {
@@ -265,36 +292,42 @@ public static partial class RibbonExtensions
 #endif
     }
 
-    /// <summary>
-    ///     Retrieves the internal <see cref="Autodesk.Windows.RibbonItem"/> instance associated with the specified <see cref="RibbonItem"/>.
-    ///     This method uses reflection to access the private field "m_RibbonItem" within the provided <see cref="RibbonItem"/>.
-    /// </summary>
-    /// <param name="ribbonItem">The <see cref="RibbonItem"/> to extract the internal <see cref="Autodesk.Windows.RibbonItem"/> from.</param>
-    /// <returns>The internal <see cref="Autodesk.Windows.RibbonItem"/> instance.</returns>
-    private static Autodesk.Windows.RibbonItem GetInternalItem(this RibbonItem ribbonItem)
+    /// <param name="ribbonItem">The <see cref="RibbonItem" /> to extract the internal <see cref="Autodesk.Windows.RibbonItem" /> from.</param>
+    extension(RibbonItem ribbonItem)
     {
+        /// <summary>
+        ///     Retrieves the internal <see cref="Autodesk.Windows.RibbonItem" /> instance associated with the specified <see cref="RibbonItem" />.
+        ///     This method uses reflection to access the private field "m_RibbonItem" within the provided <see cref="RibbonItem" />.
+        /// </summary>
+        /// <returns>The internal <see cref="Autodesk.Windows.RibbonItem" /> instance.</returns>
+        private Autodesk.Windows.RibbonItem GetInternalItem()
+        {
 #if NET8_0_OR_GREATER
-        return UnsafeUiAccessors.GetInternalItem(ribbonItem);
+            return UnsafeUiAccessors.GetInternalItem(ribbonItem);
 #else
-        var internalField = typeof(RibbonItem).GetField("m_RibbonItem", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
-        return (Autodesk.Windows.RibbonItem)internalField.GetValue(ribbonItem)!;
+            var internalField = typeof(RibbonItem).GetField("m_RibbonItem", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
+            return (Autodesk.Windows.RibbonItem)internalField.GetValue(ribbonItem)!;
 #endif
+        }
     }
 
-    /// <summary>
-    ///     Retrieves the internal <see cref="Autodesk.Windows.RibbonPanel"/> instance associated with the specified <see cref="RibbonPanel"/>.
-    ///     This method uses reflection to access the private field "m_RibbonPanel" within the provided <see cref="RibbonPanel"/>.
-    /// </summary>
-    /// <param name="panel">The <see cref="RibbonPanel"/> to extract the internal <see cref="Autodesk.Windows.RibbonPanel"/> from.</param>
-    /// <returns>The internal <see cref="Autodesk.Windows.RibbonPanel"/> instance.</returns>
-    private static Autodesk.Windows.RibbonPanel GetInternalPanel(this RibbonPanel panel)
+    /// <param name="panel">The <see cref="RibbonPanel" /> to extract the internal <see cref="Autodesk.Windows.RibbonPanel" /> from.</param>
+    extension(RibbonPanel panel)
     {
+        /// <summary>
+        ///     Retrieves the internal <see cref="Autodesk.Windows.RibbonPanel" /> instance associated with the specified <see cref="RibbonPanel" />.
+        ///     This method uses reflection to access the private field "m_RibbonPanel" within the provided <see cref="RibbonPanel" />.
+        /// </summary>
+        /// <returns>The internal <see cref="Autodesk.Windows.RibbonPanel" /> instance.</returns>
+        private Autodesk.Windows.RibbonPanel GetInternalPanel()
+        {
 #if NET8_0_OR_GREATER
-        return UnsafeUiAccessors.GetInternalPanel(panel);
+            return UnsafeUiAccessors.GetInternalPanel(panel);
 #else
-        var internalField = panel.GetType().GetField("m_RibbonPanel", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
-        return (Autodesk.Windows.RibbonPanel)internalField.GetValue(panel)!;
+            var internalField = panel.GetType().GetField("m_RibbonPanel", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
+            return (Autodesk.Windows.RibbonPanel)internalField.GetValue(panel)!;
 #endif
+        }
     }
 
 #if REVIT2024_OR_GREATER
@@ -315,8 +348,15 @@ public static partial class RibbonExtensions
     /// </summary>
     private static void OnApplicationThemeChanged(object? sender, PropertyChangedEventArgs args)
     {
-        if (args.PropertyName != nameof(ApplicationTheme.CurrentTheme.RibbonPanelBackgroundBrush)) return;
-        if (UIThemeManager.CurrentTheme.ToString() == ApplicationTheme.CurrentTheme.RibbonTheme.Name) return;
+        if (args.PropertyName != nameof(ApplicationTheme.CurrentTheme.RibbonPanelBackgroundBrush))
+        {
+            return;
+        }
+
+        if (UIThemeManager.CurrentTheme.ToString() == ApplicationTheme.CurrentTheme.RibbonTheme.Name)
+        {
+            return;
+        }
 
         foreach (var button in _themedButtons)
         {
@@ -339,7 +379,7 @@ public static partial class RibbonExtensions
     /// </summary>
     /// <param name="uri">The original URI.</param>
     /// <param name="result">The modified URI corresponding to the current UI theme, or the original URI if no modifications were made.</param>
-    /// <returns><see langword="true"/> if the URI was modified to match the current UI theme; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true" /> if the URI was modified to match the current UI theme; otherwise, <see langword="false" />.</returns>
     private static bool TryGetThemedUri(string uri, out string result)
     {
         return ThemeUriUtils.TryGetThemedUri(uri, UIThemeManager.CurrentTheme == UITheme.Dark, out result);

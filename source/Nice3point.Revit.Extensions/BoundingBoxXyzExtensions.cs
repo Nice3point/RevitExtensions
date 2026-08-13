@@ -13,7 +13,7 @@ public static class BoundingBoxXyzExtensions
         ///     Computes the geometric center point of the bounding box.
         /// </summary>
         /// <returns>A point representing the centroid of the bounding box.</returns>
-        /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform"/> is not applied</remarks>
+        /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform" /> is not applied</remarks>
         [Pure]
         public XYZ ComputeCentroid()
         {
@@ -24,7 +24,7 @@ public static class BoundingBoxXyzExtensions
         ///     Retrieves the coordinates of the eight vertices that define the bounding box.
         /// </summary>
         /// <returns>An array of points representing the vertices of the bounding box.</returns>
-        /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform"/> is not applied</remarks>
+        /// <remarks>BoundingBoxXYZ <see cref="Autodesk.Revit.DB.Transform" /> is not applied</remarks>
         [Pure]
         public XYZ[] ComputeVertices()
         {

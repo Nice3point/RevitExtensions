@@ -9,8 +9,8 @@ namespace Nice3point.Revit.Extensions;
 ///     Represent extension methods for the Revit API collections holding elements of a single type.
 /// </summary>
 /// <remarks>
-///     A collection stops its contract at the non-generic <see cref="global::System.Collections.IEnumerable"/>.
-///     A <c>foreach</c> over it yields <see cref="object"/>, and every LINQ query opens with a cast naming the element type.
+///     A collection stops its contract at the non-generic <see cref="global::System.Collections.IEnumerable" />.
+///     A <c>foreach</c> over it yields <see cref="object" />, and every LINQ query opens with a cast naming the element type.
 ///     The members below carry the element type into the sequence.
 /// </remarks>
 [PublicAPI]
@@ -21,7 +21,7 @@ public static class CollectionExtensions
     extension(AssetSet assetSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Visual.Asset"/> from this collection.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Visual.Asset" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -38,7 +38,7 @@ public static class CollectionExtensions
     extension(CategorySet categorySet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category"/> from this collection.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -55,7 +55,7 @@ public static class CollectionExtensions
     extension(CitySet citySet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="City"/> from this collection.
+        ///     Returns an enumeration of <see cref="City" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -72,7 +72,7 @@ public static class CollectionExtensions
     extension(CombinableElementArray combinableElementArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="CombinableElement"/> from this collection.
+        ///     Returns an enumeration of <see cref="CombinableElement" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -94,7 +94,7 @@ public static class CollectionExtensions
     extension(ConnectorSet connectorSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Connector"/> from this collection.
+        ///     Returns an enumeration of <see cref="Connector" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -111,7 +111,7 @@ public static class CollectionExtensions
     extension(CurtainGridSet curtainGridSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="CurtainGrid"/> from this collection.
+        ///     Returns an enumeration of <see cref="CurtainGrid" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -128,7 +128,7 @@ public static class CollectionExtensions
     extension(CurveArrArray curveArrArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="CurveArray"/> from this collection.
+        ///     Returns an enumeration of <see cref="CurveArray" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -150,7 +150,7 @@ public static class CollectionExtensions
     extension(CurveArray curveArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Curve"/> from this collection.
+        ///     Returns an enumeration of <see cref="Curve" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -172,7 +172,7 @@ public static class CollectionExtensions
     extension(CurveByPointsArray curveByPointsArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="CurveByPoints"/> from this collection.
+        ///     Returns an enumeration of <see cref="CurveByPoints" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -194,7 +194,7 @@ public static class CollectionExtensions
     extension(DetailCurveArray detailCurveArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="DetailCurve"/> from this collection.
+        ///     Returns an enumeration of <see cref="DetailCurve" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -216,7 +216,7 @@ public static class CollectionExtensions
     extension(DimensionSegmentArray dimensionSegmentArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="DimensionSegment"/> from this collection.
+        ///     Returns an enumeration of <see cref="DimensionSegment" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -238,7 +238,7 @@ public static class CollectionExtensions
     extension(DistributionSysTypeSet distributionSysTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="DistributionSysType"/> from this collection.
+        ///     Returns an enumeration of <see cref="DistributionSysType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -255,7 +255,7 @@ public static class CollectionExtensions
     extension(DocumentSet documentSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Document"/> from this collection.
+        ///     Returns an enumeration of <see cref="Document" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -272,7 +272,7 @@ public static class CollectionExtensions
     extension(DoubleArray doubleArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="global::System.Double"/> from this collection.
+        ///     Returns an enumeration of <see cref="global::System.Double" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -294,7 +294,7 @@ public static class CollectionExtensions
     extension(EdgeArray edgeArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Edge"/> from this collection.
+        ///     Returns an enumeration of <see cref="Edge" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -316,7 +316,7 @@ public static class CollectionExtensions
     extension(EdgeArrayArray edgeArrayArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="EdgeArray"/> from this collection.
+        ///     Returns an enumeration of <see cref="EdgeArray" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -338,7 +338,7 @@ public static class CollectionExtensions
     extension(ElementArray elementArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Element"/> from this collection.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Element" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -360,7 +360,7 @@ public static class CollectionExtensions
     extension(ElementSet elementSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Element"/> from this collection.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Element" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -377,7 +377,7 @@ public static class CollectionExtensions
     extension(FaceArray faceArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Face"/> from this collection.
+        ///     Returns an enumeration of <see cref="Face" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -399,7 +399,7 @@ public static class CollectionExtensions
     extension(FamilyParameterSet familyParameterSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="FamilyParameter"/> from this collection.
+        ///     Returns an enumeration of <see cref="FamilyParameter" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -416,7 +416,7 @@ public static class CollectionExtensions
     extension(FamilyTypeSet familyTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="FamilyType"/> from this collection.
+        ///     Returns an enumeration of <see cref="FamilyType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -433,7 +433,7 @@ public static class CollectionExtensions
     extension(FormArray formArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Form"/> from this collection.
+        ///     Returns an enumeration of <see cref="Form" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -455,7 +455,7 @@ public static class CollectionExtensions
     extension(GeomCombinationSet geomCombinationSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="GeomCombination"/> from this collection.
+        ///     Returns an enumeration of <see cref="GeomCombination" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -472,7 +472,7 @@ public static class CollectionExtensions
     extension(GroupSet groupSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Group"/> from this collection.
+        ///     Returns an enumeration of <see cref="Group" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -489,7 +489,7 @@ public static class CollectionExtensions
     extension(IntersectionResultArray intersectionResultArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="IntersectionResult"/> from this collection.
+        ///     Returns an enumeration of <see cref="IntersectionResult" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -511,7 +511,7 @@ public static class CollectionExtensions
     extension(LeaderArray leaderArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Leader"/> from this collection.
+        ///     Returns an enumeration of <see cref="Leader" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -533,7 +533,7 @@ public static class CollectionExtensions
     extension(MEPBuildingConstructionSet mepBuildingConstructionSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="MEPBuildingConstruction"/> from this collection.
+        ///     Returns an enumeration of <see cref="MEPBuildingConstruction" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -550,7 +550,7 @@ public static class CollectionExtensions
     extension(ModelCurveArrArray modelCurveArrArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="ModelCurveArray"/> from this collection.
+        ///     Returns an enumeration of <see cref="ModelCurveArray" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -572,7 +572,7 @@ public static class CollectionExtensions
     extension(ModelCurveArray modelCurveArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="ModelCurve"/> from this collection.
+        ///     Returns an enumeration of <see cref="ModelCurve" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -594,7 +594,7 @@ public static class CollectionExtensions
     extension(MullionTypeSet mullionTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="MullionType"/> from this collection.
+        ///     Returns an enumeration of <see cref="MullionType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -611,7 +611,7 @@ public static class CollectionExtensions
     extension(PanelTypeSet panelTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="PanelType"/> from this collection.
+        ///     Returns an enumeration of <see cref="PanelType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -628,7 +628,7 @@ public static class CollectionExtensions
     extension(PaperSizeSet paperSizeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="PaperSize"/> from this collection.
+        ///     Returns an enumeration of <see cref="PaperSize" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -645,7 +645,7 @@ public static class CollectionExtensions
     extension(PaperSourceSet paperSourceSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="PaperSource"/> from this collection.
+        ///     Returns an enumeration of <see cref="PaperSource" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -662,7 +662,7 @@ public static class CollectionExtensions
     extension(ParameterSet parameterSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Parameter"/> from this collection.
+        ///     Returns an enumeration of <see cref="Parameter" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -679,7 +679,7 @@ public static class CollectionExtensions
     extension(PhaseArray phaseArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Phase"/> from this collection.
+        ///     Returns an enumeration of <see cref="Phase" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -701,7 +701,7 @@ public static class CollectionExtensions
     extension(PlanCircuitSet planCircuitSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="PlanCircuit"/> from this collection.
+        ///     Returns an enumeration of <see cref="PlanCircuit" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -718,7 +718,7 @@ public static class CollectionExtensions
     extension(PlanTopologySet planTopologySet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="PlanTopology"/> from this collection.
+        ///     Returns an enumeration of <see cref="PlanTopology" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -735,7 +735,7 @@ public static class CollectionExtensions
     extension(ProjectLocationSet projectLocationSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="ProjectLocation"/> from this collection.
+        ///     Returns an enumeration of <see cref="ProjectLocation" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -752,7 +752,7 @@ public static class CollectionExtensions
     extension(ReferenceArray referenceArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Reference"/> from this collection.
+        ///     Returns an enumeration of <see cref="Reference" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -774,7 +774,7 @@ public static class CollectionExtensions
     extension(ReferenceArrayArray referenceArrayArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="ReferenceArray"/> from this collection.
+        ///     Returns an enumeration of <see cref="ReferenceArray" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -796,7 +796,7 @@ public static class CollectionExtensions
     extension(ReferencePointArray referencePointArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="ReferencePoint"/> from this collection.
+        ///     Returns an enumeration of <see cref="ReferencePoint" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -818,7 +818,7 @@ public static class CollectionExtensions
     extension(SlabShapeCreaseArray slabShapeCreaseArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="SlabShapeCrease"/> from this collection.
+        ///     Returns an enumeration of <see cref="SlabShapeCrease" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -840,7 +840,7 @@ public static class CollectionExtensions
     extension(SlabShapeVertexArray slabShapeVertexArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="SlabShapeVertex"/> from this collection.
+        ///     Returns an enumeration of <see cref="SlabShapeVertex" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -862,7 +862,7 @@ public static class CollectionExtensions
     extension(SpaceSet spaceSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Space"/> from this collection.
+        ///     Returns an enumeration of <see cref="Space" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -879,7 +879,7 @@ public static class CollectionExtensions
     extension(SymbolicCurveArray symbolicCurveArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="SymbolicCurve"/> from this collection.
+        ///     Returns an enumeration of <see cref="SymbolicCurve" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -901,7 +901,7 @@ public static class CollectionExtensions
     extension(VertexIndexPairArray vertexIndexPairArray)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="VertexIndexPair"/> from this collection.
+        ///     Returns an enumeration of <see cref="VertexIndexPair" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         /// <remarks>
@@ -923,7 +923,7 @@ public static class CollectionExtensions
     extension(ViewSet viewSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="View"/> from this collection.
+        ///     Returns an enumeration of <see cref="View" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -940,7 +940,7 @@ public static class CollectionExtensions
     extension(VoltageTypeSet voltageTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="VoltageType"/> from this collection.
+        ///     Returns an enumeration of <see cref="VoltageType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -957,7 +957,7 @@ public static class CollectionExtensions
     extension(WireConduitTypeSet wireConduitTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="WireConduitType"/> from this collection.
+        ///     Returns an enumeration of <see cref="WireConduitType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -974,7 +974,7 @@ public static class CollectionExtensions
     extension(WireSet wireSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Wire"/> from this collection.
+        ///     Returns an enumeration of <see cref="Wire" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]
@@ -991,7 +991,7 @@ public static class CollectionExtensions
     extension(WireTypeSet wireTypeSet)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="WireType"/> from this collection.
+        ///     Returns an enumeration of <see cref="WireType" /> from this collection.
         /// </summary>
         /// <returns>A sequence that walks the collection in the order the collection holds its elements.</returns>
         [Pure]

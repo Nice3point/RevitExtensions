@@ -9,7 +9,7 @@ namespace Nice3point.Revit.Extensions.Tests.Coverage.Discovery;
 /// </summary>
 /// <remarks>
 ///     The interop layer mirrors the native C++ containers: iteration runs through an iterator factory, an entry key lives
-///     on the concrete iterator, and the collection contract stops at the non-generic <see cref="IEnumerable"/>.
+///     on the concrete iterator, and the collection contract stops at the non-generic <see cref="IEnumerable" />.
 /// </remarks>
 internal static class ApiCollectionScanner
 {
@@ -41,7 +41,7 @@ internal static class ApiCollectionScanner
     /// <summary>
     ///     The methods carrying the element type in their signature, in the order the element type is read from them.
     /// </summary>
-    private static readonly string[] ElementTypeSourceMethodNames = [..InsertionMethodNames, nameof(IList.Contains), EraseMethodName];
+    private static readonly string[] ElementTypeSourceMethodNames = [.. InsertionMethodNames, nameof(IList.Contains), EraseMethodName];
 
     /// <summary>
     ///     Builds one report row per collection the assembly exposes.
@@ -314,7 +314,7 @@ internal static class ApiCollectionScanner
     /// </summary>
     /// <remarks>
     ///     The interop layer declares the iterator factory on the base collection and narrows the return type on the derived one,
-    ///     a pair of overloads <see cref="Type.GetMethod(string, BindingFlags)"/> reports as an ambiguous match.
+    ///     a pair of overloads <see cref="Type.GetMethod(string, BindingFlags)" /> reports as an ambiguous match.
     /// </remarks>
     private static MethodInfo? FindParameterlessMethod(Type type, string methodName)
     {
@@ -388,7 +388,7 @@ internal static class ApiCollectionScanner
     /// <remarks>
     ///     An extension declared over a base collection applies to every collection deriving from it. <c>BindingMap</c> reaches
     ///     its members through <c>DefinitionBindingMap</c>.
-    ///     The walk stops at the first base type that enumerates nothing. A collection deriving from <see cref="Element"/>
+    ///     The walk stops at the first base type that enumerates nothing. A collection deriving from <see cref="Element" />
     ///     inherits the members of an element, never the members of a collection.
     /// </remarks>
     private static IReadOnlyList<string> FindExtendingFiles(Type collectionType, SourceFileIndex sourceFileIndex)

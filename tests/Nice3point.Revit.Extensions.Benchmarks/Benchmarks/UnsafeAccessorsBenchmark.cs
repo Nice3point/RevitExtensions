@@ -16,7 +16,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // [Host]     : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 // Job-AAUCHH : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 //
-// BuildConfiguration=Release.R27  
+// BuildConfiguration=Release.R27
 //
 // ```
 // | Method                   | Mean      | Error    | StdDev   | Gen0   | Allocated |
@@ -24,6 +24,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // | UnsafeAccessorsSingleton |  12.80 ns | 0.121 ns | 0.113 ns | 0.0014 |      72 B |
 // | ReflectionSingleton      | 134.38 ns | 1.391 ns | 1.233 ns | 0.0086 |     432 B |
 
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 public class UnsafeAccessorsBenchmark : RevitApiBenchmark
 {
     [Benchmark]

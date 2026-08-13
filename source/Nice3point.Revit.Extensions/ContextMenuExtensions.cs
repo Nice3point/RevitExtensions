@@ -1,7 +1,6 @@
 ﻿#if REVIT2025_OR_GREATER
 using System.Reflection;
 using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 using Nice3point.Revit.Extensions.Internal;
 using ContextMenu = Autodesk.Revit.UI.ContextMenu;
 

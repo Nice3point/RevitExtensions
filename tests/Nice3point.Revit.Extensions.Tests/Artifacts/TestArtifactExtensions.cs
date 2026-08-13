@@ -14,7 +14,7 @@ public static class TestArtifactExtensions
         /// <param name="name">The artifact name.</param>
         public async Task CreateArtifactAsync(string name)
         {
-            await CreateArtifactEntryAsync(name, content, extension: null);
+            await CreateArtifactEntryAsync(name, content, null);
         }
 
         /// <summary>

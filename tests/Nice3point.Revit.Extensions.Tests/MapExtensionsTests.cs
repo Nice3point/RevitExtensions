@@ -7,16 +7,11 @@ namespace Nice3point.Revit.Extensions.Tests;
 public sealed class MapExtensionsTests : RevitApiTest
 {
     private const string SharedParameterName = "MapExtensionsTestParameter";
-
-#pragma warning disable TUnit0023
-    private Document _document = null!;
-    private Level _level = null!;
-#pragma warning restore TUnit0023
-    private string _sharedParametersPath = null!;
     private string _originalSharedParametersPath = null!;
+    private string _sharedParametersPath = null!;
 
     /// <summary>
-    ///     Seeds a project holding one bound project parameter, the only source of a populated <see cref="BindingMap"/>.
+    ///     Seeds a project holding one bound project parameter, the only source of a populated <see cref="BindingMap" />.
     /// </summary>
     [Before(Test)]
     [HookExecutor<RevitThreadExecutor>]
@@ -280,4 +275,9 @@ public sealed class MapExtensionsTests : RevitApiTest
         // Assert
         await Assert.That(values.Count).IsEqualTo(bindings.Size);
     }
+
+#pragma warning disable TUnit0023
+    private Document _document = null!;
+    private Level _level = null!;
+#pragma warning restore TUnit0023
 }

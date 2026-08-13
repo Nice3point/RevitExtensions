@@ -11,7 +11,7 @@ public interface IRibbonStackPanel
     /// <summary>
     ///     Adds a PushButton to the vertical stack panel.
     /// </summary>
-    /// <typeparam name="TCommand">The type of the command that implements <see cref="Autodesk.Revit.UI.IExternalCommand"/>.</typeparam>
+    /// <typeparam name="TCommand">The type of the command that implements <see cref="Autodesk.Revit.UI.IExternalCommand" />.</typeparam>
     /// <param name="buttonText">The label text for the PushButton.</param>
     /// <returns>The added PushButton.</returns>
     /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">

@@ -7,7 +7,7 @@ namespace Nice3point.Revit.Extensions;
 /// </summary>
 /// <remarks>
 ///     A map hands out its entries through an iterator factory and keeps the key of the current entry on the concrete iterator.
-///     Its contract stops at the non-generic <see cref="global::System.Collections.IEnumerable"/>.
+///     Its contract stops at the non-generic <see cref="global::System.Collections.IEnumerable" />.
 ///     The members below pair each key with its value and carry the element type into the sequence.
 /// </remarks>
 [PublicAPI]
@@ -17,7 +17,7 @@ public static class MapExtensions
     extension(DefinitionBindingMap map)
     {
         /// <summary>
-        ///     Returns an enumeration of <see cref="Definition"/> and <see cref="Binding"/> pairs from this map.
+        ///     Returns an enumeration of <see cref="Definition" /> and <see cref="Binding" /> pairs from this map.
         /// </summary>
         /// <returns>A sequence pairing each definition in the map with the binding stored under it.</returns>
         /// <remarks>
@@ -35,7 +35,7 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Returns an enumeration of <see cref="Definition"/> from this map.
+        ///     Returns an enumeration of <see cref="Definition" /> from this map.
         /// </summary>
         /// <returns>A sequence of the definitions the map binds.</returns>
         /// <remarks>
@@ -54,7 +54,7 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Returns an enumeration of <see cref="Binding"/> from this map.
+        ///     Returns an enumeration of <see cref="Binding" /> from this map.
         /// </summary>
         /// <returns>A sequence of the bindings the map holds.</returns>
         /// <remarks>
@@ -73,16 +73,16 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Gets the <see cref="Binding"/> associated with the specified <see cref="Definition"/>.
+        ///     Gets the <see cref="Binding" /> associated with the specified <see cref="Definition" />.
         /// </summary>
         /// <param name="definition">The definition of the binding to get.</param>
         /// <param name="binding">
         ///     When this method returns, contains the binding associated with the specified definition, if the definition is
-        ///     found; otherwise, <see langword="null"/>.
+        ///     found; otherwise, <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> if the map contains a binding for the specified definition; otherwise,
-        ///     <see langword="false"/>.
+        ///     <see langword="true" /> if the map contains a binding for the specified definition; otherwise,
+        ///     <see langword="false" />.
         /// </returns>
         /// <remarks>This method combines the functionality of <c>Contains</c> and the indexer.</remarks>
         [Pure]
@@ -105,7 +105,7 @@ public static class MapExtensions
     extension(ParameterMap map)
     {
         /// <summary>
-        ///     Returns an enumeration of name and <see cref="Parameter"/> pairs from this map.
+        ///     Returns an enumeration of name and <see cref="Parameter" /> pairs from this map.
         /// </summary>
         /// <returns>A sequence pairing each parameter name in the map with the parameter stored under it.</returns>
         /// <remarks>
@@ -142,7 +142,7 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Returns an enumeration of <see cref="Parameter"/> from this map.
+        ///     Returns an enumeration of <see cref="Parameter" /> from this map.
         /// </summary>
         /// <returns>A sequence of the parameters the map holds.</returns>
         /// <remarks>
@@ -161,16 +161,16 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Gets the <see cref="Parameter"/> associated with the specified name.
+        ///     Gets the <see cref="Parameter" /> associated with the specified name.
         /// </summary>
         /// <param name="name">The name of the parameter to get.</param>
         /// <param name="parameter">
         ///     When this method returns, contains the parameter associated with the specified name, if the name is found;
-        ///     otherwise, <see langword="null"/>.
+        ///     otherwise, <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> if the map contains a parameter for the specified name; otherwise,
-        ///     <see langword="false"/>.
+        ///     <see langword="true" /> if the map contains a parameter for the specified name; otherwise,
+        ///     <see langword="false" />.
         /// </returns>
         /// <remarks>This method combines the functionality of <c>Contains</c> and the indexer.</remarks>
         [Pure]
@@ -193,7 +193,7 @@ public static class MapExtensions
     extension(CategoryNameMap map)
     {
         /// <summary>
-        ///     Returns an enumeration of name and <see cref="Autodesk.Revit.DB.Category"/> pairs from this map.
+        ///     Returns an enumeration of name and <see cref="Autodesk.Revit.DB.Category" /> pairs from this map.
         /// </summary>
         /// <returns>A sequence pairing each category name in the map with the category stored under it.</returns>
         /// <remarks>
@@ -230,7 +230,7 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category"/> from this map.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category" /> from this map.
         /// </summary>
         /// <returns>A sequence of the categories the map holds.</returns>
         /// <remarks>
@@ -249,16 +249,16 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Gets the <see cref="Autodesk.Revit.DB.Category"/> associated with the specified name.
+        ///     Gets the <see cref="Autodesk.Revit.DB.Category" /> associated with the specified name.
         /// </summary>
         /// <param name="name">The name of the category to get.</param>
         /// <param name="category">
         ///     When this method returns, contains the category associated with the specified name, if the name is found;
-        ///     otherwise, <see langword="null"/>.
+        ///     otherwise, <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> if the map contains a category for the specified name; otherwise,
-        ///     <see langword="false"/>.
+        ///     <see langword="true" /> if the map contains a category for the specified name; otherwise,
+        ///     <see langword="false" />.
         /// </returns>
         /// <remarks>This method combines the functionality of <c>Contains</c> and the indexer.</remarks>
         [Pure]
@@ -281,7 +281,7 @@ public static class MapExtensions
     extension(Categories categories)
     {
         /// <summary>
-        ///     Returns an enumeration of name and <see cref="Autodesk.Revit.DB.Category"/> pairs from this map.
+        ///     Returns an enumeration of name and <see cref="Autodesk.Revit.DB.Category" /> pairs from this map.
         /// </summary>
         /// <returns>A sequence pairing each category name in the map with the category stored under it.</returns>
         /// <remarks>
@@ -318,7 +318,7 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category"/> from this map.
+        ///     Returns an enumeration of <see cref="Autodesk.Revit.DB.Category" /> from this map.
         /// </summary>
         /// <returns>A sequence of the categories the map holds.</returns>
         /// <remarks>
@@ -337,16 +337,16 @@ public static class MapExtensions
         }
 
         /// <summary>
-        ///     Gets the <see cref="Autodesk.Revit.DB.Category"/> associated with the specified name.
+        ///     Gets the <see cref="Autodesk.Revit.DB.Category" /> associated with the specified name.
         /// </summary>
         /// <param name="name">The name of the category to get.</param>
         /// <param name="category">
         ///     When this method returns, contains the category associated with the specified name, if the name is found;
-        ///     otherwise, <see langword="null"/>.
+        ///     otherwise, <see langword="null" />.
         /// </param>
         /// <returns>
-        ///     <see langword="true"/> if the map contains a category for the specified name; otherwise,
-        ///     <see langword="false"/>.
+        ///     <see langword="true" /> if the map contains a category for the specified name; otherwise,
+        ///     <see langword="false" />.
         /// </returns>
         /// <remarks>This method combines the functionality of <c>Contains</c> and the indexer.</remarks>
         [Pure]

@@ -1,10 +1,9 @@
-﻿using System.Reflection;
-#if NET
+﻿#if NET
 using System.Runtime.CompilerServices;
-
 #else
 using System.Runtime.InteropServices;
 #endif
+using System.Reflection;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -18,7 +17,9 @@ public static class ParameterExtensions
     private static readonly Type ADocumentType = ParameterAssembly.GetType("ADocument")!;
     private static readonly Type ElementIdType = ParameterAssembly.GetType("ElementId")!;
     private static readonly MethodInfo GetADocumentMethod = typeof(Document).GetMethod("getADocument", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
-    private static readonly ConstructorInfo ParameterConstructor = typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
+
+    private static readonly ConstructorInfo ParameterConstructor =
+        typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
 
     /// <param name="parameter">The source parameter</param>
     extension(Parameter parameter)
@@ -88,7 +89,7 @@ public static class ParameterExtensions
     extension(BuiltInParameter builtInParameter)
     {
         /// <summary>
-        /// Converts a BuiltInParameter into a Revit Parameter object.
+        ///     Converts a BuiltInParameter into a Revit Parameter object.
         /// </summary>
         /// <param name="document">The Revit Document associated with the parameter conversion.</param>
         /// <returns>A Parameter object corresponding to the specified BuiltInParameter.</returns>
@@ -149,7 +150,7 @@ public static class ParameterExtensions
         [Pure]
         [Obsolete("Use IsParameter() instead")]
         [CodeTemplate(
-            searchTemplate: "$expr$.AreEquals($parameter$)",
+            "$expr$.AreEquals($parameter$)",
             Message = "AreEquals is obsolete, use IsParameter instead",
             ReplaceTemplate = "$expr$.IsParameter($parameter$)",
             ReplaceMessage = "Replace with IsParameter")]

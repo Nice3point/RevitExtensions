@@ -5,7 +5,7 @@ using Autodesk.Revit.DB.Structure.StructuralSections;
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Represent extension methods for the <see cref="Autodesk.Revit.DB.LabelUtils"/> class.
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.LabelUtils" /> class.
 /// </summary>
 [PublicAPI]
 public static class LabelUtilsExtensions
@@ -83,14 +83,14 @@ public static class LabelUtilsExtensions
     /// <param name="parameter">The builtin parameter</param>
     extension(BuiltInParameter parameter)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameter)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameter)" />
         [Pure]
         public string ToLabel()
         {
             return LabelUtils.GetLabelFor(parameter);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameter,Autodesk.Revit.ApplicationServices.LanguageType)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameter,Autodesk.Revit.ApplicationServices.LanguageType)" />
         [Pure]
         public string ToLabel(LanguageType language)
         {
@@ -101,7 +101,7 @@ public static class LabelUtilsExtensions
     /// <param name="category">The builtin category</param>
     extension(BuiltInCategory category)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInCategory)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInCategory)" />
         [Pure]
         public string ToLabel()
         {
@@ -112,7 +112,7 @@ public static class LabelUtilsExtensions
     /// <param name="parameterGroup">The builtin parameter group</param>
     extension(BuiltInParameterGroup parameterGroup)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameterGroup)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.BuiltInParameterGroup)" />
         [Pure]
 #if REVIT2024
         [Obsolete("This method is deprecated in Revit 2024 and may be removed in a future version of Revit. Please use the `GetLabelForGroup(typeId)` method instead.")]
@@ -127,7 +127,7 @@ public static class LabelUtilsExtensions
     /// <param name="displayUnitType">The display unit type</param>
     extension(DisplayUnitType displayUnitType)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.DisplayUnitType)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.DisplayUnitType)" />
         [Pure]
 #if REVIT2021
         [Obsolete("This method is deprecated in Revit 2021")]
@@ -142,7 +142,7 @@ public static class LabelUtilsExtensions
     /// <param name="parameterType">The parameter type</param>
     extension(ParameterType parameterType)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.ParameterType)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelFor(Autodesk.Revit.DB.ParameterType)" />
         [Pure]
 #if REVIT2022
     [Obsolete("This method is deprecated in Revit 2022")]
@@ -154,7 +154,6 @@ public static class LabelUtilsExtensions
     }
 #endif
 #if REVIT2026_OR_GREATER
-
     /// <param name="severity">The Severity enum value</param>
     extension(FailureSeverity severity)
     {
@@ -170,7 +169,7 @@ public static class LabelUtilsExtensions
     /// <param name="sectionShape">The StructuralSectionShape enum value.</param>
     extension(StructuralSectionShape sectionShape)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetStructuralSectionShapeName(Autodesk.Revit.DB.Structure.StructuralSections.StructuralSectionShape)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetStructuralSectionShapeName(Autodesk.Revit.DB.Structure.StructuralSections.StructuralSectionShape)" />
         [Pure]
         public string ToLabel()
         {

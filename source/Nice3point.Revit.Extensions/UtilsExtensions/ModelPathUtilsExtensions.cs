@@ -6,7 +6,7 @@ using Autodesk.Revit.ApplicationServices;
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ModelPathUtils"/> class.
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.ModelPathUtils" /> class.
 /// </summary>
 [PublicAPI]
 public static class ModelPathUtilsExtensions
@@ -14,7 +14,7 @@ public static class ModelPathUtilsExtensions
     /// <param name="modelPath">The source model path.</param>
     extension(ModelPath modelPath)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.ConvertModelPathToUserVisiblePath(Autodesk.Revit.DB.ModelPath)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.ConvertModelPathToUserVisiblePath(Autodesk.Revit.DB.ModelPath)" />
         [Pure]
         public string ConvertToUserVisiblePath()
         {
@@ -22,7 +22,6 @@ public static class ModelPathUtilsExtensions
         }
     }
 #if REVIT2021_OR_GREATER
-
     /// <param name="modelGuid">The GUID of the Revit cloud model.</param>
     extension(Guid modelGuid)
     {
@@ -35,7 +34,6 @@ public static class ModelPathUtilsExtensions
     }
 #endif
 #if REVIT2026_OR_GREATER
-
     /// <param name="application">The source application.</param>
     extension(Application application)
     {

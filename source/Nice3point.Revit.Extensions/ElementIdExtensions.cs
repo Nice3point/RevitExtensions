@@ -9,14 +9,14 @@ public static class ElementIdExtensions
     /// <param name="elementId">The unique identification for an element.</param>
     extension(ElementId elementId)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)" />
         [Pure]
         public Element? ToElement(Document document)
         {
             return document.GetElement(elementId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)" />
         /// <typeparam name="T">The expected type of the element.</typeparam>
         [Pure]
         public T? ToElement<T>(Document document) where T : Element
@@ -45,7 +45,7 @@ public static class ElementIdExtensions
 #if REVIT2024_OR_GREATER
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int64)"/>
 #else
-        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int32)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int32)" />
 #endif
         [Pure]
         public ElementId ToElementId()
@@ -69,7 +69,10 @@ public static class ElementIdExtensions
         [Pure]
         public IList<Element> ToElements(Document document)
         {
-            if (elementIds.Count == 0) return [];
+            if (elementIds.Count == 0)
+            {
+                return [];
+            }
 
             var elementTypes = new FilteredElementCollector(document, elementIds).WhereElementIsElementType();
             var elementInstances = new FilteredElementCollector(document, elementIds).WhereElementIsNotElementType();
@@ -85,7 +88,10 @@ public static class ElementIdExtensions
         [Pure]
         public IList<T> ToElements<T>(Document document) where T : Element
         {
-            if (elementIds.Count == 0) return [];
+            if (elementIds.Count == 0)
+            {
+                return [];
+            }
 
             var elementTypes = new FilteredElementCollector(document, elementIds).WhereElementIsElementType();
             var elementInstances = new FilteredElementCollector(document, elementIds).WhereElementIsNotElementType();
@@ -100,10 +106,13 @@ public static class ElementIdExtensions
         [Pure]
         public IList<Element> ToOrderedElements(Document document)
         {
-            if (elementIds.Count == 0) return [];
+            if (elementIds.Count == 0)
+            {
+                return [];
+            }
 
             var elements = elementIds.ToElements(document);
-            var elementDictionary = elements.ToDictionary(element => element.Id);
+            var elementDictionary = elements.ToDictionary(static element => element.Id);
 
             var orderedElements = new List<Element>(elementIds.Count);
             foreach (var id in elementIds)
@@ -123,10 +132,13 @@ public static class ElementIdExtensions
         [Pure]
         public IList<T> ToOrderedElements<T>(Document document) where T : Element
         {
-            if (elementIds.Count == 0) return [];
+            if (elementIds.Count == 0)
+            {
+                return [];
+            }
 
             var elements = elementIds.ToElements<T>(document);
-            var elementDictionary = elements.ToDictionary(element => element.Id);
+            var elementDictionary = elements.ToDictionary(static element => element.Id);
 
             var orderedElements = new List<T>(elementIds.Count);
             foreach (var id in elementIds)

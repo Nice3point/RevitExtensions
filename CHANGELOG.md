@@ -75,8 +75,8 @@ var parameterValue = BuiltInParameter.WALL_TOP_OFFSET.ToLong();
 
 This update focuses on making Revit collections and maps enumerable the way the rest of .NET is.
 
-The Revit API mirrors the native C++ containers. A collection stops its contract at the non-generic `IEnumerable`. 
-A `foreach` over it yields `object` and every LINQ query opens with a cast. 
+The Revit API mirrors the native C++ containers. A collection stops its contract at the non-generic `IEnumerable`.
+A `foreach` over it yields `object` and every LINQ query opens with a cast.
 A map goes further and keeps the key of the current entry on the concrete iterator instead of in the enumeration, so a `foreach` never sees the key at all.
 Reading the keys means a hand-written loop over `ForwardIterator()`, and that iterator holds a native handle until it is disposed.
 
@@ -176,12 +176,12 @@ A map keeps the key of the current entry on its iterator and the value on `Curre
 
 Measured on Revit 2027 over an array of 1000 curves, a set of 600 categories, and the parameter map of a level:
 
-| Enumeration               | Replaces                | Faster | Allocates less |
-|---------------------------|-------------------------|-------:|---------------:|
-| `array.EnumerateValues()` | `array.Cast<Curve>()`   |    10% |              — |
-| `set.EnumerateValues()`   | `set.Cast<Category>()`  |     5% |              — |
-| `map.EnumerateKeys()`     | enumerating the pairs   |    30% |            35% |
-| `map.EnumerateValues()`   | enumerating the pairs   |    23% |            35% |
+| Enumeration               | Replaces               | Faster | Allocates less |
+|---------------------------|------------------------|-------:|---------------:|
+| `array.EnumerateValues()` | `array.Cast<Curve>()`  |    10% |              — |
+| `set.EnumerateValues()`   | `set.Cast<Category>()` |     5% |              — |
+| `map.EnumerateKeys()`     | enumerating the pairs  |    30% |            35% |
+| `map.EnumerateValues()`   | enumerating the pairs  |    23% |            35% |
 
 The worst case is a set, **5%** faster for the same allocation.
 The best case is a map key enumeration, **30%** faster and **35%** fewer bytes.
@@ -1044,7 +1044,7 @@ This update focuses on increased utility class coverage, new extensions for glob
 - **AddTextBox:** Adds a TextBox to the vertical stack panel.
 - **AddLabel:** Adds a text label to the vertical stack panel.
 
-    ![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
+  ![verticalStack](https://github.com/user-attachments/assets/3cef1e86-89a3-4f9c-8a06-b7661c6f428f)
 
 - **RemovePanel:** Removes RibbonPanel from the Revit ribbon.
 - **SetBackground:** Sets the RibbonPanel background color.
@@ -1210,7 +1210,7 @@ This update focuses on increased utility class coverage, new extensions for glob
 - `GetParameter()` method is obsolete. Use `FindParameter()` instead
 - New extensions to help you add context menu items without creating additional classes or specifying type names. Revit 2025 and higher
 
-The **ConfigureContextMenu()** method registers an action used to configure a Context menu.
+The **ConfigureContextMenu ()** method registers an action used to configure a Context menu.
 
 ```c#
 application.ConfigureContextMenu(menu =>
@@ -1231,19 +1231,19 @@ application.ConfigureContextMenu("Title", menu =>
 });
 ```
 
-The **AddMenuItem()** method adds a menu item to the Context Menu.
+The **AddMenuItem ()** method adds a menu item to the Context Menu.
 
 ```c#
 menu.AddMenuItem<Command>("Menu title");
 ```
 
-The **AddSeparator()** method adds a separator to the Context Menu.
+The **AddSeparator ()** method adds a separator to the Context Menu.
 
 ```c#
 menu.AddSeparator();
 ```
 
-The **AddSubMenu()** method adds a sub menu to the Context Menu.
+The **AddSubMenu ()** method adds a sub menu to the Context Menu.
 
 ```c#
 var subMenu = new ContextMenu();
@@ -1253,7 +1253,7 @@ subMenu.AddMenuItem<Command>("Menu title");
 menu.AddSubMenu("Sub menu title", subMenu);
 ```
 
-The **SetAvailabilityController()** method specifies the class type that decides the availability of menu item.
+The **SetAvailabilityController ()** method specifies the class type that decides the availability of menu item.
 
 ```c#
 menuItem.SetAvailabilityController<Controller>()
@@ -1292,12 +1292,12 @@ UnitExtensions:
 
 RibbonExtensions:
 
-- New SetAvailabilityController() extension
+- New SetAvailabilityController () extension
 
 ParameterExtensions:
 
-- New Set(bool) extension
-- New Set(color) extension
+- New Set (bool) extension
+- New Set (color) extension
 
 Nuget symbol server support: https://symbols.nuget.org/download/symbols
 
@@ -1305,8 +1305,8 @@ Nuget symbol server support: https://symbols.nuget.org/download/symbols
 
 CollectorExtensions:
 
-- New GetElements(ElementId viewId) extension
-- New GetElements(ICollection<ElementId> elementIds) extension
+- New GetElements (ElementId viewId) extension
+- New GetElements (ICollection<ElementId> elementIds) extension
 - New overloads for instances with ViewId
 
 # 2023.1.5
@@ -1370,15 +1370,15 @@ Ribbon Extensions
 
 Element extensions
 
-- New GetParameter(ForgeTypeId) extension
+- New GetParameter (ForgeTypeId) extension
 - New Cast<T>() extension
 - Removed CanBeNull attribute for ToElement<T> extension
 
 Host Extensions
 
-- New GetBottomFaces() extension
-- New GetTopFaces() extension
-- New GetSideFaces() extension
+- New GetBottomFaces () extension
+- New GetTopFaces () extension
+- New GetSideFaces () extension
 
 # 2022.0.3
 
@@ -1392,16 +1392,16 @@ Element extensions
 
 Label Extensions
 
-- New ToLabel(BuiltInParameter) extension
-- New ToLabel(BuiltInParameterGroup) extension
-- New ToLabel(BuiltInCategory) extension
-- New ToLabel(DisplayUnitType) extension
-- New ToLabel(ParameterType) extension
-- New ToDisciplineLabel(ForgeTypeId) extension
-- New ToGroupLabel(ForgeTypeId) extension
-- New ToSpecLabel(ForgeTypeId) extension
-- New ToSymbolLabel(ForgeTypeId) extension
-- New ToUnitLabel(ForgeTypeId) extension
+- New ToLabel (BuiltInParameter) extension
+- New ToLabel (BuiltInParameterGroup) extension
+- New ToLabel (BuiltInCategory) extension
+- New ToLabel (DisplayUnitType) extension
+- New ToLabel (ParameterType) extension
+- New ToDisciplineLabel (ForgeTypeId) extension
+- New ToGroupLabel (ForgeTypeId) extension
+- New ToSpecLabel (ForgeTypeId) extension
+- New ToSymbolLabel (ForgeTypeId) extension
+- New ToUnitLabel (ForgeTypeId) extension
 
 # 2022.0.2
 
@@ -1421,7 +1421,7 @@ Unit extensions
 
 ElementId extensions
 
-- New AreEquals(BuiltInParameter) extension
+- New AreEquals (BuiltInParameter) extension
 
 # 2022.0.1
 

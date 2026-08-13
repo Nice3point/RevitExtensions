@@ -13,7 +13,7 @@ public static class SystemExtensions
     extension(object obj)
     {
         /// <summary>
-        ///     Converts an object's type to <typeparamref name="T"/> type
+        ///     Converts an object's type to <typeparamref name="T" /> type
         /// </summary>
         [Pure]
         public T Cast<T>()
@@ -106,7 +106,10 @@ public static class SystemExtensions
         [Pure]
         public string AppendPath(string path)
         {
-            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
             return Path.Combine(source, path);
         }

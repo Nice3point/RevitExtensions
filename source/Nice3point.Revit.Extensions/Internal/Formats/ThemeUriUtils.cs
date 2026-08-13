@@ -14,9 +14,9 @@ internal static class ThemeUriUtils
     ///     Attempts to modify the given URI to match the requested UI theme.
     /// </summary>
     /// <param name="uri">The original URI.</param>
-    /// <param name="darkTheme"><see langword="true"/> to request the dark theme; <see langword="false"/> to request the light theme.</param>
+    /// <param name="darkTheme"><see langword="true" /> to request the dark theme; <see langword="false" /> to request the light theme.</param>
     /// <param name="result">The modified URI corresponding to the requested UI theme, or the original URI if no modifications were made.</param>
-    /// <returns><see langword="true"/> if the URI contains a theme token; otherwise, <see langword="false"/>.</returns>
+    /// <returns><see langword="true" /> if the URI contains a theme token; otherwise, <see langword="false" />.</returns>
     /// <remarks>
     ///     The light theme token takes precedence over the dark one, and only its last occurrence is considered.
     ///     The token is replaced only when it belongs to the last URI segment.
@@ -63,8 +63,15 @@ internal static class ThemeUriUtils
         var suffix = uri[(tokenIndex + uriToken.Length)..];
 #endif
 
-        if (suffix.IndexOf(Path.AltDirectorySeparatorChar) >= 0) return uri;
-        if (suffix.IndexOf(Path.DirectorySeparatorChar) >= 0) return uri;
+        if (suffix.IndexOf(Path.AltDirectorySeparatorChar) >= 0)
+        {
+            return uri;
+        }
+
+        if (suffix.IndexOf(Path.DirectorySeparatorChar) >= 0)
+        {
+            return uri;
+        }
 
         return string.Concat(prefix, requestedToken, suffix);
     }

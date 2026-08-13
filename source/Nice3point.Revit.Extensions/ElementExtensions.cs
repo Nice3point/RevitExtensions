@@ -17,10 +17,16 @@ public static class ElementExtensions
         public Parameter? FindParameter(BuiltInParameter parameter)
         {
             var instanceParameter = element.get_Parameter(parameter);
-            if (instanceParameter is not null) return instanceParameter;
+            if (instanceParameter is not null)
+            {
+                return instanceParameter;
+            }
 
             var elementTypeId = element.GetTypeId();
-            if (elementTypeId == ElementId.InvalidElementId) return null;
+            if (elementTypeId == ElementId.InvalidElementId)
+            {
+                return null;
+            }
 
             var elementType = element.Document.GetElement(elementTypeId);
             return elementType.get_Parameter(parameter);
@@ -34,10 +40,16 @@ public static class ElementExtensions
         public Parameter? FindParameter(Definition definition)
         {
             var instanceParameter = element.get_Parameter(definition);
-            if (instanceParameter is not null) return instanceParameter;
+            if (instanceParameter is not null)
+            {
+                return instanceParameter;
+            }
 
             var elementTypeId = element.GetTypeId();
-            if (elementTypeId == ElementId.InvalidElementId) return null;
+            if (elementTypeId == ElementId.InvalidElementId)
+            {
+                return null;
+            }
 
             var elementType = element.Document.GetElement(elementTypeId);
             return elementType.get_Parameter(definition);
@@ -51,10 +63,16 @@ public static class ElementExtensions
         public Parameter? FindParameter(Guid guid)
         {
             var instanceParameter = element.get_Parameter(guid);
-            if (instanceParameter is not null) return instanceParameter;
+            if (instanceParameter is not null)
+            {
+                return instanceParameter;
+            }
 
             var elementTypeId = element.GetTypeId();
-            if (elementTypeId == ElementId.InvalidElementId) return null;
+            if (elementTypeId == ElementId.InvalidElementId)
+            {
+                return null;
+            }
 
             var elementType = element.Document.GetElement(elementTypeId);
             return elementType.get_Parameter(guid);
@@ -68,16 +86,21 @@ public static class ElementExtensions
         public Parameter? FindParameter(string parameter)
         {
             var instanceParameter = element.LookupParameter(parameter);
-            if (instanceParameter is not null) return instanceParameter;
+            if (instanceParameter is not null)
+            {
+                return instanceParameter;
+            }
 
             var elementTypeId = element.GetTypeId();
-            if (elementTypeId == ElementId.InvalidElementId) return null;
+            if (elementTypeId == ElementId.InvalidElementId)
+            {
+                return null;
+            }
 
             var elementType = element.Document.GetElement(elementTypeId);
             return elementType.LookupParameter(parameter);
         }
 #if REVIT2022_OR_GREATER
-
         /// <summary>
         ///     Find a parameter in the instance or symbol by identifier
         /// </summary>

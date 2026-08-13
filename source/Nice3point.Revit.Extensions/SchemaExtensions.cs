@@ -12,7 +12,7 @@ public static class SchemaExtensions
     extension(Element element)
     {
         /// <summary>
-        ///    Stores data in the element. Existing data is overwritten
+        ///     Stores data in the element. Existing data is overwritten
         /// </summary>
         /// <param name="schema">Existing schema</param>
         /// <param name="data">Type of data</param>
@@ -27,7 +27,10 @@ public static class SchemaExtensions
         public bool SaveEntity<T>(Schema schema, T data, string fieldName)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return false;
+            if (field is null)
+            {
+                return false;
+            }
 
             var entity = GetEntity(schema, element);
             entity.Set(field, data);
@@ -35,7 +38,6 @@ public static class SchemaExtensions
             return true;
         }
 #if REVIT2021_OR_GREATER
-
         /// <summary>
         ///    Stores data measured in the specified unit in the element. Existing data is overwritten
         /// </summary>
@@ -65,7 +67,7 @@ public static class SchemaExtensions
         }
 #else
         /// <summary>
-        ///    Stores data measured in the specified unit in the element. Existing data is overwritten
+        ///     Stores data measured in the specified unit in the element. Existing data is overwritten
         /// </summary>
         /// <param name="schema">Existing schema</param>
         /// <param name="data">Type of data</param>
@@ -84,7 +86,10 @@ public static class SchemaExtensions
         public bool SaveEntity<T>(Schema schema, T data, string fieldName, DisplayUnitType displayUnitType)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return false;
+            if (field is null)
+            {
+                return false;
+            }
 
             var entity = GetEntity(schema, element);
             entity.Set(field, data, displayUnitType);
@@ -109,15 +114,20 @@ public static class SchemaExtensions
         public T? LoadEntity<T>(Schema schema, string fieldName)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return default;
+            if (field is null)
+            {
+                return default;
+            }
 
             var entity = element.GetEntity(schema);
-            if (!entity.IsValid()) return default;
+            if (!entity.IsValid())
+            {
+                return default;
+            }
 
             return entity.Get<T>(field);
         }
 #if REVIT2021_OR_GREATER
-
         /// <summary>
         ///     Retrieves the value stored in the schema from the element, converted to the specified unit
         /// </summary>
@@ -166,10 +176,16 @@ public static class SchemaExtensions
         public T? LoadEntity<T>(Schema schema, string fieldName, DisplayUnitType displayUnitType)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return default;
+            if (field is null)
+            {
+                return default;
+            }
 
             var entity = element.GetEntity(schema);
-            if (!entity.IsValid()) return default;
+            if (!entity.IsValid())
+            {
+                return default;
+            }
 
             return entity.Get<T>(field, displayUnitType);
         }

@@ -11,23 +11,6 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 {
     private static readonly Guid SchemaGuid = new("A1B2C3D4-E5F6-7890-ABCD-EF1234567890");
 
-#pragma warning disable TUnit0023
-    private Document _document = null!;
-
-    private Level _groundFloor = null!;
-    private Level _firstFloor = null!;
-    private Wall _wall = null!;
-    private Wall _crossingWall = null!;
-    private Grid _grid = null!;
-    private Room _room = null!;
-    private FamilySymbol _familySymbol = null!;
-    private Family _family = null!;
-    private View _floorPlan = null!;
-    private ViewPlan _areaView = null!;
-    private Phase _phase = null!;
-    private WorksetId _worksetId = null!;
-#pragma warning restore TUnit0023
-
     [Before(Test)]
     [HookExecutor<RevitThreadExecutor>]
     public void SeedModel()
@@ -536,76 +519,6 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         await Assert.That(elements).IsNotEmpty();
         await Assert.That(elements).All().Satisfy(element => element.OwnerViewId != _floorPlan.Id, source => source.IsTrue());
     }
-#if REVIT2021_OR_GREATER
-
-    [Test]
-    public async Task VisibleInView_ByDocumentAndElementId_ReturnsVisibleElements()
-    {
-        // Act
-        var elements = _document.CollectElements(_floorPlan)
-            .VisibleInView(_document, _floorPlan.Id)
-            .ToElements();
-
-        // Assert
-        await Assert.That(elements).IsNotEmpty();
-    }
-
-    [Test]
-    public async Task VisibleInView_ByView_ReturnsVisibleElements()
-    {
-        // Act
-        var elements = _document.CollectElements(_floorPlan)
-            .VisibleInView(_floorPlan)
-            .ToElements();
-
-        // Assert
-        await Assert.That(elements).IsNotEmpty();
-    }
-
-    [Test]
-    public async Task NotVisibleInView_ByDocumentAndElementId_ExcludesVisibleElements()
-    {
-        // Act
-        var allCount = new FilteredElementCollector(_document, _floorPlan.Id)
-            .WhereElementIsNotElementType()
-            .GetElementCount();
-
-        var visibleCount = _document.CollectElements(_floorPlan)
-            .VisibleInView(_document, _floorPlan.Id)
-            .GetElementCount();
-
-        var notVisibleCount = _document.CollectElements(_floorPlan)
-            .NotVisibleInView(_document, _floorPlan.Id)
-            .GetElementCount();
-
-        // Assert
-        // Revit API issue. VisibleInViewFilter broken.
-        // await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount);
-        await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount * 2);
-    }
-
-    [Test]
-    public async Task NotVisibleInView_ByView_ExcludesVisibleElements()
-    {
-        // Act
-        var allCount = new FilteredElementCollector(_document, _floorPlan.Id)
-            .WhereElementIsNotElementType()
-            .GetElementCount();
-
-        var visibleCount = _document.CollectElements()
-            .VisibleInView(_floorPlan)
-            .GetElementCount();
-
-        var notVisibleCount = _document.CollectElements()
-            .NotVisibleInView(_floorPlan)
-            .GetElementCount();
-
-        // Assert
-        // Revit API issue. VisibleInViewFilter broken.
-        // await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount);
-        await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount * 2);
-    }
-#endif
 
     [Test]
     public async Task OnLevel_ByElementId_ReturnsElementsOnLevel()
@@ -1576,4 +1489,91 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         profile.Append(Line.CreateBound(center + new XYZ(-half, half, -half), center + new XYZ(-half, -half, -half)));
         return GeometryCreationUtilities.CreateExtrusionGeometry([profile], XYZ.BasisZ, size);
     }
+
+#pragma warning disable TUnit0023
+    private Document _document = null!;
+
+    private Level _groundFloor = null!;
+    private Level _firstFloor = null!;
+    private Wall _wall = null!;
+    private Wall _crossingWall = null!;
+    private Grid _grid = null!;
+    private Room _room = null!;
+    private FamilySymbol _familySymbol = null!;
+    private Family _family = null!;
+    private View _floorPlan = null!;
+    private ViewPlan _areaView = null!;
+    private Phase _phase = null!;
+    private WorksetId _worksetId = null!;
+#pragma warning restore TUnit0023
+#if REVIT2021_OR_GREATER
+
+    [Test]
+    public async Task VisibleInView_ByDocumentAndElementId_ReturnsVisibleElements()
+    {
+        // Act
+        var elements = _document.CollectElements(_floorPlan)
+            .VisibleInView(_document, _floorPlan.Id)
+            .ToElements();
+
+        // Assert
+        await Assert.That(elements).IsNotEmpty();
+    }
+
+    [Test]
+    public async Task VisibleInView_ByView_ReturnsVisibleElements()
+    {
+        // Act
+        var elements = _document.CollectElements(_floorPlan)
+            .VisibleInView(_floorPlan)
+            .ToElements();
+
+        // Assert
+        await Assert.That(elements).IsNotEmpty();
+    }
+
+    [Test]
+    public async Task NotVisibleInView_ByDocumentAndElementId_ExcludesVisibleElements()
+    {
+        // Act
+        var allCount = new FilteredElementCollector(_document, _floorPlan.Id)
+            .WhereElementIsNotElementType()
+            .GetElementCount();
+
+        var visibleCount = _document.CollectElements(_floorPlan)
+            .VisibleInView(_document, _floorPlan.Id)
+            .GetElementCount();
+
+        var notVisibleCount = _document.CollectElements(_floorPlan)
+            .NotVisibleInView(_document, _floorPlan.Id)
+            .GetElementCount();
+
+        // Assert
+        // Revit API issue. VisibleInViewFilter broken.
+        // await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount);
+        await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount * 2);
+    }
+
+    [Test]
+    public async Task NotVisibleInView_ByView_ExcludesVisibleElements()
+    {
+        // Act
+        var allCount = new FilteredElementCollector(_document, _floorPlan.Id)
+            .WhereElementIsNotElementType()
+            .GetElementCount();
+
+        var visibleCount = _document.CollectElements()
+            .VisibleInView(_floorPlan)
+            .GetElementCount();
+
+        var notVisibleCount = _document.CollectElements()
+            .NotVisibleInView(_floorPlan)
+            .GetElementCount();
+
+        // Assert
+        // Revit API issue. VisibleInViewFilter broken.
+        // await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount);
+        await Assert.That(visibleCount + notVisibleCount).IsEqualTo(allCount * 2);
+    }
+#endif
 }

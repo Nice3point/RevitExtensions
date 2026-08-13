@@ -51,7 +51,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var line = Line.CreateBound(new XYZ(0, 5, 10), new XYZ(0, 15, 20));
-        var newX = 100.0;
+        const double newX = 100.0;
 
         // Act
         var newLine = line.SetCoordinateX(newX);
@@ -71,7 +71,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var line = Line.CreateBound(new XYZ(5, 0, 10), new XYZ(15, 0, 20));
-        var newY = 100.0;
+        const double newY = 100.0;
 
         // Act
         var newLine = line.SetCoordinateY(newY);
@@ -91,7 +91,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var line = Line.CreateBound(new XYZ(5, 10, 0), new XYZ(15, 20, 0));
-        var newZ = 100.0;
+        const double newZ = 100.0;
 
         // Act
         var newLine = line.SetCoordinateZ(newZ);
@@ -111,7 +111,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var arc = Arc.Create(new XYZ(0, 0, 0), new XYZ(0, 10, 0), new XYZ(0, 5, 5));
-        var newX = 50.0;
+        const double newX = 50.0;
 
         // Act
         var newArc = arc.SetCoordinateX(newX);
@@ -130,7 +130,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var arc = Arc.Create(new XYZ(0, 0, 0), new XYZ(10, 0, 0), new XYZ(5, 0, 5));
-        var newY = 50.0;
+        const double newY = 50.0;
 
         // Act
         var newArc = arc.SetCoordinateY(newY);
@@ -149,7 +149,7 @@ public sealed class GeometryExtensionsTests : RevitApiTest
     {
         // Arrange
         var arc = Arc.Create(new XYZ(0, 0, 0), new XYZ(10, 0, 0), new XYZ(5, 5, 0));
-        var newZ = 50.0;
+        const double newZ = 50.0;
 
         // Act
         var newArc = arc.SetCoordinateZ(newZ);

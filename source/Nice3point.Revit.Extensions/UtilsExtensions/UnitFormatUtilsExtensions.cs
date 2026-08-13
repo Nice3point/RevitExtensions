@@ -1,10 +1,9 @@
-﻿
+﻿// ReSharper disable once CheckNamespace
 
-// ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
 
 /// <summary>
-///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitFormatUtils"/> class.
+///     Represent extension methods for the <see cref="Autodesk.Revit.DB.UnitFormatUtils" /> class.
 /// </summary>
 [PublicAPI]
 public static class UnitFormatUtilsExtensions
@@ -52,7 +51,7 @@ public static class UnitFormatUtilsExtensions
         }
 #endif
 #if !REVIT2022_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitFormatUtils.Format(Autodesk.Revit.DB.Units,Autodesk.Revit.DB.UnitType,System.Double,System.Boolean,System.Boolean)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitFormatUtils.Format(Autodesk.Revit.DB.Units,Autodesk.Revit.DB.UnitType,System.Double,System.Boolean,System.Boolean)" />
         [Pure]
 #if REVIT2021
         [Obsolete("This method is deprecated in Revit 2021")]
@@ -62,7 +61,7 @@ public static class UnitFormatUtilsExtensions
             return UnitFormatUtils.Format(units, unitType, value, maxAccuracy, forEditing);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitFormatUtils.Format(Autodesk.Revit.DB.Units,Autodesk.Revit.DB.UnitType,System.Double,System.Boolean,System.Boolean,Autodesk.Revit.DB.FormatValueOptions)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitFormatUtils.Format(Autodesk.Revit.DB.Units,Autodesk.Revit.DB.UnitType,System.Double,System.Boolean,System.Boolean,Autodesk.Revit.DB.FormatValueOptions)" />
         [Pure]
 #if REVIT2021
         [Obsolete("This method is deprecated in Revit 2021")]

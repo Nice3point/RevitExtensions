@@ -17,9 +17,9 @@ namespace Nice3point.Revit.Extensions.UI;
 
 /// <summary>
 ///     Contains extension methods for creating and managing custom Ribbon elements in the Revit UI.
-///     These extensions provide simplified methods for adding panels, buttons, and other controls 
+///     These extensions provide simplified methods for adding panels, buttons, and other controls
 ///     to the "Add-ins" tab or any custom tab in the Revit ribbon.
-///     These utilities streamline the process of integrating external commands and tools 
+///     These utilities streamline the process of integrating external commands and tools
 ///     into the Revit user interface.
 /// </summary>
 [PublicAPI]
@@ -64,9 +64,9 @@ public static partial class RibbonExtensions
         ///     If the tab doesn't exist, it will be created first. <br />
         ///     If a panel with the specified name already exists within the tab, it will return that panel; otherwise, a new one will be created. <br />
         ///     Adding a panel also supports built-in tabs.
-        ///     To add a panel to the built-in Revit tab, specify the panel ID or name as the <paramref name="tabName"/> parameter.
+        ///     To add a panel to the built-in Revit tab, specify the panel ID or name as the <paramref name="tabName" /> parameter.
         /// </remarks>
-        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">Thrown when <paramref name="panelName"/> or <paramref name="tabName"/> is empty.</exception>
+        /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">Thrown when <paramref name="panelName" /> or <paramref name="tabName" /> is empty.</exception>
         /// <exception cref="Autodesk.Revit.Exceptions.InvalidOperationException">
         ///     Thrown if more than 100 panels were created, or if the maximum number of custom tabs (20) has been exceeded.
         /// </exception>
@@ -94,7 +94,7 @@ public static partial class RibbonExtensions
             {
                 1 => tabsCollection[0],
                 0 => null,
-                _ => tabsCollection.FirstOrDefault(tab => tab.IsVisible) ?? tabsCollection[0]
+                _ => tabsCollection.FirstOrDefault(static tab => tab.IsVisible) ?? tabsCollection[0]
             };
 
             if (existedTab is not null)
@@ -113,7 +113,7 @@ public static partial class RibbonExtensions
     extension(RibbonPanel panel)
     {
         /// <summary>
-        ///     Removes a specified <see cref="Autodesk.Revit.UI.RibbonPanel"/> from the Revit ribbon.
+        ///     Removes a specified <see cref="Autodesk.Revit.UI.RibbonPanel" /> from the Revit ribbon.
         /// </summary>
         public void RemovePanel()
         {
@@ -152,7 +152,7 @@ public static partial class RibbonExtensions
         {
             var convertedColor = (Color)ColorConverter.ConvertFromString(color);
 
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelBackground = new SolidColorBrush(convertedColor);
 
             return panel;
@@ -171,7 +171,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetBackground(Color color)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelBackground = new SolidColorBrush(color);
 
             return panel;
@@ -195,7 +195,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetBackground(Brush brush)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelBackground = brush;
 
             return panel;
@@ -217,7 +217,7 @@ public static partial class RibbonExtensions
         {
             var convertedColor = (Color)ColorConverter.ConvertFromString(color);
 
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelTitleBarBackground = new SolidColorBrush(convertedColor);
 
             return panel;
@@ -236,7 +236,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetTitleBarBackground(Color color)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelTitleBarBackground = new SolidColorBrush(color);
 
             return panel;
@@ -260,7 +260,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetTitleBarBackground(Brush brush)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomPanelTitleBarBackground = brush;
 
             return panel;
@@ -282,7 +282,7 @@ public static partial class RibbonExtensions
         {
             var convertedColor = (Color)ColorConverter.ConvertFromString(color);
 
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomSlideOutPanelBackground = new SolidColorBrush(convertedColor);
 
             return panel;
@@ -301,7 +301,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetSlideOutPanelBackground(Color color)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomSlideOutPanelBackground = new SolidColorBrush(color);
 
             return panel;
@@ -325,7 +325,7 @@ public static partial class RibbonExtensions
         /// </example>
         public RibbonPanel SetSlideOutPanelBackground(Brush brush)
         {
-            var internalPanel = GetInternalPanel(panel);
+            var internalPanel = panel.GetInternalPanel();
             internalPanel.CustomSlideOutPanelBackground = brush;
 
             return panel;
@@ -334,7 +334,7 @@ public static partial class RibbonExtensions
         /// <summary>
         ///     Adds a vertical stack panel to the specified Ribbon panel.
         /// </summary>
-        /// <returns>An <see cref="IRibbonStackPanel"/> instance representing the newly added stack panel.</returns>
+        /// <returns>An <see cref="IRibbonStackPanel" /> instance representing the newly added stack panel.</returns>
         /// <remarks>
         ///     By default, the StackPanel accommodates one to three elements vertically. If the added items exceed the maximum threshold, they will be automatically added to a new column.
         /// </remarks>
@@ -361,7 +361,7 @@ public static partial class RibbonExtensions
         /// <summary>
         ///     Adds a PushButton to the specified Ribbon panel.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command that implements <see cref="IExternalCommand"/>.</typeparam>
+        /// <typeparam name="TCommand">The type of the command that implements <see cref="IExternalCommand" />.</typeparam>
         /// <param name="buttonText">The label text for the button.</param>
         /// <returns>The newly added PushButton.</returns>
         /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
@@ -381,7 +381,7 @@ public static partial class RibbonExtensions
         /// <returns>The added PullDownButton.</returns>
         public PulldownButton AddPullDownButton(string buttonText)
         {
-            return AddPullDownButton(panel, Guid.NewGuid().ToString(), buttonText);
+            return panel.AddPullDownButton(Guid.NewGuid().ToString(), buttonText);
         }
 
         /// <summary>
@@ -406,7 +406,7 @@ public static partial class RibbonExtensions
         /// <returns>The added SplitButton.</returns>
         public SplitButton AddSplitButton(string buttonText)
         {
-            return AddSplitButton(panel, Guid.NewGuid().ToString(), buttonText);
+            return panel.AddSplitButton(Guid.NewGuid().ToString(), buttonText);
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ public static partial class RibbonExtensions
         /// <returns>The added RadioButtonGroup.</returns>
         public RadioButtonGroup AddRadioButtonGroup()
         {
-            return AddRadioButtonGroup(panel, Guid.NewGuid().ToString());
+            return panel.AddRadioButtonGroup(Guid.NewGuid().ToString());
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ public static partial class RibbonExtensions
         /// <returns>The added ComboBox.</returns>
         public ComboBox AddComboBox()
         {
-            return AddComboBox(panel, Guid.NewGuid().ToString());
+            return panel.AddComboBox(Guid.NewGuid().ToString());
         }
 
         /// <summary>
@@ -476,7 +476,7 @@ public static partial class RibbonExtensions
         /// <returns>The added TextBox.</returns>
         public TextBox AddTextBox()
         {
-            return AddTextBox(panel, Guid.NewGuid().ToString());
+            return panel.AddTextBox(Guid.NewGuid().ToString());
         }
 
         /// <summary>
@@ -565,7 +565,7 @@ public static partial class RibbonExtensions
         /// <summary>
         ///     Adds a PushButton to the specified PullDownButton in the Ribbon.
         /// </summary>
-        /// <typeparam name="TCommand">The type of the command that implements <see cref="IExternalCommand"/>.</typeparam>
+        /// <typeparam name="TCommand">The type of the command that implements <see cref="IExternalCommand" />.</typeparam>
         /// <param name="buttonText">The label text for the button.</param>
         /// <returns>The newly added PushButton.</returns>
         /// <exception cref="Autodesk.Revit.Exceptions.ArgumentException">
@@ -583,10 +583,10 @@ public static partial class RibbonExtensions
     extension(PushButton button)
     {
         /// <summary>
-        ///     Sets the availability controller class for a PushButton. 
+        ///     Sets the availability controller class for a PushButton.
         ///     This class determines when the PushButton will be enabled or disabled in the Revit UI.
         /// </summary>
-        /// <typeparam name="T">A class that implements <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/>.</typeparam>
+        /// <typeparam name="T">A class that implements <see cref="Autodesk.Revit.UI.IExternalCommandAvailability" />.</typeparam>
         /// <returns>The PushButton with the set availability controller.</returns>
         /// <remarks>
         ///     The availability controller must share the same assembly as the external command.
@@ -598,10 +598,10 @@ public static partial class RibbonExtensions
         }
 
         /// <summary>
-        ///     Adds keyboard shortcuts to the specified <see cref="PushButton"/> using the provided string representation.
+        ///     Adds keyboard shortcuts to the specified <see cref="PushButton" /> using the provided string representation.
         /// </summary>
         /// <param name="representation">A string representation of the shortcuts.</param>
-        /// <returns>The <see cref="PushButton"/> with the added shortcuts.</returns>
+        /// <returns>The <see cref="PushButton" /> with the added shortcuts.</returns>
         /// <remarks>The representation can be a single shortcut, or a group of shortcuts with a '#' delimiter</remarks>
         /// <example>
         ///     <code>
@@ -615,10 +615,10 @@ public static partial class RibbonExtensions
         }
 
         /// <summary>
-        ///     Adds keyboard shortcuts to the specified <see cref="PushButton"/> using the provided collection of shortcut strings.
+        ///     Adds keyboard shortcuts to the specified <see cref="PushButton" /> using the provided collection of shortcut strings.
         /// </summary>
         /// <param name="shortcuts">A collection of shortcut strings to be added to the button.</param>
-        /// <returns>The <see cref="PushButton"/> with the added shortcuts.</returns>
+        /// <returns>The <see cref="PushButton" /> with the added shortcuts.</returns>
         /// <example>
         ///     <code>
         ///         button.AddShortcuts("RE", "NP", "QQ");
@@ -631,11 +631,11 @@ public static partial class RibbonExtensions
         }
 
         /// <summary>
-        ///     Attempts to add keyboard shortcuts to the specified <see cref="PushButton"/> using the provided string representation.
+        ///     Attempts to add keyboard shortcuts to the specified <see cref="PushButton" /> using the provided string representation.
         ///     Shortcuts are added only if they do not conflict with existing commands.
         /// </summary>
         /// <param name="representation">A string representation of the shortcuts.</param>
-        /// <returns><see langword="true"/> if at least one shortcut was successfully added; otherwise, <see langword="false"/>.</returns>
+        /// <returns><see langword="true" /> if at least one shortcut was successfully added; otherwise, <see langword="false" />.</returns>
         /// <remarks>The representation can be a single shortcut, or a group of shortcuts with a '#' delimiter</remarks>
         /// <example>
         ///     <code>
@@ -648,11 +648,11 @@ public static partial class RibbonExtensions
         }
 
         /// <summary>
-        ///     Attempts to add keyboard shortcuts to the specified <see cref="PushButton"/> using the provided collection of shortcut strings.
+        ///     Attempts to add keyboard shortcuts to the specified <see cref="PushButton" /> using the provided collection of shortcut strings.
         ///     Shortcuts are added only if they do not conflict with existing commands.
         /// </summary>
         /// <param name="shortcuts">A collection of shortcut strings to be added to the button.</param>
-        /// <returns><see langword="true"/> if at least one shortcut was successfully added; otherwise, <see langword="false"/>.</returns>
+        /// <returns><see langword="true" /> if at least one shortcut was successfully added; otherwise, <see langword="false" />.</returns>
         /// <example>
         ///     <code>
         ///         button.TryAddShortcuts("RE", "NP", "QQ");
@@ -673,7 +673,7 @@ public static partial class RibbonExtensions
         /// <param name="tooltip">The text to display as a tooltip when the mouse pointer hovers over the item.</param>
         /// <returns>The RibbonItem with the specified tooltip text.</returns>
         /// <remarks>
-        ///     The tooltip text appears when the mouse pointer hovers over the item in the Revit UI. 
+        ///     The tooltip text appears when the mouse pointer hovers over the item in the Revit UI.
         ///     This method does not affect SplitButton or RadioButtonGroup controls. For SplitButton, the current PushButton's tooltip will always be displayed.
         ///     RadioButtonGroup controls do not support tooltips.
         /// </remarks>
@@ -687,15 +687,15 @@ public static partial class RibbonExtensions
         ///     Sets the extended tooltip description for the RibbonItem.
         /// </summary>
         /// <param name="description">
-        ///     The text to display as part of the item's extended tooltip. 
-        ///     This text is shown when the mouse hovers over the item for a prolonged period. 
+        ///     The text to display as part of the item's extended tooltip.
+        ///     This text is shown when the mouse hovers over the item for a prolonged period.
         ///     Use &lt;p&gt; tags to separate the text into multiple paragraphs if needed.
         /// </param>
         /// <returns>The RibbonItem with the specified extended tooltip description.</returns>
         /// <remarks>
-        ///     The extended tooltip provides additional information about the command and is optional. 
-        ///     If neither this property nor the TooltipImage is set, the item will not have an extended tooltip. 
-        ///     SplitButton and RadioButtonGroup controls cannot display the extended tooltip set by this method. 
+        ///     The extended tooltip provides additional information about the command and is optional.
+        ///     If neither this property nor the TooltipImage is set, the item will not have an extended tooltip.
+        ///     SplitButton and RadioButtonGroup controls cannot display the extended tooltip set by this method.
         ///     For SplitButton, the current PushButton's tooltip is always displayed, while RadioButtonGroup does not support extended tooltips.
         /// </remarks>
         public RibbonItem SetLongDescription(string description)

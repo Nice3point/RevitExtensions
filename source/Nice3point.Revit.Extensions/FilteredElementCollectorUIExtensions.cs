@@ -67,7 +67,7 @@ public static class FilteredElementCollectorUiExtensions
         [Pure]
         public FilteredElementCollector NotSelectableInView(Document document, ElementId viewId)
         {
-            return collector.WherePasses(new SelectableInViewFilter(document, viewId, inverted: true));
+            return collector.WherePasses(new SelectableInViewFilter(document, viewId, true));
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ public static class FilteredElementCollectorUiExtensions
         [Pure]
         public FilteredElementCollector NotSelectableInView(View view)
         {
-            return collector.WherePasses(new SelectableInViewFilter(view.Document, view.Id, inverted: true));
+            return collector.WherePasses(new SelectableInViewFilter(view.Document, view.Id, true));
         }
     }
 }

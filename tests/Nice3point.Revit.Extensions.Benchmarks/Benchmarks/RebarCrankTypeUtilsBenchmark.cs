@@ -13,7 +13,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // [Host]     : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 // Job-AAUCHH : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 //
-// BuildConfiguration=Release.R27  
+// BuildConfiguration=Release.R27
 //
 // ```
 // | Method                   | Mean     | Error   | StdDev  | Allocated |
@@ -21,7 +21,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // | GetAllRebarCrankTypes    | 182.6 μs | 2.00 μs | 1.87 μs |     144 B |
 // | FilteredElementCollector | 183.4 μs | 1.60 μs | 1.49 μs |     352 B |
 
-
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 [DocumentSource("Structural")]
 public class RebarCrankTypeUtilsBenchmark : RevitDocumentBenchmark
 {

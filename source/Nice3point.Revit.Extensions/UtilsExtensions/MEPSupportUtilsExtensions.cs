@@ -1,5 +1,4 @@
 ﻿#if REVIT2024_OR_GREATER
-using JetBrains.Annotations;
 using Document = Autodesk.Revit.Creation.Document;
 
 // ReSharper disable once CheckNamespace

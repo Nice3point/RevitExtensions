@@ -1,6 +1,5 @@
 ﻿#if REVIT2025_OR_GREATER
 using Autodesk.Revit.DB.Structure;
-using JetBrains.Annotations;
 using Nice3point.Revit.Extensions.Internal;
 using Document = Autodesk.Revit.Creation.Document;
 

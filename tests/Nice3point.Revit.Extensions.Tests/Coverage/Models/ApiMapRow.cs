@@ -31,12 +31,12 @@ public sealed record ApiMapRow
     public required string EnumeratedType { get; init; }
 
     /// <summary>
-    ///     The members the map leaves to an extension, named by <see cref="ApiCollectionIssues"/>.
+    ///     The members the map leaves to an extension, named by <see cref="ApiCollectionIssues" />.
     /// </summary>
     public required IReadOnlyList<string> Issues { get; init; }
 
     /// <summary>
-    ///     Names of the library source files declaring an extension over <see cref="TypeName"/>.
+    ///     Names of the library source files declaring an extension over <see cref="TypeName" />.
     ///     An empty list marks a map the library does not wrap yet.
     /// </summary>
     public required IReadOnlyList<string> ImplementationFiles { get; init; }

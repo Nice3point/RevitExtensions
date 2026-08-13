@@ -31,13 +31,13 @@ public sealed record ApiCollectionRow
     public required string EnumeratedType { get; init; }
 
     /// <summary>
-    ///     The members the collection leaves to an extension, named by <see cref="ApiCollectionIssues"/>.
+    ///     The members the collection leaves to an extension, named by <see cref="ApiCollectionIssues" />.
     ///     An empty list marks a collection carrying the whole BCL surface already.
     /// </summary>
     public required IReadOnlyList<string> Issues { get; init; }
 
     /// <summary>
-    ///     Names of the library source files declaring an extension over <see cref="TypeName"/>.
+    ///     Names of the library source files declaring an extension over <see cref="TypeName" />.
     ///     An empty list marks a collection the library does not wrap yet.
     /// </summary>
     public required IReadOnlyList<string> ImplementationFiles { get; init; }

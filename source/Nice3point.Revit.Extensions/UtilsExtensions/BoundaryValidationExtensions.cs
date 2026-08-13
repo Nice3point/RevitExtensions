@@ -1,5 +1,5 @@
 ﻿#if REVIT2022_OR_GREATER
-using JetBrains.Annotations;
+
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;

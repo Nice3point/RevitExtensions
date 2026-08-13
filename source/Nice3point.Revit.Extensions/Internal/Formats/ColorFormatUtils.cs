@@ -10,26 +10,32 @@ namespace Nice3point.Revit.Extensions.Internal.Formats;
 /// </remarks>
 internal static class ColorFormatUtils
 {
-    /// <summary>
-    ///     Return a drawing color of a given <see cref="global::System.Windows.Media.Color"/>
-    /// </summary>
-    internal static Color GetDrawingColor(this System.Windows.Media.Color color)
+    extension(System.Windows.Media.Color color)
     {
-        return Color.FromArgb(1, color.R, color.G, color.B);
+        /// <summary>
+        ///     Return a drawing color of a given <see cref="global::System.Windows.Media.Color" />
+        /// </summary>
+        internal Color GetDrawingColor()
+        {
+            return Color.FromArgb(1, color.R, color.G, color.B);
+        }
+    }
+
+    extension(Autodesk.Revit.DB.Color color)
+    {
+        /// <summary>
+        ///     Return a drawing color of a given <see cref="Autodesk.Revit.DB.Color" />
+        /// </summary>
+        internal Color GetDrawingColor()
+        {
+            return Color.FromArgb(1, color.Red, color.Green, color.Blue);
+        }
     }
 
     /// <summary>
-    ///     Return a drawing color of a given <see cref="Autodesk.Revit.DB.Color"/>
+    ///     Convert a given <see cref="Color" /> to a CMYK color (cyan, magenta, yellow, black key)
     /// </summary>
-    internal static Color GetDrawingColor(this Autodesk.Revit.DB.Color color)
-    {
-        return Color.FromArgb(1, color.Red, color.Green, color.Blue);
-    }
-
-    /// <summary>
-    /// Convert a given <see cref="Color"/> to a CMYK color (cyan, magenta, yellow, black key)
-    /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The cyan[0..1], magenta[0..1], yellow[0..1] and black key[0..1] of the converted color</returns>
     internal static (double Cyan, double Magenta, double Yellow, double BlackKey) ConvertToCmykColor(Color color)
     {
@@ -59,9 +65,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a HSB color (hue, saturation, brightness)
+    ///     Convert a given <see cref="Color" /> to a HSB color (hue, saturation, brightness)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue [0°..360°], saturation [0..1] and brightness [0..1] of the converted color</returns>
     internal static (double Hue, double Saturation, double Brightness) ConvertToHsbColor(Color color)
     {
@@ -70,9 +76,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a HSV color (hue, saturation, value)
+    ///     Convert a given <see cref="Color" /> to a HSV color (hue, saturation, value)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue [0°..360°], saturation [0..1] and value [0..1] of the converted color</returns>
     internal static (double Hue, double Saturation, double Value) ConvertToHsvColor(Color color)
     {
@@ -83,14 +89,14 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a HSI color (hue, saturation, intensity)
+    ///     Convert a given <see cref="Color" /> to a HSI color (hue, saturation, intensity)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue [0°..360°], saturation [0..1] and intensity [0..1] of the converted color</returns>
     internal static (double Hue, double Saturation, double Intensity) ConvertToHsiColor(Color color)
     {
         // special case for black
-        if (color.R == 0 && color.G == 0 && color.B == 0)
+        if (color is { R: 0, G: 0, B: 0 })
         {
             return (0d, 0d, 0d);
         }
@@ -107,9 +113,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a HSL color (hue, saturation, lightness)
+    ///     Convert a given <see cref="Color" /> to a HSL color (hue, saturation, lightness)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue [0°..360°], saturation [0..1] and lightness [0..1] values of the converted color</returns>
     internal static (double Hue, double Saturation, double Lightness) ConvertToHslColor(Color color)
     {
@@ -132,9 +138,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a HWB color (hue, whiteness, blackness)
+    ///     Convert a given <see cref="Color" /> to a HWB color (hue, whiteness, blackness)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue [0°..360°], whiteness [0..1] and blackness [0..1] of the converted color</returns>
     internal static (double Hue, double Whiteness, double Blackness) ConvertToHwbColor(Color color)
     {
@@ -145,9 +151,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a CIE LAB color (LAB)
+    ///     Convert a given <see cref="Color" /> to a CIE LAB color (LAB)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The lightness [0..100] and two chromaticities [-128..127]</returns>
     internal static (double Lightness, double ChromaticityA, double ChromaticityB) ConvertToCielabColor(Color color)
     {
@@ -158,13 +164,13 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a CIE XYZ color (XYZ)
-    /// The constants of the formula matches this Wikipedia page, but at a higher precision:
-    /// https://en.wikipedia.org/wiki/SRGB#The_reverse_transformation_(sRGB_to_CIE_XYZ)
-    /// This page provides a method to calculate the constants:
-    /// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
+    ///     Convert a given <see cref="Color" /> to a CIE XYZ color (XYZ)
+    ///     The constants of the formula matches this Wikipedia page, but at a higher precision:
+    ///     https://en.wikipedia.org/wiki/SRGB#The_reverse_transformation_(sRGB_to_CIE_XYZ)
+    ///     This page provides a method to calculate the constants:
+    ///     http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The X [0..1], Y [0..1] and Z [0..1]</returns>
     internal static (double X, double Y, double Z) ConvertToCiexyzColor(Color color)
     {
@@ -185,9 +191,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a CIE XYZ color <see cref="double"/> to a CIE LAB color (LAB) adapted to sRGB D65 white point
-    /// The constants of the formula used come from this wikipedia page:
-    /// https://en.wikipedia.org/wiki/CIELAB_color_space#Converting_between_CIELAB_and_CIEXYZ_coordinates
+    ///     Convert a CIE XYZ color <see cref="double" /> to a CIE LAB color (LAB) adapted to sRGB D65 white point
+    ///     The constants of the formula used come from this wikipedia page:
+    ///     https://en.wikipedia.org/wiki/CIELAB_color_space#Converting_between_CIELAB_and_CIEXYZ_coordinates
     /// </summary>
     /// <param name="x">The x represents a mix of the three CIE RGB curves</param>
     /// <param name="y">The y represents the luminance</param>
@@ -226,9 +232,9 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Convert a given <see cref="Color"/> to a natural color (hue, whiteness, blackness)
+    ///     Convert a given <see cref="Color" /> to a natural color (hue, whiteness, blackness)
     /// </summary>
-    /// <param name="color">The <see cref="Color"/> to convert</param>
+    /// <param name="color">The <see cref="Color" /> to convert</param>
     /// <returns>The hue, whiteness [0..1] and blackness [0..1] of the converted color</returns>
     internal static (string Hue, double Whiteness, double Blackness) ConvertToNaturalColor(Color color)
     {
@@ -239,7 +245,7 @@ internal static class ColorFormatUtils
     }
 
     /// <summary>
-    /// Return the natural color for the given hue value
+    ///     Return the natural color for the given hue value
     /// </summary>
     /// <param name="hue">The hue value to convert</param>
     /// <returns>A natural color</returns>

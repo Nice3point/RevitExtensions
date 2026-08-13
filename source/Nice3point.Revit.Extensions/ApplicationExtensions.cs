@@ -1,10 +1,9 @@
-using Autodesk.Revit.ApplicationServices;
 #if NET8_0_OR_GREATER
 using Nice3point.Revit.Extensions.Internal;
-
 #else
 using System.Reflection;
 #endif
+using Autodesk.Revit.ApplicationServices;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -29,7 +28,7 @@ public static class ApplicationExtensions
 #if NET8_0_OR_GREATER
             return UnsafeAccessors.CreateControlledApplication(application);
 #else
-            return (ControlledApplication) Activator.CreateInstance(
+            return (ControlledApplication)Activator.CreateInstance(
                 typeof(ControlledApplication),
                 BindingFlags.Instance | BindingFlags.NonPublic,
                 null,

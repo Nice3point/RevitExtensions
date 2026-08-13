@@ -9,7 +9,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task Round_DefaultPrecision_RoundsTo9Decimals()
     {
         // Arrange
-        var value = 6.56170000000000000000000001;
+        const double value = 6.56170000000000000000000001;
 
         // Act
         var rounded = value.Round();
@@ -22,7 +22,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task Round_ZeroDecimals_RoundsToInteger()
     {
         // Arrange
-        var value = 6.56170000000000000000000001;
+        const double value = 6.56170000000000000000000001;
 
         // Act
         var rounded = value.Round(0);
@@ -35,7 +35,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task Round_TwoDecimals_RoundsCorrectly()
     {
         // Arrange
-        var value = 6.56789;
+        const double value = 6.56789;
 
         // Act
         var rounded = value.Round(2);
@@ -48,8 +48,8 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsAlmostEqual_DefaultTolerance_SmallDifferenceReturnsTrue()
     {
         // Arrange
-        var value1 = 6.56170000000000000000000001;
-        var value2 = 6.5617;
+        const double value1 = 6.56170000000000000000000001;
+        const double value2 = 6.5617;
 
         // Act
         var result = value1.IsAlmostEqual(value2);
@@ -62,8 +62,8 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsAlmostEqual_DefaultTolerance_LargeDifferenceReturnsFalse()
     {
         // Arrange
-        var value1 = 6.5617;
-        var value2 = 6.6;
+        const double value1 = 6.5617;
+        const double value2 = 6.6;
 
         // Act
         var result = value1.IsAlmostEqual(value2);
@@ -76,8 +76,8 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsAlmostEqual_CustomTolerance_WithinToleranceReturnsTrue()
     {
         // Arrange
-        var value1 = 6.56170000000001;
-        var value2 = 6.6;
+        const double value1 = 6.56170000000001;
+        const double value2 = 6.6;
 
         // Act
         var result = value1.IsAlmostEqual(value2, 1e-1);
@@ -90,8 +90,8 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsAlmostEqual_CustomTolerance_OutsideToleranceReturnsFalse()
     {
         // Arrange
-        var value1 = 6.5;
-        var value2 = 6.7;
+        const double value1 = 6.5;
+        const double value2 = 6.7;
 
         // Act
         var result = value1.IsAlmostEqual(value2, 1e-1);
@@ -130,7 +130,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsNullOrEmpty_NonEmptyString_ReturnsFalse()
     {
         // Arrange
-        var value = "Hello";
+        const string value = "Hello";
 
         // Act
         var result = value.IsNullOrEmpty();
@@ -143,7 +143,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsNullOrWhiteSpace_WhiteSpaceString_ReturnsTrue()
     {
         // Arrange
-        var value = "   ";
+        const string value = "   ";
 
         // Act
         var result = value.IsNullOrWhiteSpace();
@@ -169,7 +169,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task IsNullOrWhiteSpace_NonWhiteSpaceString_ReturnsFalse()
     {
         // Arrange
-        var value = "Hello";
+        const string value = "Hello";
 
         // Act
         var result = value.IsNullOrWhiteSpace();
@@ -182,8 +182,8 @@ public sealed class SystemExtensionsTests : RevitApiTest
     public async Task AppendPath_TwoPaths_CombinesCorrectly()
     {
         // Arrange
-        var basePath = @"C:\Folder";
-        var subPath = "AddIn";
+        const string basePath = @"C:\Folder";
+        const string subPath = "AddIn";
 
         // Act
         var result = basePath.AppendPath(subPath);
@@ -216,6 +216,6 @@ public sealed class SystemExtensionsTests : RevitApiTest
         object obj = "Hello World";
 
         // Act / Assert
-        await Assert.That(() => obj.Cast<int>()).Throws<InvalidCastException>();
+        await Assert.That(obj.Cast<int>).Throws<InvalidCastException>();
     }
 }

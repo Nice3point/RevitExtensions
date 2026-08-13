@@ -14,7 +14,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // [Host]     : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 // Job-AAUCHH : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 //
-// BuildConfiguration=Release.R27  
+// BuildConfiguration=Release.R27
 //
 // ```
 //
@@ -40,16 +40,16 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 ///     An array exposes <c>Size</c> and an indexed <c>Item</c> property, a set exposes neither and yields its elements through an enumerator only.
 ///     A map keeps the key of the current entry on the iterator and the value on <c>Current</c>; reading a pair costs two interop calls, reading one side of it costs one.
 /// </remarks>
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class EnumerationBenchmark : RevitApiBenchmark
 {
-    private readonly Consumer _consumer = new();
-
     private const int CurveCount = 1000;
+    private readonly Consumer _consumer = new();
+    private CategorySet _categorySet = null!;
+    private CurveArray _curveArray = null!;
 
     private Document _document = null!;
-    private CurveArray _curveArray = null!;
-    private CategorySet _categorySet = null!;
     private ParameterMap _parameterMap = null!;
 
     protected override void OnGlobalSetup()

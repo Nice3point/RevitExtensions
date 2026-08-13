@@ -1,6 +1,5 @@
 ﻿#if REVIT2026_OR_GREATER
 using Autodesk.Revit.DB.ExternalData;
-using JetBrains.Annotations;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.ExternalData;

@@ -6,7 +6,7 @@ namespace Nice3point.Revit.Extensions.Tests.Coverage.Models;
 /// <remarks>
 ///     Every issue names a capability the raw API reaches through no single call, never a member the API already provides
 ///     under another name: <c>Size</c>, <c>Insert</c>, <c>Erase</c>, and <c>Contains</c> need no extension.
-///     <see cref="NoGenericEnumerable"/> is the exception, reported although no extension adds an interface to a type.
+///     <see cref="NoGenericEnumerable" /> is the exception, reported although no extension adds an interface to a type.
 /// </remarks>
 public static class ApiCollectionIssues
 {
@@ -16,7 +16,7 @@ public static class ApiCollectionIssues
     public const string NoGenericEnumerable = "no IEnumerable<T>";
 
     /// <summary>
-    ///     A <c>foreach</c> over the collection yields <see cref="object"/>.
+    ///     A <c>foreach</c> over the collection yields <see cref="object" />.
     /// </summary>
     public const string UntypedEnumeration = "enumeration yields object";
 

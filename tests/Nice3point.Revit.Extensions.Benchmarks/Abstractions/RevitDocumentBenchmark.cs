@@ -2,6 +2,7 @@
 
 namespace Nice3point.Revit.Extensions.Benchmarks.Abstractions;
 
+[PublicAPI]
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class DocumentSourceAttribute(string keyword, string extension) : Attribute
 {
@@ -23,7 +24,7 @@ public abstract class RevitDocumentBenchmark : RevitApiBenchmark
 
     protected override void OnGlobalSetup()
     {
-        var sourceAttribute = GetType().GetCustomAttributes(typeof(DocumentSourceAttribute), inherit: false)
+        var sourceAttribute = GetType().GetCustomAttributes(typeof(DocumentSourceAttribute), false)
             .Cast<DocumentSourceAttribute>()
             .FirstOrDefault();
 
@@ -45,7 +46,10 @@ public abstract class RevitDocumentBenchmark : RevitApiBenchmark
             .OrderBy(path => new FileInfo(path).Length)
             .FirstOrDefault();
 
-        if (targetPath is null) throw new InvalidOperationException($"Cannot find a file matching '{sourceAttribute.Keyword ?? sourceAttribute.Extension}' in {samplesPath}");
+        if (targetPath is null)
+        {
+            throw new InvalidOperationException($"Cannot find a file matching '{sourceAttribute.Keyword ?? sourceAttribute.Extension}' in {samplesPath}");
+        }
 
         Document = Application.OpenDocumentFile(targetPath);
     }

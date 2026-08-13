@@ -34,7 +34,7 @@ public sealed class ElementIdExtensionsTests : RevitFamilySampleTest
     public async Task ToLong_BuiltInCategory_ReturnsUnderlyingValue()
     {
         // Arrange
-        var category = BuiltInCategory.OST_Walls;
+        const BuiltInCategory category = BuiltInCategory.OST_Walls;
 
         // Act
         var value = category.ToLong();
@@ -99,7 +99,7 @@ public sealed class ElementIdExtensionsTests : RevitFamilySampleTest
     public async Task ToLong_BuiltInParameter_ReturnsUnderlyingValue()
     {
         // Arrange
-        var parameter = BuiltInParameter.WALL_BOTTOM_IS_ATTACHED;
+        const BuiltInParameter parameter = BuiltInParameter.WALL_BOTTOM_IS_ATTACHED;
 
         // Act
         var value = parameter.ToLong();

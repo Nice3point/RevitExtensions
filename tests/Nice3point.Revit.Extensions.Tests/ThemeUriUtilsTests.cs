@@ -12,7 +12,7 @@ public sealed class ThemeUriUtilsTests
     public async Task TryGetThemedUri_UriWithoutThemeToken_ReturnsFalse(string uri)
     {
         // Act
-        var themed = ThemeUriUtils.TryGetThemedUri(uri, darkTheme: true, out var result);
+        var themed = ThemeUriUtils.TryGetThemedUri(uri, true, out var result);
 
         // Assert
         using (Assert.Multiple())

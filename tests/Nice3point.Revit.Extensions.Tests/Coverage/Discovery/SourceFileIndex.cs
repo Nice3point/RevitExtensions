@@ -8,7 +8,11 @@ namespace Nice3point.Revit.Extensions.Tests.Coverage.Discovery;
 /// <remarks>
 ///     The match is textual and case sensitive. A name written in a comment or in documentation counts as a mention.
 /// </remarks>
-internal sealed partial class SourceFileIndex
+internal sealed
+#if NET
+    partial
+#endif
+    class SourceFileIndex
 {
     private const string ReceiverExpression = @"(?:extension\(|\(\s*this\s+)\s*(?:[\w.]+\.)?(?<type>\w+)\b";
 
@@ -76,31 +80,28 @@ internal sealed partial class SourceFileIndex
         var index = new Dictionary<string, List<string>>(StringComparer.Ordinal);
 
         foreach (var file in files)
+        foreach (var match in ReceiverPattern().Matches(file.Content).Cast<Match>())
         {
-            foreach (var match in ReceiverPattern().Matches(file.Content).Cast<Match>())
+            var typeName = match.Groups["type"].Value;
+
+            if (!index.TryGetValue(typeName, out var fileNames))
             {
-                var typeName = match.Groups["type"].Value;
-
-                if (!index.TryGetValue(typeName, out var fileNames))
-                {
-                    fileNames = [];
-                    index[typeName] = fileNames;
-                }
-
-                // The matches of one file arrive in a row. The last entry holds every repeated receiver.
-                if (fileNames is [.., var lastFileName] && lastFileName == file.FileName)
-                {
-                    continue;
-                }
-
-                fileNames.Add(file.FileName);
+                fileNames = [];
+                index[typeName] = fileNames;
             }
+
+            // The matches of one file arrive in a row. The last entry holds every repeated receiver.
+            if (fileNames is [.., var lastFileName] && lastFileName == file.FileName)
+            {
+                continue;
+            }
+
+            fileNames.Add(file.FileName);
         }
 
         return index;
     }
 #if NET
-
     /// <summary>
     ///     Matches an extension block receiver and a classic extension method receiver, capturing the short type name.
     /// </summary>

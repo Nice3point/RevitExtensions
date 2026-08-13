@@ -12,7 +12,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 //   [Host]     : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 //   Job-AAUCHH : .NET 10.0.10 (10.0.10, 10.0.1026.32716), X64 RyuJIT x86-64-v4
 //
-// BuildConfiguration=Release.R27  
+// BuildConfiguration=Release.R27
 //
 // ```
 //
@@ -59,13 +59,14 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // | OfCategory(BuiltInCategory).OnLevel()  |   408.403 μs | 4.4977 μs | 4.2072 μs |      - |      - |    1304 B |
 // | OnLevel().OfCategory(BuiltInCategory)  |   409.903 μs | 6.0610 μs | 5.6695 μs |      - |      - |    1304 B |
 
+[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 public class FilteredElementCollectorBenchmark : RevitApiBenchmark
 {
     private Document _document = null!;
-    private Level _groundFloor = null!;
     private Level _firstFloor = null!;
     private View _floorPlan = null!;
+    private Level _groundFloor = null!;
 
     protected override void OnGlobalSetup()
     {

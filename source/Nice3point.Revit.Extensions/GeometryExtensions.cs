@@ -58,7 +58,7 @@ public static class GeometryExtensions
         /// <param name="x">New X coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Line SetCoordinateX(double x)
@@ -74,7 +74,7 @@ public static class GeometryExtensions
         /// <param name="y">New Y coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Line SetCoordinateY(double y)
@@ -90,7 +90,7 @@ public static class GeometryExtensions
         /// <param name="z">New Z coordinate</param>
         /// <returns>The new bound line</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Line SetCoordinateZ(double z)
@@ -107,18 +107,18 @@ public static class GeometryExtensions
         /// <summary>
         ///     Determines whether the specified point is contained within this bounding box
         /// </summary>
-        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within this bounding box</param>
+        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ" /> point to check for containment within this bounding box</param>
         /// <returns><c>true</c> if the specified point is within the bounds of this bounding box</returns>
         [Pure]
         public bool Contains(XYZ point)
         {
-            return Contains(box, point, false);
+            return box.Contains(point, false);
         }
 
         /// <summary>
         ///     Determines whether the specified point is contained within this bounding box
         /// </summary>
-        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ"/> point to check for containment within this bounding box</param>
+        /// <param name="point">The <see cref="Autodesk.Revit.DB.XYZ" /> point to check for containment within this bounding box</param>
         /// <param name="strict"><c>true</c> if the point needs to be fully on the inside of this bounding box. A point coinciding with the box border will be considered 'outside'.</param>
         /// <returns><c>true</c> if the specified point is within the bounds of this bounding box</returns>
         [Pure]
@@ -145,20 +145,20 @@ public static class GeometryExtensions
         }
 
         /// <summary>
-        /// Determines whether this bounding box contains another bounding box
+        ///     Determines whether this bounding box contains another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ" /> instance to compare with this bounding box</param>
         /// <returns><c>true</c> if this bounding box contains the other bounding box</returns>
         [Pure]
         public bool Contains(BoundingBoxXYZ other)
         {
-            return Contains(box, other, false);
+            return box.Contains(other, false);
         }
 
         /// <summary>
-        /// Determines whether this bounding box contains another bounding box
+        ///     Determines whether this bounding box contains another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ" /> instance to compare with this bounding box</param>
         /// <param name="strict"><c>true</c> if the other box needs to be fully on the inside of this bounding box. Coincident boxes will be considered 'outside'.</param>
         /// <returns><c>true</c> if this bounding box contains the other bounding box</returns>
         [Pure]
@@ -187,7 +187,7 @@ public static class GeometryExtensions
         /// <summary>
         ///     Determines whether this bounding box overlaps with another bounding box
         /// </summary>
-        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ"/> instance to compare with this bounding box</param>
+        /// <param name="other">The <see cref="Autodesk.Revit.DB.BoundingBoxXYZ" /> instance to compare with this bounding box</param>
         /// <returns><c>true</c> if the two bounding boxes have at least one common point</returns>
         [Pure]
         public bool Overlaps(BoundingBoxXYZ other)
@@ -214,7 +214,7 @@ public static class GeometryExtensions
         /// <param name="x">New X coordinate</param>
         /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateX(double x)
@@ -234,7 +234,7 @@ public static class GeometryExtensions
         /// <param name="y">New Y coordinate</param>
         /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateY(double y)
@@ -254,7 +254,7 @@ public static class GeometryExtensions
         /// <param name="z">New Z coordinate</param>
         /// <returns>The new arc</returns>
         /// <exception cref="T:Autodesk.Revit.Exceptions.ArgumentsInconsistentException">
-        ///    Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
+        ///     Curve length is too small for Revit's tolerance (as identified by Application.ShortCurveTolerance)
         /// </exception>
         [Pure]
         public Arc SetCoordinateZ(double z)

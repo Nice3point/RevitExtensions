@@ -1,5 +1,5 @@
 ﻿#if REVIT2022_OR_GREATER
-using JetBrains.Annotations;
+
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;
@@ -22,7 +22,7 @@ public static class ExternallyTaggedGeometryValidationExtensions
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ExternallyTaggedGeometryValidation.LacksSubnodes(Autodesk.Revit.DB.GeometryObject)"/>
         public bool LacksSubnodes => ExternallyTaggedGeometryValidation.LacksSubnodes(geometry);
-#endif  
+#endif
     }
 }
 #endif

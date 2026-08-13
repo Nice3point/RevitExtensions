@@ -74,7 +74,7 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         var pointOnBorder = new XYZ(10, 10, 10);
 
         // Act
-        var contains = boundingBox.Contains(pointOnBorder, strict: true);
+        var contains = boundingBox.Contains(pointOnBorder, true);
 
         // Assert
         await Assert.That(contains).IsFalse();

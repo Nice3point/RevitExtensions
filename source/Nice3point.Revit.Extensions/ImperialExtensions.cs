@@ -49,10 +49,16 @@ public static
         [Obsolete("Use UnitsNet package instead")]
         public double FromFraction()
         {
-            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
 
             var match = ImperialRegex.Match(source);
-            if (!match.Success) throw new FormatException($"Invalid imperial format: {source}");
+            if (!match.Success)
+            {
+                throw new FormatException($"Invalid imperial format: {source}");
+            }
 
             return ParseFraction(match);
         }
@@ -81,10 +87,16 @@ public static
         {
             value = 0;
 
-            if (string.IsNullOrWhiteSpace(source)) return false;
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return false;
+            }
 
             var match = ImperialRegex.Match(source);
-            if (!match.Success) return false;
+            if (!match.Success)
+            {
+                return false;
+            }
 
             value = ParseFraction(match);
             return true;
@@ -97,7 +109,7 @@ public static
         [Obsolete("Use TryFromFraction instead")]
         public bool FromFraction(out double value)
         {
-            return TryFromFraction(source, out value);
+            return source.TryFromFraction(out value);
         }
     }
 
@@ -109,7 +121,7 @@ public static
         ///     expressed as feet, inches, and fractional inches with a specified denominator.
         /// </summary>
         /// <param name="denominator">
-        ///     The denominator used for fractional inches (8 for 1/8", 16 for 1/16"). 
+        ///     The denominator used for fractional inches (8 for 1/8", 16 for 1/16").
         /// </param>
         /// <returns>
         ///     A string representation of the measurement in feet, inches, and fractional inches.
@@ -124,12 +136,15 @@ public static
         [Obsolete("Use UnitsNet package instead")]
         public string ToFraction(int denominator)
         {
-            if (denominator < 1) throw new ArgumentException("Denominator must be greater than or equal to 1", nameof(denominator));
+            if (denominator < 1)
+            {
+                throw new ArgumentException("Denominator must be greater than or equal to 1", nameof(denominator));
+            }
 
             var divider = denominator;
             var feet = (int)Math.Abs(source);
             var decimalInches = Math.Abs((int)(source * 12 % 12));
-            var inches = (int)Math.Abs(decimalInches);
+            var inches = decimalInches;
             var numerator = (int)((decimalInches - inches) * divider + 0.5);
 
             while (numerator % 2 == 0 && divider % 2 == 0)
@@ -140,13 +155,23 @@ public static
 
             if (divider == numerator)
             {
-                if (source < 0) inches--;
-                else inches++;
+                if (source < 0)
+                {
+                    inches--;
+                }
+                else
+                {
+                    inches++;
+                }
+
                 numerator = 0;
             }
 
             var valueBuilder = new StringBuilder();
-            if (source + 1d / denominator < 0) valueBuilder.Append('-');
+            if (source + 1d / denominator < 0)
+            {
+                valueBuilder.Append('-');
+            }
 
             if (feet > 0)
             {
@@ -156,7 +181,10 @@ public static
 
             if (inches > 0 || numerator != 0)
             {
-                if (feet > 0) valueBuilder.Append('-');
+                if (feet > 0)
+                {
+                    valueBuilder.Append('-');
+                }
 
                 if (inches > 0)
                 {
@@ -165,7 +193,11 @@ public static
 
                 if (numerator != 0)
                 {
-                    if (inches > 0) valueBuilder.Append(' ');
+                    if (inches > 0)
+                    {
+                        valueBuilder.Append(' ');
+                    }
+
                     valueBuilder.Append(numerator);
                     valueBuilder.Append('/');
                     valueBuilder.Append(divider);
@@ -194,7 +226,7 @@ public static
         [Obsolete("Use UnitsNet package instead")]
         public string ToFraction()
         {
-            return ToFraction(source, 8);
+            return source.ToFraction(8);
         }
     }
 

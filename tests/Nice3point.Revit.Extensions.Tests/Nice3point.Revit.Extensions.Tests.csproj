@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\source\Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj" />
+        <ProjectReference Include="..\..\source\Nice3point.Revit.Extensions\Nice3point.Revit.Extensions.csproj"/>
     </ItemGroup>
 
 </Project>

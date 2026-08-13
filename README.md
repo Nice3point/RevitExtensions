@@ -40,6 +40,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 ## Table of contents
 
 <!-- TOC -->
+
 * [Element](#element)
     * [Transformation](#transformation)
     * [Joins and cuts](#joins-and-cuts)
@@ -106,6 +107,7 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
     * [Point clouds](#point-clouds)
 * [DirectContext3D](#directcontext3d)
 * [System](#system)
+
 <!-- TOC -->
 
 ## Element
@@ -1629,7 +1631,7 @@ var decimalColor = color.ToDecimal();
 The Revit API mirrors the native C++ containers, so a collection stops its contract at the non-generic `IEnumerable`.
 A `foreach` over it yields `object`, and every LINQ query opens with a cast.
 
-**EnumerateValues** returns a typed enumeration of the elements a collection holds. 
+**EnumerateValues** returns a typed enumeration of the elements a collection holds.
 
 This extension is available for every `Array` and every `Set` from RevitAPI.
 An array is read by its index, up to **10%** faster than the `Cast<T>()` it replaces.
@@ -1972,7 +1974,7 @@ var selectable = document.CollectElements(viewId)
 
 **NotSelectableInView** applies an inverted `SelectableInViewFilter` to match all elements that are not selectable in the given view.
 
-```csharp 
+```csharp
 var notSelectable = document.CollectElements(viewId)
     .NotSelectableInView(view)
     .ToElements();

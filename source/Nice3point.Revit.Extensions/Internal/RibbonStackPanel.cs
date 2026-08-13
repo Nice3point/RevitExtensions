@@ -9,13 +9,13 @@ namespace Nice3point.Revit.Extensions.Internal;
 internal sealed class RibbonStackPanel : IRibbonStackPanel
 {
     private const int MaxStackPanelItemsCount = 5;
-
-    private RibbonRowPanel _currentPanel;
-    private readonly RibbonPanel _host;
-    private readonly Autodesk.Windows.RibbonPanel _rawPanel;
 #if !NET8_0_OR_GREATER
     private readonly MethodInfo _addItemMethod;
 #endif
+    private readonly RibbonPanel _host;
+    private readonly Autodesk.Windows.RibbonPanel _rawPanel;
+
+    private RibbonRowPanel _currentPanel;
 
     internal RibbonStackPanel(RibbonPanel host)
     {

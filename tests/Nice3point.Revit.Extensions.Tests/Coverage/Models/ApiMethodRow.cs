@@ -21,7 +21,7 @@ public sealed record ApiMethodRow
     public required string Parameters { get; init; }
 
     /// <summary>
-    ///     Names of the library source files that mention <see cref="QualifiedName"/>.
+    ///     Names of the library source files that mention <see cref="QualifiedName" />.
     ///     An empty list marks a method the library does not wrap yet.
     /// </summary>
     public required IReadOnlyList<string> ImplementationFiles { get; init; }
