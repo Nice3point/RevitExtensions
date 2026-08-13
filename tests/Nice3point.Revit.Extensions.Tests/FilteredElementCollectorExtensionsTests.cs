@@ -11,6 +11,20 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 {
     private static readonly Guid SchemaGuid = new("A1B2C3D4-E5F6-7890-ABCD-EF1234567890");
 
+    private ViewPlan _areaView = null!;
+    private Wall _crossingWall = null!;
+    private Document _document = null!;
+    private Family _family = null!;
+    private FamilySymbol _familySymbol = null!;
+    private Level _firstFloor = null!;
+    private View _floorPlan = null!;
+    private Grid _grid = null!;
+    private Level _groundFloor = null!;
+    private Phase _phase = null!;
+    private Room _room = null!;
+    private Wall _wall = null!;
+    private WorksetId _worksetId = null!;
+
     [Before(Test)]
     [HookExecutor<RevitThreadExecutor>]
     public void SeedModel()
@@ -58,6 +72,8 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     [HookExecutor<RevitThreadExecutor>]
     public void CloseModel()
     {
+        _familySymbol.Dispose();
+        _phase.Dispose();
         _document.Close(false);
     }
 
@@ -1490,22 +1506,6 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         return GeometryCreationUtilities.CreateExtrusionGeometry([profile], XYZ.BasisZ, size);
     }
 
-#pragma warning disable TUnit0023
-    private Document _document = null!;
-
-    private Level _groundFloor = null!;
-    private Level _firstFloor = null!;
-    private Wall _wall = null!;
-    private Wall _crossingWall = null!;
-    private Grid _grid = null!;
-    private Room _room = null!;
-    private FamilySymbol _familySymbol = null!;
-    private Family _family = null!;
-    private View _floorPlan = null!;
-    private ViewPlan _areaView = null!;
-    private Phase _phase = null!;
-    private WorksetId _worksetId = null!;
-#pragma warning restore TUnit0023
 #if REVIT2021_OR_GREATER
 
     [Test]

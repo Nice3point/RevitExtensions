@@ -7,6 +7,9 @@ namespace Nice3point.Revit.Extensions.Tests;
 public sealed class MapExtensionsTests : RevitApiTest
 {
     private const string SharedParameterName = "MapExtensionsTestParameter";
+
+    private Document _document = null!;
+    private Level _level = null!;
     private string _originalSharedParametersPath = null!;
     private string _sharedParametersPath = null!;
 
@@ -51,6 +54,7 @@ public sealed class MapExtensionsTests : RevitApiTest
     [HookExecutor<RevitThreadExecutor>]
     public void RestoreSharedParameterFile()
     {
+        _level.Dispose();
         _document.Close(false);
         Application.SharedParametersFilename = _originalSharedParametersPath;
         File.Delete(_sharedParametersPath);
@@ -275,9 +279,4 @@ public sealed class MapExtensionsTests : RevitApiTest
         // Assert
         await Assert.That(values.Count).IsEqualTo(bindings.Size);
     }
-
-#pragma warning disable TUnit0023
-    private Document _document = null!;
-    private Level _level = null!;
-#pragma warning restore TUnit0023
 }
