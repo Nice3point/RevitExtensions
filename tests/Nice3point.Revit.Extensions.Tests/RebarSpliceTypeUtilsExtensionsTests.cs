@@ -1,4 +1,4 @@
-﻿#if REVIT2025_OR_GREATER
+#if REVIT2025_OR_GREATER
 using Nice3point.Revit.Extensions.Structure;
 using Nice3point.Revit.Extensions.Tests.Abstractions;
 

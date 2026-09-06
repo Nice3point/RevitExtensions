@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using BenchmarkDotNet.Attributes;
 using Nice3point.Revit.Extensions.Benchmarks.Abstractions;

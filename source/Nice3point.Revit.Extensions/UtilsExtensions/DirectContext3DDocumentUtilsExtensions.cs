@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.DirectContext3D;
+using Autodesk.Revit.DB.DirectContext3D;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.DirectContext3D;

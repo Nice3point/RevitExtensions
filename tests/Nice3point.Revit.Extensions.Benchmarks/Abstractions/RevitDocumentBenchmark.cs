@@ -1,4 +1,4 @@
-﻿using Nice3point.BenchmarkDotNet.Revit;
+using Nice3point.BenchmarkDotNet.Revit;
 
 namespace Nice3point.Revit.Extensions.Benchmarks.Abstractions;
 

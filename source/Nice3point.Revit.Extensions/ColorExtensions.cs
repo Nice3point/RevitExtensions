@@ -1,4 +1,4 @@
-﻿using Nice3point.Revit.Extensions.Internal.Formats;
+using Nice3point.Revit.Extensions.Internal.Formats;
 
 namespace Nice3point.Revit.Extensions;
 

@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Structure;
+using Autodesk.Revit.DB.Structure;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Structure;

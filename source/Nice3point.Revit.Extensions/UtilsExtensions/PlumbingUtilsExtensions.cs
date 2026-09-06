@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Plumbing;
+using Autodesk.Revit.DB.Plumbing;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Plumbing;

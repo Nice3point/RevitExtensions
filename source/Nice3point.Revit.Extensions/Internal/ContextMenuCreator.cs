@@ -1,4 +1,4 @@
-﻿#if REVIT2025_OR_GREATER
+#if REVIT2025_OR_GREATER
 using Autodesk.Revit.UI;
 
 namespace Nice3point.Revit.Extensions.Internal;

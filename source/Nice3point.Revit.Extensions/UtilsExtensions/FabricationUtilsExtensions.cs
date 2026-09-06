@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Fabrication;
+using Autodesk.Revit.DB.Fabrication;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Fabrication;

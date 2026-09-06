@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using Color = System.Drawing.Color;
 
 namespace Nice3point.Revit.Extensions.Internal.Formats;

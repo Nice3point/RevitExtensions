@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.PointClouds;
+using Autodesk.Revit.DB.PointClouds;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.PointClouds;

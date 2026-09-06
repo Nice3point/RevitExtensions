@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Lighting;
+using Autodesk.Revit.DB.Lighting;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Lighting;

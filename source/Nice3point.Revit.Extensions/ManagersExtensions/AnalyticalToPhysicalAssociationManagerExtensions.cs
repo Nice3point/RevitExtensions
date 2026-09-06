@@ -1,4 +1,4 @@
-﻿#if REVIT2023_OR_GREATER
+#if REVIT2023_OR_GREATER
 using Autodesk.Revit.DB.Structure;
 
 // ReSharper disable once CheckNamespace

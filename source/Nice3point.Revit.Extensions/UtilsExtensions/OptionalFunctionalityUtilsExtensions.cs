@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.ApplicationServices;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions;

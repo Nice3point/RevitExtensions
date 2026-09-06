@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Runtime;

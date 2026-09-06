@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
 using RibbonItem = Autodesk.Revit.UI.RibbonItem;

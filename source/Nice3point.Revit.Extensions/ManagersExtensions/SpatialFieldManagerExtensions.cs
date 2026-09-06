@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Analysis;
+using Autodesk.Revit.DB.Analysis;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Analysis;

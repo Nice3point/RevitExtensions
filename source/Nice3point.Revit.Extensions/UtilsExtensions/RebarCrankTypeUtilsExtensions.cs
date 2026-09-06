@@ -1,4 +1,4 @@
-﻿#if REVIT2026_OR_GREATER
+#if REVIT2026_OR_GREATER
 using Autodesk.Revit.DB.Structure;
 using Nice3point.Revit.Extensions.Internal;
 using Document = Autodesk.Revit.Creation.Document;

@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Mechanical;
+using Autodesk.Revit.DB.Mechanical;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Mechanical;

@@ -1,4 +1,4 @@
-﻿using System.Windows.Threading;
+using System.Windows.Threading;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
 using UIFramework;

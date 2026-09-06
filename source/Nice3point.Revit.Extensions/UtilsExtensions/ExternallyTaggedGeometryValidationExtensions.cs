@@ -1,4 +1,4 @@
-﻿#if REVIT2022_OR_GREATER
+#if REVIT2022_OR_GREATER
 
 
 // ReSharper disable once CheckNamespace

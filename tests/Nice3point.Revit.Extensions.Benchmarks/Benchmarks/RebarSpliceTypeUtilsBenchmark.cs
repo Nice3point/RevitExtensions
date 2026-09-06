@@ -1,4 +1,4 @@
-﻿#if REVIT2025_OR_GREATER
+#if REVIT2025_OR_GREATER
 using Autodesk.Revit.DB.Structure;
 using BenchmarkDotNet.Attributes;
 using Nice3point.Revit.Extensions.Benchmarks.Abstractions;

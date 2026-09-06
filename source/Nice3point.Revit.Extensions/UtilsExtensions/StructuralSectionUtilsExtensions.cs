@@ -1,4 +1,4 @@
-﻿using Autodesk.Revit.DB.Structure.StructuralSections;
+using Autodesk.Revit.DB.Structure.StructuralSections;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.Structure.StructuralSections;

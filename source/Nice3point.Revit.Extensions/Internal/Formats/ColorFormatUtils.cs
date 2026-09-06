@@ -1,4 +1,4 @@
-﻿using Color = System.Drawing.Color;
+using Color = System.Drawing.Color;
 
 namespace Nice3point.Revit.Extensions.Internal.Formats;
 
