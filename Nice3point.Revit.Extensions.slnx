@@ -26,7 +26,7 @@
     <File Path="Directory.Packages.props"/>
     <File Path="README.md"/>
   </Folder>
-  <Folder Name="/Automation/">
+  <Folder Name="/Build/">
     <Project Path="build/Build.csproj">
       <BuildType Solution="Debug.R19|*" Project="Debug"/>
       <BuildType Solution="Debug.R20|*" Project="Debug"/>
