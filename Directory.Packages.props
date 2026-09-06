@@ -7,7 +7,7 @@
         <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     </PropertyGroup>
 
-    <!-- Revit Dependencies -->
+    <!-- Revit dependencies -->
     <ItemGroup>
         <PackageVersion Include="Nice3point.Revit.Api.AdWindows" Version="$(RevitVersion).*" Condition="$(RevitVersion) != ''"/>
         <PackageVersion Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" Condition="$(RevitVersion) != ''"/>
@@ -40,9 +40,9 @@
         <PackageVersion Include="Nice3point.BenchmarkDotNet.Revit" Version="2027.0.0" Condition="$(RevitVersion) == '2027'"/>
     </ItemGroup>
 
-    <!-- Core Dependencies -->
+    <!-- Core dependencies -->
     <ItemGroup>
-        <!-- Build Automation -->
+        <!-- Build automation -->
         <PackageVersion Include="Sourcy.DotNet" Version="1.1.1"/>
         <PackageVersion Include="ModularPipelines" Version="3.2.8"/>
         <PackageVersion Include="ModularPipelines.Git" Version="3.2.8"/>
@@ -56,7 +56,7 @@
         <PackageVersion Include="Shouldly" Version="4.3.0"/>
     </ItemGroup>
 
-    <!-- Development Dependencies -->
+    <!-- Development dependencies -->
     <ItemGroup>
         <GlobalPackageReference Include="Polyfill" Version="11.2.0"/>
         <GlobalPackageReference Include="JetBrains.Annotations.Sources" Version="2026.2.0"/>
