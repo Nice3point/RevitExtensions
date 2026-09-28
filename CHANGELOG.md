@@ -1,3 +1,12 @@
+# 2027.0.5
+
+- Fixed `CreatePanel` adding a duplicate panel on every call for a built-in tab addressed by its title when the title differs from the tab ID.
+- Fixed `CreatePanel` failing for a built-in tab after `RemovePanel` removed its last panel, the "Add-Ins" tab included. `RemovePanel` now keeps every tab on the ribbon, and a custom tab without panels stays until a panel is created in it again.
+- Fixed `RemovePanel` throwing for a panel that is already removed. It now does nothing.
+- Fixed `AddShortcuts` and `TryAddShortcuts` dropping the shortcuts of a button created after Revit loaded its keyboard shortcut commands.
+- Fixed `TryAddShortcuts` checking against stale shortcuts after a rejected call: a shortcut taken or released later was accepted or refused by mistake.
+- Fixed the theme switch failing for every themed button once one of them holds an image loaded without a URI, such as a stream.
+
 # 2027.0.4
 
 ## Extensible storage units
