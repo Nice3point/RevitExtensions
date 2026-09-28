@@ -16,17 +16,14 @@ public abstract class ApiCoverageTest : RevitApiTest
     private static readonly ConcurrentDictionary<Assembly, IReadOnlyList<ApiCollectionRow>> CollectionRowsByAssembly = new();
     private static readonly ConcurrentDictionary<Assembly, IReadOnlyList<ApiMapRow>> MapRowsByAssembly = new();
 
-    private static SourceFileIndex _librarySourceIndex = null!;
-
     /// <summary>
-    ///     Reads the library sources once per test session.
+    ///     The library sources, read once per test session on first use.
     /// </summary>
+    /// <remarks>
+    ///     An assembly hook also runs inside the Revit process of the UI tests, where the base directory is the Revit installation folder, so the sources are read lazily.
+    /// </remarks>
     /// <exception cref="DirectoryNotFoundException">The library source directory is absent above the test output directory.</exception>
-    [Before(HookType.Assembly)]
-    public static void BuildLibrarySourceIndex()
-    {
-        _librarySourceIndex = SourceFileIndex.Build(FindLibrarySourceDirectory());
-    }
+    private static SourceFileIndex LibrarySourceIndex => field ??= SourceFileIndex.Build(FindLibrarySourceDirectory());
 
     /// <summary>
     ///     Scans the assembly once per test session and returns the report rows in discovery order.
@@ -34,7 +31,7 @@ public abstract class ApiCoverageTest : RevitApiTest
     /// <param name="assembly">The assembly to report on.</param>
     protected static IReadOnlyList<ApiMethodRow> GetUtilityMethodRows(Assembly assembly)
     {
-        return UtilityMethodRowsByAssembly.GetOrAdd(assembly, static target => ApiCoverageScanner.ScanUtilityMethods(target, _librarySourceIndex));
+        return UtilityMethodRowsByAssembly.GetOrAdd(assembly, static target => ApiCoverageScanner.ScanUtilityMethods(target, LibrarySourceIndex));
     }
 
     /// <summary>
@@ -43,7 +40,7 @@ public abstract class ApiCoverageTest : RevitApiTest
     /// <param name="assembly">The assembly to report on.</param>
     protected static IReadOnlyList<ApiCollectionRow> GetCollectionRows(Assembly assembly)
     {
-        return CollectionRowsByAssembly.GetOrAdd(assembly, static target => ApiCollectionScanner.ScanCollections(target, _librarySourceIndex));
+        return CollectionRowsByAssembly.GetOrAdd(assembly, static target => ApiCollectionScanner.ScanCollections(target, LibrarySourceIndex));
     }
 
     /// <summary>
@@ -52,7 +49,7 @@ public abstract class ApiCoverageTest : RevitApiTest
     /// <param name="assembly">The assembly to report on.</param>
     protected static IReadOnlyList<ApiMapRow> GetMapRows(Assembly assembly)
     {
-        return MapRowsByAssembly.GetOrAdd(assembly, static target => ApiCollectionScanner.ScanMaps(target, _librarySourceIndex));
+        return MapRowsByAssembly.GetOrAdd(assembly, static target => ApiCollectionScanner.ScanMaps(target, LibrarySourceIndex));
     }
 
     private static string FindLibrarySourceDirectory()

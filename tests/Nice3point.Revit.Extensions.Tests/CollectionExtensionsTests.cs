@@ -1,7 +1,5 @@
 using System.Collections;
 using Nice3point.TUnit.Revit;
-using Nice3point.TUnit.Revit.Executors;
-using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -14,7 +12,6 @@ public sealed class CollectionExtensionsTests : RevitApiTest
     ///     Seeds a project holding one wall, the source of the arrays Revit itself builds.
     /// </summary>
     [Before(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void SeedModel()
     {
         _document = Application.NewProjectDocument(UnitSystem.Metric);
@@ -31,7 +28,6 @@ public sealed class CollectionExtensionsTests : RevitApiTest
     }
 
     [After(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void CloseModel()
     {
         _document.Close(false);

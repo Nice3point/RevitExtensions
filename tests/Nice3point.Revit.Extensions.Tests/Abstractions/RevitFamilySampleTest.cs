@@ -1,7 +1,5 @@
 using Nice3point.Revit.Injector;
 using Nice3point.TUnit.Revit;
-using Nice3point.TUnit.Revit.Executors;
-using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests.Abstractions;
 
@@ -26,7 +24,6 @@ public class RevitFamilySampleTest : RevitApiTest
     ///     Copies every family sample to a temporary file and opens it with failure suppression.
     /// </summary>
     [Before(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void OpenDocuments()
     {
         foreach (var path in RevitFamilies)
@@ -45,7 +42,6 @@ public class RevitFamilySampleTest : RevitApiTest
     ///     Closes every opened document and deletes its temporary copy.
     /// </summary>
     [After(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void CloseDocuments()
     {
         foreach (var document in FamilyDocuments.Values)

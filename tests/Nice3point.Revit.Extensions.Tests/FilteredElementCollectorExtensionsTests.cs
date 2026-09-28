@@ -2,8 +2,6 @@ using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.DB.Structure;
 using Nice3point.TUnit.Revit;
-using Nice3point.TUnit.Revit.Executors;
-using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -26,7 +24,6 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     private WorksetId _worksetId = null!;
 
     [Before(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void SeedModel()
     {
         _document = Application.NewProjectDocument(UnitSystem.Metric);
@@ -69,7 +66,6 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     }
 
     [After(Test)]
-    [HookExecutor<RevitThreadExecutor>]
     public void CloseModel()
     {
         _familySymbol.Dispose();

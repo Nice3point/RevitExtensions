@@ -1,6 +1,7 @@
 <Project Sdk="Nice3point.Revit.Sdk/6.2.3">
 
     <PropertyGroup>
+        <UseWpf>true</UseWpf>
         <OutputType>Exe</OutputType>
         <EnableTUnitPolyfills>false</EnableTUnitPolyfills>
         <Configurations>Debug.R21;Debug.R22;Debug.R23;Debug.R24;Debug.R25;Debug.R26;Debug.R27</Configurations>
@@ -8,10 +9,18 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Nice3point.Revit.Api.AdWindows"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFramework"/>
+        <PackageReference Include="Nice3point.Revit.Api.UIFrameworkServices"/>
         <PackageReference Include="Nice3point.Revit.Toolkit"/>
         <PackageReference Include="Nice3point.TUnit.Revit"/>
         <PackageReference Include="TUnit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="System.IO"/>
     </ItemGroup>
 
     <ItemGroup>
