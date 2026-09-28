@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Threading;
 using Autodesk.Revit.UI;
 using Autodesk.Windows;
@@ -46,6 +47,11 @@ public static partial class RibbonExtensions
     private static bool _shortcutsUpdateScheduled;
 
     /// <summary>
+    ///     Applies the batched shortcut changes, keyed by the internal Ribbon item ID, to the Revit keyboard shortcuts.
+    /// </summary>
+    internal static Action<Dictionary<string, ShortcutItem>> ApplyShortcutChanges { get; set; } = KeyboardShortcutService.applyShortcutChanges;
+
+    /// <summary>
     ///     Adds keyboard shortcuts for the specified <see cref="PushButton" /> using the provided string representation.
     /// </summary>
     /// <param name="button">The <see cref="PushButton" /> to which the shortcuts will be applied.</param>
@@ -89,6 +95,11 @@ public static partial class RibbonExtensions
 
         if (!shortcutAdded)
         {
+            if (!_shortcutsUpdateScheduled)
+            {
+                _reservedShortcuts = null;
+            }
+
             return false;
         }
 
@@ -121,7 +132,7 @@ public static partial class RibbonExtensions
     /// <summary>
     ///     Applies all pending shortcut changes in a single batch.
     /// </summary>
-    private static void FlushShortcuts()
+    internal static void FlushShortcuts()
     {
         _reservedShortcuts = null;
         _shortcutsUpdateScheduled = false;
@@ -129,6 +140,8 @@ public static partial class RibbonExtensions
         {
             return;
         }
+
+        LoadQueuedCommands();
 
         var changedCommands = new Dictionary<string, ShortcutItem>();
         var usedShortcuts = LoadUsedShortcuts();
@@ -174,7 +187,25 @@ public static partial class RibbonExtensions
 
         if (changedCommands.Count > 0)
         {
-            KeyboardShortcutService.applyShortcutChanges(changedCommands);
+            ApplyShortcutChanges(changedCommands);
+        }
+    }
+
+    /// <summary>
+    ///     Reloads the Revit commands when a queued Ribbon item is absent from them.
+    /// </summary>
+    /// <remarks>
+    ///     <see cref="ShortcutsHelper.Commands" /> holds the commands of the Ribbon items that existed when it was loaded.
+    /// </remarks>
+    private static void LoadQueuedCommands()
+    {
+        foreach (var update in ShortcutUpdateQueue)
+        {
+            if (!ShortcutsHelper.Commands.ContainsKey(update.ItemId))
+            {
+                ShortcutsHelper.LoadCommands();
+                return;
+            }
         }
     }
 
@@ -277,6 +308,25 @@ public static partial class RibbonExtensions
     }
 
     /// <summary>
+    ///     Retrieves the cached <see cref="Autodesk.Revit.UI.RibbonPanel" /> with the specified name in the tab with the specified ID.
+    /// </summary>
+    /// <param name="tabId">The ID of the tab that contains the panel.</param>
+    /// <param name="panelName">The name of the panel.</param>
+    /// <param name="panel">The cached panel, or <see langword="null" /> when the tab has no cached panel with this name.</param>
+    /// <returns><see langword="true" /> if the panel is cached; otherwise, <see langword="false" />.</returns>
+    private static bool TryGetCachedPanel(string tabId, string panelName, [NotNullWhen(true)] out RibbonPanel? panel)
+    {
+        panel = null;
+        var cachedTabs = GetCachedTabs();
+        if (!cachedTabs.TryGetValue(tabId, out var cachedPanels))
+        {
+            return false;
+        }
+
+        return cachedPanels.TryGetValue(panelName, out panel);
+    }
+
+    /// <summary>
     ///     Retrieves the cached dictionary of tabs and panels within the Revit application.
     /// </summary>
     /// <returns>A dictionary where keys are tab IDs and values are dictionaries of tab names and their corresponding <see cref="Autodesk.Revit.UI.RibbonPanel" /> instances.</returns>
@@ -360,13 +410,13 @@ public static partial class RibbonExtensions
 
         foreach (var button in _themedButtons)
         {
-            if (button.Image is BitmapImage image)
+            if (button.Image is BitmapImage { UriSource: not null } image)
             {
                 TryGetThemedUri(image.UriSource.OriginalString, out var themedIconUri);
                 button.Image = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
             }
 
-            if (button.LargeImage is BitmapImage largeImage)
+            if (button.LargeImage is BitmapImage { UriSource: not null } largeImage)
             {
                 TryGetThemedUri(largeImage.UriSource.OriginalString, out var themedIconUri);
                 button.LargeImage = new BitmapImage(new Uri(themedIconUri, UriKind.RelativeOrAbsolute));
