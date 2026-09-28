@@ -14,13 +14,14 @@ builder.Configuration.AddEnvironmentVariables();
 builder.Services.Configure<BuildOptions>(builder.Configuration.GetSection("Build"));
 builder.Services.Configure<NuGetOptions>(builder.Configuration.GetSection("NuGet"));
 builder.Services.Configure<PublishOptions>(builder.Configuration.GetSection("Publish"));
+builder.Services.Configure<DeleteOptions>(builder.Configuration.GetSection("Delete"));
 
 if (args.Length == 0)
 {
     builder.Services.AddModule<CompileProjectsModule>();
 }
 
-if (args.Contains("clean-nuget"))
+if (args.Contains("delete"))
 {
     builder.Services.AddModule<DeleteNugetModule>();
 }
