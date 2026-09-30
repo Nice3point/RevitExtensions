@@ -1,3 +1,7 @@
+# 2027.0.6
+
+- Fixed `GetRibbonPanels(Tab.AddIns)` and `CreatePanel` throwing `KeyNotFoundException` after `RemovePanel` removed the last panel of the "Add-Ins" or "Analyze" tab.
+
 # 2027.0.5
 
 - Fixed `CreatePanel` adding a duplicate panel on every call for a built-in tab addressed by its title when the title differs from the tab ID.

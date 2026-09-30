@@ -32,6 +32,15 @@ public static partial class RibbonExtensions
 #endif
 
     /// <summary>
+    ///     IDs of the standard tabs that Revit registers in the panel cache at startup.
+    /// </summary>
+    /// <remarks>
+    ///     The IDs match <c>UIApplication.InitRibbonPanelsDictionary</c>.
+    ///     <see cref="UIControlledApplication.GetRibbonPanels(Tab)" /> throws <see cref="KeyNotFoundException" /> for a standard tab absent from the cache in some Revit versions.
+    /// </remarks>
+    private static readonly string[] StandardTabIds = ["Add-Ins", "Analyze"];
+
+    /// <summary>
     ///     Queue of keyboard shortcut updates awaiting the next batched flush.
     /// </summary>
     private static readonly List<(string ItemId, string Representation, bool CheckUsage)> ShortcutUpdateQueue = [];

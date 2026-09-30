@@ -140,7 +140,7 @@ public static partial class RibbonExtensions
             }
 
             cachedPanels.Remove(panel.Name);
-            if (cachedPanels.Count == 0)
+            if (cachedPanels.Count == 0 && !StandardTabIds.Contains(internalTab.Id))
             {
                 cachedTabs.Remove(internalTab.Id);
             }
