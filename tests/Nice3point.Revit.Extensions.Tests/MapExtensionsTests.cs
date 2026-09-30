@@ -1,4 +1,6 @@
 using Nice3point.TUnit.Revit;
+using Nice3point.TUnit.Revit.Executors;
+using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -6,16 +8,17 @@ public sealed class MapExtensionsTests : RevitApiTest
 {
     private const string SharedParameterName = "MapExtensionsTestParameter";
 
-    private Document _document = null!;
-    private Level _level = null!;
-    private string _originalSharedParametersPath = null!;
-    private string _sharedParametersPath = null!;
+    private static Document _document = null!;
+    private static Level _level = null!;
+    private static string _originalSharedParametersPath = null!;
+    private static string _sharedParametersPath = null!;
 
     /// <summary>
     ///     Seeds a project holding one bound project parameter, the only source of a populated <see cref="BindingMap" />.
     /// </summary>
-    [Before(Test)]
-    public void SeedModel()
+    [Before(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void SeedModel()
     {
         _document = Application.NewProjectDocument(UnitSystem.Metric);
 
@@ -47,8 +50,9 @@ public sealed class MapExtensionsTests : RevitApiTest
         transaction.Commit();
     }
 
-    [After(Test)]
-    public void RestoreSharedParameterFile()
+    [After(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void RestoreSharedParameterFile()
     {
         _level.Dispose();
         _document.Close(false);

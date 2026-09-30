@@ -2,6 +2,8 @@ using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.DB.Structure;
 using Nice3point.TUnit.Revit;
+using Nice3point.TUnit.Revit.Executors;
+using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -9,22 +11,23 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 {
     private static readonly Guid SchemaGuid = new("A1B2C3D4-E5F6-7890-ABCD-EF1234567890");
 
-    private ViewPlan _areaView = null!;
-    private Wall _crossingWall = null!;
-    private Document _document = null!;
-    private Family _family = null!;
-    private FamilySymbol _familySymbol = null!;
-    private Level _firstFloor = null!;
-    private View _floorPlan = null!;
-    private Grid _grid = null!;
-    private Level _groundFloor = null!;
-    private Phase _phase = null!;
-    private Room _room = null!;
-    private Wall _wall = null!;
-    private WorksetId _worksetId = null!;
+    private static ViewPlan _areaView = null!;
+    private static Wall _crossingWall = null!;
+    private static Document _document = null!;
+    private static Family _family = null!;
+    private static FamilySymbol _familySymbol = null!;
+    private static Level _firstFloor = null!;
+    private static View _floorPlan = null!;
+    private static Grid _grid = null!;
+    private static Level _groundFloor = null!;
+    private static Phase _phase = null!;
+    private static Room _room = null!;
+    private static Wall _wall = null!;
+    private static WorksetId _worksetId = null!;
 
-    [Before(Test)]
-    public void SeedModel()
+    [Before(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void SeedModel()
     {
         _document = Application.NewProjectDocument(UnitSystem.Metric);
 
@@ -65,8 +68,9 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         EnableWorksharing();
     }
 
-    [After(Test)]
-    public void CloseModel()
+    [After(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void CloseModel()
     {
         _familySymbol.Dispose();
         _phase.Dispose();
@@ -1403,7 +1407,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         await Assert.That(result).IsFalse();
     }
 
-    private void CreateLevels()
+    private static void CreateLevels()
     {
         _groundFloor = Level.Create(_document, 0);
         _groundFloor.Name = "Ground Floor";
@@ -1412,7 +1416,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         _firstFloor.Name = "First Floor";
     }
 
-    private void CreateWalls()
+    private static void CreateWalls()
     {
         _wall = Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)), _firstFloor.Id, false);
         Wall.Create(_document, Line.CreateBound(new XYZ(10, 0, 0), new XYZ(10, 6, 0)), _groundFloor.Id, false);
@@ -1423,14 +1427,14 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 3), new XYZ(10, 0, 3)), _firstFloor.Id, false);
     }
 
-    private void CreateGrids()
+    private static void CreateGrids()
     {
         _grid = Grid.Create(_document, Line.CreateBound(new XYZ(0, -2, 0), new XYZ(0, 8, 0)));
         Grid.Create(_document, Line.CreateBound(new XYZ(5, -2, 0), new XYZ(5, 8, 0)));
         Grid.Create(_document, Line.CreateBound(new XYZ(10, -2, 0), new XYZ(10, 8, 0)));
     }
 
-    private void CreateRoomsAndAreas(AreaScheme areaScheme)
+    private static void CreateRoomsAndAreas(AreaScheme areaScheme)
     {
         _room = _document.Create.NewRoom(_groundFloor, new UV(5, 3));
         _document.Create.NewRoomTag(new LinkElementId(_room.Id), new UV(5, 3), _floorPlan.Id);
@@ -1445,7 +1449,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         _document.Create.NewArea(_areaView, new UV(25, 5));
     }
 
-    private void CreateViews()
+    private static void CreateViews()
     {
         var viewFamilyType = new FilteredElementCollector(_document)
             .OfClass(typeof(ViewFamilyType))
@@ -1455,7 +1459,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         _floorPlan = ViewPlan.Create(_document, viewFamilyType.Id, _groundFloor.Id);
     }
 
-    private void CreateFamilyInstances()
+    private static void CreateFamilyInstances()
     {
         if (!_familySymbol.IsActive)
         {
@@ -1465,7 +1469,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         _document.Create.NewFamilyInstance(new XYZ(5, 3, 0), _familySymbol, _groundFloor, StructuralType.NonStructural);
     }
 
-    private void CreateExtensibleStorage()
+    private static void CreateExtensibleStorage()
     {
         var builder = new SchemaBuilder(SchemaGuid)
             .SetSchemaName("TestSchema")
@@ -1481,7 +1485,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         _wall.SetEntity(entity);
     }
 
-    private void EnableWorksharing()
+    private static void EnableWorksharing()
     {
         _document.EnableWorksharing("Shared Levels and Grids", "Workset1");
 

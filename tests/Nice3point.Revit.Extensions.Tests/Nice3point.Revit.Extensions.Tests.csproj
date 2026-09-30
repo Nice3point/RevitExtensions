@@ -8,6 +8,16 @@
         <Configurations>$(Configurations);Release.R21;Release.R22;Release.R23;Release.R24;Release.R25;Release.R26;Release.R27</Configurations>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <RevitLanguage Condition="'$(RevitLanguage)' == ''">English_USA</RevitLanguage>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="Nice3point.Revit.Injector.Attributes.RevitLanguageAttribute">
+            <_Parameter1>$(RevitLanguage)</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
     <ItemGroup>
         <PackageReference Include="Nice3point.Revit.Api.AdWindows"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI"/>
