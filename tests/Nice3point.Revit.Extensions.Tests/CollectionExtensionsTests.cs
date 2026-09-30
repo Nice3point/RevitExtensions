@@ -1,18 +1,21 @@
 using System.Collections;
 using Nice3point.TUnit.Revit;
+using Nice3point.TUnit.Revit.Executors;
+using TUnit.Core.Executors;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
 public sealed class CollectionExtensionsTests : RevitApiTest
 {
-    private Document _document = null!;
-    private Wall _wall = null!;
+    private static Document _document = null!;
+    private static Wall _wall = null!;
 
     /// <summary>
     ///     Seeds a project holding one wall, the source of the arrays Revit itself builds.
     /// </summary>
-    [Before(Test)]
-    public void SeedModel()
+    [Before(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void SeedModel()
     {
         _document = Application.NewProjectDocument(UnitSystem.Metric);
 
@@ -27,8 +30,9 @@ public sealed class CollectionExtensionsTests : RevitApiTest
         transaction.Commit();
     }
 
-    [After(Test)]
-    public void CloseModel()
+    [After(Class)]
+    [HookExecutor<RevitThreadExecutor>]
+    public static void CloseModel()
     {
         _document.Close(false);
     }
@@ -205,7 +209,7 @@ public sealed class CollectionExtensionsTests : RevitApiTest
         }
     }
 
-    private Solid GetWallSolid()
+    private static Solid GetWallSolid()
     {
         return _wall.get_Geometry(new Options())
             .OfType<Solid>()
