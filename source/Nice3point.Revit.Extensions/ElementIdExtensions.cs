@@ -9,20 +9,37 @@ public static class ElementIdExtensions
     /// <param name="elementId">The unique identification for an element.</param>
     extension(ElementId elementId)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)" />
+        /// <summary>
+        ///     Gets the element referenced by the input ElementId.
+        /// </summary>
+        /// <param name="document">The document that contains the element.</param>
+        /// <returns>The element.</returns>
+        /// <exception cref="System.InvalidOperationException">The ElementId references no element in the document.</exception>
         [Pure]
-        public Element? ToElement(Document document)
+        public Element ToElement(Document document)
         {
-            return document.GetElement(elementId);
+            return document.GetElement(elementId) ?? throw new InvalidOperationException($"The document contains no element with the id {elementId.ToLong()}.");
+        }
+
+        /// <summary>
+        ///     Gets the element of type <typeparamref name="T" /> referenced by the input ElementId.
+        /// </summary>
+        /// <typeparam name="T">The expected type of the element.</typeparam>
+        /// <param name="document">The document that contains the element.</param>
+        /// <returns>The element.</returns>
+        /// <exception cref="System.InvalidOperationException">The ElementId references no element in the document.</exception>
+        /// <exception cref="System.InvalidCastException">The element is not of type <typeparamref name="T" />.</exception>
+        [Pure]
+        public T ToElement<T>(Document document) where T : Element
+        {
+            return (T)elementId.ToElement(document);
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.Document.GetElement(Autodesk.Revit.DB.ElementId)" />
-        /// <typeparam name="T">The expected type of the element.</typeparam>
-        /// <exception cref="System.InvalidCastException">The element is not of type <typeparamref name="T" />.</exception>
         [Pure]
-        public T? ToElement<T>(Document document) where T : Element
+        public Element? ToElementOrDefault(Document document)
         {
-            return (T?)document.GetElement(elementId);
+            return document.GetElement(elementId);
         }
 
         /// <summary>

@@ -112,17 +112,17 @@ Package included by default in [Revit Templates](https://github.com/Nice3point/R
 
 ## Element
 
-**ToElement** retrieves the element associated with the specified ElementId.
+**ToElement** retrieves the element associated with the specified ElementId, and throws when the ElementId references no element or an element of another type.
 
 ```csharp
 Element element = wallId.ToElement(document);
 Wall wall = wallId.ToElement<Wall>(document);
 ```
 
-**ToElementOrDefault** retrieves the element of the specified type, or `null` when the ElementId references no element or an element of another type.
-`ToElement<T>` throws `InvalidCastException` for an element of another type.
+**ToElementOrDefault** retrieves the element, or `null` when the ElementId references no element or an element of another type.
 
 ```csharp
+Element? element = elementId.ToElementOrDefault(document);
 View? view = elementId.ToElementOrDefault<View>(document);
 ```
 
@@ -738,17 +738,17 @@ bool value = element.FindParameter("IsClosed").AsBool();
 Color value = element.FindParameter("Door color").AsColor();
 ```
 
-**AsElement** provides access to the Element within the parameter.
+**AsElement** provides access to the Element within the parameter, and throws when the parameter references no element or an element of another type.
 
 ```csharp
 Element value = element.FindParameter("Door material").AsElement();
 Material value = element.FindParameter("Door material").AsElement<Material>();
 ```
 
-**AsElementOrDefault** provides access to the Element of the specified type within the parameter, or `null` when the parameter references no element or an element of another type.
-`AsElement<T>` throws `InvalidCastException` for an element of another type.
+**AsElementOrDefault** provides access to the Element within the parameter, or `null` when the parameter references no element or an element of another type.
 
 ```csharp
+Element? value = element.FindParameter("Door material").AsElementOrDefault();
 Material? value = element.FindParameter("Door material").AsElementOrDefault<Material>();
 ```
 
