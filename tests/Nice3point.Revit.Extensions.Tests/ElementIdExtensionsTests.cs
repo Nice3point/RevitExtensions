@@ -134,19 +134,58 @@ public sealed class ElementIdExtensionsTests : RevitFamilySampleTest
 
     [Test]
     [MethodDataSource(nameof(RevitFamilies))]
-    public async Task ToElement_InvalidElementId_ReturnsNull(string path)
+    public async Task ToElement_InvalidElementId_ThrowsInvalidOperationException(string path)
     {
         // Arrange
         var document = FamilyDocuments[path];
+        var invalidId = 999999999L.ToElementId();
 
-#if REVIT2024_OR_GREATER
-        var invalidId = new ElementId(999999999L);
-#else
-        var invalidId = new ElementId(999999999);
-#endif
+        // Act & Assert
+        await Assert.That(() => invalidId.ToElement(document)).Throws<InvalidOperationException>();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementGeneric_InvalidElementId_ThrowsInvalidOperationException(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var invalidId = 999999999L.ToElementId();
+
+        // Act & Assert
+        await Assert.That(() => invalidId.ToElement<Element>(document)).Throws<InvalidOperationException>();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementGeneric_DifferentType_ThrowsInvalidCastException(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var instanceId = new FilteredElementCollector(document)
+            .WhereElementIsNotElementType()
+            .FirstElementId();
+
+        if (instanceId == ElementId.InvalidElementId)
+        {
+            Skip.Test("No elements found in document");
+            return;
+        }
+
+        // Act & Assert
+        await Assert.That(() => instanceId.ToElement<ElementType>(document)).Throws<InvalidCastException>();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefault_InvalidElementId_ReturnsNull(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var invalidId = 999999999L.ToElementId();
 
         // Act
-        var element = invalidId.ToElement(document);
+        var element = invalidId.ToElementOrDefault(document);
 
         // Assert
         await Assert.That(element).IsNull();
@@ -178,6 +217,71 @@ public sealed class ElementIdExtensionsTests : RevitFamilySampleTest
             await Assert.That(elementType).IsNotNull();
             await Assert.That(elementType).IsAssignableTo<ElementType>();
         }
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefaultGeneric_MatchingType_ReturnsTypedElement(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var elementTypeId = new FilteredElementCollector(document)
+            .WhereElementIsElementType()
+            .FirstElementId();
+
+        if (elementTypeId == ElementId.InvalidElementId)
+        {
+            Skip.Test("No element types found in document");
+            return;
+        }
+
+        // Act
+        var elementType = elementTypeId.ToElementOrDefault<ElementType>(document);
+
+        // Assert
+        using (Assert.Multiple())
+        {
+            await Assert.That(elementType).IsNotNull();
+            await Assert.That(elementType!.Id).IsEqualTo(elementTypeId);
+        }
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefaultGeneric_DifferentType_ReturnsNull(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var instanceId = new FilteredElementCollector(document)
+            .WhereElementIsNotElementType()
+            .FirstElementId();
+
+        if (instanceId == ElementId.InvalidElementId)
+        {
+            Skip.Test("No elements found in document");
+            return;
+        }
+
+        // Act
+        var elementType = instanceId.ToElementOrDefault<ElementType>(document);
+
+        // Assert
+        await Assert.That(elementType).IsNull();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefaultGeneric_InvalidElementId_ReturnsNull(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var invalidId = 999999999L.ToElementId();
+
+        // Act
+        var element = invalidId.ToElementOrDefault<Element>(document);
+
+        // Assert
+        await Assert.That(element).IsNull();
     }
 
     [Test]

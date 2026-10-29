@@ -2,6 +2,56 @@
 
 - Fixed `GetRibbonPanels(Tab.AddIns)` and `CreatePanel` throwing `KeyNotFoundException` after `RemovePanel` removed the last panel of the "Add-Ins" or "Analyze" tab.
 
+## Element lookup
+
+Element lookups follow the convention of LINQ `First` and `FirstOrDefault`.
+`ToElement` and `AsElement` return the element or throw, and `ToElementOrDefault` and `AsElementOrDefault` return the element or `null`:
+
+| Member                                        | No element                  | Element of another type |
+|-----------------------------------------------|-----------------------------|-------------------------|
+| `ToElement`, `ToElement<T>`                   | `InvalidOperationException` | `InvalidCastException`  |
+| `AsElement`, `AsElement<T>`                   | `InvalidOperationException` | `InvalidCastException`  |
+| `ToElementOrDefault`, `ToElementOrDefault<T>` | `null`                      | `null`                  |
+| `AsElementOrDefault`, `AsElementOrDefault<T>` | `null`                      | `null`                  |
+
+Resolving an id that may reference another element used to drop out of the extensions:
+
+```c#
+var view = document.GetElement(elementId) as View;
+```
+
+Now it is one call:
+
+```c#
+var view = elementId.ToElementOrDefault<View>(document);
+if (view is null)
+{
+    return;
+}
+```
+
+- `elementId.ToElementOrDefault(Document)`
+- `elementId.ToElementOrDefault<T>(Document)`
+- `parameter.AsElementOrDefault()`
+- `parameter.AsElementOrDefault<T>()`
+
+## Breaking changes
+
+**`ToElement` and `AsElement` throw for a missing element.**
+`ToElement`, `ToElement<T>`, `AsElement`, and `AsElement<T>` returned `null` when the id or the parameter referenced no element.
+They throw `InvalidOperationException` for it, and their return types are not nullable.
+Code that checks the result for `null` switches to the `OrDefault` counterpart:
+
+```c#
+// Before
+var level = parameter.AsElement<Level>();
+if (level is null) return;
+
+// After
+var level = parameter.AsElementOrDefault<Level>();
+if (level is null) return;
+```
+
 # 2027.0.5
 
 - Fixed `CreatePanel` adding a duplicate panel on every call for a built-in tab addressed by its title when the title differs from the tab ID.
