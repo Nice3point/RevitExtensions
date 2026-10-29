@@ -116,7 +116,7 @@ public static class DetailElementOrderUtilsExtensions
     /// <param name="view">The source view.</param>
     extension(View view)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.DetailElementOrderUtils.GetDrawOrderForDetails(Autodesk.Revit.DB.View,System.Collections.Generic.ISet{Autodesk.Revit.DB.ElementId})"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.DetailElementOrderUtils.GetDrawOrderForDetails(Autodesk.Revit.DB.View,System.Collections.Generic.ISet{Autodesk.Revit.DB.ElementId})" />
         [Pure]
         public IList<ElementId> GetDrawOrderForDetails(ISet<ElementId> detailIdsToSort)
         {

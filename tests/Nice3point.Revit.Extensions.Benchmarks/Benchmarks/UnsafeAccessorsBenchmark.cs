@@ -39,9 +39,9 @@ public class UnsafeAccessorsBenchmark : RevitApiBenchmark
         return (ControlledApplication)Activator.CreateInstance(
             typeof(ControlledApplication),
             BindingFlags.Instance | BindingFlags.NonPublic,
-            null,
+            binder: null,
             [Application],
-            null)!;
+            culture: null)!;
     }
 }
 

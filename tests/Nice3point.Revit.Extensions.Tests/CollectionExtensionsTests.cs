@@ -26,7 +26,7 @@ public sealed class CollectionExtensionsTests : RevitApiTest
 
         using var transaction = new Transaction(_document, "Seed wall");
         transaction.Start();
-        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)), level.Id, false);
+        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(x: 0, y: 0, z: 0), new XYZ(x: 10, y: 0, z: 0)), level.Id, structural: false);
         transaction.Commit();
     }
 
@@ -44,7 +44,7 @@ public sealed class CollectionExtensionsTests : RevitApiTest
         var array = Application.Create.NewCurveArray();
         for (var index = 0; index < 5; index++)
         {
-            array.Append(Line.CreateBound(new XYZ(index, 0, 0), new XYZ(index, 1, 0)));
+            array.Append(Line.CreateBound(new XYZ(index, y: 0, z: 0), new XYZ(index, y: 1, z: 0)));
         }
 
         var expected = CollectThroughEnumerator<Curve>(array).Select(curve => curve.GetEndPoint(0).X).ToList();
@@ -80,7 +80,7 @@ public sealed class CollectionExtensionsTests : RevitApiTest
         var array = Application.Create.NewCurveArray();
         for (var index = 0; index < 5; index++)
         {
-            array.Append(Line.CreateBound(new XYZ(index, 0, 0), new XYZ(index, 1, 0)));
+            array.Append(Line.CreateBound(new XYZ(index, y: 0, z: 0), new XYZ(index, y: 1, z: 0)));
         }
 
         var curves = array.EnumerateValues();

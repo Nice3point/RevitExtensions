@@ -2,6 +2,7 @@ using Autodesk.Windows;
 using Nice3point.Revit.Extensions.Tests.Abstractions;
 using Nice3point.Revit.Extensions.Tests.Commands;
 using Nice3point.Revit.Extensions.UI;
+using ArgumentException = Autodesk.Revit.Exceptions.ArgumentException;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -55,7 +56,7 @@ public sealed class RibbonStackPanelTests : RibbonUiTest
         // Assert
         var column = FindRibbonPanel(panel.Name).Source.Items.OfType<RibbonRowPanel>().Single();
         var rowBreakPositions = column.Items.Select(item => item is RibbonRowBreak).ToList();
-        var expectedPositions = Enumerable.Range(0, itemsCount * 2 - 1).Select(index => index % 2 == 1).ToList();
+        var expectedPositions = Enumerable.Range(start: 0, itemsCount * 2 - 1).Select(index => index % 2 == 1).ToList();
         await Assert.That(rowBreakPositions.SequenceEqual(expectedPositions)).IsTrue();
     }
 
@@ -127,7 +128,7 @@ public sealed class RibbonStackPanelTests : RibbonUiTest
         stackPanel.AddPushButton<EmptyCommand>("Run");
 
         // Act & Assert
-        await Assert.That(() => stackPanel.AddPushButton<EmptyCommand>("Run again")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => stackPanel.AddPushButton<EmptyCommand>("Run again")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -216,6 +217,6 @@ public sealed class RibbonStackPanelTests : RibbonUiTest
         stackPanel.AddTextBox("Search");
 
         // Act & Assert
-        await Assert.That(() => stackPanel.AddTextBox("Search")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => stackPanel.AddTextBox("Search")).Throws<ArgumentException>();
     }
 }

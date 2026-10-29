@@ -49,29 +49,29 @@ public static class OptionalFunctionalityUtilsExtensions
 
         /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsSKPImportLinkAvailable" />
         public bool IsSkpImportLinkAvailable => OptionalFunctionalityUtils.IsSKPImportLinkAvailable();
+#if REVIT2024_OR_GREATER
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsSTEPImportLinkAvailable" />
+        public bool IsStepImportLinkAvailable => OptionalFunctionalityUtils.IsSTEPImportLinkAvailable();
+#endif
+#if REVIT2026_OR_GREATER
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsMaterialLibraryAvailable" />
+        public bool IsMaterialLibraryAvailable => OptionalFunctionalityUtils.IsMaterialLibraryAvailable();
+#endif
 #if REVIT2022_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.Is3DMImportLinkAvailable"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.Is3DMImportLinkAvailable" />
         public bool Is3DmImportLinkAvailable => OptionalFunctionalityUtils.Is3DMImportLinkAvailable();
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsAXMImportLinkAvailable"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsAXMImportLinkAvailable" />
 #if REVIT2027
         [Obsolete("This method is deprecated in Revit 2027 and may be removed in a later version of Revit.")]
 #endif
         public bool IsAxmImportLinkAvailable => OptionalFunctionalityUtils.IsAXMImportLinkAvailable();
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsOBJImportLinkAvailable"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsOBJImportLinkAvailable" />
         public bool IsObjImportLinkAvailable => OptionalFunctionalityUtils.IsOBJImportLinkAvailable();
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsSTLImportLinkAvailable"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsSTLImportLinkAvailable" />
         public bool IsStlImportLinkAvailable => OptionalFunctionalityUtils.IsSTLImportLinkAvailable();
-#endif
-#if REVIT2024_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsSTEPImportLinkAvailable"/>
-        public bool IsStepImportLinkAvailable => OptionalFunctionalityUtils.IsSTEPImportLinkAvailable();
-#endif
-#if REVIT2026_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.OptionalFunctionalityUtils.IsMaterialLibraryAvailable"/>
-        public bool IsMaterialLibraryAvailable => OptionalFunctionalityUtils.IsMaterialLibraryAvailable();
 #endif
     }
 }

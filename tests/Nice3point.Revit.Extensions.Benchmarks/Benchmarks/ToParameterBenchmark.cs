@@ -34,8 +34,7 @@ public class ToParameterBenchmark : RevitDocumentBenchmark
     private static readonly Type ElementIdType = Assembly.GetType("ElementId")!;
     private static readonly MethodInfo GetADocumentMethod = typeof(Document).GetMethod("getADocument", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
 
-    private static readonly ConstructorInfo ParameterConstructor =
-        typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
+    private static readonly ConstructorInfo ParameterConstructor = typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, binder: null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], modifiers: null)!;
 
     [Benchmark]
     public Parameter ReflectionPinned()
@@ -48,10 +47,10 @@ public class ToParameterBenchmark : RevitDocumentBenchmark
         var aDocumentType = assembly.GetType("ADocument")!;
         var elementIdType = assembly.GetType("ElementId")!;
         var getADocumentMethod = documentType.GetMethod("getADocument", bindingFlags)!;
-        var parameterConstructor = parameterType.GetConstructor(bindingFlags, null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], null)!;
+        var parameterConstructor = parameterType.GetConstructor(bindingFlags, binder: null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], modifiers: null)!;
 
         const long elementId = (long)Arguments.Parameter;
-        var aDocument = getADocumentMethod.Invoke(Document, null);
+        var aDocument = getADocumentMethod.Invoke(Document, parameters: null);
 
         var handle = GCHandle.Alloc(elementId, GCHandleType.Pinned);
         var parameter = (Parameter)parameterConstructor.Invoke([aDocument, handle.AddrOfPinnedObject()]);
@@ -64,7 +63,7 @@ public class ToParameterBenchmark : RevitDocumentBenchmark
     public Parameter CachedPinned()
     {
         const long elementId = (long)Arguments.Parameter;
-        var aDocument = GetADocumentMethod.Invoke(Document, null);
+        var aDocument = GetADocumentMethod.Invoke(Document, parameters: null);
 
         var handle = GCHandle.Alloc(elementId, GCHandleType.Pinned);
         var parameter = (Parameter)ParameterConstructor.Invoke([aDocument, handle.AddrOfPinnedObject()]);
@@ -84,10 +83,10 @@ public class ToParameterBenchmark : RevitDocumentBenchmark
         var aDocumentType = assembly.GetType("ADocument")!;
         var elementIdType = assembly.GetType("ElementId")!;
         var getADocumentMethod = documentType.GetMethod("getADocument", bindingFlags)!;
-        var parameterConstructor = parameterType.GetConstructor(bindingFlags, null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], null)!;
+        var parameterConstructor = parameterType.GetConstructor(bindingFlags, binder: null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], modifiers: null)!;
 
         var elementId = (long)Arguments.Parameter;
-        var aDocument = getADocumentMethod.Invoke(Document, null);
+        var aDocument = getADocumentMethod.Invoke(Document, parameters: null);
         var parameter = (Parameter)parameterConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
         return parameter;
@@ -97,7 +96,7 @@ public class ToParameterBenchmark : RevitDocumentBenchmark
     public unsafe Parameter CachedUnsafe()
     {
         var elementId = (long)Arguments.Parameter;
-        var aDocument = GetADocumentMethod.Invoke(Document, null);
+        var aDocument = GetADocumentMethod.Invoke(Document, parameters: null);
         var parameter = (Parameter)ParameterConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
         return parameter;

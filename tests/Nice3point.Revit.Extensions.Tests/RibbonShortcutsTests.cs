@@ -264,8 +264,6 @@ public sealed class RibbonShortcutsTests : RibbonUiTest
         return AppliedChanges.Single(change => change.ItemId == itemId).Shortcuts;
     }
 
-    private sealed record AppliedShortcuts(string ItemId, List<string> Shortcuts);
-
     private static HashSet<string> GetUsedShortcuts()
     {
         if (ShortcutsHelper.Commands.Count == 0)
@@ -287,7 +285,7 @@ public sealed class RibbonShortcutsTests : RibbonUiTest
     private static List<string> GetFreeShortcuts(int count)
     {
         var usedShortcuts = GetUsedShortcuts();
-        var letters = Enumerable.Range('A', 26).Select(letter => (char)letter).ToList();
+        var letters = Enumerable.Range(start: 'A', count: 26).Select(letter => (char)letter).ToList();
 
         return letters
             .SelectMany(_ => letters, (second, third) => $"Z{second}{third}")
@@ -296,4 +294,6 @@ public sealed class RibbonShortcutsTests : RibbonUiTest
             .Take(count)
             .ToList();
     }
+
+    private sealed record AppliedShortcuts(string ItemId, List<string> Shortcuts);
 }

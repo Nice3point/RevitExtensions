@@ -21,7 +21,6 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Benchmarks;
 // | GetAllRebarCrankTypes    | 182.6 μs | 0.80 μs | 0.75 μs |     144 B |
 // | FilteredElementCollector | 183.0 μs | 1.92 μs | 1.80 μs |     352 B |
 //
-
 [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 [DocumentSource("Structural")]
 public class RebarSpliceTypeUtilsBenchmark : RevitDocumentBenchmark

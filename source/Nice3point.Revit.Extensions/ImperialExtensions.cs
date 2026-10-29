@@ -15,14 +15,14 @@ public static
 #endif
     class ImperialExtensions
 {
-    private const string ImperialExpression =
-        """
-        ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
-        """;
+    private const string ImperialExpression = """
+                                              ^\s*(?<sign>-)?\s*(((?<feet>[\d.]+)')?[\s-]*((?<inch>(\d+)?(\.)?\d+)?[\s-]*((?<numerator>\d+)/(?<denominator>\d+))?"?)?)\s*$
+                                              """;
 
 #if NET
     private static readonly Regex ImperialRegex = InvokeImperialRegexGenerator();
-    [GeneratedRegex(ImperialExpression, RegexOptions.Compiled)] private static partial Regex InvokeImperialRegexGenerator();
+    [GeneratedRegex(ImperialExpression, RegexOptions.Compiled)]
+    private static partial Regex InvokeImperialRegexGenerator();
 #else
     private static readonly Regex ImperialRegex = new(ImperialExpression, RegexOptions.Compiled);
 #endif

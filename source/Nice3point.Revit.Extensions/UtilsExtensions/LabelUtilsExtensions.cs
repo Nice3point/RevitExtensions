@@ -14,21 +14,21 @@ public static class LabelUtilsExtensions
     /// <param name="typeId">Unique identifier</param>
     extension(ForgeTypeId typeId)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForSpec(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForSpec(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToSpecLabel()
         {
             return LabelUtils.GetLabelForSpec(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForSymbol(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForSymbol(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToSymbolLabel()
         {
             return LabelUtils.GetLabelForSymbol(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForUnit(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForUnit(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToUnitLabel()
         {
@@ -36,7 +36,7 @@ public static class LabelUtilsExtensions
         }
 #if REVIT2022_OR_GREATER
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForDiscipline(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForDiscipline(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToDisciplineLabel()
         {
@@ -53,24 +53,47 @@ public static class LabelUtilsExtensions
         [Pure]
         public string ToLabel()
         {
-            if (typeId.Empty()) return string.Empty;
+            if (typeId.Empty())
+            {
+                return string.Empty;
+            }
 
-            if (ParameterUtils.IsBuiltInParameter(typeId)) return LabelUtils.GetLabelForBuiltInParameter(typeId);
-            if (ParameterUtils.IsBuiltInGroup(typeId)) return LabelUtils.GetLabelForGroup(typeId);
-            if (UnitUtils.IsUnit(typeId)) return LabelUtils.GetLabelForUnit(typeId);
-            if (UnitUtils.IsSymbol(typeId)) return LabelUtils.GetLabelForSymbol(typeId);
-            if (SpecUtils.IsSpec(typeId)) return LabelUtils.GetLabelForSpec(typeId);
+            if (ParameterUtils.IsBuiltInParameter(typeId))
+            {
+                return LabelUtils.GetLabelForBuiltInParameter(typeId);
+            }
+
+            if (ParameterUtils.IsBuiltInGroup(typeId))
+            {
+                return LabelUtils.GetLabelForGroup(typeId);
+            }
+
+            if (UnitUtils.IsUnit(typeId))
+            {
+                return LabelUtils.GetLabelForUnit(typeId);
+            }
+
+            if (UnitUtils.IsSymbol(typeId))
+            {
+                return LabelUtils.GetLabelForSymbol(typeId);
+            }
+
+            if (SpecUtils.IsSpec(typeId))
+            {
+                return LabelUtils.GetLabelForSpec(typeId);
+            }
+
             return LabelUtils.GetLabelForDiscipline(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForGroup(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForGroup(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToGroupLabel()
         {
             return LabelUtils.GetLabelForGroup(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForBuiltInParameter(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetLabelForBuiltInParameter(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string ToParameterLabel()
         {
@@ -157,7 +180,7 @@ public static class LabelUtilsExtensions
     /// <param name="severity">The Severity enum value</param>
     extension(FailureSeverity severity)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetFailureSeverityName(Autodesk.Revit.DB.FailureSeverity)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.LabelUtils.GetFailureSeverityName(Autodesk.Revit.DB.FailureSeverity)" />
         [Pure]
         public string ToLabel()
         {

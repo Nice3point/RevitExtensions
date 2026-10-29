@@ -6,7 +6,7 @@ namespace Nice3point.Revit.Extensions.Benchmarks.Abstractions;
 [AttributeUsage(AttributeTargets.Class)]
 public sealed class DocumentSourceAttribute(string keyword, string extension) : Attribute
 {
-    public DocumentSourceAttribute() : this(null, "*.rvt")
+    public DocumentSourceAttribute() : this(keyword: null, "*.rvt")
     {
     }
 
@@ -24,7 +24,7 @@ public abstract class RevitDocumentBenchmark : RevitApiBenchmark
 
     protected override void OnGlobalSetup()
     {
-        var sourceAttribute = GetType().GetCustomAttributes(typeof(DocumentSourceAttribute), false)
+        var sourceAttribute = GetType().GetCustomAttributes(typeof(DocumentSourceAttribute), inherit: false)
             .Cast<DocumentSourceAttribute>()
             .FirstOrDefault();
 

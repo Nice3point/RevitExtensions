@@ -112,10 +112,16 @@ public static class ElementExtensions
         public Parameter? FindParameter(ForgeTypeId parameter)
         {
             var instanceParameter = element.GetParameter(parameter);
-            if (instanceParameter is not null) return instanceParameter;
+            if (instanceParameter is not null)
+            {
+                return instanceParameter;
+            }
 
             var elementTypeId = element.GetTypeId();
-            if (elementTypeId == ElementId.InvalidElementId) return null;
+            if (elementTypeId == ElementId.InvalidElementId)
+            {
+                return null;
+            }
 
             var elementType = element.Document.GetElement(elementTypeId);
             return elementType.GetParameter(parameter);

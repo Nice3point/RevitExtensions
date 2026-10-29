@@ -42,14 +42,14 @@ public static class SolidUtilsExtensions
             return SolidUtils.TessellateSolidOrShell(solid, tessellationControls);
         }
 #if REVIT2026_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.ComputeIsGeometricallyClosed(Autodesk.Revit.DB.Solid)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.ComputeIsGeometricallyClosed(Autodesk.Revit.DB.Solid)" />
         [Pure]
         public bool ComputeIsGeometricallyClosed()
         {
             return SolidUtils.ComputeIsGeometricallyClosed(solid);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.ComputeIsTopologicallyClosed(Autodesk.Revit.DB.Solid)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.ComputeIsTopologicallyClosed(Autodesk.Revit.DB.Solid)" />
         [Pure]
         public bool ComputeIsTopologicallyClosed()
         {
@@ -62,7 +62,7 @@ public static class SolidUtilsExtensions
     /// <param name="endPoint">The source EdgeEndPoint.</param>
     extension(EdgeEndPoint endPoint)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.FindAllEdgeEndPointsAtVertex(Autodesk.Revit.DB.EdgeEndPoint)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.SolidUtils.FindAllEdgeEndPointsAtVertex(Autodesk.Revit.DB.EdgeEndPoint)" />
         [Pure]
         public IList<EdgeEndPoint> FindAllEdgeEndPointsAtVertex()
         {

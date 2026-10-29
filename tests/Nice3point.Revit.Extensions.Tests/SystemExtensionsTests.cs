@@ -80,7 +80,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
         const double value2 = 6.6;
 
         // Act
-        var result = value1.IsAlmostEqual(value2, 1e-1);
+        var result = value1.IsAlmostEqual(value2, tolerance: 1e-1);
 
         // Assert
         await Assert.That(result).IsTrue();
@@ -94,7 +94,7 @@ public sealed class SystemExtensionsTests : RevitApiTest
         const double value2 = 6.7;
 
         // Act
-        var result = value1.IsAlmostEqual(value2, 1e-1);
+        var result = value1.IsAlmostEqual(value2, tolerance: 1e-1);
 
         // Assert
         await Assert.That(result).IsFalse();

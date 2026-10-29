@@ -5,6 +5,9 @@ namespace Nice3point.Revit.Extensions.Internal;
 
 internal sealed class ContextMenuCreator(Action<ContextMenu> handler) : IContextMenuCreator
 {
-    public void BuildContextMenu(ContextMenu menu) => handler.Invoke(menu);
+    public void BuildContextMenu(ContextMenu menu)
+    {
+        handler.Invoke(menu);
+    }
 }
 #endif

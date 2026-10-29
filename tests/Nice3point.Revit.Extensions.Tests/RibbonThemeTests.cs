@@ -1,4 +1,5 @@
 #if REVIT2024_OR_GREATER
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Autodesk.Revit.UI;
@@ -13,8 +14,8 @@ namespace Nice3point.Revit.Extensions.Tests;
 /// </summary>
 public sealed class RibbonThemeTests : RibbonUiTest
 {
-    private bool _userUsesDarkTheme;
     private bool _userFollowsSystemTheme;
+    private bool _userUsesDarkTheme;
 
     [Before(Test)]
     public void SaveUserTheme()
@@ -148,7 +149,7 @@ public sealed class RibbonThemeTests : RibbonUiTest
         return theme == UITheme.Dark ? UITheme.Light : UITheme.Dark;
     }
 
-    private static string? GetUriSource(System.Windows.Media.ImageSource? image)
+    private static string? GetUriSource(ImageSource? image)
     {
         return (image as BitmapImage)?.UriSource?.OriginalString;
     }
@@ -175,7 +176,10 @@ public sealed class RibbonThemeTests : RibbonUiTest
 
     private sealed record ThemedImage(string Light, string Dark)
     {
-        public string For(UITheme theme) => theme == UITheme.Dark ? Dark : Light;
+        public string For(UITheme theme)
+        {
+            return theme == UITheme.Dark ? Dark : Light;
+        }
     }
 }
 #endif

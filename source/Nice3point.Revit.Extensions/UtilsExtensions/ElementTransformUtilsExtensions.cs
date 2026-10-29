@@ -233,7 +233,7 @@ public static class ElementTransformUtilsExtensions
         ///     cref="Autodesk.Revit.DB.ElementTransformUtils.CopyElements(Autodesk.Revit.DB.Document,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Document,Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.CopyPasteOptions)" />
         public ICollection<ElementId> CopyElements(Document sourceDocument, Document destinationDocument)
         {
-            return ElementTransformUtils.CopyElements(sourceDocument, elements, destinationDocument, null, null);
+            return ElementTransformUtils.CopyElements(sourceDocument, elements, destinationDocument, transform: null, options: null);
         }
 
         /// <inheritdoc
@@ -250,7 +250,7 @@ public static class ElementTransformUtilsExtensions
         ///     cref="Autodesk.Revit.DB.ElementTransformUtils.CopyElements(Autodesk.Revit.DB.View,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.View,Autodesk.Revit.DB.Transform,Autodesk.Revit.DB.CopyPasteOptions)" />
         public ICollection<ElementId> CopyElements(View sourceView, View destinationView)
         {
-            return ElementTransformUtils.CopyElements(sourceView, elements, destinationView, null, null);
+            return ElementTransformUtils.CopyElements(sourceView, elements, destinationView, additionalTransform: null, options: null);
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementTransformUtils.MirrorElements(Autodesk.Revit.DB.Document,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId},Autodesk.Revit.DB.Plane,System.Boolean)" />

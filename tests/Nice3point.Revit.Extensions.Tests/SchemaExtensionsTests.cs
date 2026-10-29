@@ -39,7 +39,7 @@ public sealed class SchemaExtensionsTests : RevitApiTest
 
         using var transaction = new Transaction(_document, "Seed wall");
         transaction.Start();
-        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)), level.Id, false);
+        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(x: 0, y: 0, z: 0), new XYZ(x: 10, y: 0, z: 0)), level.Id, structural: false);
         transaction.Commit();
     }
 
@@ -139,7 +139,7 @@ public sealed class SchemaExtensionsTests : RevitApiTest
         using (var transaction = new Transaction(_document, "Save entity"))
         {
             transaction.Start();
-            _wall.SaveEntity(_schema, 1d, "Thickness", UnitTypeId.Meters);
+            _wall.SaveEntity(_schema, data: 1d, "Thickness", UnitTypeId.Meters);
             transaction.Commit();
         }
 
@@ -156,7 +156,7 @@ public sealed class SchemaExtensionsTests : RevitApiTest
         using (var transaction = new Transaction(_document, "Save entity"))
         {
             transaction.Start();
-            _wall.SaveEntity(_schema, 1d, "Thickness", UnitTypeId.Meters);
+            _wall.SaveEntity(_schema, data: 1d, "Thickness", UnitTypeId.Meters);
             transaction.Commit();
         }
 

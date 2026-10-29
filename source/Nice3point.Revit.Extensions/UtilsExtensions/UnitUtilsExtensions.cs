@@ -162,65 +162,65 @@ public static class UnitUtilsExtensions
     /// <param name="typeId">Unique identifier</param>
     extension(ForgeTypeId typeId)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsSymbol(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsSymbol(Autodesk.Revit.DB.ForgeTypeId)" />
         public bool IsSymbol => UnitUtils.IsSymbol(typeId);
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsUnit(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsUnit(Autodesk.Revit.DB.ForgeTypeId)" />
         public bool IsUnit => UnitUtils.IsUnit(typeId);
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetValidUnits(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetValidUnits(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public IList<ForgeTypeId> GetValidUnits()
         {
             return UnitUtils.GetValidUnits(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForSpec(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForSpec(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string GetTypeCatalogStringForSpec()
         {
             return UnitUtils.GetTypeCatalogStringForSpec(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsValidUnit(Autodesk.Revit.DB.ForgeTypeId,Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsValidUnit(Autodesk.Revit.DB.ForgeTypeId,Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public bool IsValidUnit(ForgeTypeId unitTypeId)
         {
             return UnitUtils.IsValidUnit(typeId, unitTypeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForUnit(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetTypeCatalogStringForUnit(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public string GetTypeCatalogStringForUnit()
         {
             return UnitUtils.GetTypeCatalogStringForUnit(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllUnits"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllUnits" />
         public static IList<ForgeTypeId> GetAllUnits()
         {
             return UnitUtils.GetAllUnits();
         }
 #if REVIT2022_OR_GREATER
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsMeasurableSpec(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.IsMeasurableSpec(Autodesk.Revit.DB.ForgeTypeId)" />
         public bool IsMeasurableSpec => UnitUtils.IsMeasurableSpec(typeId);
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetDiscipline(Autodesk.Revit.DB.ForgeTypeId)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetDiscipline(Autodesk.Revit.DB.ForgeTypeId)" />
         [Pure]
         public ForgeTypeId GetDiscipline()
         {
             return UnitUtils.GetDiscipline(typeId);
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllDisciplines"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllDisciplines" />
         [Pure]
         public static IList<ForgeTypeId> GetAllDisciplines()
         {
             return UnitUtils.GetAllDisciplines();
         }
 
-        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllMeasurableSpecs"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.UnitUtils.GetAllMeasurableSpecs" />
         [Pure]
         public static IList<ForgeTypeId> GetAllMeasurableSpecs()
         {

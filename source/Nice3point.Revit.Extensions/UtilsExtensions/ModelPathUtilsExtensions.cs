@@ -25,7 +25,7 @@ public static class ModelPathUtilsExtensions
     /// <param name="modelGuid">The GUID of the Revit cloud model.</param>
     extension(Guid modelGuid)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.ConvertCloudGUIDsToCloudPath(System.String,System.Guid,System.Guid)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.ConvertCloudGUIDsToCloudPath(System.String,System.Guid,System.Guid)" />
         [Pure]
         public ModelPath ConvertToCloudPath(Guid projectGuid, string region)
         {
@@ -37,7 +37,7 @@ public static class ModelPathUtilsExtensions
     /// <param name="application">The source application.</param>
     extension(Application application)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.GetAllCloudRegions"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ModelPathUtils.GetAllCloudRegions" />
         [Pure]
         public IList<string> GetAllCloudRegions()
         {

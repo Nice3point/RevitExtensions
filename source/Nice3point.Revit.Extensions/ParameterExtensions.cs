@@ -1,9 +1,9 @@
+using System.Reflection;
 #if NET
 using System.Runtime.CompilerServices;
 #else
 using System.Runtime.InteropServices;
 #endif
-using System.Reflection;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -18,8 +18,7 @@ public static class ParameterExtensions
     private static readonly Type ElementIdType = ParameterAssembly.GetType("ElementId")!;
     private static readonly MethodInfo GetADocumentMethod = typeof(Document).GetMethod("getADocument", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
 
-    private static readonly ConstructorInfo ParameterConstructor =
-        typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
+    private static readonly ConstructorInfo ParameterConstructor = typeof(Parameter).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, binder: null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], modifiers: null)!;
 
     /// <param name="parameter">The source parameter</param>
     extension(Parameter parameter)
@@ -106,7 +105,7 @@ public static class ParameterExtensions
             var elementId = (int)builtInParameter;
 #endif
 #if NET
-            var aDocument = GetADocumentMethod.Invoke(document, null);
+            var aDocument = GetADocumentMethod.Invoke(document, parameters: null);
             var parameter = (Parameter)ParameterConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
             return parameter;

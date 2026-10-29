@@ -43,7 +43,7 @@ public static class ExportUtilsExtensions
     /// <param name="surface">The source surface.</param>
     extension(Surface surface)
     {
-        /// <inheritdoc cref="Autodesk.Revit.DB.ExportUtils.GetNurbsSurfaceDataForSurface(Autodesk.Revit.DB.Surface)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ExportUtils.GetNurbsSurfaceDataForSurface(Autodesk.Revit.DB.Surface)" />
         [Pure]
         public NurbsSurfaceData GetNurbsSurfaceData()
         {

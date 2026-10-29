@@ -3,6 +3,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Windows;
 using Nice3point.Revit.Extensions.Tests.Abstractions;
 using Nice3point.Revit.Extensions.UI;
+using ArgumentException = Autodesk.Revit.Exceptions.ArgumentException;
 using Color = System.Windows.Media.Color;
 
 namespace Nice3point.Revit.Extensions.Tests;
@@ -30,14 +31,14 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     public async Task CreatePanel_EmptyPanelName_ThrowsArgumentException()
     {
         // Act & Assert
-        await Assert.That(() => ControlledApplication.CreatePanel(string.Empty)).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => ControlledApplication.CreatePanel(string.Empty)).Throws<ArgumentException>();
     }
 
     [Test]
     public async Task CreatePanel_EmptyPanelNameInTab_ThrowsArgumentException()
     {
         // Act & Assert
-        await Assert.That(() => ControlledApplication.CreatePanel(string.Empty, CreateUniqueName())).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => ControlledApplication.CreatePanel(string.Empty, CreateUniqueName())).Throws<ArgumentException>();
     }
 
     [Test]
@@ -49,7 +50,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
         // Act & Assert
         using (Assert.Multiple())
         {
-            await Assert.That(() => ControlledApplication.CreatePanel(panelName, string.Empty)).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+            await Assert.That(() => ControlledApplication.CreatePanel(panelName, string.Empty)).Throws<ArgumentException>();
             await Assert.That(ComponentManager.Ribbon.Tabs.SelectMany(tab => tab.Panels).Select(ribbonPanel => ribbonPanel.Source.Title)).DoesNotContain(panelName);
         }
     }
@@ -443,7 +444,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var color = Color.FromRgb(255, 102, 105);
+        var color = Color.FromRgb(r: 255, g: 102, b: 105);
 
         // Act
         panel.SetBackground(color);
@@ -459,7 +460,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, 45);
+        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, angle: 45);
 
         // Act
         panel.SetBackground(brush);
@@ -491,7 +492,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var color = Color.FromRgb(255, 102, 105);
+        var color = Color.FromRgb(r: 255, g: 102, b: 105);
 
         // Act
         panel.SetTitleBarBackground(color);
@@ -507,7 +508,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, 45);
+        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, angle: 45);
 
         // Act
         panel.SetTitleBarBackground(brush);
@@ -559,7 +560,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var color = Color.FromRgb(255, 102, 105);
+        var color = Color.FromRgb(r: 255, g: 102, b: 105);
 
         // Act
         panel.SetSlideOutPanelBackground(color);
@@ -575,7 +576,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
     {
         // Arrange
         var panel = CreateTestPanel();
-        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, 45);
+        var brush = new LinearGradientBrush(Colors.Red, Colors.Black, angle: 45);
 
         // Act
         panel.SetSlideOutPanelBackground(brush);

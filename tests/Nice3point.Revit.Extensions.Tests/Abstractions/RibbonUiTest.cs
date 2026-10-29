@@ -66,7 +66,7 @@ public abstract class RibbonUiTest : RevitApiUiTest
 
         const int size = 16;
         var pixels = new byte[size * size * 4];
-        var bitmap = BitmapSource.Create(size, size, 96, 96, PixelFormats.Bgra32, null, pixels, size * 4);
+        var bitmap = BitmapSource.Create(size, size, dpiX: 96, dpiY: 96, PixelFormats.Bgra32, palette: null, pixels, size * 4);
         var encoder = new PngBitmapEncoder();
         encoder.Frames.Add(BitmapFrame.Create(bitmap));
 

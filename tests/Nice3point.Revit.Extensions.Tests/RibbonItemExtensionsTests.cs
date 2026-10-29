@@ -1,9 +1,9 @@
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
 using Nice3point.Revit.Extensions.Tests.Abstractions;
 using Nice3point.Revit.Extensions.Tests.Commands;
 using Nice3point.Revit.Extensions.UI;
+using ArgumentException = Autodesk.Revit.Exceptions.ArgumentException;
 
 namespace Nice3point.Revit.Extensions.Tests;
 
@@ -55,7 +55,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddPushButton<EmptyCommand>("Run");
 
         // Act & Assert
-        await Assert.That(() => panel.AddPushButton<EmptyCommand>("Run again")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddPushButton<EmptyCommand>("Run again")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -103,7 +103,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddPullDownButton("ToolsPullDown", "Tools");
 
         // Act & Assert
-        await Assert.That(() => panel.AddPullDownButton("ToolsPullDown", "Tools")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddPullDownButton("ToolsPullDown", "Tools")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -151,7 +151,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddSplitButton("ToolsSplit", "Tools");
 
         // Act & Assert
-        await Assert.That(() => panel.AddSplitButton("ToolsSplit", "Tools")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddSplitButton("ToolsSplit", "Tools")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -193,7 +193,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddRadioButtonGroup("Modes");
 
         // Act & Assert
-        await Assert.That(() => panel.AddRadioButtonGroup("Modes")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddRadioButtonGroup("Modes")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -235,7 +235,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddComboBox("Levels");
 
         // Act & Assert
-        await Assert.That(() => panel.AddComboBox("Levels")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddComboBox("Levels")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -277,7 +277,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         panel.AddTextBox("Search");
 
         // Act & Assert
-        await Assert.That(() => panel.AddTextBox("Search")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => panel.AddTextBox("Search")).Throws<ArgumentException>();
     }
 
     [Test]
@@ -326,7 +326,7 @@ public sealed class RibbonItemExtensionsTests : RibbonUiTest
         pullDownButton.AddPushButton<EmptyCommand>("Run");
 
         // Act & Assert
-        await Assert.That(() => pullDownButton.AddPushButton<EmptyCommand>("Run again")).Throws<Autodesk.Revit.Exceptions.ArgumentException>();
+        await Assert.That(() => pullDownButton.AddPushButton<EmptyCommand>("Run again")).Throws<ArgumentException>();
     }
 
     [Test]

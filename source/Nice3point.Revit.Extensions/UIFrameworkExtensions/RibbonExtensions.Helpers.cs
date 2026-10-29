@@ -76,7 +76,7 @@ public static partial class RibbonExtensions
             }
         }
 
-        ScheduleShortcutsUpdate(internalItem.Id, representation, false);
+        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: false);
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public static partial class RibbonExtensions
         }
 
         var internalItem = button.GetInternalItem();
-        ScheduleShortcutsUpdate(internalItem.Id, representation, true);
+        ScheduleShortcutsUpdate(internalItem.Id, representation, checkUsage: true);
         return true;
     }
 

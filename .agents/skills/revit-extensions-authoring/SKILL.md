@@ -56,7 +56,7 @@ public static class JoinGeometryUtilsExtensions
 
 Mark the public class `[PublicAPI]`.
 
-### Step 2: Author members inside an extension(Type) block
+### Step 2: Author members inside an extension (Type) block
 
 Open one `extension(Type receiver)` block per receiver and put the receiver's XML doc on the block.
 Wrap the Revit API directly — call the underlying API and return its result; never reimplement the operation.

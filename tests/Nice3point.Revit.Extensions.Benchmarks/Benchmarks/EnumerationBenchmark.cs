@@ -59,7 +59,7 @@ public class EnumerationBenchmark : RevitApiBenchmark
         _curveArray = Application.Create.NewCurveArray();
         for (var index = 0; index < CurveCount; index++)
         {
-            _curveArray.Append(Line.CreateBound(new XYZ(index, 0, 0), new XYZ(index, 1, 0)));
+            _curveArray.Append(Line.CreateBound(new XYZ(index, y: 0, z: 0), new XYZ(index, y: 1, z: 0)));
         }
 
         _categorySet = Application.Create.NewCategorySet();

@@ -108,7 +108,6 @@ internal sealed
     [GeneratedRegex(ReceiverExpression)]
     private static partial Regex ReceiverPattern();
 #else
-
     private static readonly Regex CompiledReceiverPattern = new(ReceiverExpression, RegexOptions.Compiled);
 
     /// <summary>

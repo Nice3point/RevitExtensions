@@ -10,11 +10,11 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
-        var pointInside = new XYZ(5, 5, 5);
+        var pointInside = new XYZ(x: 5, y: 5, z: 5);
 
         // Act
         var contains = boundingBox.Contains(pointInside);
@@ -29,11 +29,11 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
-        var pointOutside = new XYZ(15, 15, 15);
+        var pointOutside = new XYZ(x: 15, y: 15, z: 15);
 
         // Act
         var contains = boundingBox.Contains(pointOutside);
@@ -48,11 +48,11 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
-        var pointOnBorder = new XYZ(10, 10, 10);
+        var pointOnBorder = new XYZ(x: 10, y: 10, z: 10);
 
         // Act
         var contains = boundingBox.Contains(pointOnBorder);
@@ -67,14 +67,14 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
-        var pointOnBorder = new XYZ(10, 10, 10);
+        var pointOnBorder = new XYZ(x: 10, y: 10, z: 10);
 
         // Act
-        var contains = boundingBox.Contains(pointOnBorder, true);
+        var contains = boundingBox.Contains(pointOnBorder, strict: true);
 
         // Assert
         await Assert.That(contains).IsFalse();
@@ -86,14 +86,14 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var outerBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         var innerBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(2, 2, 2),
-            Max = new XYZ(8, 8, 8)
+            Min = new XYZ(x: 2, y: 2, z: 2),
+            Max = new XYZ(x: 8, y: 8, z: 8)
         };
 
         // Act
@@ -109,14 +109,14 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var box1 = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         var box2 = new BoundingBoxXYZ
         {
-            Min = new XYZ(15, 15, 15),
-            Max = new XYZ(20, 20, 20)
+            Min = new XYZ(x: 15, y: 15, z: 15),
+            Max = new XYZ(x: 20, y: 20, z: 20)
         };
 
         // Act
@@ -132,14 +132,14 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var box1 = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         var box2 = new BoundingBoxXYZ
         {
-            Min = new XYZ(5, 5, 5),
-            Max = new XYZ(15, 15, 15)
+            Min = new XYZ(x: 5, y: 5, z: 5),
+            Max = new XYZ(x: 15, y: 15, z: 15)
         };
 
         // Act
@@ -155,14 +155,14 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var box1 = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         var box2 = new BoundingBoxXYZ
         {
-            Min = new XYZ(15, 15, 15),
-            Max = new XYZ(20, 20, 20)
+            Min = new XYZ(x: 15, y: 15, z: 15),
+            Max = new XYZ(x: 20, y: 20, z: 20)
         };
 
         // Act
@@ -178,8 +178,8 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         // Act
@@ -200,8 +200,8 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         // Act
@@ -217,8 +217,8 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         // Act
@@ -234,8 +234,8 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         // Act
@@ -251,8 +251,8 @@ public sealed class BoundingBoxXyzExtensionsTests : RevitApiTest
         // Arrange
         var boundingBox = new BoundingBoxXYZ
         {
-            Min = new XYZ(0, 0, 0),
-            Max = new XYZ(10, 10, 10)
+            Min = new XYZ(x: 0, y: 0, z: 0),
+            Max = new XYZ(x: 10, y: 10, z: 10)
         };
 
         // Act

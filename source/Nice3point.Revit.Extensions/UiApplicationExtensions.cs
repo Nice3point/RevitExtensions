@@ -1,9 +1,9 @@
+using Autodesk.Revit.UI;
 #if NET8_0_OR_GREATER
 using Nice3point.Revit.Extensions.Internal;
 #else
 using System.Reflection;
 #endif
-using Autodesk.Revit.UI;
 
 // ReSharper disable once CheckNamespace
 namespace Nice3point.Revit.Extensions.UI;

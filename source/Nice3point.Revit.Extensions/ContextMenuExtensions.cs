@@ -51,7 +51,7 @@ public static class ContextMenuExtensions
         ///     Adds a menu item to the Context Menu
         /// </summary>
         /// <param name="name">The name will show on the menu</param>
-        /// <typeparam name="TCommand">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommand"/></typeparam>
+        /// <typeparam name="TCommand">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommand" /></typeparam>
         public CommandMenuItem AddMenuItem<TCommand>(string name) where TCommand : IExternalCommand, new()
         {
             var command = typeof(TCommand);
@@ -92,7 +92,7 @@ public static class ContextMenuExtensions
         /// <summary>
         ///     Specifies the class type that decides the availability of menu item
         /// </summary>
-        /// <typeparam name="TController">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability"/></typeparam>
+        /// <typeparam name="TController">Type inherited from <see cref="Autodesk.Revit.UI.IExternalCommandAvailability" /></typeparam>
         public CommandMenuItem SetAvailabilityController<TController>() where TController : IExternalCommandAvailability, new()
         {
             menuItem.SetAvailabilityClassName(typeof(TController).FullName);

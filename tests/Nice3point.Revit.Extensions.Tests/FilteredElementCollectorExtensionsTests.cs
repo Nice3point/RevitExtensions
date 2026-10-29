@@ -742,7 +742,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 
         // Act
         var elements = _document.CollectElements()
-            .IntersectingBoundingBox(outline, 0.1)
+            .IntersectingBoundingBox(outline, tolerance: 0.1)
             .ToElements();
 
         // Assert
@@ -780,7 +780,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     {
         // Arrange
         var boundingBox = _wall.get_BoundingBox(null);
-        var outline = new Outline(boundingBox.Min - new XYZ(1, 1, 1), boundingBox.Max + new XYZ(1, 1, 1));
+        var outline = new Outline(boundingBox.Min - new XYZ(x: 1, y: 1, z: 1), boundingBox.Max + new XYZ(x: 1, y: 1, z: 1));
 
         // Act
         var elements = _document.CollectElements()
@@ -796,11 +796,11 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     {
         // Arrange
         var boundingBox = _wall.get_BoundingBox(null);
-        var outline = new Outline(boundingBox.Min - new XYZ(1, 1, 1), boundingBox.Max + new XYZ(1, 1, 1));
+        var outline = new Outline(boundingBox.Min - new XYZ(x: 1, y: 1, z: 1), boundingBox.Max + new XYZ(x: 1, y: 1, z: 1));
 
         // Act
         var elements = _document.CollectElements()
-            .InsideBoundingBox(outline, 0.1)
+            .InsideBoundingBox(outline, tolerance: 0.1)
             .ToElements();
 
         // Assert
@@ -812,7 +812,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     {
         // Arrange
         var boundingBox = _wall.get_BoundingBox(null);
-        var outline = new Outline(boundingBox.Min - new XYZ(1, 1, 1), boundingBox.Max + new XYZ(1, 1, 1));
+        var outline = new Outline(boundingBox.Min - new XYZ(x: 1, y: 1, z: 1), boundingBox.Max + new XYZ(x: 1, y: 1, z: 1));
 
         // Act
         var allCount = new FilteredElementCollector(_document)
@@ -858,7 +858,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 
         // Act
         var elements = _document.CollectElements()
-            .ContainingPoint(center, 0.1)
+            .ContainingPoint(center, tolerance: 0.1)
             .ToElements();
 
         // Assert
@@ -922,7 +922,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     public async Task IntersectingSolid_ReturnsIntersectingElements()
     {
         // Arrange
-        var solid = CreateSolidAtPoint(new XYZ(5, 0, 0), 2);
+        var solid = CreateSolidAtPoint(new XYZ(x: 5, y: 0, z: 0), size: 2);
 
         // Act
         var elements = _document.CollectElements()
@@ -938,7 +938,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     public async Task NotIntersectingSolid_ExcludesIntersectingElements()
     {
         // Arrange
-        var solid = CreateSolidAtPoint(new XYZ(5, 0, 0), 2);
+        var solid = CreateSolidAtPoint(new XYZ(x: 5, y: 0, z: 0), size: 2);
 
         var intersectingIds = _document.CollectElements()
             .OfClass<Wall>()
@@ -1021,7 +1021,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         // Act
         var elements = _document.CollectElements()
             .OfClass<Level>()
-            .WhereParameter(BuiltInParameter.LEVEL_ELEV).Equals(0.0, 1e-6)
+            .WhereParameter(BuiltInParameter.LEVEL_ELEV).Equals(value: 0.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1034,7 +1034,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         // Act
         var elements = _document.CollectElements()
             .OfClass<Level>()
-            .WhereParameter(BuiltInParameter.LEVEL_ELEV).NotEquals(0.0, 1e-6)
+            .WhereParameter(BuiltInParameter.LEVEL_ELEV).NotEquals(value: 0.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1089,7 +1089,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         var elements = _document.CollectElements()
             .OfClass<Wall>()
             .Instances()
-            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsGreaterThan(0.0, 1e-6)
+            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsGreaterThan(value: 0.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1116,7 +1116,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         // Act
         var elements = _document.CollectElements()
             .OfClass<Level>()
-            .WhereParameter(BuiltInParameter.LEVEL_ELEV).IsGreaterThanOrEqualTo(0.0, 1e-6)
+            .WhereParameter(BuiltInParameter.LEVEL_ELEV).IsGreaterThanOrEqualTo(value: 0.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1144,7 +1144,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         var elements = _document.CollectElements()
             .OfClass<Wall>()
             .Instances()
-            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsLessThan(1000.0, 1e-6)
+            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsLessThan(value: 1000.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1172,7 +1172,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
         var elements = _document.CollectElements()
             .OfClass<Wall>()
             .Instances()
-            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsLessThanOrEqualTo(1000.0, 1e-6)
+            .WhereParameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).IsLessThanOrEqualTo(value: 1000.0, epsilon: 1e-6)
             .ToElements();
 
         // Assert
@@ -1332,11 +1332,10 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
     public async Task First_EmptyCollector_ThrowsInvalidOperationException()
     {
         // Act / Assert
-        await Assert.That(() =>
-                _document.CollectElements()
-                    .OfClass<Wall>()
-                    .OfClass<Floor>()
-                    .First())
+        await Assert.That(() => _document.CollectElements()
+                .OfClass<Wall>()
+                .OfClass<Floor>()
+                .First())
             .Throws<InvalidOperationException>();
     }
 
@@ -1409,44 +1408,44 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
 
     private static void CreateLevels()
     {
-        _groundFloor = Level.Create(_document, 0);
+        _groundFloor = Level.Create(_document, elevation: 0);
         _groundFloor.Name = "Ground Floor";
 
-        _firstFloor = Level.Create(_document, 3);
+        _firstFloor = Level.Create(_document, elevation: 3);
         _firstFloor.Name = "First Floor";
     }
 
     private static void CreateWalls()
     {
-        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 0), new XYZ(10, 0, 0)), _firstFloor.Id, false);
-        Wall.Create(_document, Line.CreateBound(new XYZ(10, 0, 0), new XYZ(10, 6, 0)), _groundFloor.Id, false);
-        Wall.Create(_document, Line.CreateBound(new XYZ(10, 6, 0), new XYZ(0, 6, 0)), _groundFloor.Id, false);
-        Wall.Create(_document, Line.CreateBound(new XYZ(0, 6, 0), new XYZ(0, 0, 0)), _groundFloor.Id, false);
-        _crossingWall = Wall.Create(_document, Line.CreateBound(new XYZ(5, -1, 0), new XYZ(5, 7, 0)), _groundFloor.Id, false);
+        _wall = Wall.Create(_document, Line.CreateBound(new XYZ(x: 0, y: 0, z: 0), new XYZ(x: 10, y: 0, z: 0)), _firstFloor.Id, structural: false);
+        Wall.Create(_document, Line.CreateBound(new XYZ(x: 10, y: 0, z: 0), new XYZ(x: 10, y: 6, z: 0)), _groundFloor.Id, structural: false);
+        Wall.Create(_document, Line.CreateBound(new XYZ(x: 10, y: 6, z: 0), new XYZ(x: 0, y: 6, z: 0)), _groundFloor.Id, structural: false);
+        Wall.Create(_document, Line.CreateBound(new XYZ(x: 0, y: 6, z: 0), new XYZ(x: 0, y: 0, z: 0)), _groundFloor.Id, structural: false);
+        _crossingWall = Wall.Create(_document, Line.CreateBound(new XYZ(x: 5, y: -1, z: 0), new XYZ(x: 5, y: 7, z: 0)), _groundFloor.Id, structural: false);
 
-        Wall.Create(_document, Line.CreateBound(new XYZ(0, 0, 3), new XYZ(10, 0, 3)), _firstFloor.Id, false);
+        Wall.Create(_document, Line.CreateBound(new XYZ(x: 0, y: 0, z: 3), new XYZ(x: 10, y: 0, z: 3)), _firstFloor.Id, structural: false);
     }
 
     private static void CreateGrids()
     {
-        _grid = Grid.Create(_document, Line.CreateBound(new XYZ(0, -2, 0), new XYZ(0, 8, 0)));
-        Grid.Create(_document, Line.CreateBound(new XYZ(5, -2, 0), new XYZ(5, 8, 0)));
-        Grid.Create(_document, Line.CreateBound(new XYZ(10, -2, 0), new XYZ(10, 8, 0)));
+        _grid = Grid.Create(_document, Line.CreateBound(new XYZ(x: 0, y: -2, z: 0), new XYZ(x: 0, y: 8, z: 0)));
+        Grid.Create(_document, Line.CreateBound(new XYZ(x: 5, y: -2, z: 0), new XYZ(x: 5, y: 8, z: 0)));
+        Grid.Create(_document, Line.CreateBound(new XYZ(x: 10, y: -2, z: 0), new XYZ(x: 10, y: 8, z: 0)));
     }
 
     private static void CreateRoomsAndAreas(AreaScheme areaScheme)
     {
-        _room = _document.Create.NewRoom(_groundFloor, new UV(5, 3));
-        _document.Create.NewRoomTag(new LinkElementId(_room.Id), new UV(5, 3), _floorPlan.Id);
+        _room = _document.Create.NewRoom(_groundFloor, new UV(u: 5, v: 3));
+        _document.Create.NewRoomTag(new LinkElementId(_room.Id), new UV(u: 5, v: 3), _floorPlan.Id);
 
         _areaView = ViewPlan.CreateAreaPlan(_document, areaScheme.Id, _groundFloor.Id);
 
         var sketchPlane = SketchPlane.Create(_document, Plane.CreateByNormalAndOrigin(XYZ.BasisZ, XYZ.Zero));
-        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(20, 0, 0), new XYZ(30, 0, 0)), _areaView);
-        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(30, 0, 0), new XYZ(30, 10, 0)), _areaView);
-        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(30, 10, 0), new XYZ(20, 10, 0)), _areaView);
-        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(20, 10, 0), new XYZ(20, 0, 0)), _areaView);
-        _document.Create.NewArea(_areaView, new UV(25, 5));
+        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(x: 20, y: 0, z: 0), new XYZ(x: 30, y: 0, z: 0)), _areaView);
+        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(x: 30, y: 0, z: 0), new XYZ(x: 30, y: 10, z: 0)), _areaView);
+        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(x: 30, y: 10, z: 0), new XYZ(x: 20, y: 10, z: 0)), _areaView);
+        _document.Create.NewAreaBoundaryLine(sketchPlane, Line.CreateBound(new XYZ(x: 20, y: 10, z: 0), new XYZ(x: 20, y: 0, z: 0)), _areaView);
+        _document.Create.NewArea(_areaView, new UV(u: 25, v: 5));
     }
 
     private static void CreateViews()
@@ -1466,7 +1465,7 @@ public sealed class FilteredElementCollectorExtensionsTests : RevitApiTest
             _familySymbol.Activate();
         }
 
-        _document.Create.NewFamilyInstance(new XYZ(5, 3, 0), _familySymbol, _groundFloor, StructuralType.NonStructural);
+        _document.Create.NewFamilyInstance(new XYZ(x: 5, y: 3, z: 0), _familySymbol, _groundFloor, StructuralType.NonStructural);
     }
 
     private static void CreateExtensibleStorage()

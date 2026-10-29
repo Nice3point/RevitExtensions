@@ -34,8 +34,7 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
     private static readonly Type ElementIdType = Assembly.GetType("ElementId")!;
     private static readonly MethodInfo GetADocumentMethod = typeof(Document).GetMethod("getADocument", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
 
-    private static readonly ConstructorInfo CategoryConstructor =
-        typeof(Category).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
+    private static readonly ConstructorInfo CategoryConstructor = typeof(Category).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, binder: null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], modifiers: null)!;
 
     [Benchmark]
     public Category ReflectionPinned()
@@ -48,10 +47,10 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
         var aDocumentType = assembly.GetType("ADocument")!;
         var elementIdType = assembly.GetType("ElementId")!;
         var getADocumentMethod = documentType.GetMethod("getADocument", bindingFlags)!;
-        var categoryConstructor = categoryType.GetConstructor(bindingFlags, null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], null)!;
+        var categoryConstructor = categoryType.GetConstructor(bindingFlags, binder: null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], modifiers: null)!;
 
         const long elementId = (long)Arguments.Category;
-        var aDocument = getADocumentMethod.Invoke(Document, null);
+        var aDocument = getADocumentMethod.Invoke(Document, parameters: null);
 
         var handle = GCHandle.Alloc(elementId, GCHandleType.Pinned);
         var category = (Category)categoryConstructor.Invoke([aDocument, handle.AddrOfPinnedObject()]);
@@ -64,7 +63,7 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
     public Category CachedPinned()
     {
         const long elementId = (long)Arguments.Category;
-        var aDocument = GetADocumentMethod.Invoke(Document, null);
+        var aDocument = GetADocumentMethod.Invoke(Document, parameters: null);
 
         var handle = GCHandle.Alloc(elementId, GCHandleType.Pinned);
         var category = (Category)CategoryConstructor.Invoke([aDocument, handle.AddrOfPinnedObject()]);
@@ -84,10 +83,10 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
         var aDocumentType = assembly.GetType("ADocument")!;
         var elementIdType = assembly.GetType("ElementId")!;
         var getADocumentMethod = documentType.GetMethod("getADocument", bindingFlags)!;
-        var categoryConstructor = categoryType.GetConstructor(bindingFlags, null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], null)!;
+        var categoryConstructor = categoryType.GetConstructor(bindingFlags, binder: null, [aDocumentType.MakePointerType(), elementIdType.MakePointerType()], modifiers: null)!;
 
         var elementId = (long)Arguments.Category;
-        var aDocument = getADocumentMethod.Invoke(Document, null);
+        var aDocument = getADocumentMethod.Invoke(Document, parameters: null);
         var category = (Category)categoryConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
         return category;
@@ -97,7 +96,7 @@ public class ToCategoryBenchmark : RevitDocumentBenchmark
     public unsafe Category CachedUnsafe()
     {
         var elementId = (long)Arguments.Category;
-        var aDocument = GetADocumentMethod.Invoke(Document, null);
+        var aDocument = GetADocumentMethod.Invoke(Document, parameters: null);
         var category = (Category)CategoryConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
         return category;

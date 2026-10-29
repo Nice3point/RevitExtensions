@@ -201,9 +201,9 @@ internal static class ColorRepresentationUtils
     internal static string ColorToCielab(Color color)
     {
         var (lightness, chromaticityA, chromaticityB) = ColorFormatUtils.ConvertToCielabColor(color);
-        lightness = Math.Round(lightness, 2);
-        chromaticityA = Math.Round(chromaticityA, 2);
-        chromaticityB = Math.Round(chromaticityB, 2);
+        lightness = Math.Round(lightness, digits: 2);
+        chromaticityA = Math.Round(chromaticityA, digits: 2);
+        chromaticityB = Math.Round(chromaticityB, digits: 2);
 
         return $"{lightness.ToString(CultureInfo.InvariantCulture)}" +
                $", {chromaticityA.ToString(CultureInfo.InvariantCulture)}" +
@@ -219,9 +219,9 @@ internal static class ColorRepresentationUtils
     {
         var (x, y, z) = ColorFormatUtils.ConvertToCiexyzColor(color);
 
-        x = Math.Round(x * 100, 4);
-        y = Math.Round(y * 100, 4);
-        z = Math.Round(z * 100, 4);
+        x = Math.Round(x * 100, digits: 4);
+        y = Math.Round(y * 100, digits: 4);
+        z = Math.Round(z * 100, digits: 4);
 
         return $"{x.ToString(CultureInfo.InvariantCulture)}" +
                $", {y.ToString(CultureInfo.InvariantCulture)}" +
@@ -247,8 +247,8 @@ internal static class ColorRepresentationUtils
     private static Color ConvertHexStringToColor(string hex)
     {
         var red = byte.Parse(hex[..2], NumberStyles.HexNumber);
-        var green = byte.Parse(hex.Substring(2, 2), NumberStyles.HexNumber);
-        var blue = byte.Parse(hex.Substring(4, 2), NumberStyles.HexNumber);
+        var green = byte.Parse(hex.Substring(startIndex: 2, length: 2), NumberStyles.HexNumber);
+        var blue = byte.Parse(hex.Substring(startIndex: 4, length: 2), NumberStyles.HexNumber);
 
         return Color.FromArgb(red, green, blue);
     }

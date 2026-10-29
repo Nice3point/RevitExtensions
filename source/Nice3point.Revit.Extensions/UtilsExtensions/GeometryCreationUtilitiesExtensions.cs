@@ -17,7 +17,7 @@ public static class GeometryCreationUtilitiesExtensions
         [Pure]
         public static Solid CreateBlendGeometry(CurveLoop firstLoop, CurveLoop secondLoop)
         {
-            return GeometryCreationUtilities.CreateBlendGeometry(firstLoop, secondLoop, null);
+            return GeometryCreationUtilities.CreateBlendGeometry(firstLoop, secondLoop, vertexPairs: null);
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.GeometryCreationUtilities.CreateBlendGeometry(Autodesk.Revit.DB.CurveLoop,Autodesk.Revit.DB.CurveLoop,System.Collections.Generic.ICollection{Autodesk.Revit.DB.VertexPair})" />

@@ -39,7 +39,7 @@ public static class SchemaExtensions
         }
 #if REVIT2021_OR_GREATER
         /// <summary>
-        ///    Stores data measured in the specified unit in the element. Existing data is overwritten
+        ///     Stores data measured in the specified unit in the element. Existing data is overwritten
         /// </summary>
         /// <param name="schema">Existing schema</param>
         /// <param name="data">Type of data</param>
@@ -58,7 +58,10 @@ public static class SchemaExtensions
         public bool SaveEntity<T>(Schema schema, T data, string fieldName, ForgeTypeId unitTypeId)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return false;
+            if (field is null)
+            {
+                return false;
+            }
 
             var entity = GetEntity(schema, element);
             entity.Set(field, data, unitTypeId);
@@ -148,10 +151,16 @@ public static class SchemaExtensions
         public T? LoadEntity<T>(Schema schema, string fieldName, ForgeTypeId unitTypeId)
         {
             var field = schema.GetField(fieldName);
-            if (field is null) return default;
+            if (field is null)
+            {
+                return default;
+            }
 
             var entity = element.GetEntity(schema);
-            if (!entity.IsValid()) return default;
+            if (!entity.IsValid())
+            {
+                return default;
+            }
 
             return entity.Get<T>(field, unitTypeId);
         }

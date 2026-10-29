@@ -17,7 +17,7 @@ internal static class ColorFormatUtils
         /// </summary>
         internal Color GetDrawingColor()
         {
-            return Color.FromArgb(1, color.R, color.G, color.B);
+            return Color.FromArgb(alpha: 1, color.R, color.G, color.B);
         }
     }
 
@@ -28,7 +28,7 @@ internal static class ColorFormatUtils
         /// </summary>
         internal Color GetDrawingColor()
         {
-            return Color.FromArgb(1, color.Red, color.Green, color.Blue);
+            return Color.FromArgb(alpha: 1, color.Red, color.Green, color.Blue);
         }
     }
 
@@ -179,9 +179,9 @@ internal static class ColorFormatUtils
         var b = color.B / 255d;
 
         // inverse companding, gamma correction must be undone
-        var rLinear = r > 0.04045 ? Math.Pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-        var gLinear = g > 0.04045 ? Math.Pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-        var bLinear = b > 0.04045 ? Math.Pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+        var rLinear = r > 0.04045 ? Math.Pow((r + 0.055) / 1.055, y: 2.4) : r / 12.92;
+        var gLinear = g > 0.04045 ? Math.Pow((g + 0.055) / 1.055, y: 2.4) : g / 12.92;
+        var bLinear = b > 0.04045 ? Math.Pow((b + 0.055) / 1.055, y: 2.4) : b / 12.92;
 
         return (
             rLinear * 0.41239079926595948 + gLinear * 0.35758433938387796 + bLinear * 0.18048078840183429,
@@ -217,8 +217,8 @@ internal static class ColorFormatUtils
 
         // XYZ to CIELab transformation
         const double delta = 6d / 29;
-        var m = 1d / 3 * Math.Pow(delta, -2);
-        var t = Math.Pow(delta, 3);
+        var m = 1d / 3 * Math.Pow(delta, y: -2);
+        var t = Math.Pow(delta, y: 3);
 
         var fx = x > t ? Math.Pow(x, 1.0 / 3.0) : x * m + 16.0 / 116.0;
         var fy = y > t ? Math.Pow(y, 1.0 / 3.0) : y * m + 16.0 / 116.0;
@@ -253,12 +253,12 @@ internal static class ColorFormatUtils
     {
         return hue switch
         {
-            < 60d => $"R{Math.Round(hue / 0.6d, 0)}",
-            < 120d => $"Y{Math.Round((hue - 60d) / 0.6d, 0)}",
-            < 180d => $"G{Math.Round((hue - 120d) / 0.6d, 0)}",
-            < 240d => $"C{Math.Round((hue - 180d) / 0.6d, 0)}",
-            < 300d => $"B{Math.Round((hue - 240d) / 0.6d, 0)}",
-            _ => $"M{Math.Round((hue - 300d) / 0.6d, 0)}"
+            < 60d => $"R{Math.Round(hue / 0.6d, digits: 0)}",
+            < 120d => $"Y{Math.Round((hue - 60d) / 0.6d, digits: 0)}",
+            < 180d => $"G{Math.Round((hue - 120d) / 0.6d, digits: 0)}",
+            < 240d => $"C{Math.Round((hue - 180d) / 0.6d, digits: 0)}",
+            < 300d => $"B{Math.Round((hue - 240d) / 0.6d, digits: 0)}",
+            _ => $"M{Math.Round((hue - 300d) / 0.6d, digits: 0)}"
         };
     }
 }

@@ -98,21 +98,21 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector ExcludingClass<T>() where T : Element
         {
-            return collector.WherePasses(new ElementClassFilter(typeof(T), true));
+            return collector.WherePasses(new ElementClassFilter(typeof(T), inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type},System.Boolean)" />
         [Pure]
         public FilteredElementCollector ExcludingClasses(IList<Type> types)
         {
-            return collector.WherePasses(new ElementMulticlassFilter(types, true));
+            return collector.WherePasses(new ElementMulticlassFilter(types, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticlassFilter(System.Collections.Generic.IList{System.Type},System.Boolean)" />
         [Pure]
         public FilteredElementCollector ExcludingClasses(params Type[] types)
         {
-            return collector.WherePasses(new ElementMulticlassFilter(types, true));
+            return collector.WherePasses(new ElementMulticlassFilter(types, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory})" />
@@ -133,24 +133,24 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector ExcludingCategory(BuiltInCategory category)
         {
-            return collector.WherePasses(new ElementCategoryFilter(category, true));
+            return collector.WherePasses(new ElementCategoryFilter(category, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory},System.Boolean)" />
         [Pure]
         public FilteredElementCollector ExcludingCategories(ICollection<BuiltInCategory> categories)
         {
-            return collector.WherePasses(new ElementMulticategoryFilter(categories, true));
+            return collector.WherePasses(new ElementMulticategoryFilter(categories, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementMulticategoryFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.BuiltInCategory},System.Boolean)" />
         [Pure]
         public FilteredElementCollector ExcludingCategories(params BuiltInCategory[] categories)
         {
-            return collector.WherePasses(new ElementMulticategoryFilter(categories, true));
+            return collector.WherePasses(new ElementMulticategoryFilter(categories, inverted: true));
         }
 #if REVIT2021_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIdSetFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId})"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementIdSetFilter(System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementId})" />
         [Pure]
         public FilteredElementCollector OfElements(ICollection<ElementId> ids)
         {
@@ -169,7 +169,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector ExcludingCurveElementType(CurveElementType curveElementType)
         {
-            return collector.WherePasses(new CurveElementFilter(curveElementType, true));
+            return collector.WherePasses(new CurveElementFilter(curveElementType, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementStructuralTypeFilter(Autodesk.Revit.DB.Structure.StructuralType)" />
@@ -183,7 +183,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector ExcludingStructuralType(StructuralType structuralType)
         {
-            return collector.WherePasses(new ElementStructuralTypeFilter(structuralType, true));
+            return collector.WherePasses(new ElementStructuralTypeFilter(structuralType, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.FilteredElementCollector.WhereElementIsElementType" />
@@ -316,44 +316,15 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotOwnedByView(ElementId viewId)
         {
-            return collector.WherePasses(new ElementOwnerViewFilter(viewId, true));
+            return collector.WherePasses(new ElementOwnerViewFilter(viewId, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementOwnerViewFilter(Autodesk.Revit.DB.ElementId,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotOwnedByView(View view)
         {
-            return collector.WherePasses(new ElementOwnerViewFilter(view.Id, true));
+            return collector.WherePasses(new ElementOwnerViewFilter(view.Id, inverted: true));
         }
-#if REVIT2021_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
-        [Pure]
-        public FilteredElementCollector VisibleInView(Document document, ElementId viewId)
-        {
-            return collector.WherePasses(new VisibleInViewFilter(document, viewId));
-        }
-
-        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)"/>
-        [Pure]
-        public FilteredElementCollector VisibleInView(View view)
-        {
-            return collector.WherePasses(new VisibleInViewFilter(view.Document, view.Id));
-        }
-
-        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)"/>
-        [Pure]
-        public FilteredElementCollector NotVisibleInView(Document document, ElementId viewId)
-        {
-            return collector.WherePasses(new VisibleInViewFilter(document, viewId, inverted: true));
-        }
-
-        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)"/>
-        [Pure]
-        public FilteredElementCollector NotVisibleInView(View view)
-        {
-            return collector.WherePasses(new VisibleInViewFilter(view.Document, view.Id, inverted: true));
-        }
-#endif
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId)" />
         [Pure]
@@ -373,14 +344,14 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotOnLevel(ElementId levelId)
         {
-            return collector.WherePasses(new ElementLevelFilter(levelId, true));
+            return collector.WherePasses(new ElementLevelFilter(levelId, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementLevelFilter(Autodesk.Revit.DB.ElementId,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotOnLevel(Level level)
         {
-            return collector.WherePasses(new ElementLevelFilter(level.Id, true));
+            return collector.WherePasses(new ElementLevelFilter(level.Id, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId)" />
@@ -401,14 +372,14 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotInDesignOption(ElementId designOptionId)
         {
-            return collector.WherePasses(new ElementDesignOptionFilter(designOptionId, true));
+            return collector.WherePasses(new ElementDesignOptionFilter(designOptionId, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementDesignOptionFilter(Autodesk.Revit.DB.ElementId,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotInDesignOption(DesignOption designOption)
         {
-            return collector.WherePasses(new ElementDesignOptionFilter(designOption.Id, true));
+            return collector.WherePasses(new ElementDesignOptionFilter(designOption.Id, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementWorksetFilter(Autodesk.Revit.DB.WorksetId)" />
@@ -422,7 +393,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotInWorkset(WorksetId worksetId)
         {
-            return collector.WherePasses(new ElementWorksetFilter(worksetId, true));
+            return collector.WherePasses(new ElementWorksetFilter(worksetId, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralInstanceUsageFilter(Autodesk.Revit.DB.Structure.StructuralInstanceUsage)" />
@@ -436,7 +407,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector WithoutStructuralUsage(StructuralInstanceUsage usage)
         {
-            return collector.WherePasses(new StructuralInstanceUsageFilter(usage, true));
+            return collector.WherePasses(new StructuralInstanceUsageFilter(usage, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralWallUsageFilter(Autodesk.Revit.DB.Structure.StructuralWallUsage)" />
@@ -450,7 +421,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector WithoutStructuralWallUsage(StructuralWallUsage usage)
         {
-            return collector.WherePasses(new StructuralWallUsageFilter(usage, true));
+            return collector.WherePasses(new StructuralWallUsageFilter(usage, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.Structure.StructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType)" />
@@ -464,7 +435,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector WithoutStructuralMaterial(StructuralMaterialType type)
         {
-            return collector.WherePasses(new StructuralMaterialTypeFilter(type, true));
+            return collector.WherePasses(new StructuralMaterialTypeFilter(type, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.Structure.FamilyStructuralMaterialTypeFilter(Autodesk.Revit.DB.Structure.StructuralMaterialType)" />
@@ -478,7 +449,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector WithoutFamilyStructuralMaterial(StructuralMaterialType type)
         {
-            return collector.WherePasses(new FamilyStructuralMaterialTypeFilter(type, true));
+            return collector.WherePasses(new FamilyStructuralMaterialTypeFilter(type, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus})" />
@@ -513,28 +484,28 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(ElementId phaseId, ICollection<ElementOnPhaseStatus> statuses)
         {
-            return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, true));
+            return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)" />
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(ElementId phaseId, params ElementOnPhaseStatus[] statuses)
         {
-            return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, true));
+            return collector.WherePasses(new ElementPhaseStatusFilter(phaseId, statuses, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)" />
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(Phase phase, ICollection<ElementOnPhaseStatus> statuses)
         {
-            return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, true));
+            return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementPhaseStatusFilter(Autodesk.Revit.DB.ElementId,System.Collections.Generic.ICollection{Autodesk.Revit.DB.ElementOnPhaseStatus},System.Boolean)" />
         [Pure]
         public FilteredElementCollector WithoutPhaseStatus(Phase phase, params ElementOnPhaseStatus[] statuses)
         {
-            return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, true));
+            return collector.WherePasses(new ElementPhaseStatusFilter(phase.Id, statuses, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ExtensibleStorage.ExtensibleStorageFilter(System.Guid)" />
@@ -576,14 +547,14 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotIntersectingBoundingBox(Outline outline)
         {
-            return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, true));
+            return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIntersectsFilter(Autodesk.Revit.DB.Outline,System.Double,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotIntersectingBoundingBox(Outline outline, double tolerance)
         {
-            return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, tolerance, true));
+            return collector.WherePasses(new BoundingBoxIntersectsFilter(outline, tolerance, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline)" />
@@ -604,14 +575,14 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotInsideBoundingBox(Outline outline)
         {
-            return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, true));
+            return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxIsInsideFilter(Autodesk.Revit.DB.Outline,System.Double,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotInsideBoundingBox(Outline outline, double tolerance)
         {
-            return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, tolerance, true));
+            return collector.WherePasses(new BoundingBoxIsInsideFilter(outline, tolerance, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ)" />
@@ -632,14 +603,14 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotContainingPoint(XYZ point)
         {
-            return collector.WherePasses(new BoundingBoxContainsPointFilter(point, true));
+            return collector.WherePasses(new BoundingBoxContainsPointFilter(point, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.BoundingBoxContainsPointFilter(Autodesk.Revit.DB.XYZ,System.Double,System.Boolean)" />
         [Pure]
         public FilteredElementCollector NotContainingPoint(XYZ point, double tolerance)
         {
-            return collector.WherePasses(new BoundingBoxContainsPointFilter(point, tolerance, true));
+            return collector.WherePasses(new BoundingBoxContainsPointFilter(point, tolerance, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsElementFilter(Autodesk.Revit.DB.Element)" />
@@ -653,7 +624,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotIntersectingElement(Element element)
         {
-            return collector.WherePasses(new ElementIntersectsElementFilter(element, true));
+            return collector.WherePasses(new ElementIntersectsElementFilter(element, inverted: true));
         }
 
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementIntersectsSolidFilter(Autodesk.Revit.DB.Solid)" />
@@ -667,7 +638,7 @@ public static partial class FilteredElementCollectorExtensions
         [Pure]
         public FilteredElementCollector NotIntersectingSolid(Solid solid)
         {
-            return collector.WherePasses(new ElementIntersectsSolidFilter(solid, true));
+            return collector.WherePasses(new ElementIntersectsSolidFilter(solid, inverted: true));
         }
 
         /// <summary>
@@ -734,6 +705,35 @@ public static partial class FilteredElementCollectorExtensions
             return collector.FirstElementId().IntegerValue > 0;
 #endif
         }
+#if REVIT2021_OR_GREATER
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)" />
+        [Pure]
+        public FilteredElementCollector VisibleInView(Document document, ElementId viewId)
+        {
+            return collector.WherePasses(new VisibleInViewFilter(document, viewId));
+        }
+
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId)" />
+        [Pure]
+        public FilteredElementCollector VisibleInView(View view)
+        {
+            return collector.WherePasses(new VisibleInViewFilter(view.Document, view.Id));
+        }
+
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)" />
+        [Pure]
+        public FilteredElementCollector NotVisibleInView(Document document, ElementId viewId)
+        {
+            return collector.WherePasses(new VisibleInViewFilter(document, viewId, inverted: true));
+        }
+
+        /// <inheritdoc cref="Autodesk.Revit.DB.VisibleInViewFilter(Autodesk.Revit.DB.Document,Autodesk.Revit.DB.ElementId,System.Boolean)" />
+        [Pure]
+        public FilteredElementCollector NotVisibleInView(View view)
+        {
+            return collector.WherePasses(new VisibleInViewFilter(view.Document, view.Id, inverted: true));
+        }
+#endif
     }
 }
 
@@ -753,7 +753,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEqualsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -790,7 +790,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEqualsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -827,7 +827,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -854,7 +854,7 @@ public sealed class ParameterFilterBuilder
     /// <remarks>Values greater than <paramref name="value" /> but within 1e-9 are considered equal, not greater.</remarks>
     public FilteredElementCollector IsGreaterThan(double value)
     {
-        return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value, 1e-9));
+        return ApplyFilter(ParameterFilterRuleFactory.CreateGreaterRule(_parameterId, value, epsilon: 1e-9));
     }
 
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterRule(Autodesk.Revit.DB.ElementId,System.Double,System.Double)" />
@@ -872,7 +872,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateGreaterOrEqualRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -909,7 +909,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -946,7 +946,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateLessOrEqualRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -983,7 +983,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateContainsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -999,7 +999,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotContainsRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -1015,7 +1015,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -1031,7 +1031,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotBeginsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -1047,7 +1047,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateEndsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />
@@ -1063,7 +1063,7 @@ public sealed class ParameterFilterBuilder
     }
 
 #if REVIT2023_OR_GREATER
-    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)"/>
+    /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String)" />
     /// <returns>The <see cref="Autodesk.Revit.DB.FilteredElementCollector" /> for chaining additional filters.</returns>
 #else
     /// <inheritdoc cref="Autodesk.Revit.DB.ParameterFilterRuleFactory.CreateNotEndsWithRule(Autodesk.Revit.DB.ElementId,System.String,System.Boolean)" />

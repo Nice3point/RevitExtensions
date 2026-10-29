@@ -31,7 +31,7 @@ public static class GeometryExtensions
             var pq = v1.X * v2.Y - v2.X * v1.Y;
             var qr = v1.Y * v2.Z - v2.Y * v1.Z;
             var rp = v1.Z * v2.X - v2.Z * v1.X;
-            var dev = Math.Sqrt(Math.Pow(qr, 2) + Math.Pow(rp, 2) + Math.Pow(pq, 2));
+            var dev = Math.Sqrt(Math.Pow(qr, y: 2) + Math.Pow(rp, y: 2) + Math.Pow(pq, y: 2));
 
             if (dev < Tolerance)
             {
@@ -41,8 +41,8 @@ public static class GeometryExtensions
                 var cq = c * v1.Y;
                 var aq = a * v1.Y;
                 var ar = a * v1.Z;
-                distance = Math.Sqrt(Math.Pow(br - cq, 2) + Math.Pow(cp - ar, 2) + Math.Pow(aq - bp, 2)) /
-                           Math.Sqrt(Math.Pow(v1.X, 2) + Math.Pow(v1.Y, 2) + Math.Pow(v1.Z, 2));
+                distance = Math.Sqrt(Math.Pow(br - cq, y: 2) + Math.Pow(cp - ar, y: 2) + Math.Pow(aq - bp, y: 2)) /
+                           Math.Sqrt(Math.Pow(v1.X, y: 2) + Math.Pow(v1.Y, y: 2) + Math.Pow(v1.Z, y: 2));
             }
             else
             {
@@ -112,7 +112,7 @@ public static class GeometryExtensions
         [Pure]
         public bool Contains(XYZ point)
         {
-            return box.Contains(point, false);
+            return box.Contains(point, strict: false);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ public static class GeometryExtensions
         [Pure]
         public bool Contains(BoundingBoxXYZ other)
         {
-            return box.Contains(other, false);
+            return box.Contains(other, strict: false);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var centerPoint = arc.Evaluate(0.5, true);
+            var centerPoint = arc.Evaluate(parameter: 0.5, normalized: true);
             return Arc.Create(
                 new XYZ(x, endPoint0.Y, endPoint0.Z),
                 new XYZ(x, endPoint1.Y, endPoint1.Z),
@@ -241,7 +241,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var centerPoint = arc.Evaluate(0.5, true);
+            var centerPoint = arc.Evaluate(parameter: 0.5, normalized: true);
             return Arc.Create(
                 new XYZ(endPoint0.X, y, endPoint0.Z),
                 new XYZ(endPoint1.X, y, endPoint1.Z),
@@ -261,7 +261,7 @@ public static class GeometryExtensions
         {
             var endPoint0 = arc.GetEndPoint(0);
             var endPoint1 = arc.GetEndPoint(1);
-            var centerPoint = arc.Evaluate(0.5, true);
+            var centerPoint = arc.Evaluate(parameter: 0.5, normalized: true);
             return Arc.Create(
                 new XYZ(endPoint0.X, endPoint0.Y, z),
                 new XYZ(endPoint1.X, endPoint1.Y, z),

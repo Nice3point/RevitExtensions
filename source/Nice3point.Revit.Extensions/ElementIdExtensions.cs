@@ -43,7 +43,7 @@ public static class ElementIdExtensions
     extension(long value)
     {
 #if REVIT2024_OR_GREATER
-        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int64)"/>
+        /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int64)" />
 #else
         /// <inheritdoc cref="Autodesk.Revit.DB.ElementId(System.Int32)" />
 #endif

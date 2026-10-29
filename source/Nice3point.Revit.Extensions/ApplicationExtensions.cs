@@ -1,9 +1,9 @@
+using Autodesk.Revit.ApplicationServices;
 #if NET8_0_OR_GREATER
 using Nice3point.Revit.Extensions.Internal;
 #else
 using System.Reflection;
 #endif
-using Autodesk.Revit.ApplicationServices;
 
 namespace Nice3point.Revit.Extensions;
 

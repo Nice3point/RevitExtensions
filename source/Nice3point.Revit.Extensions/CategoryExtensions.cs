@@ -1,9 +1,9 @@
+using System.Reflection;
 #if NET
 using System.Runtime.CompilerServices;
 #else
 using System.Runtime.InteropServices;
 #endif
-using System.Reflection;
 
 namespace Nice3point.Revit.Extensions;
 
@@ -18,8 +18,7 @@ public static class CategoryExtensions
     private static readonly Type ElementIdType = CategoryAssembly.GetType("ElementId")!;
     private static readonly MethodInfo GetADocumentMethod = typeof(Document).GetMethod("getADocument", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)!;
 
-    private static readonly ConstructorInfo CategoryConstructor =
-        typeof(Category).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], null)!;
+    private static readonly ConstructorInfo CategoryConstructor = typeof(Category).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, binder: null, [ADocumentType.MakePointerType(), ElementIdType.MakePointerType()], modifiers: null)!;
 
     /// <param name="builtInCategory">The source category</param>
     extension(BuiltInCategory builtInCategory)
@@ -42,7 +41,7 @@ public static class CategoryExtensions
             var elementId = (int)builtInCategory;
 #endif
 #if NET
-            var aDocument = GetADocumentMethod.Invoke(document, null);
+            var aDocument = GetADocumentMethod.Invoke(document, parameters: null);
             var category = (Category)CategoryConstructor.Invoke([aDocument, (nint)Unsafe.AsPointer(ref elementId)]);
 
             return category;
