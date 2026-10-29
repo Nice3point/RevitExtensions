@@ -56,11 +56,23 @@ public static class ParameterExtensions
         /// <returns>The element contained in the parameter as an ElementId</returns>
         /// <remarks>The AsElement method should only be used if the StorageType property returns that the internal contents of the parameter is an ElementId</remarks>
         /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element" /></typeparam>
+        /// <exception cref="System.InvalidCastException">The element is not of type <typeparamref name="T" /></exception>
         [Pure]
         public T? AsElement<T>() where T : Element
         {
             var elementId = parameter.AsElementId();
             return elementId == ElementId.InvalidElementId ? null : (T)parameter.Element.Document.GetElement(elementId);
+        }
+
+        /// <summary>Provides access to the Element of type <typeparamref name="T" /> within the parameter</summary>
+        /// <returns>The element contained in the parameter, or <see langword="null" /> when the parameter references no element or an element of another type</returns>
+        /// <remarks>The AsElementOrDefault method should only be used if the StorageType property returns that the internal contents of the parameter is an ElementId</remarks>
+        /// <typeparam name="T">Type inherited from <see cref="Autodesk.Revit.DB.Element" /></typeparam>
+        [Pure]
+        public T? AsElementOrDefault<T>() where T : Element
+        {
+            var elementId = parameter.AsElementId();
+            return elementId == ElementId.InvalidElementId ? null : parameter.Element.Document.GetElement(elementId) as T;
         }
 
         /// <summary>Sets the parameter to a new bool value</summary>

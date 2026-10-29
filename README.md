@@ -745,6 +745,13 @@ Element value = element.FindParameter("Door material").AsElement();
 Material value = element.FindParameter("Door material").AsElement<Material>();
 ```
 
+**AsElementOrDefault** provides access to the Element of the specified type within the parameter, or `null` when the parameter references no element or an element of another type.
+`AsElement<T>` throws `InvalidCastException` for an element of another type.
+
+```csharp
+Material? value = element.FindParameter("Door material").AsElementOrDefault<Material>();
+```
+
 **Set** sets the parameter to a new value.
 
 ```csharp

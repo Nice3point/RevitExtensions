@@ -4,14 +4,14 @@
 
 ## Element lookup by type
 
-`ToElement<T>` throws `InvalidCastException` when the id references an element of another type.
+`ToElement<T>` and `AsElement<T>` throw `InvalidCastException` when the id references an element of another type.
 Treating such an id as no match used to drop out of the extensions:
 
 ```c#
 var view = document.GetElement(elementId) as View;
 ```
 
-`ToElementOrDefault<T>` returns `null` for an element of another type and for an id of no element, the way `FirstOrDefault` returns `null` for an empty sequence:
+`ToElementOrDefault<T>` and `AsElementOrDefault<T>` return `null` for an element of another type and for an id of no element, the way `FirstOrDefault` returns `null` for an empty sequence:
 
 ```c#
 var view = elementId.ToElementOrDefault<View>(document);
@@ -19,9 +19,12 @@ if (view is null)
 {
     return;
 }
+
+var material = parameter.AsElementOrDefault<Material>();
 ```
 
 - `elementId.ToElementOrDefault<T>(Document)`
+- `parameter.AsElementOrDefault<T>()`
 
 # 2027.0.5
 
