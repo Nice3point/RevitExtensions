@@ -22,7 +22,7 @@ public abstract class ApiCoverageTest : RevitApiTest
     /// <remarks>
     ///     An assembly hook also runs inside the Revit process of the UI tests, where the base directory is the Revit installation folder, so the sources are read lazily.
     /// </remarks>
-    /// <exception cref="DirectoryNotFoundException">The library source directory is absent above the test output directory.</exception>
+    /// <exception cref="System.IO.DirectoryNotFoundException">The library source directory is absent above the test output directory.</exception>
     private static SourceFileIndex LibrarySourceIndex => field ??= SourceFileIndex.Build(FindLibrarySourceDirectory());
 
     /// <summary>

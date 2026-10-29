@@ -365,7 +365,7 @@ internal static class ApiCollectionScanner
         };
     }
 
-    /// <exception cref="InvalidOperationException">The shape carries no key.</exception>
+    /// <exception cref="System.InvalidOperationException">The shape carries no key.</exception>
     private static ApiMapRow CreateMapRow(ApiCollectionShape shape, SourceFileIndex sourceFileIndex)
     {
         var keyType = shape.KeyType ?? throw new InvalidOperationException($"The '{shape.CollectionType.Name}' shape carries no key.");
@@ -388,7 +388,7 @@ internal static class ApiCollectionScanner
     /// <remarks>
     ///     An extension declared over a base collection applies to every collection deriving from it. <c>BindingMap</c> reaches
     ///     its members through <c>DefinitionBindingMap</c>.
-    ///     The walk stops at the first base type that enumerates nothing. A collection deriving from <see cref="Element" />
+    ///     The walk stops at the first base type that enumerates nothing. A collection deriving from <see cref="Autodesk.Revit.DB.Element" />
     ///     inherits the members of an element, never the members of a collection.
     /// </remarks>
     private static IReadOnlyList<string> FindExtendingFiles(Type collectionType, SourceFileIndex sourceFileIndex)

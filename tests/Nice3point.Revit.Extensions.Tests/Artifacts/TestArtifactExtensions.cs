@@ -27,7 +27,7 @@ public static class TestArtifactExtensions
         }
     }
 
-    /// <exception cref="InvalidOperationException">The call happens outside a running test.</exception>
+    /// <exception cref="System.InvalidOperationException">The call happens outside a running test.</exception>
     private static async Task CreateArtifactEntryAsync(string name, string content, string? extension)
     {
         var context = TestContext.Current ?? throw new InvalidOperationException($"The '{name}' artifact cannot be attached outside a running test.");

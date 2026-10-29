@@ -18,7 +18,7 @@ public sealed class ParameterExtensionsTests : RevitFamilySampleTest
         }
 
         // Act & Assert
-        await Assert.That(() => parameter.AsElement()).Throws<InvalidOperationException>();
+        await Assert.That(parameter.AsElement).Throws<InvalidOperationException>();
     }
 
     [Test]
@@ -35,7 +35,7 @@ public sealed class ParameterExtensionsTests : RevitFamilySampleTest
         }
 
         // Act & Assert
-        await Assert.That(() => parameter.AsElement<ElementType>()).Throws<InvalidCastException>();
+        await Assert.That(parameter.AsElement<ElementType>).Throws<InvalidCastException>();
     }
 
     [Test]

@@ -269,7 +269,7 @@ public sealed class RibbonPanelExtensionsTests : RibbonUiTest
         removedPanel.RemovePanel();
 
         // Act & Assert
-        await Assert.That(() => removedPanel.RemovePanel()).ThrowsNothing();
+        await Assert.That(removedPanel.RemovePanel).ThrowsNothing();
 
         var ribbonTab = FindRibbonTab(tabName);
         if (lastPanelInTab)

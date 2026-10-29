@@ -29,7 +29,7 @@ internal sealed
     ///     Reads every C# file below the directory.
     /// </summary>
     /// <param name="sourceDirectory">The library source directory.</param>
-    /// <exception cref="DirectoryNotFoundException">The directory does not exist.</exception>
+    /// <exception cref="System.IO.DirectoryNotFoundException">The directory does not exist.</exception>
     public static SourceFileIndex Build(string sourceDirectory)
     {
         if (!Directory.Exists(sourceDirectory))
