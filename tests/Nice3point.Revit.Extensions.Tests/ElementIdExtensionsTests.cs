@@ -182,6 +182,71 @@ public sealed class ElementIdExtensionsTests : RevitFamilySampleTest
 
     [Test]
     [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefault_MatchingType_ReturnsTypedElement(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var elementTypeId = new FilteredElementCollector(document)
+            .WhereElementIsElementType()
+            .FirstElementId();
+
+        if (elementTypeId == ElementId.InvalidElementId)
+        {
+            Skip.Test("No element types found in document");
+            return;
+        }
+
+        // Act
+        var elementType = elementTypeId.ToElementOrDefault<ElementType>(document);
+
+        // Assert
+        using (Assert.Multiple())
+        {
+            await Assert.That(elementType).IsNotNull();
+            await Assert.That(elementType!.Id).IsEqualTo(elementTypeId);
+        }
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefault_DifferentType_ReturnsNull(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var instanceId = new FilteredElementCollector(document)
+            .WhereElementIsNotElementType()
+            .FirstElementId();
+
+        if (instanceId == ElementId.InvalidElementId)
+        {
+            Skip.Test("No elements found in document");
+            return;
+        }
+
+        // Act
+        var elementType = instanceId.ToElementOrDefault<ElementType>(document);
+
+        // Assert
+        await Assert.That(elementType).IsNull();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
+    public async Task ToElementOrDefault_InvalidElementId_ReturnsNull(string path)
+    {
+        // Arrange
+        var document = FamilyDocuments[path];
+        var invalidId = 999999999L.ToElementId();
+
+        // Act
+        var element = invalidId.ToElementOrDefault<Element>(document);
+
+        // Assert
+        await Assert.That(element).IsNull();
+    }
+
+    [Test]
+    [MethodDataSource(nameof(RevitFamilies))]
     public async Task ToElements_MultipleElementIds_ReturnsAllElements(string path)
     {
         // Arrange

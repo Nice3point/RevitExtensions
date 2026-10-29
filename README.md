@@ -119,6 +119,13 @@ Element element = wallId.ToElement(document);
 Wall wall = wallId.ToElement<Wall>(document);
 ```
 
+**ToElementOrDefault** retrieves the element of the specified type, or `null` when the ElementId references no element or an element of another type.
+`ToElement<T>` throws `InvalidCastException` for an element of another type.
+
+```csharp
+View? view = elementId.ToElementOrDefault<View>(document);
+```
+
 **ToElements** retrieves a collection of elements associated with the specified ElementIds.
 
 ```csharp

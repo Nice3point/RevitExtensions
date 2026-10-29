@@ -2,6 +2,27 @@
 
 - Fixed `GetRibbonPanels(Tab.AddIns)` and `CreatePanel` throwing `KeyNotFoundException` after `RemovePanel` removed the last panel of the "Add-Ins" or "Analyze" tab.
 
+## Element lookup by type
+
+`ToElement<T>` throws `InvalidCastException` when the id references an element of another type.
+Treating such an id as no match used to drop out of the extensions:
+
+```c#
+var view = document.GetElement(elementId) as View;
+```
+
+`ToElementOrDefault<T>` returns `null` for an element of another type and for an id of no element, the way `FirstOrDefault` returns `null` for an empty sequence:
+
+```c#
+var view = elementId.ToElementOrDefault<View>(document);
+if (view is null)
+{
+    return;
+}
+```
+
+- `elementId.ToElementOrDefault<T>(Document)`
+
 # 2027.0.5
 
 - Fixed `CreatePanel` adding a duplicate panel on every call for a built-in tab addressed by its title when the title differs from the tab ID.
